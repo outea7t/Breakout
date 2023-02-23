@@ -29,10 +29,8 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
             tabBarAppearance.backgroundColor = backgroundColor
             tabBar.standardAppearance = tabBarAppearance
             tabBar.scrollEdgeAppearance = tabBarAppearance
-            print(1)
         } else {
             tabBar.barTintColor = backgroundColor
-            print(2)
          }
         
         self.tabBar.layer.cornerRadius = 40
