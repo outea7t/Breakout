@@ -36,15 +36,17 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
         self.tabBar.layer.cornerRadius = 40
         
         self.tabBar.layer.masksToBounds = true
-        self.tabBar.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.8).cgColor
-        self.tabBar.layer.shadowOpacity = 1.0
-        self.tabBar.layer.shadowOffset = CGSize(width: 0.0,
-                                                height: -self.tabBar.frame.height/7.0)
+        self.tabBar.shadowImage = UIImage()
         
-        
-    
-        
-        self.tabBar.layer.shadowRadius = 10.0
+//        self.tabBar.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.8).cgColor
+//        self.tabBar.layer.shadowOpacity = 1.0
+//        self.tabBar.layer.shadowOffset = CGSize(width: 0.0,
+//                                                height: -self.tabBar.frame.height/7.0)
+//
+//
+//
+//
+//        self.tabBar.layer.shadowRadius = 10.0
         
     }
     
