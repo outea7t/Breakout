@@ -22,7 +22,7 @@ class MenuScene: SKScene {
 //    #colorLiteral(red: 0, green: 0.941948235, blue: 0.4499601722, alpha: 1)
     private let colorOfLabelWhileAnimated = #colorLiteral(red: 0, green: 0.0002773534216, blue: 1, alpha: 1)
     
-    private let originalColorOfLabel = #colorLiteral(red: 0, green: 0.981975615, blue: 0.2249540389, alpha: 1)
+    private let originalColorOfLabel = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     
     
     override func didMove(to view: SKView) {
@@ -55,27 +55,28 @@ class MenuScene: SKScene {
         
         let images_1 = [b,r,e,a,k]
         // настраиваем интерактивную надпись-название игры
-//        self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: self.originalColorOfLabel)
-        self.breakAnimatedLabel = AnimatedText(text: "BREAK", color: self.originalColorOfLabel, frame: self.frame, shouldAnimateShadows: false)
+        self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: self.originalColorOfLabel)
+
         
         self.breakAnimatedLabel?.calculatePosition(for: self.frame.size)
         
         let images_2 = [o,u,t]
-//        self.outAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: self.originalColorOfLabel)
-        self.outAnimatedLabel = AnimatedText(text: "OUT", color: self.originalColorOfLabel, frame: self.frame, shouldAnimateShadows: false)
+        self.outAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: self.originalColorOfLabel)
+//        self.outAnimatedLabel = AnimatedText(text: "OUT", color: self.originalColorOfLabel, frame: self.frame, shouldAnimateShadows: false)
         if let breakAnimatedLabel = self.breakAnimatedLabel {
             self.outAnimatedLabel?.calculatePosition(under: breakAnimatedLabel,
                                                      for: self.frame.size)
         }
         
+        self.physicsWorld.gravity = CGVector()
         if let breakAnimatedLabel = self.breakAnimatedLabel {
-            for letter in breakAnimatedLabel.label {
+            for letter in breakAnimatedLabel.sprites {
                 self.addChild(letter)
             }
         }
         
         if let outAnimatedLabel = self.outAnimatedLabel {
-            for letter in outAnimatedLabel.label {
+            for letter in outAnimatedLabel.sprites {
                 self.addChild(letter)
             }
         }
@@ -160,41 +161,41 @@ class MenuScene: SKScene {
     }
     
     private func touchDownOnLetter(_ touch: UITouch) {
-        if let breakLabel = self.breakAnimatedLabel?.label {
+        if let breakLabel = self.breakAnimatedLabel?.sprites {
             for letter in breakLabel {
                 if letter.contains(touch.location(in: self)) {
                     self.breakAnimatedLabel?.animate(
                         colorToChange: self.colorOfLabelWhileAnimated,
-                        letter: letter)
+                        sprite: letter)
                 }
             }
         }
         
         if let outAnimatedLabel = self.outAnimatedLabel {
-            for letter in outAnimatedLabel.label {
+            for letter in outAnimatedLabel.sprites {
                 if letter.contains(touch.location(in: self)) {
                     self.outAnimatedLabel?.animate(
                         colorToChange: self.colorOfLabelWhileAnimated,
-                        letter: letter)
+                        sprite: letter)
                 }
             }
         }
     }
     private func touchProcessOnLetter(_ touch: UITouch) {
-        if let breakLabel = self.breakAnimatedLabel?.label {
+        if let breakLabel = self.breakAnimatedLabel?.sprites {
             for letter in breakLabel {
                 if letter.contains(touch.location(in: self)) {
                     if !letter.hasActions() {
-                        self.breakAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                        self.breakAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                     }
                 }
             }
         }
-        if let outAnimatedLabel = self.outAnimatedLabel?.label {
+        if let outAnimatedLabel = self.outAnimatedLabel?.sprites {
             for letter in outAnimatedLabel {
                 if letter.contains(touch.location(in: self)) {
                     if !letter.hasActions() {
-                        self.outAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                        self.outAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                     }
                 }
             }

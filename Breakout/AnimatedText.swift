@@ -76,8 +76,8 @@ struct AnimatedText {
         var b = CGFloat()
         var a = CGFloat()
         
-        colorToChange.getRed(&r, green: &g, blue: &b, alpha: &a)
-        print(r,g,b,a)
+//        colorToChange.getRed(&r, green: &g, blue: &b, alpha: &a)
+//        print(r,g,b,a)
         
         let animation = createAnimation(colorToChange: colorToChange)
         letter.run(animation)
@@ -93,8 +93,8 @@ struct AnimatedText {
         var b = CGFloat()
         var a = CGFloat()
         
-        colorToChange.getRed(&r, green: &g, blue: &b, alpha: &a)
-        print(r,g,b,a)
+//        colorToChange.getRed(&r, green: &g, blue: &b, alpha: &a)
+//        print(r,g,b,a)
         
         let animation = createAnimation(colorToChange: colorToChange)
         sprite.run(animation)
@@ -130,7 +130,7 @@ struct AnimatedText {
             }
             
             self.lastAmbientAnimationTime = currentTime
-            print(currentTime)
+//            print(currentTime)
         }
         
     }
@@ -321,10 +321,10 @@ struct AnimatedText {
         let s = SKSpriteNode(texture: texture, color: .white, size: CGSize(width: 65, height: 65))
         
         
-        s.colorBlendFactor = 0.5
+        s.colorBlendFactor = 1.0
         s.position = CGPoint()
         
-        
+        s.anchorPoint = CGPoint(x: s.anchorPoint.x, y: 0.0)
         return s
     }
     /// расчитываем размер буквы
