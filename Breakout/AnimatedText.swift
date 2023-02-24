@@ -173,7 +173,7 @@ struct AnimatedText {
             } else {
                 letter.position = CGPoint(
                     // чуть больше чем нужно, чтобы буквы были чуть дальше друг от друга в связи с шрифтом Bungee
-                    x: self.label[index-1].position.x + letter.frame.width * 0.5 + self.label[index-1].frame.width*0.5 + letter.frame.width*0.05,
+                    x: self.label[index-1].position.x + letter.frame.width * 0.5 + self.label[index-1].frame.width*0.5 + letter.frame.width*0.075,
                     y: offsetY)
             }
         }
@@ -184,7 +184,7 @@ struct AnimatedText {
             } else {
                 sprite.position = CGPoint(
                     // чуть больше чем нужно, чтобы буквы были чуть дальше друг от друга в связи с шрифтом Bungee
-                    x: self.sprites[index-1].position.x + sprite.frame.width * 0.5 + self.sprites[index-1].frame.width*0.5 + sprite.frame.width*0.05,
+                    x: self.sprites[index-1].position.x + sprite.frame.width * 0.5 + self.sprites[index-1].frame.width*0.5 + sprite.frame.width*0.075,
                     y: offsetY)
                 self.positions.append(sprite.position)
             }
@@ -202,7 +202,7 @@ struct AnimatedText {
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
-            var offsetY = frameSize.height - heighOfWord*2.5
+            var offsetY = frameSize.height - heighOfWord*2.25
             
             if self.preferBiggerSize {
                 offsetY = frameSize.height - heighOfWord * 2.75
@@ -317,11 +317,13 @@ struct AnimatedText {
     private func initSprite(_ image: UIImage, frame: CGRect) -> SKSpriteNode {
         let texture = SKTexture(image: image)
         
+        let sizeConstant: CGFloat = 65/844 * frame.height
         
-        let s = SKSpriteNode(texture: texture, color: .white, size: CGSize(width: 65, height: 65))
+        let s = SKSpriteNode(texture: texture, color: .white, size: CGSize(width: sizeConstant,
+                                                                           height: sizeConstant*1.2))
         
         
-        s.colorBlendFactor = 1.0
+        s.colorBlendFactor = 2.0
         s.position = CGPoint()
         
         s.anchorPoint = CGPoint(x: s.anchorPoint.x, y: 0.0)
