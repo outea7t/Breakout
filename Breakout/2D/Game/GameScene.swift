@@ -75,7 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody?.friction = 0.0
         
         // количество жизней
-        self.livesLable.fontName = "Avenir Next Heavy Italic"
+        self.livesLable.fontName = "Bungee"
         self.livesLable.fontSize = 75
         self.livesLable.position = CGPoint(x: self.frame.midX,
                                            y: self.frame.midY - 2.75 * self.livesLable.fontSize)
@@ -129,13 +129,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.particle = Particle2D(ballRadius: ballRadius)
         }
         
-        self.gameNode.position = CGPoint()
+        
+        self.gameNode.position = CGPoint(x: 0.0, y: 0.0)
         self.addChild(self.gameNode)
         
         self.setParticlesSkin()
         self.setBallSkin()
         self.setPaddleSkin()
         
+
+        // как перевернуть все объекты
+//        self.gameNode.position = CGPoint(x: self.frame.width, y: self.frame.height)
+//        self.gameNode.run(SKAction.rotate(byAngle: CGFloat.pi, duration: 0.01))
     }
     func loadLevel() {
         self.currentLevel?.loadLevel(to: self.gameNode, frame: self.frame)

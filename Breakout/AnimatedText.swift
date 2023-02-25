@@ -127,6 +127,7 @@ struct AnimatedText {
             
             for l in self.sprites {
                 lengthOfWord += l.frame.width
+                lengthOfWord += l.frame.width * 0.075
             }
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
@@ -142,6 +143,7 @@ struct AnimatedText {
             
             for l in self.label {
                 lengthOfWord += l.frame.width
+                lengthOfWord += l.frame.width*0.075
             }
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
@@ -183,6 +185,7 @@ struct AnimatedText {
             
             for l in self.sprites {
                 lengthOfWord += l.frame.width
+                lengthOfWord += l.frame.width * 0.075
             }
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
@@ -200,6 +203,7 @@ struct AnimatedText {
             
             for l in self.label {
                 lengthOfWord += l.frame.width
+                lengthOfWord += l.frame.width * 0.075
             }
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
