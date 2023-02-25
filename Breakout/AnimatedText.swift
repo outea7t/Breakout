@@ -19,6 +19,8 @@ struct AnimatedText {
     /// массив со спрайтами, в случае, если пользователь хочет установить текстуры на буквы
     var sprites = [SKSpriteNode]()
     var shadowColor = UIColor()
+    /// множитель расстояния между буквами
+    private var spaceConstant: CGFloat = 0.075
     /// изначальный цвет
     private var originalColor: UIColor
     /// для того, чтобы увеличивать шрифт во время увеличения размера viewPort
@@ -27,6 +29,7 @@ struct AnimatedText {
     private let shouldAnimateShadows: Bool
     /// последний раз, когда текст анимировался в фоновом режиме
     var lastAmbientAnimationTime = TimeInterval()
+    
     var currentTime = TimeInterval()
     
     private var positions = [CGPoint]()
@@ -127,8 +130,11 @@ struct AnimatedText {
             
             for l in self.sprites {
                 lengthOfWord += l.frame.width
-                lengthOfWord += l.frame.width * 0.075
+                lengthOfWord += l.frame.width * self.spaceConstant
             }
+            // отнимаем одну такую константу, потому что для первой буквы мы ее не считаем
+            // если не отнимать ее, то слово будет не в середине
+            lengthOfWord -= animatedLabel.sprites[0].frame.width * self.spaceConstant
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
@@ -143,8 +149,11 @@ struct AnimatedText {
             
             for l in self.label {
                 lengthOfWord += l.frame.width
-                lengthOfWord += l.frame.width*0.075
+                lengthOfWord += l.frame.width*self.spaceConstant
             }
+            // отнимаем одну такую константу, потому что для первой буквы мы ее не считаем
+            // если не отнимать ее, то слово будет не в середине
+            lengthOfWord -= animatedLabel.label[0].frame.width * self.spaceConstant
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
@@ -160,7 +169,7 @@ struct AnimatedText {
             } else {
                 letter.position = CGPoint(
                     // чуть больше чем нужно, чтобы буквы были чуть дальше друг от друга в связи с шрифтом Bungee
-                    x: self.label[index-1].position.x + letter.frame.width * 0.5 + self.label[index-1].frame.width*0.5 + letter.frame.width*0.075,
+                    x: self.label[index-1].position.x + letter.frame.width * 0.5 + self.label[index-1].frame.width*0.5 + letter.frame.width * self.spaceConstant,
                     y: offsetY)
             }
         }
@@ -171,7 +180,7 @@ struct AnimatedText {
             } else {
                 sprite.position = CGPoint(
                     // чуть больше чем нужно, чтобы буквы были чуть дальше друг от друга в связи с шрифтом Bungee
-                    x: self.sprites[index-1].position.x + sprite.frame.width * 0.5 + self.sprites[index-1].frame.width*0.5 + sprite.frame.width*0.075,
+                    x: self.sprites[index-1].position.x + sprite.frame.width * 0.5 + self.sprites[index-1].frame.width*0.5 + sprite.frame.width*self.spaceConstant,
                     y: offsetY)
                 self.positions.append(sprite.position)
             }
@@ -185,8 +194,11 @@ struct AnimatedText {
             
             for l in self.sprites {
                 lengthOfWord += l.frame.width
-                lengthOfWord += l.frame.width * 0.075
+                lengthOfWord += l.frame.width * self.spaceConstant
             }
+            // отнимаем одну такую константу, потому что для первой буквы мы ее не считаем
+            // если не отнимать ее, то слово будет не в середине
+            lengthOfWord -= self.sprites[0].frame.width * self.spaceConstant
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
@@ -203,9 +215,11 @@ struct AnimatedText {
             
             for l in self.label {
                 lengthOfWord += l.frame.width
-                lengthOfWord += l.frame.width * 0.075
+                lengthOfWord += l.frame.width * self.spaceConstant
             }
-            
+            // отнимаем одну такую константу, потому что для первой буквы мы ее не считаем
+            // если не отнимать ее, то слово будет не в середине
+            lengthOfWord -= self.label[0].frame.width * self.spaceConstant
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
             var offsetY = frameSize.height - heighOfWord*2.5

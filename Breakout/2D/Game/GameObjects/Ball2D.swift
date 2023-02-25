@@ -25,6 +25,7 @@ struct Ball2D {
     private let bottomMask: UInt32         = 0b1 << 3 // 8
     private let trajectoryBallMask: UInt32 = 0b1 << 4 // 16
     private let frameMask: UInt32          = 0b1 << 5 // 32
+    private let bonusMask: UInt32          = 0b1 << 6 // 64
     private var ballSkins = [BallSkin2D]()
     
     let ball: SKShapeNode

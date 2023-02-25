@@ -18,10 +18,14 @@ struct Paddle2D {
         
     }
     // битовые маски различных объектов
-    private let ballMask: UInt32    = 0b1 << 0 // 1
-    private let paddleMask: UInt32  = 0b1 << 1 // 2
-    private let brickMask: UInt32   = 0b1 << 2 // 4
-    private let bottomMask: UInt32  = 0b1 << 3 // 8
+    private let ballMask: UInt32           = 0b1 << 0 // 1
+    private let paddleMask: UInt32         = 0b1 << 1 // 2
+    private let brickMask: UInt32          = 0b1 << 2 // 4
+    private let bottomMask: UInt32         = 0b1 << 3 // 8
+    private let trajectoryBallMask: UInt32 = 0b1 << 4 // 16
+    private let frameMask: UInt32          = 0b1 << 5 // 32
+    private let bonusMask: UInt32          = 0b1 << 6 // 64
+    
     // скины для ракетки
     private var paddleSkins = [PaddleSkin2D]()
     
@@ -42,8 +46,8 @@ struct Paddle2D {
         
         self.paddle.position = CGPoint(x: frame.midX, y: 20.0)
         self.paddle.fillColor = #colorLiteral(red: 0.06666666667, green: 0.05490196078, blue: 0.7607843137, alpha: 1)
-//        self.paddle.lineWidth = 4
-//        self.paddle.strokeColor = .white
+        //        self.paddle.lineWidth = 4
+        //        self.paddle.strokeColor = .white
         // физика
         self.paddle.physicsBody = SKPhysicsBody(rectangleOf: paddleSize)
         self.paddle.physicsBody?.allowsRotation = false
@@ -53,7 +57,7 @@ struct Paddle2D {
         self.paddle.physicsBody?.isDynamic = false
         // столкновения
         self.paddle.physicsBody?.categoryBitMask = self.paddleMask
-        self.paddle.physicsBody?.contactTestBitMask = self.ballMask
+        self.paddle.physicsBody?.contactTestBitMask = self.ballMask | self.bonusMask
         
     }
     /// движение ракетки

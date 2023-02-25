@@ -28,7 +28,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var trajectoryLine: TrajectoryLine2D?
     
     
-    // косметические эфекты
+    /// косметические эфекты
+    /// частички, которые отлетают от мяча
     private var particle: Particle2D?
     
     // битовые маски различных объектов
@@ -38,11 +39,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let bottomMask: UInt32         = 0b1 << 3 // 8
     private let trajectoryBallMask: UInt32 = 0b1 << 4 // 16
     private let frameMask: UInt32          = 0b1 << 5 // 32
+    private let bonusMask: UInt32          = 0b1 << 6 // 64
     
     // для логики взаимодействия с ракеткой
     private var firstTouchPos = CGPoint()
     private var lastTouchPos = CGPoint()
     // логика игры
+    /// количество жизней
     var lives = 3 {
         willSet {
             livesLable.text = "Lives: \(newValue)"
@@ -50,13 +53,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private let livesLable = SKLabelNode(text: "Lives: 3")
     private var bottom: SKShapeNode!
-    // для контроля количества частиц
+    /// для контроля количества частиц
     private var lastTime = 0.0
-    // для паузы
-    // создаем дополнительный слой со всеми игровыми объектам
+    /// массив с бонусами
+    private var bonuses = [Bonus2D]()
+    // переменные для осуществления эффектов бонуса
+    /// множитель скорости для ракетки
+    private var paddleSpeedMult = 1.0
+    /// замедлена ли ракетка
+    private var isPaddleSlowed = false
+    /// длительность эффекта замедленной ракетки
+    private var paddleSlowedDuration = 10.0
+    /// множитель скорости для мяча
+    private var ballSpeedMult = 1.3
+    /// ускорен ли мяч
+    private var isBallSpeeded = false
+    /// длительность эффекта ускорения для мяча
+    private var ballSpeededDuration = 10.0
+    /// длительность "перевернутости" рамки с игрой
+    private var rotationDuration = 10.0
+    /// перевернута ли рамка с игрой
+    private var isRotated = false
+    
+    /// для паузы
+    /// создаем дополнительный слой со всеми игровыми объектам
     private let gameNode = SKSpriteNode(color: .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0), size: CGSize())
-    // логическую переменную для остановки процессов обновления
+    /// логическую переменную для остановки процессов обновления
     private var isOnPause = false
+    
     
    
     // настраиваем все члены
@@ -138,9 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.setPaddleSkin()
         
 
-        // как перевернуть все объекты
-//        self.gameNode.position = CGPoint(x: self.frame.width, y: self.frame.height)
-//        self.gameNode.run(SKAction.rotate(byAngle: CGFloat.pi, duration: 0.01))
+        
     }
     func loadLevel() {
         self.currentLevel?.loadLevel(to: self.gameNode, frame: self.frame)
@@ -168,6 +190,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if contact.bodyB.node?.name == "brick" {
                         if let brickNode = contact.bodyB.node {
                             self.currentLevel?.collisionHappened(brickNode: brickNode)
+                            let bonusPosition = CGPoint(x: brickNode.position.x,
+                                                   y: brickNode.position.y - brickNode.frame.height/2.0)
+                            let bonus = Bonus2D(frame: self.frame, position: bonusPosition)
+                            if bonus.tryToAdd(to: self.gameNode) {
+                                self.bonuses.append(bonus)
+                            }
                         }
                     }
                     
@@ -177,11 +205,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if contact.bodyA.node?.name == "brick" {
                         if let brickNode = contact.bodyA.node {
                             self.currentLevel?.collisionHappened(brickNode: brickNode)
+                            let bonusPosition = CGPoint(x: brickNode.position.x,
+                                                   y: brickNode.position.y - brickNode.frame.height/2.0)
+                            let bonus = Bonus2D(frame: self.frame, position: bonusPosition)
+                            if bonus.tryToAdd(to: self.gameNode) {
+                                self.bonuses.append(bonus)
+                            }
                         }
                     }
                 }
                 HapticManager.collisionVibrate(with: .light, 0.5)
-            } else if collision == self.ballMask | self.bottomMask {
+            }
+            else if collision == self.ballMask | self.bottomMask {
                 self.collidedToBottom()
                 self.paddle?.reset(frame: self.frame)
                 self.paddle?.paddle.position.x = 195
@@ -189,7 +224,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if self.lives - 1 > 0 {
                     HapticManager.collisionVibrate(with: .heavy, 1.0)
                 }
-            } else if collision == self.ballMask | self.paddleMask {
+            }
+            else if collision == self.ballMask | self.paddleMask {
                 HapticManager.collisionVibrate(with: .light, 0.9)
                 
                 // логика высчитывания угла наклона при столкновении с ракеткой
@@ -227,10 +263,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                     
                 }
-            } else if collision == self.ballMask | self.frameMask {
+            }
+            else if collision == self.ballMask | self.frameMask {
                 HapticManager.collisionVibrate(with: .light, 0.7)
             }
-            
+            else if collision == self.bonusMask | self.paddleMask {
+                if let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node {
+                    if contact.bodyA.categoryBitMask == self.bonusMask {
+                        for (i,bonus) in self.bonuses.enumerated() {
+                            if bonus.bonus === nodeA {
+                                print("removed")
+                                // логика взаимодействия с бонусом ...
+                                self.applyBonusEffectOnGame(type: bonus.type)
+                                bonus.remove()
+                                self.bonuses.remove(at: i)
+                            }
+                        }
+                        
+                    } else {
+                        for (i,bonus) in bonuses.enumerated() {
+                            if bonus.bonus === nodeB {
+                                print("removed")
+                                // логика взаимодействия с бонусом ...
+                                self.applyBonusEffectOnGame(type: bonus.type)
+                                bonus.remove()
+                                self.bonuses.remove(at: i)
+                            }
+                        }
+                    }
+                }
+            }
+            else if collision == self.bonusMask | self.bottomMask {
+                if let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node {
+                    if contact.bodyA.categoryBitMask == self.bonusMask {
+                        for (i,bonus) in self.bonuses.enumerated() {
+                            if bonus.bonus === nodeA {
+                                // логика взаимодействия с бонусом ...
+                                bonus.remove()
+                                self.bonuses.remove(at: i)
+                            }
+                        }
+                        
+                    } else {
+                        for (i,bonus) in bonuses.enumerated() {
+                            if bonus.bonus === nodeB {
+                                
+                                // логика взаимодействия с бонусом ...
+                                bonus.remove()
+                                self.bonuses.remove(at: i)
+                            }
+                        }
+                    }
+                }
+            }
             
             if let isAllBricksAreDestroyed = self.currentLevel?.deleteDestroyedBricks() {
                 if isAllBricksAreDestroyed {
@@ -242,7 +327,56 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-    
+    private func applyBonusEffectOnGame(type: BonusType2D) {
+        switch type {
+        case .rotate:
+            if !self.isRotated {
+                self.isRotated = true
+                self.rotateFrame()
+            }
+        case .decreaseSpeedOfPaddle:
+            if !self.isPaddleSlowed {
+                self.isPaddleSlowed = true
+                self.decreaseSpeedOfPaddle()
+            }
+        case .increaseBallSpeed:
+            if !self.isBallSpeeded {
+                self.isBallSpeeded = true
+                self.increaseBallSpeed()
+            }
+        case .addLive:
+            self.addLive()
+        case .maxValue:
+            break
+        }
+    }
+    private func rotateFrame() {
+        self.view?.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi)
+        let rotate = SKAction.wait(forDuration: self.rotationDuration)
+        self.gameNode.run(rotate) {
+            self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
+            self.isRotated = false
+        }
+    }
+    private func decreaseSpeedOfPaddle() {
+        let action = SKAction.wait(forDuration: self.paddleSlowedDuration)
+        self.paddleSpeedMult = 0.7
+        self.gameNode.run(action) {
+            self.paddleSpeedMult = 1.0
+            self.isPaddleSlowed = false
+        }
+    }
+    private func increaseBallSpeed() {
+        self.ball?.ball.speed = self.ballSpeedMult
+        let action = SKAction.wait(forDuration: self.ballSpeededDuration)
+        self.gameNode.run(action) {
+            self.ball?.ball.speed = 1.0
+            self.isBallSpeeded = false
+        }
+    }
+    private func addLive() {
+        self.lives += 1
+    }
     // взаимодействие с игрой из контроллера
     func pauseGame() {
         if !isOnPause {
@@ -270,6 +404,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // перезагружаем позицию ракетки и мяч
         self.ball?.reset()
         self.paddle?.reset(frame: self.frame)
+        // убираем эффекты бонусов
+        for bonus in bonuses {
+            bonus.bonus.removeFromParent()
+
+        }
+        self.paddleSpeedMult = 1.0
+        self.ball?.ball.speed = 1.0
+        self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
         // снимаем мир с паузы
         self.isOnPause = false
         self.gameNode.isPaused = false
@@ -278,6 +420,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resetAfterWin() {
         self.ball?.reset()
         self.paddle?.reset(frame: self.frame)
+        // убираем эффекты бонусов
+        for bonus in bonuses {
+            bonus.bonus.removeFromParent()
+        }
+        self.paddleSpeedMult = 1.0
+        self.ball?.ball.speed = 1.0
+        self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
+        
         self.lives+=1
     }
     // если какая-то из осевых скоростей мяча равна 0, то исправляем это
@@ -297,9 +447,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
                 
             }
+            
         }
     }
-    
     // функции которые вызываются от нажатий
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // для логики взаимодействия с ракеткой
@@ -308,7 +458,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let ball = self.ball {
                 if ball.isAttachedToPaddle {
                     let location = touch.location(in: self)
-                    print(location)
                     if location.y > self.frame.height * 0.1 {
                         self.trajectoryLine?.touchDown(touch: touch, scene: self, ball: ball)
                     }
@@ -322,7 +471,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let isAttachedToPaddle = self.ball?.isAttachedToPaddle {
             if !self.isOnPause && !isAttachedToPaddle{
                 self.lastTouchPos = touches.first?.location(in: self) ?? CGPoint()
-                let result = lastTouchPos.x - firstTouchPos.x
+                let result = (lastTouchPos.x - firstTouchPos.x) * self.paddleSpeedMult
+                
                 // двигаем ракетку
                 self.paddle?.move(by: result)
                 self.firstTouchPos = self.lastTouchPos
@@ -331,7 +481,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if isAttachedToPaddle {
                     if let ball = self.ball {
                         let location = touch.location(in: self)
-                        print(location)
                         if location.y > self.frame.height * 0.1 {
                             self.trajectoryLine?.touchDown(touch: touch, scene: self, ball: ball)
                         }
@@ -374,6 +523,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
     }
+    /// для логики с траекторией
     private func touchUp(touch: UITouch) {
         self.trajectoryLine?.clearTrajectories()
         if let _ = self.ball {
@@ -419,12 +569,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.paddle?.paddleUpdate(frame: self.frame)
         
     }
-    
+    /// переходим в WinViewController
     private func setWin() {
         self.gameVCDelegate?.moveToWinViewController()
     }
+    /// переходим в LoseViewController
     private func setLose() {
         self.gameVCDelegate?.moveToLoseViewController()
     }
 }
-
