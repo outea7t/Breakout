@@ -93,7 +93,7 @@ class ShopPaddleTexturesViewController: UIViewController {
         self.backButton.layer.shadowOpacity = 1.0
         self.backButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.2737697661, blue: 0.1170392856, alpha: 1)
         self.backButton.layer.shadowOffset = CGSize(width: self.backButton.frame.width/25,
-                                                    height: self.backButton.frame.height/14)
+                                                    height: self.backButton.frame.height/15)
         self.backButton.layer.shadowRadius = 0
         
         // настраиваем верхнее меню
