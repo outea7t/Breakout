@@ -9,25 +9,41 @@ import UIKit
 import SpriteKit
 
 struct Paddle2D {
+    private struct PaddleSkin2D {
+        var fillColor: UIColor
+        var strokeColor: UIColor
+        var lineWidth: CGFloat
+        var fillTexture: SKTexture?
+        var strokeTexture: SKTexture?
+        
+    }
     // битовые маски различных объектов
     private let ballMask: UInt32    = 0b1 << 0 // 1
     private let paddleMask: UInt32  = 0b1 << 1 // 2
     private let brickMask: UInt32   = 0b1 << 2 // 4
     private let bottomMask: UInt32  = 0b1 << 3 // 8
+    // скины для ракетки
+    private var paddleSkins = [PaddleSkin2D]()
     
     var paddle: SKShapeNode
     init(frame: CGRect) {
         // настройка ракетки
         // мы изменяем размер ракетки в зависимости от размера экрана
         // умножаем на литеральные константы (наверное плохо), но это нормально работает
-        let paddleSize = CGSize(width: frame.width*0.26, height: frame.height*0.026)
+        let paddleHeight: CGFloat = frame.height * 0.035
+        let widthToHeightConstant: CGFloat = 10.0/3.0
+        
+        let paddleSize = CGSize(width: paddleHeight*widthToHeightConstant,
+                                height: paddleHeight)
         let paddleCornerRadius = (paddleSize.width + paddleSize.height)/2.0 * 0.1818
         self.paddle = SKShapeNode(rectOf: paddleSize, cornerRadius: paddleCornerRadius)
         
+        self.initializePaddleSkins()
+        
         self.paddle.position = CGPoint(x: frame.midX, y: 20.0)
         self.paddle.fillColor = #colorLiteral(red: 0.06666666667, green: 0.05490196078, blue: 0.7607843137, alpha: 1)
-        self.paddle.lineWidth = 4
-        self.paddle.strokeColor = .white
+//        self.paddle.lineWidth = 4
+//        self.paddle.strokeColor = .white
         // физика
         self.paddle.physicsBody = SKPhysicsBody(rectangleOf: paddleSize)
         self.paddle.physicsBody?.allowsRotation = false
@@ -65,6 +81,36 @@ struct Paddle2D {
     /// привязываем ракетку к центру, если мяч привязан к ней
     func boundToCenter(frame: CGRect) {
         self.paddle.position.x = frame.midX
+    }
+    
+    func setPaddleSkin() {
+        if !UserCustomization.buyedPaddleSkinIndexes.isEmpty && UserCustomization.paddleSkinIndex < self.paddleSkins.count {
+            let currentPaddleSkin = self.paddleSkins[UserCustomization.paddleSkinIndex]
+            self.paddle.fillColor = currentPaddleSkin.fillColor
+            self.paddle.strokeColor = currentPaddleSkin.strokeColor
+            self.paddle.lineWidth = currentPaddleSkin.lineWidth
+            if let paddleFillTexture = currentPaddleSkin.fillTexture {
+                self.paddle.fillTexture = paddleFillTexture
+            }
+        }
+    }
+    private mutating func initializePaddleSkins() {
+        // 1
+        for i in 0..<(UserCustomization.maxPaddleSkinIndex) {
+            let textureImage = UIImage(named: "Paddle-\(i+1)")
+            if let textureImage = textureImage {
+                let texture = SKTexture(image: textureImage)
+                let paddleSkin = PaddleSkin2D(fillColor: .white,
+                                          strokeColor: .clear,
+                                          lineWidth: 0,
+                                          fillTexture: texture
+                )
+                
+                self.paddleSkins.append(paddleSkin)
+            }
+        }
+       
+        
     }
     
 }

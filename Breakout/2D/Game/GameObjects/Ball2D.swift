@@ -49,7 +49,6 @@ struct Ball2D {
         self.ball.name = "ball"
         self.ball.position = CGPoint(x: 100.0, y: 100.0)
         self.ball.fillColor = #colorLiteral(red: 0.8, green: 0, blue: 1, alpha: 1)
-        self.ball.lineWidth = 3.0
         
         // физика
         self.ball.physicsBody = SKPhysicsBody(circleOfRadius: ballRadius)
@@ -99,77 +98,20 @@ struct Ball2D {
     }
     private mutating func initializeBallSkins() {
         // 1
-        let _1TextureImage = UIImage(named: "Ball-1")
-        if let _1TextureImage {
-            let _1Texture = SKTexture(image: _1TextureImage)
-            let _1BallSkin = BallSkin2D(fillColor: .white,
-                                        strokeColor: .clear,
-                                        lineWidth: 0,
-                                        fillTexture: _1Texture )
-            
-            self.ballSkins.append(_1BallSkin)
-            
+        for i in 0..<(UserCustomization.maxBallSkinIndex) {
+            let textureImage = UIImage(named: "Ball-\(i+1)")
+            if let textureImage = textureImage {
+                let texture = SKTexture(image: textureImage)
+                let ballSkin = BallSkin2D(fillColor: .white,
+                                          strokeColor: .clear,
+                                          lineWidth: 0,
+                                          fillTexture: texture
+                )
+                
+                self.ballSkins.append(ballSkin)
+            }
         }
-        // 2
-        let _2TextureImage = UIImage(named: "Ball-2")
-        if let _2TextureImage {
-            let _2Texture = SKTexture(image: _2TextureImage)
-            let _2BallSkin = BallSkin2D(fillColor: .white,
-                                        strokeColor: .clear,
-                                        lineWidth: 0,
-                                        fillTexture: _2Texture )
-            
-            self.ballSkins.append(_2BallSkin)
-            
-        }
-        // 3
-        let _3TextureImage = UIImage(named: "Ball-3")
-        if let _3TextureImage {
-            let _3Texture = SKTexture(image: _3TextureImage)
-            let _3BallSkin = BallSkin2D(fillColor: .white,
-                                        strokeColor: .clear,
-                                        lineWidth: 0,
-                                        fillTexture: _3Texture )
-            
-            self.ballSkins.append(_3BallSkin)
-            
-        }
-        // 4
-        let _4TextureImage = UIImage(named: "Ball-4")
-        if let _4TextureImage {
-            let _4Texture = SKTexture(image: _4TextureImage)
-            let _4BallSkin = BallSkin2D(fillColor: .white,
-                                        strokeColor: .clear,
-                                        lineWidth: 0,
-                                        fillTexture: _4Texture )
-            
-            self.ballSkins.append(_4BallSkin)
-            
-        }
-        // 5
-        let _5TextureImage = UIImage(named: "Ball-5")
-        if let _5TextureImage {
-            let _5Texture = SKTexture(image: _5TextureImage)
-            let _5BallSkin = BallSkin2D(fillColor: .white,
-                                        strokeColor: .clear,
-                                        lineWidth: 0,
-                                        fillTexture: _5Texture )
-            
-            self.ballSkins.append(_5BallSkin)
-            
-        }
-        // 6
-        let _6TextureImage = UIImage(named: "Ball-6")
-        if let _6TextureImage {
-            let _6Texture = SKTexture(image: _6TextureImage)
-            let _6BallSkin = BallSkin2D(fillColor: .white,
-                                        strokeColor: .clear,
-                                        lineWidth: 0,
-                                        fillTexture: _6Texture )
-            
-            self.ballSkins.append(_6BallSkin)
-            
-        }
+       
         
     }
     

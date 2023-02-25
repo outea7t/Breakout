@@ -43,7 +43,7 @@ class ShopParticlesTextureViewController: UIViewController {
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
         // отступы от конкретных граней
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 10, right: 30)
         
         
         self.collectionView.collectionViewLayout = layout
@@ -64,8 +64,9 @@ class ShopParticlesTextureViewController: UIViewController {
             ShopCellData(image: image4, price: 40, color: color, id: 3),
             ShopCellData(image: image5, price: 50, color: color, id: 4),
             ShopCellData(image: image6, price: 60, color: color, id: 5),
-            ShopCellData(image: UIImage(), price: 70, color: color, id: 6),
         ]
+        UserCustomization.maxParticleSkinIndex = particlesCellData.count
+        
         
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
@@ -206,8 +207,8 @@ extension ShopParticlesTextureViewController: UICollectionViewDelegateFlowLayout
     // по две в ряду
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let size = CGSize(width: self.view.frame.width/2.2,
-                          height: self.view.frame.width/2.2 * 1.5)
+        let size = CGSize(width: self.view.frame.width/2.7,
+                          height: self.view.frame.width/2.7 * 1.3)
         return size
     }
 }

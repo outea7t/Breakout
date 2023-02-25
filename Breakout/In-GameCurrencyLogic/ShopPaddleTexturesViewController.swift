@@ -43,19 +43,19 @@ class ShopPaddleTexturesViewController: UIViewController {
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
         // отступы от конкретных граней
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 10, right: 30)
         
         
         self.collectionView.collectionViewLayout = layout
         
         // заполняем массив с текстурами
         // настраиваем информацию о ячейках
-        let image1 = UIImage(named: "Particle-1")!
-        let image2 = UIImage(named: "Particle-2")!
-        let image3 = UIImage(named: "Particle-3")!
-        let image4 = UIImage(named: "Particle-4")!
-        let image5 = UIImage(named: "Particle-5")!
-        let image6 = UIImage(named: "Particle-6")!
+        let image1 = UIImage(named: "Paddle-1")!
+        let image2 = UIImage(named: "Paddle-2")!
+        let image3 = UIImage(named: "Paddle-3")!
+        let image4 = UIImage(named: "Paddle-4")!
+        let image5 = UIImage(named: "Paddle-5")!
+        let image6 = UIImage(named: "Paddle-6")!
         let color = self.unselectedColor
         self.paddleCellData = [
             ShopCellData(image: image1, price: 10, color: color, id: 0),
@@ -64,8 +64,9 @@ class ShopPaddleTexturesViewController: UIViewController {
             ShopCellData(image: image4, price: 40, color: color, id: 3),
             ShopCellData(image: image5, price: 50, color: color, id: 4),
             ShopCellData(image: image6, price: 60, color: color, id: 5),
-            ShopCellData(image: UIImage(), price: 70, color: color, id: 6),
         ]
+        UserCustomization.maxPaddleSkinIndex = paddleCellData.count
+        
         
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
@@ -206,8 +207,8 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegateFlowLayout {
     // по две в ряду
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let size = CGSize(width: self.view.frame.width/2.2,
-                          height: self.view.frame.width/2.2 * 1.5)
+        let size = CGSize(width: self.view.frame.width/2.7,
+                          height: self.view.frame.width/2.7 * 1.3)
         return size
     }
 }

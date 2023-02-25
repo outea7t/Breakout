@@ -4,6 +4,8 @@
 //
 //  Created by Out East on 31.08.2022.
 //
+// Класс анимированного текста,
+// поддерживающего текстуры для каждой отдельной буквы
 
 import Foundation
 import SpriteKit
@@ -14,6 +16,7 @@ struct AnimatedText {
     private let textOfLabel: String
     /// массив с нодами, каждая из который отражает определенный символ
     var label = [SKLabelNode]()
+    /// массив со спрайтами, в случае, если пользователь хочет установить текстуры на буквы
     var sprites = [SKSpriteNode]()
     var shadowColor = UIColor()
     /// изначальный цвет
@@ -28,6 +31,7 @@ struct AnimatedText {
     
     private var positions = [CGPoint]()
     
+    /// конструктор, который не предусматривает использование текстур
     init(text: String,
          color: UIColor,
          frame: CGRect,
@@ -56,6 +60,7 @@ struct AnimatedText {
             }
         }
     }
+    /// конструктор, который предусматривает исопльзование текстур
     init(images: [UIImage], frame: CGRect, color: UIColor) {
         self.shouldAnimateShadows = false
         self.textOfLabel = ""
@@ -69,37 +74,17 @@ struct AnimatedText {
         }
     }
     
-    
+    /// анимируем отдульную букву
     mutating func animate(colorToChange: UIColor, letter: SKLabelNode) {
-        var r = CGFloat()
-        var g = CGFloat()
-        var b = CGFloat()
-        var a = CGFloat()
-        
-//        colorToChange.getRed(&r, green: &g, blue: &b, alpha: &a)
-//        print(r,g,b,a)
-        
         let animation = createAnimation(colorToChange: colorToChange)
         letter.run(animation)
-        
-        
-        // обновляем время для анимации
+        // обновляем время для ambient анимации
         self.lastAmbientAnimationTime = self.currentTime
     }
-    
+    /// анимируем каждый отдельный спрайт
     mutating func animate(colorToChange: UIColor, sprite: SKSpriteNode) {
-        var r = CGFloat()
-        var g = CGFloat()
-        var b = CGFloat()
-        var a = CGFloat()
-        
-//        colorToChange.getRed(&r, green: &g, blue: &b, alpha: &a)
-//        print(r,g,b,a)
-        
         let animation = createAnimation(colorToChange: colorToChange)
         sprite.run(animation)
-        
-        
         // обновляем время для анимации
         self.lastAmbientAnimationTime = self.currentTime
     }
@@ -227,27 +212,6 @@ struct AnimatedText {
             self.calculatePosition(with: offsetX, offsetY: offsetY)
         }
     }
-    /// функция, которая запускает анимацию после того, как пользователь на нее нажал
-//    private func touchDownOnLetter(_ touch: UITouch, view: UI) {
-//
-//        for letter in self.label {
-//            if letter.contains(touch.location(in: self)) {
-//                self.label.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
-//            }
-//        }
-//    }
-//    /// функция, которая запускает анимацию букв, по которым провел пользователь
-//    private func touchProcessOnLetter(_ touch: UITouch) {
-//        if let breakoutLabel = self.breakoutAnimatedLabel?.label {
-//            for letter in breakoutLabel {
-//                if letter.contains(touch.location(in: self)) {
-//                    if !letter.hasActions() {
-//                        self.breakoutAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
-//                    }
-//                }
-//            }
-//        }
-//    }
     /// функция, которая возвращает анимацию, которую можно проиграть на любой букве
     /// сделано для того, чтобы не дублировать код при создании ambientAnimation
     private func createAnimation(colorToChange: UIColor) -> SKAction {
@@ -316,16 +280,14 @@ struct AnimatedText {
     }
     private func initSprite(_ image: UIImage, frame: CGRect) -> SKSpriteNode {
         let texture = SKTexture(image: image)
-        
-        let sizeConstant: CGFloat = 65/844 * frame.height
-        
+        // подстраиваем размер для каждого размера экрана
+        let sizeConstant: CGFloat = 59/844 * frame.height
+        // из-за особенности шрифта Bungee высота всегда больше ширины в 1.2 раза
         let s = SKSpriteNode(texture: texture, color: .white, size: CGSize(width: sizeConstant,
                                                                            height: sizeConstant*1.2))
-        
-        
         s.colorBlendFactor = 2.0
         s.position = CGPoint()
-        
+        // для того, чтобы анимация проигрывалась правильно
         s.anchorPoint = CGPoint(x: s.anchorPoint.x, y: 0.0)
         return s
     }
@@ -333,9 +295,9 @@ struct AnimatedText {
     private func initLetter(_ symbol: String, frame: CGRect) -> SKLabelNode {
         let s = SKLabelNode(text: symbol)
         s.position = CGPoint()
-        var sizeConstant = 90.0/844.0
+        var sizeConstant = 80.0/844.0
         if preferBiggerSize {
-            sizeConstant = 120.0/844.0
+            sizeConstant = 110.0/844.0
         }
         let perfectFitSize = frame.height*sizeConstant
         s.fontSize = perfectFitSize

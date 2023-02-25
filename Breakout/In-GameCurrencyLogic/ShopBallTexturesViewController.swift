@@ -65,8 +65,11 @@ class ShopBallTexturesViewController: UIViewController {
                              ShopCellData(image: image4, price: 40, color: color, id: 3),
                              ShopCellData(image: image5, price: 50, color: color, id: 4),
                              ShopCellData(image: image6, price: 60, color: color, id: 5),
-                             ShopCellData(image: UIImage(), price: 70, color: color, id: 6),
         ]
+        
+        UserCustomization.maxBallSkinIndex = ballCellData.count
+
+        
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
         longPressGesture.minimumPressDuration = 0.4

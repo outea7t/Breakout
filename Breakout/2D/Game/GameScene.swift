@@ -134,16 +134,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.setParticlesSkin()
         self.setBallSkin()
+        self.setPaddleSkin()
+        
     }
     func loadLevel() {
         self.currentLevel?.loadLevel(to: self.gameNode, frame: self.frame)
         
     }
+    
+    func setParticlesSkin() {
+        self.particle?.setParticlesSkin()
+    }
     func setBallSkin() {
         self.ball?.setBallSkin()
     }
-    func setParticlesSkin() {
-        self.particle?.setParticlesSkin()
+    func setPaddleSkin() {
+        self.paddle?.setPaddleSkin()
     }
     // начало контакта
     func didBegin(_ contact: SKPhysicsContact) {
@@ -250,6 +256,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // поэтому обновляем все игровые скины
             self.setBallSkin()
             self.setParticlesSkin()
+            self.setPaddleSkin()
         }
     }
     func resetTheGame() {

@@ -12,41 +12,34 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        // чтобы цвет элементов не менялся в зависимости от темной или светлой темы телефона
+        overrideUserInterfaceStyle = .dark
         self.delegate = self
         self.selectedIndex = 0
         
         
-        let backgroundColor = self.tabBar.backgroundColor
-//        self.tabBar.layer.masksToBounds = false
-
+        let barTintColor = #colorLiteral(red: 0.08235294118, green: 0.1137254902, blue: 0.2392156863, alpha: 0.5)
+        let imageTintColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
+        
         if #available(iOS 15, *) {
             let tabBarAppearance = UITabBarAppearance()
-            tabBarAppearance.backgroundColor = backgroundColor
+            tabBarAppearance.selectionIndicatorTintColor = imageTintColor
+            tabBarAppearance.backgroundColor = barTintColor
             tabBar.standardAppearance = tabBarAppearance
             tabBar.scrollEdgeAppearance = tabBarAppearance
         } else {
-            tabBar.barTintColor = backgroundColor
+            // background
+            self.tabBar.barTintColor = barTintColor
+            self.tabBar.tintColor = imageTintColor
          }
+        self.tabBar.isTranslucent = true
         
         self.tabBar.layer.cornerRadius = 40
         
         self.tabBar.layer.masksToBounds = true
         self.tabBar.shadowImage = UIImage()
-        
-//        self.tabBar.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.8).cgColor
-//        self.tabBar.layer.shadowOpacity = 1.0
-//        self.tabBar.layer.shadowOffset = CGSize(width: 0.0,
-//                                                height: -self.tabBar.frame.height/7.0)
-//
-//
-//
-//
-//        self.tabBar.layer.shadowRadius = 10.0
         
     }
     
@@ -55,7 +48,6 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
     }
     
     private func animate(item: UITabBarItem) {
-        
         
         guard let barItemView = item.value(forKey: "view") as? UIView else {
             return
@@ -68,14 +60,4 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
         propertyAnimator.addAnimations({barItemView.transform = .identity}, delayFactor: timeInterval)
         propertyAnimator.startAnimation()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
