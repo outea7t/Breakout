@@ -48,14 +48,14 @@ class ARPauseViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let arGameViewController = segue.destination as? ARGameViewController {
-            arGameViewController.gameScene?.unpauseGame()
+            arGameViewController.unpauseGame()
         }
     }
     // функции, отслеживающие нажатия кнопок
     // нажата кнопка продолжения игры
     @IBAction func playButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
-            gameViewController.gameScene?.unpauseGame()
+            gameViewController.unpauseGame()
         }
         self.dismiss(animated: true)
     }
@@ -64,7 +64,6 @@ class ARPauseViewController: UIViewController {
     @IBAction func returnToARMenuPressed(_ sender: UIButton) {
         // из storyboard анвайндимся до ар меню
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
-            gameViewController.gameScene?.gameVCDelegate = nil
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
             gameViewController.gameScene = nil
@@ -79,16 +78,16 @@ class ARPauseViewController: UIViewController {
     // нажата кнопка перезапуска уровня
     @IBAction func restartLevelButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
-            gameViewController.gameScene?.unpauseGame()
-            gameViewController.gameScene?.restartGame()
-            if let planeAnchors = gameViewController.gameScene?.planeAnchors {
-                for anchor in planeAnchors {
-                    gameViewController.gameSceneView.session.remove(anchor: anchor)
-                }
+            gameViewController.unpauseGame()
+            gameViewController.restartGame()
+            
+            for anchor in gameViewController.planeAnchors {
+                gameViewController.gameSceneView.session.remove(anchor: anchor)
             }
-            gameViewController.gameScene?.removeAllChildren()
-            gameViewController.gameScene?.wantDetectPlane = true
-            gameViewController.gameScene?.wantSetPosition = true
+            
+            gameViewController.removeAllChildren()
+            gameViewController.wantDetectPlane = true
+            gameViewController.wantSetPosition = true
         }
         self.dismiss(animated: true)
     }

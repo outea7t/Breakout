@@ -25,6 +25,7 @@
 		22096B5C2986EC0B0072F4C6 /* level_26.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22096B4F2986EC0B0072F4C6 /* level_26.txt */; };
 		2214055329A3E0570086DEC7 /* background.riv in Resources */ = {isa = PBXBuildFile; fileRef = 2214055229A3E0570086DEC7 /* background.riv */; };
 		2214055529A3E6CA0086DEC7 /* button.riv in Resources */ = {isa = PBXBuildFile; fileRef = 2214055429A3E6CA0086DEC7 /* button.riv */; };
+		223BDB0F29AABE0F001CE63D /* AREndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */; };
 		224F5C4429865EE2005E8E47 /* level_11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4129865EE2005E8E47 /* level_11.txt */; };
 		224F5C4529865EE2005E8E47 /* level_12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4229865EE2005E8E47 /* level_12.txt */; };
 		224F5C4629865EE2005E8E47 /* level_13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4329865EE2005E8E47 /* level_13.txt */; };
@@ -69,7 +70,6 @@
 		22B516C129238AB7006B1B6F /* Ball3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AE29238AB7006B1B6F /* Ball3D.swift */; };
 		22B516C229238AB7006B1B6F /* Paddle3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AF29238AB7006B1B6F /* Paddle3D.swift */; };
 		22B516C529238AB7006B1B6F /* ARMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516B329238AB7006B1B6F /* ARMenuViewController.swift */; };
-		22B516C629238AB7006B1B6F /* ARGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516B529238AB7006B1B6F /* ARGameScene.swift */; };
 		22B516C729238AB7006B1B6F /* ARGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516B629238AB7006B1B6F /* ARGameViewController.swift */; };
 		22B516C829238AB7006B1B6F /* ARWinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516B829238AB7006B1B6F /* ARWinViewController.swift */; };
 		22B516C929238AB7006B1B6F /* ARLoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516B929238AB7006B1B6F /* ARLoseViewController.swift */; };
@@ -140,6 +140,7 @@
 		22096B4F2986EC0B0072F4C6 /* level_26.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_26.txt; sourceTree = "<group>"; };
 		2214055229A3E0570086DEC7 /* background.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.riv; sourceTree = "<group>"; };
 		2214055429A3E6CA0086DEC7 /* button.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = button.riv; sourceTree = "<group>"; };
+		223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREndGameScene.swift; sourceTree = "<group>"; };
 		224F5C4129865EE2005E8E47 /* level_11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_11.txt; sourceTree = "<group>"; };
 		224F5C4229865EE2005E8E47 /* level_12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_12.txt; sourceTree = "<group>"; };
 		224F5C4329865EE2005E8E47 /* level_13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_13.txt; sourceTree = "<group>"; };
@@ -187,7 +188,6 @@
 		22B516AE29238AB7006B1B6F /* Ball3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball3D.swift; sourceTree = "<group>"; };
 		22B516AF29238AB7006B1B6F /* Paddle3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paddle3D.swift; sourceTree = "<group>"; };
 		22B516B329238AB7006B1B6F /* ARMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARMenuViewController.swift; sourceTree = "<group>"; };
-		22B516B529238AB7006B1B6F /* ARGameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGameScene.swift; sourceTree = "<group>"; };
 		22B516B629238AB7006B1B6F /* ARGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARGameViewController.swift; sourceTree = "<group>"; };
 		22B516B829238AB7006B1B6F /* ARWinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARWinViewController.swift; sourceTree = "<group>"; };
 		22B516B929238AB7006B1B6F /* ARLoseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ARLoseViewController.swift; sourceTree = "<group>"; };
@@ -444,7 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				22B516B629238AB7006B1B6F /* ARGameViewController.swift */,
-				22B516B529238AB7006B1B6F /* ARGameScene.swift */,
 				22B516A729238AB7006B1B6F /* GameObjects */,
 				22B516B729238AB7006B1B6F /* EndOfGame */,
 				222D1B3E29240D1C009100C8 /* Pause */,
@@ -457,6 +456,7 @@
 			children = (
 				22B516B829238AB7006B1B6F /* ARWinViewController.swift */,
 				22B516B929238AB7006B1B6F /* ARLoseViewController.swift */,
+				223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */,
 			);
 			path = EndOfGame;
 			sourceTree = "<group>";
@@ -727,6 +727,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22AB8CC62985A3F0009A50F1 /* LevelsMenuViewColntroller.swift in Sources */,
+				223BDB0F29AABE0F001CE63D /* AREndGameScene.swift in Sources */,
 				22CF24FD28BBB0D000306926 /* Ball2D.swift in Sources */,
 				2275FA2F288ACDCC0075AFD6 /* MenuViewController.swift in Sources */,
 				22B516CC29239465006B1B6F /* ARMenuScene.swift in Sources */,
@@ -768,7 +769,6 @@
 				22B516BD29238AB7006B1B6F /* Frame3D.swift in Sources */,
 				22B516C929238AB7006B1B6F /* ARLoseViewController.swift in Sources */,
 				22784E6C28BBFBC3001C3E61 /* Bonus2D.swift in Sources */,
-				22B516C629238AB7006B1B6F /* ARGameScene.swift in Sources */,
 				2279362329438E3C002C519F /* TrajectoryLine2D.swift in Sources */,
 				22B516CA29238AB7006B1B6F /* ARPauseViewController.swift in Sources */,
 				22AB8CC92985A594009A50F1 /* LevelsMenuCellData.swift in Sources */,

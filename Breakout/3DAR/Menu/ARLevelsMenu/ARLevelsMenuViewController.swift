@@ -77,6 +77,7 @@ class ARLevelsMenuViewController: UIViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let gameViewController = segue.destination as? ARGameViewController {
+            gameViewController.loadAllLevelsInfo()
             gameViewController.levelChoosed = self.levelChoosed
         }
     }

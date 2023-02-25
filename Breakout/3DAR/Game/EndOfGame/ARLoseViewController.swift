@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SpriteKit
 
 class ARLoseViewController: UIViewController {
 
@@ -18,6 +18,7 @@ class ARLoseViewController: UIViewController {
     
     @IBOutlet weak var menuButton: UIButton!
     
+    var endGameScene: AREndGameScene?
     
     deinit {
         print("ARLoseViewController Deinitialization")
@@ -25,6 +26,15 @@ class ARLoseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let skView = self.view.viewWithTag(1) as? SKView {
+            skView.backgroundColor = .clear
+            self.endGameScene = AREndGameScene(size: skView.bounds.size)
+            self.endGameScene?.backgroundColor = .clear
+            
+            if let endGameScene = self.endGameScene {
+                skView.presentScene(endGameScene)
+            }
+        }
         self.restartButton.backgroundColor = #colorLiteral(red: 1, green: 0.1491002738, blue: 0, alpha: 1)
         self.restartButton.layer.cornerRadius = 30
         self.restartButton.layer.shadowColor = #colorLiteral(red: 0.5262494683, green: 0, blue: 0, alpha: 1)
@@ -56,7 +66,7 @@ class ARLoseViewController: UIViewController {
         self.settingsButton.layer.shadowOpacity = 1.0
         self.settingsButton.layer.masksToBounds = false
         
-        
+        self.setConfetti()
         // Do any additional setup after loading the view.
     }
     
@@ -69,10 +79,14 @@ class ARLoseViewController: UIViewController {
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
         return [.bottom]
     }
-    
+    func setConfetti() {
+        self.endGameScene?.isWin = true
+        self.endGameScene?.addConfetti()
+        self.endGameScene?.setText()
+    }
     @IBAction func menuButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
-            gameViewController.gameScene?.gameVCDelegate = nil
+            self.endGameScene = nil
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
             gameViewController.gameScene = nil
@@ -86,16 +100,16 @@ class ARLoseViewController: UIViewController {
     
     @IBAction func restartButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
-            gameViewController.gameScene?.unpauseGame()
-            gameViewController.gameScene?.restartGame()
-            if let planeAnchors = gameViewController.gameScene?.planeAnchors {
-                for anchor in planeAnchors {
-                    gameViewController.gameSceneView.session.remove(anchor: anchor)
-                }
+            self.endGameScene = nil
+            gameViewController.unpauseGame()
+            gameViewController.restartGame()
+            for anchor in gameViewController.planeAnchors {
+                gameViewController.gameSceneView.session.remove(anchor: anchor)
             }
-            gameViewController.gameScene?.removeAllChildren()
-            gameViewController.gameScene?.wantDetectPlane = true
-            gameViewController.gameScene?.wantSetPosition = true
+
+            gameViewController.removeAllChildren()
+            gameViewController.wantDetectPlane = true
+            gameViewController.wantSetPosition = true
         }
         self.dismiss(animated: true)
     }

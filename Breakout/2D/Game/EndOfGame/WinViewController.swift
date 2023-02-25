@@ -13,8 +13,6 @@ class WinViewController: UIViewController {
 
     
     var endGameScene: EndGameScene?
-    
-    
     @IBOutlet weak var blurView: UIVisualEffectView!
     
     @IBOutlet weak var nextLevelButton: UIButton!
@@ -27,16 +25,11 @@ class WinViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view.viewWithTag(1) as? SKView {
-//            view.backgroundColor = #colorLiteral(red: 0, green: 0.6370642007, blue: 0, alpha: 0.2)
             view.backgroundColor = .clear
             let scene = EndGameScene()
             scene.scaleMode = .aspectFill
             scene.size = view.bounds.size
-//            scene.backgroundColor =
-            
             self.endGameScene = scene
-//            self.endGameScene?.isWin = true
-//            self.endGameScene?.setText()
             view.presentScene(scene)
             
             view.showsFPS = true

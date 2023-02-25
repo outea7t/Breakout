@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SpriteKit
 
 class ARWinViewController: UIViewController {
 
@@ -18,10 +19,23 @@ class ARWinViewController: UIViewController {
     deinit {
         print("ARWinViewController Deinitialization")
     }
+    
+    private var endGameScene: AREndGameScene?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        if let skView = self.view.viewWithTag(1) as? SKView {
+            skView.backgroundColor = .clear
+            self.endGameScene = AREndGameScene(size: skView.bounds.size)
+            self.endGameScene?.backgroundColor = .clear
+            
+            if let endGameScene = self.endGameScene {
+                skView.presentScene(endGameScene)
+            }
+            
+            
+        }
         // настройка тени для кнопок (следующий уровень)
         self.nextLevelButton.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.1163903061, alpha: 1)
         self.nextLevelButton.layer.cornerRadius = 30
@@ -64,6 +78,8 @@ class ARWinViewController: UIViewController {
         self.settingsButton.layer.shadowOpacity = 1.0
         self.settingsButton.layer.masksToBounds = false
         
+        // устанавливаем конфетти при выигрыше, настраиваем сцену
+        self.setConfetti()
     }
     override var prefersStatusBarHidden: Bool {
         return false
@@ -74,11 +90,16 @@ class ARWinViewController: UIViewController {
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
         return [.bottom]
     }
+    func setConfetti() {
+        self.endGameScene?.isWin = true
+        self.endGameScene?.addConfetti()
+        self.endGameScene?.setText()
+    }
     // кнопка возвращения в меню
     @IBAction func homeButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
+            self.endGameScene = nil
             print("tried to clean")
-            gameViewController.gameScene?.gameVCDelegate = nil
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
             gameViewController.gameScene = nil
@@ -88,16 +109,15 @@ class ARWinViewController: UIViewController {
     // кнопка перезапуска уровня
     @IBAction func restartButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
-            gameViewController.gameScene?.unpauseGame()
-            gameViewController.gameScene?.restartGame()
-            if let planeAnchors = gameViewController.gameScene?.planeAnchors {
-                for anchor in planeAnchors {
-                    gameViewController.gameSceneView.session.remove(anchor: anchor)
-                }
+            self.endGameScene = nil
+            gameViewController.unpauseGame()
+            gameViewController.restartGame()
+            for anchor in gameViewController.planeAnchors {
+                gameViewController.gameSceneView.session.remove(anchor: anchor)
             }
-            gameViewController.gameScene?.removeAllChildren()
-            gameViewController.gameScene?.wantDetectPlane = true
-            gameViewController.gameScene?.wantSetPosition = true
+            gameViewController.removeAllChildren()
+            gameViewController.wantDetectPlane = true
+            gameViewController.wantSetPosition = true
             
         }
         self.dismiss(animated: true)
@@ -109,22 +129,21 @@ class ARWinViewController: UIViewController {
     // кнопка с переходом к следующему уровню
     @IBAction func nextLevelButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
+            self.endGameScene = nil
             if gameViewController.maxLevelIndex >= gameViewController.levelChoosed+1 {
                 gameViewController.levelChoosed += 1
             } else {
                 gameViewController.levelChoosed = 1
             }
             
-            gameViewController.gameScene?.unpauseGame()
-            gameViewController.gameScene?.lives += 1
-            if let planeAnchors = gameViewController.gameScene?.planeAnchors {
-                for anchor in planeAnchors {
-                    gameViewController.gameSceneView.session.remove(anchor: anchor)
-                }
+            gameViewController.unpauseGame()
+            gameViewController.lives += 1
+            for anchor in gameViewController.planeAnchors {
+                gameViewController.gameSceneView.session.remove(anchor: anchor)
             }
-            gameViewController.gameScene?.removeAllChildren()
-            gameViewController.gameScene?.wantDetectPlane = true
-            gameViewController.gameScene?.wantSetPosition = true
+            gameViewController.removeAllChildren()
+            gameViewController.wantDetectPlane = true
+            gameViewController.wantSetPosition = true
         }
         self.dismiss(animated: true)
     }

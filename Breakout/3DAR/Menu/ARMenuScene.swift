@@ -29,19 +29,23 @@ class ARMenuScene: SKScene {
         self.backgroundColor = .clear
         
         self.breakAnimatedLabel = AnimatedText(text: "BREAK",
-                                                  color: self.originalColorOfLabel,
-                                                  frame: self.frame,
-                                                  shouldAnimateShadows: true,
-                                                  shadowColor: self.colorOfShadow)
+                                               color: self.originalColorOfLabel,
+                                               frame: self.frame,
+                                               shouldAnimateShadows: true,
+                                               shadowColor: self.colorOfShadow
+                                               
+        )
         self.breakAnimatedLabel?.calculatePosition(for: self.frame.size)
         
         
         
         self.outARAnimatedLabel = AnimatedText(text: "OUT-AR!",
-                                            color: self.originalColorOfLabel,
-                                            frame: self.frame,
-                                            shouldAnimateShadows: true,
-                                            shadowColor: self.colorOfShadow)
+                                               color: self.originalColorOfLabel,
+                                               frame: self.frame,
+                                               shouldAnimateShadows: true,
+                                               shadowColor: self.colorOfShadow
+                                               
+        )
         self.outARAnimatedLabel?.calculatePosition(under: self.breakAnimatedLabel!, for: self.frame.size)
         
         if let breakAnimatedLabel = self.breakAnimatedLabel {
