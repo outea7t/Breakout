@@ -119,11 +119,11 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="amountOfMoney" destination="Ldv-ZQ-WN0" id="jcZ-Yv-7lv"/>
                         <outlet property="arButton" destination="J1x-mj-oX5" id="Bsh-sa-yZj"/>
                         <outlet property="levelsButton" destination="Eml-9I-zh7" id="v91-yf-Oa4"/>
                         <outlet property="settingsButton" destination="gxq-6X-q5d" id="zuW-wf-u8E"/>
                         <outlet property="shopButton" destination="H7A-bD-Nh7" id="9yL-wo-CG5"/>
+                        <outlet property="userMoney" destination="Ldv-ZQ-WN0" id="cGF-Eh-apL"/>
                         <segue destination="6iE-Oo-vvq" kind="presentation" identifier="FromMenuToARMenu" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="aGN-lB-JJq"/>
                     </connections>
                 </viewController>

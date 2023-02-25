@@ -18,8 +18,24 @@ import UIKit
 // возможно еще на ракетку(но с этим у меня пока что мало идей)
 
 struct GameCurrency {
-    static var userMoney: UInt = 10000
-    
+    public static var userMoney: UInt = 10000
+    public static func updateUserMoneyLabel() -> String {
+        var userMoneyLabel = ""
+        if GameCurrency.userMoney > 1000 {
+            var userMoney = Int(GameCurrency.userMoney)
+            let thousands = Int(userMoney/1000)
+            let hundreds = Int((userMoney-1000*thousands)/100)
+            if hundreds == 0 {
+                userMoneyLabel = "\(thousands)k"
+            } else {
+                userMoneyLabel = "\(thousands).\(hundreds)k"
+            }
+        } else {
+            userMoneyLabel = "\(GameCurrency.userMoney)"
+        }
+        
+        return userMoneyLabel
+    }
     // чтобы нельзя было инициализировать элементы данного класса
     private init() {
         

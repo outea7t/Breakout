@@ -30,6 +30,7 @@ class ShopParticlesTextureViewController: UIViewController {
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         // находим класс ячеек и устанавливаем его в collectionView
         let cellClass = UINib(nibName: self.cellIdentifier, bundle: nil)
         self.collectionView.register(cellClass, forCellWithReuseIdentifier: self.cellIdentifier)
@@ -88,9 +89,13 @@ class ShopParticlesTextureViewController: UIViewController {
         self.collectionView.addGestureRecognizer(longPressGesture)
         
         
-        // скргуляем углы кнопки
-        self.backButton.layer.cornerRadius = 10
-        super.viewDidLoad()
+        // настраиваем кнопку "назад"
+        self.backButton.layer.shadowOpacity = 1.0
+        self.backButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.2737697661, blue: 0.1170392856, alpha: 1)
+        self.backButton.layer.shadowOffset = CGSize(width: self.backButton.frame.width/25,
+                                                    height: self.backButton.frame.height/14)
+        self.backButton.layer.shadowRadius = 0
+        
         // настраиваем верхнее меню
         self.headerTopView.layer.cornerRadius = 20.0
         self.headerTopView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -132,7 +137,7 @@ class ShopParticlesTextureViewController: UIViewController {
                     UserCustomization.buyedParticlesSkinIndexes += [targetIndexPath.item]
                     UserCustomization.particleSkinIndex = self.selectedCellIndexPath.item
                     GameCurrency.userMoney -= UInt(cell.price)
-                    self.userMoneyLabel.text = "\(GameCurrency.userMoney)"
+                    self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
                     HapticManager.notificationVibrate(for: .success)
                 } else if GameCurrency.userMoney < cell.price {
                     HapticManager.notificationVibrate(for: .error)
@@ -161,7 +166,8 @@ class ShopParticlesTextureViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userMoneyLabel.text = "\(GameCurrency.userMoney)"
+        self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -182,6 +188,7 @@ class ShopParticlesTextureViewController: UIViewController {
         
         return doesContain
     }
+    
 }
 // сколько чего и как создавать
 extension ShopParticlesTextureViewController: UICollectionViewDataSource {
@@ -200,13 +207,15 @@ extension ShopParticlesTextureViewController: UICollectionViewDataSource {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! ShopCollectionViewCell
         
         cell.setup(with: self.particlesCellData[indexPath.item])
+        cell.layer.borderWidth = 0
+        
         if self.doesBuyedItemsContains(item: indexPath) {
             cell.priceLabel.text = ""
             cell.backgroundColor = self.buyedColor
         }
         if self.selectedCellIndexPath == indexPath {
-            cell.backgroundColor = self.selectedColor
-            cell.wasSelected()
+            cell.select()
+            
         }
         let cornerRadius = 30.0
         cell.layer.cornerRadius = cornerRadius

@@ -24,9 +24,10 @@ class ShopCollectionViewCell: UICollectionViewCell {
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     /// цвет, применяемый, когда ячейка выбрана
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
-    /// рамка, которая появляется, когда ячейка выбрана
-    private var borderLayer: CAShapeLayer?
+    /// цвет рамки, которая появляется, когда мы выбираем ячейку
     private let borderColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
+    /// размер рамки, которая появляется, когда мы выбираем рамку
+    private var borderWidth: CGFloat = 0.0
     /// замена инициализатору
     func setup(with data: ShopCellData) {
         self.backgroundColor = data.color
@@ -40,6 +41,8 @@ class ShopCollectionViewCell: UICollectionViewCell {
         self.priceLabel.layer.shadowRadius = 0.0
         self.priceLabel.clipsToBounds = false
         
+        // считаем размер рамки (появляется, когда мы выбираем скин)
+        self.borderWidth = CGFloat(self.bounds.width/12.5)
         
         self.imageView.image = data.image
         self.imageView.contentMode = .scaleAspectFit
@@ -57,28 +60,39 @@ class ShopCollectionViewCell: UICollectionViewCell {
         }
         self.selectionViewPropertyAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
         
-        let borderLayer = CAShapeLayer()
-        borderLayer.path = UIBezierPath(roundedRect: self.bounds, cornerRadius: 30).cgPath
-        borderLayer.fillColor = UIColor.clear.cgColor
-        borderLayer.strokeColor = self.borderColor.withAlphaComponent(0.0).cgColor
-        borderLayer.lineWidth = 20
-        borderLayer.contentsCenter = CGRect(x: self.center.x,
-                                            y: self.center.y,
-                                            width: self.frame.width,
-                                            height: self.frame.height)
-        self.borderLayer = borderLayer
-        self.layer.addSublayer(borderLayer)
+        self.clipsToBounds = false
+        self.layer.shadowOpacity = 0.0
+        self.layer.shadowColor = #colorLiteral(red: 0.1557792425, green: 0.5071008801, blue: 0.2520245314, alpha: 0.5)
+        self.layer.shadowRadius = self.bounds.width/15
+        self.layer.shadowOffset = CGSize(width: self.bounds.width/10,
+                                         height: self.bounds.height/14)
         
     }
+    // так как мы используем reusable cells то мы должны обнулять
+    // некоторые косметические параметры для избежания багов
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.selectionViewPropertyAnimator = nil
+        self.viewPropertyAnimator = nil
+        self.imageView.image = UIImage()
+        
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.borderWidth = 0.0
+        self.layer.shadowOpacity = 0.0
+    }
     func select() {
-        self.borderLayer?.strokeColor = self.borderColor.cgColor
+        self.layer.borderColor = self.borderColor.cgColor
         self.backgroundColor = self.selectedColor
+        self.layer.shadowOpacity = 1.0
+        self.layer.borderWidth = self.bounds.width/12.5
     }
     func wasSelected() {
         self.selectionViewPropertyAnimator?.addAnimations {
             self.backgroundColor = self.selectedColor
             self.transform = CGAffineTransform.identity.scaledBy(x: 1.2, y: 1.2)
-            self.borderLayer?.strokeColor = self.borderColor.cgColor
+            self.layer.borderColor = self.borderColor.cgColor
+            self.layer.borderWidth = self.borderWidth
+            self.layer.shadowOpacity = 1.0
         }
         self.selectionViewPropertyAnimator?.addAnimations({
             self.transform = CGAffineTransform.identity
@@ -94,7 +108,9 @@ class ShopCollectionViewCell: UICollectionViewCell {
                 self.backgroundColor = self.unselectedColor
             }
             self.transform = CGAffineTransform.identity
-            self.borderLayer?.strokeColor = self.borderColor.withAlphaComponent(0.0).cgColor
+            self.layer.borderColor = UIColor.clear.cgColor
+            self.layer.borderWidth = 0.0
+            self.layer.shadowOpacity = 0.0
         }
         self.viewPropertyAnimator?.startAnimation()
     }
@@ -103,7 +119,9 @@ class ShopCollectionViewCell: UICollectionViewCell {
         self.viewPropertyAnimator?.addAnimations {
             self.backgroundColor = self.selectedColor
             self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
-            self.borderLayer?.strokeColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
+            self.layer.borderColor = self.borderColor.cgColor
+            self.layer.borderWidth = self.borderWidth
+            self.layer.shadowOpacity = 1.0
         }
         self.viewPropertyAnimator?.startAnimation()
     }

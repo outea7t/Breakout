@@ -22,7 +22,7 @@ class MenuViewController: UIViewController {
     
     @IBOutlet weak var arButton: UIButton!
     // количество денег игрока
-    @IBOutlet weak var amountOfMoney: UILabel!
+    @IBOutlet weak var userMoney: UILabel!
     // задний фон из райва
     let backgroundView = RiveView()
     let backgroundViewModel = RiveViewModel(fileName: "background")
@@ -136,7 +136,7 @@ class MenuViewController: UIViewController {
         super.viewWillAppear(animated)
         self.menuScene?.unpauseMenu()
         
-        self.amountOfMoney.text = "\(GameCurrency.userMoney)"
+        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
     }
     
     override var prefersStatusBarHidden: Bool {

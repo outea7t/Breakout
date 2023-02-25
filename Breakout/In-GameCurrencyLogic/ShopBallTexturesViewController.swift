@@ -8,7 +8,6 @@
 import UIKit
 
 class ShopBallTexturesViewController: UIViewController {
-
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -83,14 +82,14 @@ class ShopBallTexturesViewController: UIViewController {
         
         UserCustomization.maxBallSkinIndex = ballCellData.count
 
-        
+        self.collectionView.isPrefetchingEnabled = false
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
         longPressGesture.minimumPressDuration = 0.4
         longPressGesture.numberOfTouchesRequired = 1
         self.collectionView.addGestureRecognizer(longPressGesture)
         
-        // скргуляем углы кнопки
+        // настраиваем кнопку назад
         self.backButton.layer.shadowOpacity = 1.0
         self.backButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.2737697661, blue: 0.1170392856, alpha: 1)
         self.backButton.layer.shadowOffset = CGSize(width: self.backButton.frame.width/25,
@@ -127,9 +126,9 @@ class ShopBallTexturesViewController: UIViewController {
         
         switch gesture.state {
         case .began:
+            
             print("almost began for - \(targetIndexPath.item)")
-            
-            
+            // находим нажатую ячейку
             if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell {
                 
                 if !self.doesBuyedItemsContains(item: targetIndexPath) &&
@@ -140,7 +139,7 @@ class ShopBallTexturesViewController: UIViewController {
                     UserCustomization.buyedBallSkinIndexes += [targetIndexPath.item]
                     UserCustomization.ballSkinIndex = self.selectedCellIndexPath.item
                     GameCurrency.userMoney -= UInt(cell.price)
-                    self.userMoneyLabel.text = "\(GameCurrency.userMoney)"
+                    self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
                     HapticManager.notificationVibrate(for: .success)
                 } else if GameCurrency.userMoney < cell.price {
                     HapticManager.notificationVibrate(for: .error)
@@ -170,7 +169,7 @@ class ShopBallTexturesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userMoneyLabel.text = "\(GameCurrency.userMoney)"
+        self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -192,6 +191,7 @@ class ShopBallTexturesViewController: UIViewController {
         
         return doesContain
     }
+    
 }
 
 // сколько чего и как создавать
@@ -207,32 +207,31 @@ extension ShopBallTexturesViewController: UICollectionViewDataSource {
     
     // какие ячейки создавать
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! ShopCollectionViewCell
         
         
-        cell.setup(with: self.ballCellData[indexPath.item])
-        
-        if !UserCustomization.buyedBallSkinIndexes.isEmpty {
+        cell.setup(with: self.ballCellData[indexPath.row])
+        cell.layer.borderWidth = 0
             
-            if self.doesBuyedItemsContains(item: indexPath) {
-                cell.priceLabel.text = ""
-                cell.backgroundColor = self.buyedColor
-            }
+        if self.doesBuyedItemsContains(item: indexPath) {
+            cell.priceLabel.text = ""
+            cell.backgroundColor = self.buyedColor
             
-            let selectedItem = UserCustomization.ballSkinIndex
-            let idOfCell = cell.id
-            if selectedItem == idOfCell {
-                print("selected - \(selectedItem)")
-//                cell.select()
-            }
         }
+        if self.selectedCellIndexPath == indexPath {
+            cell.select()
+            
+        }
+        
         let cornerRadius = 30.0
         cell.layer.cornerRadius = cornerRadius
-        
         return cell
         
     }
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+       
+    }
+    
 }
 // как располагать ячейки в collectionView
 extension ShopBallTexturesViewController: UICollectionViewDelegateFlowLayout {
@@ -251,6 +250,7 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
             if self.doesBuyedItemsContains(item: indexPath) {
                 if self.selectedCellIndexPath != indexPath {
                     self.selectedCellIndexPath = indexPath
+                    print("wasSelected")
                     cell.wasSelected()
                 }
             }
@@ -261,6 +261,7 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
             if !self.doesBuyedItemsContains(item: indexPath) {
+                print("touchDOwn")
                 cell.touchDown()
             }
         }
@@ -270,6 +271,7 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
             if self.selectedCellIndexPath != indexPath {
+                print("wasUnselected")
                 let isBuyed = self.doesBuyedItemsContains(item: indexPath)
                 cell.wasUnselected(isBuyed: isBuyed)
                 cell.resizeToIdentity()
