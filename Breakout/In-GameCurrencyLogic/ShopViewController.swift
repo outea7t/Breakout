@@ -20,7 +20,7 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
         self.selectedIndex = 0
         
         
-        let barTintColor = #colorLiteral(red: 0.08235294118, green: 0.1137254902, blue: 0.2392156863, alpha: 0.5)
+        let barTintColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 0.3)
         let imageTintColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
         
         if #available(iOS 15, *) {
@@ -35,7 +35,6 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
             self.tabBar.tintColor = imageTintColor
          }
         self.tabBar.isTranslucent = true
-        
         self.tabBar.layer.cornerRadius = 40
         
         self.tabBar.layer.masksToBounds = true

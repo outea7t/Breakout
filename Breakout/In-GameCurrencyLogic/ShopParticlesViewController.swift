@@ -43,7 +43,7 @@ class ShopParticlesTextureViewController: UIViewController {
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
         // отступы от конкретных граней
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 10, right: 30)
+        layout.sectionInset = UIEdgeInsets(top: 30, left: 30, bottom: 10, right: 30)
         
         
         self.collectionView.collectionViewLayout = layout
@@ -56,14 +56,27 @@ class ShopParticlesTextureViewController: UIViewController {
         let image4 = UIImage(named: "Particle-4")!
         let image5 = UIImage(named: "Particle-5")!
         let image6 = UIImage(named: "Particle-6")!
+        let image7 = UIImage(named: "Particle-7")!
+        let image8 = UIImage(named: "Particle-8")!
+        let image9 = UIImage(named: "Particle-9")!
+        let image10 = UIImage(named: "Particle-10")!
+        let image11 = UIImage(named: "Particle-11")!
+        let image12 = UIImage(named: "Particle-12")!
+        
         let color = self.unselectedColor
         self.particlesCellData = [
-            ShopCellData(image: image1, price: 10, color: color, id: 0),
-            ShopCellData(image: image2, price: 20, color: color, id: 1),
-            ShopCellData(image: image3, price: 30, color: color, id: 2),
-            ShopCellData(image: image4, price: 40, color: color, id: 3),
-            ShopCellData(image: image5, price: 50, color: color, id: 4),
-            ShopCellData(image: image6, price: 60, color: color, id: 5),
+              ShopCellData(image: image1, price: 10, color: color, id: 0),
+              ShopCellData(image: image2, price: 20, color: color, id: 1),
+              ShopCellData(image: image3, price: 30, color: color, id: 2),
+              ShopCellData(image: image4, price: 40, color: color, id: 3),
+              ShopCellData(image: image5, price: 50, color: color, id: 4),
+              ShopCellData(image: image6, price: 60, color: color, id: 5),
+              ShopCellData(image: image7, price: 70, color: color, id: 6),
+              ShopCellData(image: image8, price: 80, color: color, id: 7),
+              ShopCellData(image: image9, price: 90, color: color, id: 8),
+              ShopCellData(image: image10, price: 100, color: color, id: 9),
+              ShopCellData(image: image11, price: 110, color: color, id: 10),
+              ShopCellData(image: image12, price: 120, color: color, id: 11),
         ]
         UserCustomization.maxParticleSkinIndex = particlesCellData.count
         

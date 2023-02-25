@@ -16,7 +16,7 @@ enum BonusType2D: Int {
     case slowerPaddle
     case rotation
 }
-class Bonus2D {
+struct Bonus2D {
     var bonus: SKShapeNode
     var type: BonusType2D
     var color: UIColor

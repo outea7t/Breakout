@@ -18,7 +18,7 @@ import UIKit
 // возможно еще на ракетку(но с этим у меня пока что мало идей)
 
 struct GameCurrency {
-    static var userMoney: UInt = 1000
+    static var userMoney: UInt = 10000
     
     // чтобы нельзя было инициализировать элементы данного класса
     private init() {

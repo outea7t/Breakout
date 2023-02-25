@@ -45,11 +45,12 @@ class ShopBallTexturesViewController: UIViewController {
         layout.minimumLineSpacing = 12
         layout.minimumInteritemSpacing = 12
         // отступы от конкретных граней
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 30, bottom: 10, right: 30)
+        layout.sectionInset = UIEdgeInsets(top: 30, left: 30, bottom: 10, right: 30)
         
         
         self.collectionView.collectionViewLayout = layout
         
+        // force-unwrapping, потому что я точно знаю, что эти картинки существуют в assets
         // настраиваем информацию о ячейках
         let image1 = UIImage(named: "Ball-1")!
         let image2 = UIImage(named: "Ball-2")!
@@ -57,14 +58,27 @@ class ShopBallTexturesViewController: UIViewController {
         let image4 = UIImage(named: "Ball-4")!
         let image5 = UIImage(named: "Ball-5")!
         let image6 = UIImage(named: "Ball-6")!
+        let image7 = UIImage(named: "Ball-7")!
+        let image8 = UIImage(named: "Ball-8")!
+        let image9 = UIImage(named: "Ball-9")!
+        let image10 = UIImage(named: "Ball-10")!
+        let image11 = UIImage(named: "Ball-11")!
+        let image12 = UIImage(named: "Ball-12")!
         
         let color = self.unselectedColor
-        self.ballCellData = [ShopCellData(image: image1, price: 10, color: color, id: 0),
-                             ShopCellData(image: image2, price: 20, color: color, id: 1),
-                             ShopCellData(image: image3, price: 30, color: color, id: 2),
-                             ShopCellData(image: image4, price: 40, color: color, id: 3),
-                             ShopCellData(image: image5, price: 50, color: color, id: 4),
-                             ShopCellData(image: image6, price: 60, color: color, id: 5),
+        self.ballCellData = [
+             ShopCellData(image: image1, price: 10, color: color, id: 0),
+             ShopCellData(image: image2, price: 20, color: color, id: 1),
+             ShopCellData(image: image3, price: 30, color: color, id: 2),
+             ShopCellData(image: image4, price: 40, color: color, id: 3),
+             ShopCellData(image: image5, price: 50, color: color, id: 4),
+             ShopCellData(image: image6, price: 60, color: color, id: 5),
+             ShopCellData(image: image7, price: 70, color: color, id: 6),
+             ShopCellData(image: image8, price: 80, color: color, id: 7),
+             ShopCellData(image: image9, price: 90, color: color, id: 8),
+             ShopCellData(image: image10, price: 100, color: color, id: 9),
+             ShopCellData(image: image11, price: 110, color: color, id: 10),
+             ShopCellData(image: image12, price: 120, color: color, id: 11),
         ]
         
         UserCustomization.maxBallSkinIndex = ballCellData.count
@@ -77,7 +91,12 @@ class ShopBallTexturesViewController: UIViewController {
         self.collectionView.addGestureRecognizer(longPressGesture)
         
         // скргуляем углы кнопки
-        self.backButton.layer.cornerRadius = 10
+        self.backButton.layer.shadowOpacity = 1.0
+        self.backButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.2737697661, blue: 0.1170392856, alpha: 1)
+        self.backButton.layer.shadowOffset = CGSize(width: self.backButton.frame.width/25,
+                                                    height: self.backButton.frame.height/14)
+        self.backButton.layer.shadowRadius = 0
+        
         super.viewDidLoad()
         // настраиваем верхнее меню
         self.headerTopView.layer.cornerRadius = 20.0
@@ -191,14 +210,22 @@ extension ShopBallTexturesViewController: UICollectionViewDataSource {
         
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! ShopCollectionViewCell
         
+        
         cell.setup(with: self.ballCellData[indexPath.item])
-        if self.doesBuyedItemsContains(item: indexPath) {
-            print("contains - \(indexPath.item)")
-            cell.priceLabel.text = ""
-            cell.backgroundColor = self.buyedColor
-        }
-        if self.selectedCellIndexPath == indexPath {
-            cell.select()
+        
+        if !UserCustomization.buyedBallSkinIndexes.isEmpty {
+            
+            if self.doesBuyedItemsContains(item: indexPath) {
+                cell.priceLabel.text = ""
+                cell.backgroundColor = self.buyedColor
+            }
+            
+            let selectedItem = UserCustomization.ballSkinIndex
+            let idOfCell = cell.id
+            if selectedItem == idOfCell {
+                print("selected - \(selectedItem)")
+//                cell.select()
+            }
         }
         let cornerRadius = 30.0
         cell.layer.cornerRadius = cornerRadius

@@ -14,7 +14,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var priceLabel: UILabel!
     /// цена
     var price: Int = 0
-    
+    var id: Int = -1
     /// для анимирования размера и цвета ячейки
     private var viewPropertyAnimator: UIViewPropertyAnimator?
     private var selectionViewPropertyAnimator: UIViewPropertyAnimator?
@@ -30,7 +30,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
     /// замена инициализатору
     func setup(with data: ShopCellData) {
         self.backgroundColor = data.color
-        
+        self.id = data.id
         self.priceLabel.text = "\(data.price)"
         self.price = data.price
         self.priceLabel.layer.shadowOpacity = 1.0
@@ -44,10 +44,10 @@ class ShopCollectionViewCell: UICollectionViewCell {
         self.imageView.image = data.image
         self.imageView.contentMode = .scaleAspectFit
         self.imageView.layer.shadowOpacity = 0.85
-        self.imageView.layer.shadowColor = #colorLiteral(red: 0.111650534, green: 0.2205740809, blue: 0.3467395008, alpha: 0.598794495)
-        self.imageView.layer.shadowOffset = CGSize(width: self.imageView.bounds.width/12.5,
-                                                   height: self.imageView.bounds.height/12.5)
-        self.imageView.layer.shadowRadius = 0
+        self.imageView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.598794495)
+        self.imageView.layer.shadowOffset = CGSize(width: self.imageView.bounds.width/15.5,
+                                                   height: self.imageView.bounds.height/15.5)
+        self.imageView.layer.shadowRadius = 5
         
         self.imageView.clipsToBounds = false
         
@@ -85,6 +85,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         }, delayFactor: 0.2)
         self.selectionViewPropertyAnimator?.startAnimation()
     }
+    /// анимация, применяемая к ячейка, когда она перешла из выбранного в невыбранное состояние
     func wasUnselected(isBuyed: Bool) {
         self.viewPropertyAnimator?.addAnimations {
             if isBuyed {
@@ -93,13 +94,11 @@ class ShopCollectionViewCell: UICollectionViewCell {
                 self.backgroundColor = self.unselectedColor
             }
             self.transform = CGAffineTransform.identity
-            if let b = self.borderLayer {
-                print("wasUnselected")
-            }
             self.borderLayer?.strokeColor = self.borderColor.withAlphaComponent(0.0).cgColor
         }
         self.viewPropertyAnimator?.startAnimation()
     }
+    
     func touchDown() {
         self.viewPropertyAnimator?.addAnimations {
             self.backgroundColor = self.selectedColor
@@ -108,6 +107,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
         }
         self.viewPropertyAnimator?.startAnimation()
     }
+    
     func resizeToIdentity() {
         self.viewPropertyAnimator?.addAnimations {
             self.transform = CGAffineTransform.identity
