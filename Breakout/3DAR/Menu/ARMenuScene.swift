@@ -17,7 +17,7 @@ class ARMenuScene: SKScene {
     private var outARAnimatedLabel: AnimatedText?
     
     private var originalColorOfLabel = #colorLiteral(red: 0.03566226363, green: 0.9870653749, blue: 0.0007029015105, alpha: 1)
-    private var colorOfLabelWhileAnimated = #colorLiteral(red: 0.1421280503, green: 0, blue: 1, alpha: 1)
+    private var colorOfLabelWhileAnimated = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
     private var colorOfShadow = #colorLiteral(red: 0.05089633912, green: 0, blue: 0.3513666987, alpha: 1)
     deinit {
         print("ARMenuScene DEINITIALIZED")
@@ -28,34 +28,46 @@ class ARMenuScene: SKScene {
         
         self.backgroundColor = .clear
         
-        self.breakAnimatedLabel = AnimatedText(text: "BREAK",
-                                               color: self.originalColorOfLabel,
-                                               frame: self.frame,
-                                               shouldAnimateShadows: true,
-                                               shadowColor: self.colorOfShadow
-                                               
-        )
+        let b = UIImage(named: "BAR.png")!
+        let r = UIImage(named: "RAR.png")!
+        let e = UIImage(named: "EAR.png")!
+        let a = UIImage(named: "AAR.png")!
+        let k = UIImage(named: "KAR.png")!
+        let o = UIImage(named: "OAR.png")!
+        let u = UIImage(named: "UAR.png")!
+        let t = UIImage(named: "TAR.png")!
+        let A = UIImage(named: "AAR.png")!
+        let R = UIImage(named: "RAR.png")!
+        let exMark = UIImage(named: "!AR.png")!
+        let images_1 = [b,r,e,a,k]
+        let images_2 = [o,u,t,A,R,exMark]
+        
+//        self.breakAnimatedLabel = AnimatedText(text: "BREAK",
+//                                               color: self.originalColorOfLabel,
+//                                               frame: self.frame,
+//                                               shouldAnimateShadows: true,
+//                                               shadowColor: self.colorOfShadow
+        self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: .white)
         self.breakAnimatedLabel?.calculatePosition(for: self.frame.size, offsetY: 2.2)
         
         
-        
-        self.outARAnimatedLabel = AnimatedText(text: "OUT-AR!",
-                                               color: self.originalColorOfLabel,
-                                               frame: self.frame,
-                                               shouldAnimateShadows: true,
-                                               shadowColor: self.colorOfShadow
+//        self.outARAnimatedLabel = AnimatedText(text: "OUT-AR!",
+//                                               color: self.originalColorOfLabel,
+//                                               frame: self.frame,
+//                                               shouldAnimateShadows: true,
+//                                               shadowColor: self.colorOfShadow
                                                
-        )
+        self.outARAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: .white)
         self.outARAnimatedLabel?.calculatePosition(under: self.breakAnimatedLabel!, for: self.frame.size)
         
         if let breakAnimatedLabel = self.breakAnimatedLabel {
-            for letter in breakAnimatedLabel.label {
+            for letter in breakAnimatedLabel.sprites {
                 self.addChild(letter)
             }
         }
         
         if let outARAnimatedLabel = self.outARAnimatedLabel {
-            for letter in outARAnimatedLabel.label {
+            for letter in outARAnimatedLabel.sprites {
                 self.addChild(letter)
             }
         }
@@ -99,19 +111,19 @@ class ARMenuScene: SKScene {
     }
     
     private func touchDownOnLetter(_ touch: UITouch) {
-        if let breakAnimatedLabel = self.breakAnimatedLabel?.label {
+        if let breakAnimatedLabel = self.breakAnimatedLabel?.sprites {
             for letter in breakAnimatedLabel {
                 if letter.contains(touch.location(in: self)) {
-                    self.breakAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                    self.breakAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                 }
             }
         }
         
-        if let outARAnimatedLabel = self.outARAnimatedLabel?.label {
+        if let outARAnimatedLabel = self.outARAnimatedLabel?.sprites {
             for letter in outARAnimatedLabel {
                 if letter.contains(touch.location(in: self)) {
                     if !letter.hasActions() {
-                        self.outARAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                        self.outARAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                     }
                 }
             }
@@ -120,21 +132,21 @@ class ARMenuScene: SKScene {
         
     }
     private func touchProcessOnLetter(_ touch: UITouch) {
-        if let breakAnimatedLabel = self.breakAnimatedLabel?.label {
+        if let breakAnimatedLabel = self.breakAnimatedLabel?.sprites {
             for letter in breakAnimatedLabel {
                 if letter.contains(touch.location(in: self)) {
                     if !letter.hasActions() {
-                        self.breakAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                        self.breakAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                     }
                 }
             }
         }
         
-        if let outARAnimatedLabel = self.outARAnimatedLabel?.label {
+        if let outARAnimatedLabel = self.outARAnimatedLabel?.sprites {
             for letter in outARAnimatedLabel {
                 if letter.contains(touch.location(in: self)) {
                     if !letter.hasActions() {
-                        self.outARAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                        self.outARAnimatedLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                     }
                 }
             }
