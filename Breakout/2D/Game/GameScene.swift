@@ -58,6 +58,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /// массив с бонусами
     private var bonuses = [Bonus2D]()
     // переменные для осуществления эффектов бонуса
+    
     /// множитель скорости для ракетки
     private var paddleSpeedMult = 1.0
     /// замедлена ли ракетка
@@ -407,7 +408,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // убираем эффекты бонусов
         for bonus in bonuses {
             bonus.bonus.removeFromParent()
-
         }
         self.paddleSpeedMult = 1.0
         self.ball?.ball.speed = 1.0

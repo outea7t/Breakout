@@ -20,6 +20,13 @@ struct Ball3D {
     private let plateBitmask:       Int = 0x1 << 6 // 64
     private let bonusBitMask:       Int = 0x1 << 7 // 128
     
+    /// константа, на которую умножается скорость мяча, чтобы она оставалась постоянной
+    var lengthOfBallVelocityConstant: Float = 0.5
+    /// нижняя граница, опустившись ниже которой скорость мяча выравнивается
+    var lowerBorderVelocityTrigger: Float = 0.48
+    /// верхняя граница, превысив которую скорость мяча выравнивается
+    var upperBorderVelocityTrigger: Float = 0.5
+    
     let ball: SCNNode
     let ballRadius: Float
     // переменная, которая контролирует скорость мяча
@@ -83,21 +90,22 @@ struct Ball3D {
                                                   Float(currentBallVelocity.z))
                 
                 let lengthOfOldVelocity = simd_length(simdOldVelocity)
-                if lengthOfOldVelocity > 0.1 {
+                if lengthOfOldVelocity > self.upperBorderVelocityTrigger {
                     let newBallVelocity = SCNVector3(
-                        normalizedVelocity.x * 0.5 * 0.9,
+                        normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
                         0.0,
-                        normalizedVelocity.y * 0.5 * 0.9)
+                        normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
                     self.ball.physicsBody?.velocity = newBallVelocity
-                } else if lengthOfOldVelocity < 0.08 {
+                } else if lengthOfOldVelocity < self.lowerBorderVelocityTrigger {
                     let newBallVelocity = SCNVector3(
-                        normalizedVelocity.x * 0.5 * 0.9,
+                        normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
                         0.0,
-                        normalizedVelocity.y * 0.5 * 0.9)
+                        normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
                     self.ball.physicsBody?.velocity = newBallVelocity
                 }
             }
         }
+        // старый алгоритм обновления скорости мяча
         // иначе обновляем скорость мяча
 //        else {
 //            if let v = self.ball.physicsBody?.velocity {

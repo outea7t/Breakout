@@ -49,14 +49,37 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     private var particle: Particle3D?
     private var lastTime = TimeInterval()
     private var trajectoryLine: TrajectoryLine3D?
+    
     // текущий уровень
     var currentLevel: Level3D?
     var isPaused = false
+    
     // логика движения ракетки
     /// место, где игрок нажал на экран
     private var startTouchPosition = CGPoint()
     /// место, где игрок перестал нажимать на экран
     private var lastTouchPosition = CGPoint()
+    
+    // логика бонусов
+    /// массив с текущими бонусами
+    private var bonuses = [Bonus3D]()
+    /// множитель скорости для ракетки
+    private var paddleSpeedMult = 1.0
+    /// замедлена ли ракетка
+    private var isPaddleSlowed = false
+    /// длительность эффекта замедленной ракетки
+    private var paddleSlowedDuration = 10.0
+    /// множитель скорости для мяча
+    private var ballSpeedMult = 1.3
+    /// ускорен ли мяч
+    private var isBallSpeeded = false
+    /// длительность эффекта ускорения для мяча
+    private var ballSpeededDuration = 10.0
+    /// длительность "перевернутости" рамки с игрой
+    private var rotationDuration = 10.0
+    /// перевернута ли рамка с игрой
+    private var isRotated = false
+    
     // для логики обнаружения плоскости
     /// нужно ли обнаруживать плоскость
     var wantDetectPlane = true
@@ -110,7 +133,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем debug опции
-        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showPhysicsShapes]
+        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents]
         
         // устанавливаем делегат для AR
         self.gameSceneView.delegate = self
@@ -154,23 +177,46 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     @objc func rotationGesture(_ gesture: UIRotationGestureRecognizer) {
         
-        switch gesture.state {
-        case .began:
-            let rotation = gesture.rotation/20
-            let rotateAction = SCNAction.rotate(by: rotation, around: SCNVector3(x: 0, y: 1, z: 0), duration: 0.0001)
-            self.frame?.plate.runAction(rotateAction)
-        case .changed:
-            let rotation = gesture.rotation/20
-            let rotateAction = SCNAction.rotate(by: rotation, around: SCNVector3(x: 0, y: 1, z: 0), duration: 0.0001)
-            self.frame?.plate.runAction(rotateAction)
-        case .cancelled:
-            break
-        case .ended:
-            break
-        case .failed:
-            break
-        case .possible:
-            break
+        // чтобы пользователь не мог обратно перевернуть рамку во время эффекта разворота
+        if !self.isRotated {
+            switch gesture.state {
+            case .began:
+                let rotation = gesture.rotation/20
+                self.rotateScene(rotation)
+            case .changed:
+                let rotation = gesture.rotation/20
+                self.rotateScene(rotation)
+            case .cancelled:
+                break
+            case .ended:
+                break
+            case .failed:
+                break
+            case .possible:
+                break
+            }
+        }
+    }
+    private func rotateScene(_ angle: CGFloat) {
+//        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: 0.0001)
+        if !self.isRotated {
+            let quanterion = SCNQuaternion(0.0, angle, 0.0, angle)
+            self.frame?.plate.localRotate(by: quanterion)
+            
+            self.frame?.frontWall.localRotate(by: quanterion)
+            self.frame?.bottomWall.localRotate(by: quanterion)
+            self.frame?.leftSideWall.localRotate(by: quanterion)
+            self.frame?.rightSideWall.localRotate(by: quanterion)
+            
+            if let currentLevel = self.currentLevel {
+                for brick in currentLevel.bricks {
+                    if !brick.isDestroyed {
+                        brick.brick.localRotate(by: quanterion)
+                    }
+                }
+            }
+            
+            self.paddle?.paddle.localRotate(by: quanterion)
         }
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -284,10 +330,10 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 self.ball?.update(paddle: paddle)
                 self.paddle?.update(frame: frame, isBallAttachedToPaddle: ball.isAttachedToPaddle)
                 
-//                if currentTime - self.lastTime > 1.0/14.0 {
-//                    self.particle?.addParticle(to: ball, frame: frame)
-//                    self.lastTime = currentTime
-//                }
+                if currentTime - self.lastTime > 1.0/14.0 {
+                    self.particle?.addParticle(to: ball, frame: frame)
+                    self.lastTime = currentTime
+                }
                 
             }
         }
@@ -354,56 +400,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                         
                     }
                 }
-                let hitlist = self.gameSceneView.hitTest(location, options: nil)
-                for result in hitlist {
-                    let resultNode = result.node
-                    let duration = 0.6
-                    if resultNode.name == "brick" {
-                        let resizeAction = SCNAction.sequence([
-                            SCNAction.scale(by: 0.5, duration: duration-0.1),
-                            SCNAction.scale(by: 1/0.5, duration: duration-0.1)
-                        ])
-                        let rotateAction = SCNAction.rotate(by: 2*Double.pi, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration+0.1)
-                        
-                        
-                        let color1 = SCNVector3(x: 48/255, y: 62/255, z: 255/255)
-                        let color2 = SCNVector3(x: 133/255, y: 237/255, z: 255/255)
-                        let action1 = { (node: SCNNode, time: CGFloat) -> Void in
-                            let percentage1 = time / (duration-0.1)
-                            let percentage2 = 1 - time / (duration-0.1)
-                            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: CGFloat(color1.x)*percentage1 +
-                                                                                          CGFloat(color2.x)*percentage2,
-                                                                                          green: CGFloat(color1.y)*percentage1 + CGFloat(color2.y)*percentage2,
-                                                                                          blue: CGFloat(color1.z)*percentage1 + CGFloat(color2.z)*percentage2,
-                                                                                          alpha: 1.0)
-                            
-                        }
-                        
-                        let action2 = { (node: SCNNode, time: CGFloat) -> Void in
-                            let percentage1 = 1 - time / (duration-0.1)
-                            let percentage2 = time / (duration-0.1)
-                            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: CGFloat(color1.x)*percentage1 + CGFloat(color2.x)*percentage2,
-                                                                                          green: CGFloat(color1.y)*percentage1 + CGFloat(color2.y)*percentage2,
-                                                                                          blue: CGFloat(color1.z)*percentage1 + CGFloat(color2.z)*percentage2,
-                                                                                          alpha: 1.0)
-                        }
-                        let customAction1 = SCNAction.customAction(duration: duration-0.1, action: action1)
-                        customAction1.timingMode = SCNActionTimingMode.linear
-                        
-                        let customAction2 = SCNAction.customAction(duration: duration-0.1, action: action2)
-                        
-                        let colorizeAction = SCNAction.sequence([
-                            customAction1,
-                            customAction2
-                        ])
-                        
-                        result.node.runAction(SCNAction.group([
-                            resizeAction,
-                            colorizeAction,
-                            rotateAction
-                        ]))
-                    }
-                }
+                
             }
         }
     }
@@ -479,12 +476,35 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             if result == self.brickBitmask | self.ballBitmask {
                 if nodeA == self.brickBitmask {
                     self.currentLevel?.collisionHappened(brickNode: contact.nodeA)
+                    let brickNode = contact.nodeA
+                    
+                    let bonusPosition = SCNVector3(x: brickNode.position.x,
+                                                   y: 0.03,
+                                                   z: brickNode.position.z + 0.05)
+                    if let frame = self.frame {
+                        let bonus = Bonus3D(frame: frame, position: bonusPosition)
+                        if bonus.tryToAdd(to: frame) {
+                            self.bonuses.append(bonus)
+                        }
+                    }
                 } else {
                     self.currentLevel?.collisionHappened(brickNode: contact.nodeB)
+                    let brickNode = contact.nodeB
+                    
+                    let bonusPosition = SCNVector3(x: brickNode.position.x,
+                                                   y: 0.03,
+                                                   z: brickNode.position.z + 0.05)
+                    if let frame = self.frame {
+                        let bonus = Bonus3D(frame: frame, position: bonusPosition)
+                        if bonus.tryToAdd(to: frame) {
+                            self.bonuses.append(bonus)
+                        }
+                    }
                 }
                 
                 HapticManager.collisionVibrate(with: .light, 0.5)
-            } else if result == self.paddleBitmask | self.ballBitmask {
+            }
+            else if result == self.paddleBitmask | self.ballBitmask {
                 HapticManager.collisionVibrate(with: .light, 0.9)
                 // логика высчитывания угла наклона при столкновении с ракеткой
                 if let paddle = self.paddle, let ball = self.ball {
@@ -532,9 +552,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                     }
                 }
                 
-            } else if result == self.ballBitmask | frameBitmask {
+            }
+            else if result == self.ballBitmask | frameBitmask {
                 HapticManager.collisionVibrate(with: .light, 0.7)
-            } else if result == self.ballBitmask | self.bottomBitMask {
+            }
+            else if result == self.ballBitmask | self.bottomBitMask {
                 if self.lives - 1 > 0 {
                     HapticManager.collisionVibrate(with: .heavy, 1.0)
                 }
@@ -558,7 +580,50 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                     }
                 }
             }
-            
+            else if result == self.bonusBitMask | self.paddleBitmask {
+                if nodeA == bonusBitMask {
+                    let bonusNode = contact.nodeA
+                    for (i,bonus) in self.bonuses.enumerated() {
+                        if bonus.bonus === bonusNode {
+                            print("removed")
+                            // логика взаимодействия с бонусом ...
+                            self.applyBonusEffectOnGame(type: bonus.type)
+                            bonus.remove()
+                            self.bonuses.remove(at: i)
+                        }
+                    }
+                } else {
+                    let bonusNode = contact.nodeB
+                    for (i,bonus) in self.bonuses.enumerated() {
+                        if bonus.bonus === bonusNode {
+                            print("removed")
+                            // логика взаимодействия с бонусом ...
+                            self.applyBonusEffectOnGame(type: bonus.type)
+                            bonus.remove()
+                            self.bonuses.remove(at: i)
+                        }
+                    }
+                }
+            }
+            else if result == self.bonusBitMask | self.bottomBitMask {
+                if nodeA == self.bonusBitMask {
+                    let bonuseNode = contact.nodeA
+                    for (i,bonus) in self.bonuses.enumerated() {
+                        if bonus.bonus === bonuseNode {
+                            bonus.remove()
+                            self.bonuses.remove(at: i)
+                        }
+                    }
+                } else {
+                    let bonuseNode = contact.nodeB
+                    for (i,bonus) in self.bonuses.enumerated() {
+                        if bonus.bonus === bonuseNode {
+                            bonus.remove()
+                            self.bonuses.remove(at: i)
+                        }
+                    }
+                }
+            }
             let isAllBricksDeleted = self.currentLevel?.deleteDestroyedBricks() ?? false
             if  isAllBricksDeleted {
                 // переходы из одного контролера в другой должны выполняться в главном потоке
@@ -576,7 +641,73 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             }
         }
     }
-    
+    private func applyBonusEffectOnGame(type: BonusType3D) {
+        switch type {
+        case .rotate:
+            if !self.isRotated {
+                self.isRotated = true
+                self.rotateFrame()
+            }
+        case .decreaseSpeedOfPaddle:
+            if !self.isPaddleSlowed {
+                self.isPaddleSlowed = true
+                self.decreaseSpeedOfPaddle()
+            }
+        case .increaseBallSpeed:
+            if !self.isBallSpeeded {
+                self.isBallSpeeded = true
+                self.increaseBallSpeed()
+            }
+        case .addLive:
+            self.addLive()
+        case .maxValue:
+            break
+        }
+    }
+    private func rotateFrame() {
+        if let plate = self.frame?.plate {
+            
+            let waitAction = SCNAction.wait(duration: self.rotationDuration)
+            self.rotateScene(CGFloat.pi/20.0)
+            plate.runAction(waitAction) {
+                self.rotateScene(CGFloat.pi/20.0)
+                self.isRotated = false
+            }
+        }
+    }
+    private func decreaseSpeedOfPaddle() {
+        if let plate = self.frame?.plate {
+            self.paddleSpeedMult = 0.6
+            
+            let waitAction = SCNAction.wait(duration: self.paddleSlowedDuration)
+            plate.runAction(waitAction) {
+                self.paddleSpeedMult = 1.0
+                self.isPaddleSlowed = false
+            }
+        }
+    }
+    private func increaseBallSpeed() {
+        if let plate = self.frame?.plate, let ball = self.ball {
+            let upperBorder = ball.upperBorderVelocityTrigger
+            let lowerBorder = ball.lowerBorderVelocityTrigger
+            let lengthConstant = ball.lengthOfBallVelocityConstant
+            
+            self.ball?.upperBorderVelocityTrigger = upperBorder + upperBorder*1.3
+            self.ball?.lowerBorderVelocityTrigger = lowerBorder + lowerBorder*1.3
+            self.ball?.lengthOfBallVelocityConstant = lengthConstant * 1.3
+            
+            let waitAction = SCNAction.wait(duration: self.ballSpeededDuration)
+            plate.runAction(waitAction) {
+                self.ball?.upperBorderVelocityTrigger = upperBorder
+                self.ball?.lowerBorderVelocityTrigger = lowerBorder
+                self.ball?.lengthOfBallVelocityConstant = lengthConstant
+                self.isBallSpeeded = false
+            }
+        }
+    }
+    private func addLive() {
+        self.lives += 1
+    }
     
     @IBAction func pauseButtonPressed(_ sender: UIButton) {
         self.pauseGame()
@@ -753,3 +884,54 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     
 }
+
+// let hitlist = self.gameSceneView.hitTest(location, options: nil)
+//for result in hitlist {
+//    let resultNode = result.node
+//    let duration = 0.6
+//    if resultNode.name == "brick" {
+//        let resizeAction = SCNAction.sequence([
+//            SCNAction.scale(by: 0.5, duration: duration-0.1),
+//            SCNAction.scale(by: 1/0.5, duration: duration-0.1)
+//        ])
+//        let rotateAction = SCNAction.rotate(by: 2*Double.pi, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration+0.1)
+//
+//
+//        let color1 = SCNVector3(x: 48/255, y: 62/255, z: 255/255)
+//        let color2 = SCNVector3(x: 133/255, y: 237/255, z: 255/255)
+//        let action1 = { (node: SCNNode, time: CGFloat) -> Void in
+//            let percentage1 = time / (duration-0.1)
+//            let percentage2 = 1 - time / (duration-0.1)
+//            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: CGFloat(color1.x)*percentage1 +
+//                                                                          CGFloat(color2.x)*percentage2,
+//                                                                          green: CGFloat(color1.y)*percentage1 + CGFloat(color2.y)*percentage2,
+//                                                                          blue: CGFloat(color1.z)*percentage1 + CGFloat(color2.z)*percentage2,
+//                                                                          alpha: 1.0)
+//
+//        }
+//
+//        let action2 = { (node: SCNNode, time: CGFloat) -> Void in
+//            let percentage1 = 1 - time / (duration-0.1)
+//            let percentage2 = time / (duration-0.1)
+//            node.geometry?.firstMaterial?.diffuse.contents = UIColor.init(red: CGFloat(color1.x)*percentage1 + CGFloat(color2.x)*percentage2,
+//                                                                          green: CGFloat(color1.y)*percentage1 + CGFloat(color2.y)*percentage2,
+//                                                                          blue: CGFloat(color1.z)*percentage1 + CGFloat(color2.z)*percentage2,
+//                                                                          alpha: 1.0)
+//        }
+//        let customAction1 = SCNAction.customAction(duration: duration-0.1, action: action1)
+//        customAction1.timingMode = SCNActionTimingMode.linear
+//
+//        let customAction2 = SCNAction.customAction(duration: duration-0.1, action: action2)
+//
+//        let colorizeAction = SCNAction.sequence([
+//            customAction1,
+//            customAction2
+//        ])
+//
+//        result.node.runAction(SCNAction.group([
+//            resizeAction,
+//            colorizeAction,
+//            rotateAction
+//        ]))
+//    }
+//}
