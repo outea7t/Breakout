@@ -72,19 +72,21 @@ class EndGameScene: SKScene {
             SKAction.removeFromParent()
         ]))
         
-        
+        print("USUAL")
         // настраиваем анимированный текст
         self.gameWinLabel = AnimatedText(text: "WIN!",
                                          color: .init(red: 0, green: 1, blue: 0, alpha: 1),
                                          frame: self.frame,shouldAnimateShadows: false,
-                                         preferBiggerSize: true)
-        self.gameWinLabel?.calculatePosition(for: self.frame.size)
+                                         sizeConstant: 130)
+        
+        self.gameWinLabel?.calculatePosition(for: self.frame.size, offsetY: 2.1)
         
         self.gameLoseLabel = AnimatedText(text: "LOSE!",
                                           color: .init(red: 1, green: 0, blue: 0, alpha: 1),
                                           frame: self.frame, shouldAnimateShadows: false,
-                                          preferBiggerSize: true)
-        self.gameLoseLabel?.calculatePosition(for: self.frame.size)
+                                          sizeConstant: 120)
+        
+        self.gameLoseLabel?.calculatePosition(for: self.frame.size, offsetY: 2.5)
         
         if let gameWinLabel = gameWinLabel {
             for letter in gameWinLabel.label {

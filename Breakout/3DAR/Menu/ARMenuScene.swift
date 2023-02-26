@@ -35,7 +35,7 @@ class ARMenuScene: SKScene {
                                                shadowColor: self.colorOfShadow
                                                
         )
-        self.breakAnimatedLabel?.calculatePosition(for: self.frame.size)
+        self.breakAnimatedLabel?.calculatePosition(for: self.frame.size, offsetY: 2.2)
         
         
         

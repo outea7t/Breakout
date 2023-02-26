@@ -152,7 +152,6 @@ extension LevelsMenuViewColntroller: UICollectionViewDelegateFlowLayout {
         
         let size = CGSize(width: self.view.frame.width/2.5,
                           height: self.view.frame.width/2.5)
-        print(size)
         return size
     }
 }
@@ -172,12 +171,9 @@ extension LevelsMenuViewColntroller: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        
-
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        
     }
     
 }

@@ -27,7 +27,7 @@ struct TrajectoryLine3D {
     /// точки, отображающие траекторию, которую проделал мяч
     private var trajectoryPoints = [SCNVector3]()
 
-    // битовые маски (для логики столкновений)
+    // битовые маски объектов в игре
     private let paddleBitmask:      Int = 0x1 << 0 // 1
     private let ballBitmask:        Int = 0x1 << 1 // 2
     private let frameBitmask:       Int = 0x1 << 2 // 4
@@ -35,6 +35,7 @@ struct TrajectoryLine3D {
     private let bottomBitMask:      Int = 0x1 << 4 // 16
     private let trajectoryBallMask: Int = 0x1 << 5 // 32
     private let plateBitmask:       Int = 0x1 << 6 // 64
+    private let bonusBitMask:       Int = 0x1 << 7 // 128
     
     private let yPositionOfBall: Float
     /// мы сравниваем координату последнего и текущего касаний,
@@ -163,7 +164,7 @@ struct TrajectoryLine3D {
             
             let sphere = SCNNode(geometry: sphereGeometry)
             sphere.position = trajectoryPoint
-            
+            sphere.name = "TrajectoryLineSphere"
             node.addChildNode(sphere)
             self.trajectories.append(sphere)
         }

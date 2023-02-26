@@ -42,6 +42,7 @@ struct Particle3D {
         shape.materials = [material]
         // создаем ноду
         self.particle = SCNNode(geometry: shape)
+        self.particle.name = "Particle"
         self.geometry = shape
         
         // настраиваем ее и добавляем к сцене

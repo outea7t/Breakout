@@ -7,6 +7,8 @@
 
 import UIKit
 import SceneKit
+import SpriteKit
+
 class ARPauseViewController: UIViewController {
     
     // кнопки и лейблы в меню паузы для их настройки из кода
@@ -19,9 +21,21 @@ class ARPauseViewController: UIViewController {
     deinit {
         print("ARPauseViewController Deinitialization")
     }
+    
+    private var pauseScene: ARPauseScene?
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let skView = self.view.viewWithTag(1) as? SKView {
+            skView.backgroundColor = .clear
+            
+            let scene = ARPauseScene(size: skView.bounds.size)
+            scene.backgroundColor = .clear
+
+            self.pauseScene = scene
+            skView.presentScene(scene)
+            
+        }
         // настраиваем округлость кнопки и ее тень
         self.resumeButton.layer.cornerRadius = 30
         self.resumeButton.layer.shadowOpacity = 1.0
@@ -55,6 +69,7 @@ class ARPauseViewController: UIViewController {
     // нажата кнопка продолжения игры
     @IBAction func playButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
+            self.pauseScene = nil
             gameViewController.unpauseGame()
         }
         self.dismiss(animated: true)
@@ -64,6 +79,7 @@ class ARPauseViewController: UIViewController {
     @IBAction func returnToARMenuPressed(_ sender: UIButton) {
         // из storyboard анвайндимся до ар меню
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
+            self.pauseScene = nil
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
             gameViewController.gameScene = nil
@@ -78,13 +94,11 @@ class ARPauseViewController: UIViewController {
     // нажата кнопка перезапуска уровня
     @IBAction func restartLevelButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
+            self.pauseScene = nil
+//            gameViewController.gameSceneView.session.pause()
             gameViewController.unpauseGame()
             gameViewController.restartGame()
-            
-            for anchor in gameViewController.planeAnchors {
-                gameViewController.gameSceneView.session.remove(anchor: anchor)
-            }
-            
+//            gameViewController.updateConfiguration()
             gameViewController.removeAllChildren()
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true

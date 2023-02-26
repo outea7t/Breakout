@@ -23,9 +23,9 @@ class PauseScene: SKScene {
                                                color: animatedPauseLabelColor,
                                                frame: self.frame,
                                                shouldAnimateShadows: false,
-                                               preferBiggerSize: true)
+                                               sizeConstant: 105)
         
-        self.animatedPauseLabel?.calculatePosition(for: self.frame.size)
+        self.animatedPauseLabel?.calculatePosition(for: self.frame.size, offsetY: 2.8)
         
         if let animatedPauseLabel = self.animatedPauseLabel {
             for letter in animatedPauseLabel.label {

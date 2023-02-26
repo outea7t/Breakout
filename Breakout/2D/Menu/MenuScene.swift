@@ -57,7 +57,7 @@ class MenuScene: SKScene {
         self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: self.originalColorOfLabel)
 
         
-        self.breakAnimatedLabel?.calculatePosition(for: self.frame.size)
+        self.breakAnimatedLabel?.calculatePosition(for: self.frame.size, offsetY: 2.25)
         
         let images_2 = [o,u,t]
         self.outAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: self.originalColorOfLabel)

@@ -10,7 +10,7 @@ import SceneKit
 import ARKit
 
 struct Ball3D {
-    // битовые маски (для логики столкновений)
+    // битовые маски объектов в игре
     private let paddleBitmask:      Int = 0x1 << 0 // 1
     private let ballBitmask:        Int = 0x1 << 1 // 2
     private let frameBitmask:       Int = 0x1 << 2 // 4
@@ -18,6 +18,7 @@ struct Ball3D {
     private let bottomBitMask:      Int = 0x1 << 4 // 16
     private let trajectoryBallMask: Int = 0x1 << 5 // 32
     private let plateBitmask:       Int = 0x1 << 6 // 64
+    private let bonusBitMask:       Int = 0x1 << 7 // 128
     
     let ball: SCNNode
     let ballRadius: Float
@@ -42,7 +43,7 @@ struct Ball3D {
         self.ball = SCNNode(geometry: geometry)
         self.ball.physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: geometry))
         
-        self.ball.name = "ball3"
+        self.ball.name = "ball"
         
         // настраиваем физическое тело
         self.ball.physicsBody?.restitution = 1.0
@@ -68,8 +69,34 @@ struct Ball3D {
             self.ball.physicsBody?.clearAllForces()
             self.ball.position = SCNVector3(paddle.paddle.position.x,
                                             self.ball.position.y,
-                                            paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - self.ballRadius/2.0)
+                                            paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius/2.0)*2.0)
             
+        } else {
+            // поправляем работу sceneKit и если мяч сильно замедляется или сильно ускоряется, то данный алгоритм нормализует скорость мяча
+            if let currentBallVelocity = self.ball.physicsBody?.velocity {
+                let simdVelocity = simd_float2(Float(currentBallVelocity.x),
+                                               Float(currentBallVelocity.z))
+                
+                let normalizedVelocity = simd_normalize(simdVelocity)
+                
+                let simdOldVelocity = simd_float2(Float(currentBallVelocity.x),
+                                                  Float(currentBallVelocity.z))
+                
+                let lengthOfOldVelocity = simd_length(simdOldVelocity)
+                if lengthOfOldVelocity > 0.1 {
+                    let newBallVelocity = SCNVector3(
+                        normalizedVelocity.x * 0.5 * 0.9,
+                        0.0,
+                        normalizedVelocity.y * 0.5 * 0.9)
+                    self.ball.physicsBody?.velocity = newBallVelocity
+                } else if lengthOfOldVelocity < 0.08 {
+                    let newBallVelocity = SCNVector3(
+                        normalizedVelocity.x * 0.5 * 0.9,
+                        0.0,
+                        normalizedVelocity.y * 0.5 * 0.9)
+                    self.ball.physicsBody?.velocity = newBallVelocity
+                }
+            }
         }
         // иначе обновляем скорость мяча
 //        else {

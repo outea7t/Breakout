@@ -103,10 +103,7 @@ class ARLoseViewController: UIViewController {
             self.endGameScene = nil
             gameViewController.unpauseGame()
             gameViewController.restartGame()
-            for anchor in gameViewController.planeAnchors {
-                gameViewController.gameSceneView.session.remove(anchor: anchor)
-            }
-
+            gameViewController.updateConfiguration()
             gameViewController.removeAllChildren()
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true

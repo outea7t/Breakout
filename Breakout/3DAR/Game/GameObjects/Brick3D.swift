@@ -11,7 +11,7 @@ import SceneKit
 import ARKit
 
 class Brick3D {
-    // битовые маски (для логики столкновений)
+    // битовые маски объектов в игре
     private let paddleBitmask:      Int = 0x1 << 0 // 1
     private let ballBitmask:        Int = 0x1 << 1 // 2
     private let frameBitmask:       Int = 0x1 << 2 // 4
@@ -19,6 +19,7 @@ class Brick3D {
     private let bottomBitMask:      Int = 0x1 << 4 // 16
     private let trajectoryBallMask: Int = 0x1 << 5 // 32
     private let plateBitmask:       Int = 0x1 << 6 // 64
+    private let bonusBitMask:       Int = 0x1 << 7 // 128
     
     // node кирпичика
     let brick: SCNNode

@@ -7,6 +7,7 @@
 
 import UIKit
 import SpriteKit
+import ARKit
 
 class ARWinViewController: UIViewController {
 
@@ -112,9 +113,8 @@ class ARWinViewController: UIViewController {
             self.endGameScene = nil
             gameViewController.unpauseGame()
             gameViewController.restartGame()
-            for anchor in gameViewController.planeAnchors {
-                gameViewController.gameSceneView.session.remove(anchor: anchor)
-            }
+            // обновляем ARSession, чтобы не было проблем с environment texturing
+            gameViewController.updateConfiguration()
             gameViewController.removeAllChildren()
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true
@@ -138,9 +138,7 @@ class ARWinViewController: UIViewController {
             
             gameViewController.unpauseGame()
             gameViewController.lives += 1
-            for anchor in gameViewController.planeAnchors {
-                gameViewController.gameSceneView.session.remove(anchor: anchor)
-            }
+            gameViewController.updateConfiguration()
             gameViewController.removeAllChildren()
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true

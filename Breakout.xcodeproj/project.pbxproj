@@ -26,6 +26,8 @@
 		2214055329A3E0570086DEC7 /* background.riv in Resources */ = {isa = PBXBuildFile; fileRef = 2214055229A3E0570086DEC7 /* background.riv */; };
 		2214055529A3E6CA0086DEC7 /* button.riv in Resources */ = {isa = PBXBuildFile; fileRef = 2214055429A3E6CA0086DEC7 /* button.riv */; };
 		223BDB0F29AABE0F001CE63D /* AREndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */; };
+		223BDB1329AB4D07001CE63D /* ARPauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1229AB4D07001CE63D /* ARPauseScene.swift */; };
+		223BDB1529AB565C001CE63D /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1429AB565C001CE63D /* Plane.swift */; };
 		224F5C4429865EE2005E8E47 /* level_11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4129865EE2005E8E47 /* level_11.txt */; };
 		224F5C4529865EE2005E8E47 /* level_12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4229865EE2005E8E47 /* level_12.txt */; };
 		224F5C4629865EE2005E8E47 /* level_13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4329865EE2005E8E47 /* level_13.txt */; };
@@ -65,7 +67,6 @@
 		22B516BC29238AB7006B1B6F /* Bonus3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516A929238AB7006B1B6F /* Bonus3D.swift */; };
 		22B516BD29238AB7006B1B6F /* Frame3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AA29238AB7006B1B6F /* Frame3D.swift */; };
 		22B516BE29238AB7006B1B6F /* Particle3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AB29238AB7006B1B6F /* Particle3D.swift */; };
-		22B516BF29238AB7006B1B6F /* Animated3DText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AC29238AB7006B1B6F /* Animated3DText.swift */; };
 		22B516C029238AB7006B1B6F /* Brick3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AD29238AB7006B1B6F /* Brick3D.swift */; };
 		22B516C129238AB7006B1B6F /* Ball3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AE29238AB7006B1B6F /* Ball3D.swift */; };
 		22B516C229238AB7006B1B6F /* Paddle3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516AF29238AB7006B1B6F /* Paddle3D.swift */; };
@@ -141,6 +142,8 @@
 		2214055229A3E0570086DEC7 /* background.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.riv; sourceTree = "<group>"; };
 		2214055429A3E6CA0086DEC7 /* button.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = button.riv; sourceTree = "<group>"; };
 		223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREndGameScene.swift; sourceTree = "<group>"; };
+		223BDB1229AB4D07001CE63D /* ARPauseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPauseScene.swift; sourceTree = "<group>"; };
+		223BDB1429AB565C001CE63D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		224F5C4129865EE2005E8E47 /* level_11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_11.txt; sourceTree = "<group>"; };
 		224F5C4229865EE2005E8E47 /* level_12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_12.txt; sourceTree = "<group>"; };
 		224F5C4329865EE2005E8E47 /* level_13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_13.txt; sourceTree = "<group>"; };
@@ -183,7 +186,6 @@
 		22B516A929238AB7006B1B6F /* Bonus3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bonus3D.swift; sourceTree = "<group>"; };
 		22B516AA29238AB7006B1B6F /* Frame3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Frame3D.swift; sourceTree = "<group>"; };
 		22B516AB29238AB7006B1B6F /* Particle3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Particle3D.swift; sourceTree = "<group>"; };
-		22B516AC29238AB7006B1B6F /* Animated3DText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animated3DText.swift; sourceTree = "<group>"; };
 		22B516AD29238AB7006B1B6F /* Brick3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brick3D.swift; sourceTree = "<group>"; };
 		22B516AE29238AB7006B1B6F /* Ball3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball3D.swift; sourceTree = "<group>"; };
 		22B516AF29238AB7006B1B6F /* Paddle3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paddle3D.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				22B516BA29238AB7006B1B6F /* ARPauseViewController.swift */,
+				223BDB1229AB4D07001CE63D /* ARPauseScene.swift */,
 			);
 			path = Pause;
 			sourceTree = "<group>";
@@ -421,7 +424,6 @@
 				22B516A929238AB7006B1B6F /* Bonus3D.swift */,
 				22B516AA29238AB7006B1B6F /* Frame3D.swift */,
 				22B516AB29238AB7006B1B6F /* Particle3D.swift */,
-				22B516AC29238AB7006B1B6F /* Animated3DText.swift */,
 				22B516AD29238AB7006B1B6F /* Brick3D.swift */,
 				22B516AE29238AB7006B1B6F /* Ball3D.swift */,
 				22B516AF29238AB7006B1B6F /* Paddle3D.swift */,
@@ -444,6 +446,7 @@
 			isa = PBXGroup;
 			children = (
 				22B516B629238AB7006B1B6F /* ARGameViewController.swift */,
+				223BDB1429AB565C001CE63D /* Plane.swift */,
 				22B516A729238AB7006B1B6F /* GameObjects */,
 				22B516B729238AB7006B1B6F /* EndOfGame */,
 				222D1B3E29240D1C009100C8 /* Pause */,
@@ -750,6 +753,7 @@
 				22B516BE29238AB7006B1B6F /* Particle3D.swift in Sources */,
 				2250A7212921846100E42F7E /* AnimatedParticles.swift in Sources */,
 				2275FA27288ACDCC0075AFD6 /* AppDelegate.swift in Sources */,
+				223BDB1329AB4D07001CE63D /* ARPauseScene.swift in Sources */,
 				22B516C529238AB7006B1B6F /* ARMenuViewController.swift in Sources */,
 				22B516BC29238AB7006B1B6F /* Bonus3D.swift in Sources */,
 				22BE9A35289665A200FB99D2 /* EndGameScene.swift in Sources */,
@@ -757,10 +761,10 @@
 				2275FA60288ACEC80075AFD6 /* GameScene.swift in Sources */,
 				22B76AE8296BD99A00588E83 /* ShopBallTexturesViewController.swift in Sources */,
 				22B76AEA296BDA5000588E83 /* ShopParticlesViewController.swift in Sources */,
-				22B516BF29238AB7006B1B6F /* Animated3DText.swift in Sources */,
 				22B8FF90297419A000F923DC /* ShopCollectionViewCell.swift in Sources */,
 				22F36F78296034D900059579 /* SettingsViewController.swift in Sources */,
 				22B516C129238AB7006B1B6F /* Ball3D.swift in Sources */,
+				223BDB1529AB565C001CE63D /* Plane.swift in Sources */,
 				22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */,
 				2293A9EE29610DE50066279B /* HapticManager.swift in Sources */,
 				22096B412986E0AA0072F4C6 /* ARLevelsMenuCollectionViewCell.swift in Sources */,

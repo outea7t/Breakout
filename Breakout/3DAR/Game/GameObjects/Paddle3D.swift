@@ -21,6 +21,7 @@ struct Paddle3D {
     private let bottomBitMask:      Int = 0x1 << 4 // 16
     private let trajectoryBallMask: Int = 0x1 << 5 // 32
     private let plateBitmask:       Int = 0x1 << 6 // 64
+    private let bonusBitMask:       Int = 0x1 << 7 // 128
     
     var paddle: SCNNode
     var paddleVolume: SCNVector3
@@ -56,8 +57,9 @@ struct Paddle3D {
         self.paddle.physicsBody?.restitution = 1.0
         self.paddle.physicsBody?.angularDamping = 0.0
         self.paddle.physicsBody?.categoryBitMask = self.paddleBitmask
-        self.paddle.physicsBody?.collisionBitMask = self.ballBitmask
-        self.paddle.physicsBody?.contactTestBitMask = self.ballBitmask
+        self.paddle.physicsBody?.collisionBitMask = self.ballBitmask | self.bonusBitMask
+        self.paddle.physicsBody?.contactTestBitMask = self.ballBitmask | self.bonusBitMask
+        self.paddle.name = "Paddle"
         
         frame.plate.addChildNode(paddle)
     }

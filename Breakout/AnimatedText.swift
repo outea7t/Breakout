@@ -24,7 +24,7 @@ struct AnimatedText {
     /// изначальный цвет
     private var originalColor: UIColor
     /// для того, чтобы увеличивать шрифт во время увеличения размера viewPort
-    private let preferBiggerSize: Bool
+    private let sizeConstant: CGFloat
     /// нужно ли анимировать тени текста
     private let shouldAnimateShadows: Bool
     /// последний раз, когда текст анимировался в фоновом режиме
@@ -39,13 +39,13 @@ struct AnimatedText {
          color: UIColor,
          frame: CGRect,
          shouldAnimateShadows: Bool,
-         preferBiggerSize: Bool = false,
+         sizeConstant: CGFloat = 80,
          shadowColor: UIColor? = nil
     ) {
         self.shouldAnimateShadows = shouldAnimateShadows
         self.textOfLabel = text
         self.originalColor = color
-        self.preferBiggerSize = preferBiggerSize
+        self.sizeConstant = sizeConstant
         if let shadowColor = shadowColor {
             self.shadowColor = shadowColor
         }
@@ -68,7 +68,7 @@ struct AnimatedText {
         self.shouldAnimateShadows = false
         self.textOfLabel = ""
         self.originalColor = color
-        self.preferBiggerSize = false
+        self.sizeConstant = 80
         self.shadowColor = .clear
         // настраиваем интерактивную надпись-название игры
         for image in images {
@@ -187,7 +187,8 @@ struct AnimatedText {
         }
     }
     /// расчитываем позицию текста (всегда находиться в верхней части экрана и в середине)
-    mutating func calculatePosition(for frameSize: CGSize) {
+    /// offset - множитель, показывающий, насколько низки от верха экрана должен быть расположен текст
+    mutating func calculatePosition(for frameSize: CGSize, offsetY: CGFloat) {
         var lengthOfWord = 0.0
         if !self.sprites.isEmpty {
             let heighOfWord = self.sprites[0].frame.height
@@ -202,12 +203,10 @@ struct AnimatedText {
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
-            var offsetY = frameSize.height - heighOfWord*2.25
+            let realOffsetY = frameSize.height - heighOfWord*offsetY
             
-            if self.preferBiggerSize {
-                offsetY = frameSize.height - heighOfWord * 2.75
-            }
-            self.calculatePosition(with: offsetX, offsetY: offsetY)
+            
+            self.calculatePosition(with: offsetX, offsetY: realOffsetY)
         }
         
         if !self.label.isEmpty {
@@ -222,12 +221,12 @@ struct AnimatedText {
             lengthOfWord -= self.label[0].frame.width * self.spaceConstant
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
-            var offsetY = frameSize.height - heighOfWord*2.5
             
-            if self.preferBiggerSize {
-                offsetY = frameSize.height - heighOfWord * 2.75
-            }
-            self.calculatePosition(with: offsetX, offsetY: offsetY)
+            let realOffsetY = frameSize.height - heighOfWord*offsetY
+            
+            print(realOffsetY, offsetY, heighOfWord)
+            
+            self.calculatePosition(with: offsetX, offsetY: realOffsetY)
         }
     }
     /// функция, которая возвращает анимацию, которую можно проиграть на любой букве
@@ -313,10 +312,8 @@ struct AnimatedText {
     private func initLetter(_ symbol: String, frame: CGRect) -> SKLabelNode {
         let s = SKLabelNode(text: symbol)
         s.position = CGPoint()
-        var sizeConstant = 80.0/844.0
-        if preferBiggerSize {
-            sizeConstant = 110.0/844.0
-        }
+        let sizeConstant = self.sizeConstant/844.0
+    
         let perfectFitSize = frame.height*sizeConstant
         s.fontSize = perfectFitSize
         s.fontName = "Bungee"
