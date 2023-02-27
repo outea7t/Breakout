@@ -172,13 +172,14 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
         
-        self.gameSceneView.addGestureRecognizer(rotationGestureRecognizer)
+        self.view.addGestureRecognizer(rotationGestureRecognizer)
     }
     
     @objc func rotationGesture(_ gesture: UIRotationGestureRecognizer) {
         
         // чтобы пользователь не мог обратно перевернуть рамку во время эффекта разворота
-        if !self.isRotated {
+//        if !self.isRotated {
+        print("enter")
             switch gesture.state {
             case .began:
                 let rotation = gesture.rotation/20
@@ -195,14 +196,15 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             case .possible:
                 break
             }
-        }
+//        }
     }
     private func rotateScene(_ angle: CGFloat) {
-//        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: 0.0001)
-        if !self.isRotated {
-            let quanterion = SCNQuaternion(0.0, angle, 0.0, angle)
-            self.frame?.plate.localRotate(by: quanterion)
-            
+        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: 0.0001)
+//        if !self.isRotated {
+        
+        print("entered rotation func")
+        self.frame?.plate.runAction(rotateAction)
+        let quanterion = SCNQuaternion(0.0, angle, 0.0, angle)
             self.frame?.frontWall.localRotate(by: quanterion)
             self.frame?.bottomWall.localRotate(by: quanterion)
             self.frame?.leftSideWall.localRotate(by: quanterion)
@@ -217,7 +219,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             }
             
             self.paddle?.paddle.localRotate(by: quanterion)
-        }
+//        }
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)

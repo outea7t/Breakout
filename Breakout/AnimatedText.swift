@@ -33,7 +33,6 @@ struct AnimatedText {
     var currentTime = TimeInterval()
     
     private var positions = [CGPoint]()
-    
     /// конструктор, который не предусматривает использование текстур
     init(text: String,
          color: UIColor,
@@ -296,12 +295,15 @@ struct AnimatedText {
         return resultAction
     }
     private func initSprite(_ image: UIImage, frame: CGRect) -> SKSpriteNode {
+        let widthToHeightConstant = image.size.width/image.size.height
         let texture = SKTexture(image: image)
         // подстраиваем размер для каждого размера экрана
         let sizeConstant: CGFloat = 59/844 * frame.height
+        let height = sizeConstant*1.2
+        let width = height*widthToHeightConstant
         // из-за особенности шрифта Bungee высота всегда больше ширины в 1.2 раза
-        let s = SKSpriteNode(texture: texture, color: .white, size: CGSize(width: sizeConstant,
-                                                                           height: sizeConstant*1.2))
+        let s = SKSpriteNode(texture: texture, color: .white, size: CGSize(width: width,
+                                                                           height: height))
         s.colorBlendFactor = 2.0
         s.position = CGPoint()
         // для того, чтобы анимация проигрывалась правильно

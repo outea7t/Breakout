@@ -17,7 +17,7 @@ class ARMenuScene: SKScene {
     private var outARAnimatedLabel: AnimatedText?
     
     private var originalColorOfLabel = #colorLiteral(red: 0.03566226363, green: 0.9870653749, blue: 0.0007029015105, alpha: 1)
-    private var colorOfLabelWhileAnimated = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
+    private var colorOfLabelWhileAnimated = #colorLiteral(red: 0, green: 0.9536209702, blue: 0.9942776561, alpha: 1)
     private var colorOfShadow = #colorLiteral(red: 0.05089633912, green: 0, blue: 0.3513666987, alpha: 1)
     deinit {
         print("ARMenuScene DEINITIALIZED")
