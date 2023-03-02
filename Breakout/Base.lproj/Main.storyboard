@@ -1401,8 +1401,8 @@
                             <constraint firstAttribute="bottom" secondItem="EP1-2Y-t9l" secondAttribute="bottom" id="rKK-Rf-9QJ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Ball" id="OCR-2v-DXp">
-                        <imageReference key="image" image="circle" catalog="system" symbolScale="large" renderingMode="hierarchical-single">
+                    <tabBarItem key="tabBarItem" title="" selectedImage="BallSelected" id="OCR-2v-DXp">
+                        <imageReference key="image" image="BallUnselected" symbolScale="large" renderingMode="hierarchical-single">
                             <hierarchicalColors>
                                 <color systemColor="tintColor"/>
                                 <color systemColor="secondaryLabelColor"/>
@@ -1422,111 +1422,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GUt-J0-VVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1412.3076923076922" y="2305.4502369668244"/>
-        </scene>
-        <!--ParticlesTexture-->
-        <scene sceneID="HBc-AE-PdN">
-            <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="uuE-hq-1BQ" userLabel="ParticlesTexture" customClass="ShopParticlesTextureViewController" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qBQ-qx-rEC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <collectionView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uXw-eL-Mvm">
-                                <rect key="frame" x="0.0" y="118" width="390" height="643"/>
-                                <color key="backgroundColor" red="0.20000000000000001" green="0.015686274509803921" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CmJ-QY-p3d">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShopCollectionViewCell" id="n78-2b-Pfd" customClass="ShopCollectionViewCell" customModule="Breakout" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="PZh-PN-7zn">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </collectionViewCellContentView>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CXx-9F-rg6" userLabel="HeaderView">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="128"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljG-bW-4N4" userLabel="back">
-                                        <rect key="frame" x="10" y="45" width="130" height="75"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="130" id="u0k-be-h4q"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                        <state key="normal" image="BackButton">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="backButtonPressed:" destination="uuE-hq-1BQ" eventType="touchUpInside" id="a3Z-iR-cAd"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOg-2O-uEx" userLabel="UserMoney">
-                                        <rect key="frame" x="225" y="55" width="100" height="58"/>
-                                        <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="35"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rhombus.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gnz-QA-PeB" userLabel="Currency">
-                                        <rect key="frame" x="335" y="52.666666666666657" width="45" height="65"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="oad-h7-dqY"/>
-                                        </constraints>
-                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0039215686274509803" green="0.015686274509803921" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="ljG-bW-4N4" secondAttribute="bottom" constant="8" id="BS5-PX-irg"/>
-                                    <constraint firstAttribute="bottom" secondItem="gnz-QA-PeB" secondAttribute="bottom" constant="10" id="E7u-c8-1mz"/>
-                                    <constraint firstItem="gnz-QA-PeB" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="top" constant="52" id="JsO-di-73b"/>
-                                    <constraint firstItem="dOg-2O-uEx" firstAttribute="leading" secondItem="ljG-bW-4N4" secondAttribute="trailing" constant="85" id="K5b-pq-lmq"/>
-                                    <constraint firstItem="gnz-QA-PeB" firstAttribute="leading" secondItem="dOg-2O-uEx" secondAttribute="trailing" constant="10" id="V8v-Xu-1oe"/>
-                                    <constraint firstItem="ljG-bW-4N4" firstAttribute="leading" secondItem="CXx-9F-rg6" secondAttribute="leading" constant="10" id="XLp-dL-gCE"/>
-                                    <constraint firstAttribute="height" constant="128" id="gWK-bq-EWI"/>
-                                    <constraint firstAttribute="trailing" secondItem="gnz-QA-PeB" secondAttribute="trailing" constant="10" id="mwO-XI-kr7"/>
-                                    <constraint firstItem="ljG-bW-4N4" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="top" constant="45" id="pgm-y3-bZb"/>
-                                    <constraint firstItem="dOg-2O-uEx" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="top" constant="55" id="yQA-MZ-6FF"/>
-                                    <constraint firstAttribute="bottom" secondItem="dOg-2O-uEx" secondAttribute="bottom" constant="15" id="yZs-5E-JeM"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="gR4-lr-4uS"/>
-                        <color key="backgroundColor" red="0.066666666666666666" green="0.082352941176470587" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <constraints>
-                            <constraint firstItem="uXw-eL-Mvm" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="bottom" constant="-10" id="4mO-He-T8Y"/>
-                            <constraint firstAttribute="trailing" secondItem="CXx-9F-rg6" secondAttribute="trailing" id="95E-mp-0M0"/>
-                            <constraint firstAttribute="bottom" secondItem="uXw-eL-Mvm" secondAttribute="bottom" id="BIL-lG-u1T"/>
-                            <constraint firstItem="CXx-9F-rg6" firstAttribute="top" secondItem="qBQ-qx-rEC" secondAttribute="top" id="BQw-Sc-RAk"/>
-                            <constraint firstItem="uXw-eL-Mvm" firstAttribute="leading" secondItem="qBQ-qx-rEC" secondAttribute="leading" id="S6w-Te-Qiq"/>
-                            <constraint firstItem="CXx-9F-rg6" firstAttribute="leading" secondItem="qBQ-qx-rEC" secondAttribute="leading" id="a8b-aH-N5c"/>
-                            <constraint firstAttribute="trailing" secondItem="uXw-eL-Mvm" secondAttribute="trailing" id="ds4-bs-WWR"/>
-                        </constraints>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Particles" id="v4q-Ge-qj7">
-                        <imageReference key="image" image="square.on.square" catalog="system" symbolScale="large"/>
-                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
-                    <connections>
-                        <outlet property="backButton" destination="ljG-bW-4N4" id="ChQ-um-9bl"/>
-                        <outlet property="collectionView" destination="uXw-eL-Mvm" id="eTm-Dd-BoA"/>
-                        <outlet property="headerTopView" destination="CXx-9F-rg6" id="m1O-02-Y3Z"/>
-                        <outlet property="userMoneyLabel" destination="dOg-2O-uEx" id="btq-Tf-d6F"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Lb7-du-z5u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-598" y="2305"/>
         </scene>
         <!--PaddleTextures-->
         <scene sceneID="iqY-nm-aea">
@@ -1617,7 +1512,8 @@
                             <constraint firstAttribute="bottom" secondItem="CJM-8i-nKR" secondAttribute="bottom" id="scY-Nm-wWM"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Paddle" image="PaddleShop" id="wVV-Za-no3">
+                    <tabBarItem key="tabBarItem" title="" image="PaddleUnselected" selectedImage="PaddleSelected" id="wVV-Za-no3">
+                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
@@ -1629,16 +1525,126 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCc-9p-aNp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="195" y="2305"/>
+            <point key="canvasLocation" x="-598" y="2305"/>
+        </scene>
+        <!--ParticlesTexture-->
+        <scene sceneID="HBc-AE-PdN">
+            <objects>
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="uuE-hq-1BQ" userLabel="ParticlesTexture" customClass="ShopParticlesTextureViewController" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qBQ-qx-rEC">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="761"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uXw-eL-Mvm">
+                                <rect key="frame" x="0.0" y="118" width="390" height="643"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.015686274509803921" blue="0.34509803921568627" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CmJ-QY-p3d">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ShopCollectionViewCell" id="n78-2b-Pfd" customClass="ShopCollectionViewCell" customModule="Breakout" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="PZh-PN-7zn">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CXx-9F-rg6" userLabel="HeaderView">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ljG-bW-4N4" userLabel="back">
+                                        <rect key="frame" x="10" y="45" width="130" height="75"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="u0k-be-h4q"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="BackButton">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="uuE-hq-1BQ" eventType="touchUpInside" id="a3Z-iR-cAd"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOg-2O-uEx" userLabel="UserMoney">
+                                        <rect key="frame" x="225" y="55" width="100" height="58"/>
+                                        <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="35"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rhombus.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gnz-QA-PeB" userLabel="Currency">
+                                        <rect key="frame" x="335" y="52.666666666666657" width="45" height="65"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="45" id="oad-h7-dqY"/>
+                                        </constraints>
+                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="22"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0039215686274509803" green="0.015686274509803921" blue="0.49019607843137253" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="ljG-bW-4N4" secondAttribute="bottom" constant="8" id="BS5-PX-irg"/>
+                                    <constraint firstAttribute="bottom" secondItem="gnz-QA-PeB" secondAttribute="bottom" constant="10" id="E7u-c8-1mz"/>
+                                    <constraint firstItem="gnz-QA-PeB" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="top" constant="52" id="JsO-di-73b"/>
+                                    <constraint firstItem="dOg-2O-uEx" firstAttribute="leading" secondItem="ljG-bW-4N4" secondAttribute="trailing" constant="85" id="K5b-pq-lmq"/>
+                                    <constraint firstItem="gnz-QA-PeB" firstAttribute="leading" secondItem="dOg-2O-uEx" secondAttribute="trailing" constant="10" id="V8v-Xu-1oe"/>
+                                    <constraint firstItem="ljG-bW-4N4" firstAttribute="leading" secondItem="CXx-9F-rg6" secondAttribute="leading" constant="10" id="XLp-dL-gCE"/>
+                                    <constraint firstAttribute="height" constant="128" id="gWK-bq-EWI"/>
+                                    <constraint firstAttribute="trailing" secondItem="gnz-QA-PeB" secondAttribute="trailing" constant="10" id="mwO-XI-kr7"/>
+                                    <constraint firstItem="ljG-bW-4N4" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="top" constant="45" id="pgm-y3-bZb"/>
+                                    <constraint firstItem="dOg-2O-uEx" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="top" constant="55" id="yQA-MZ-6FF"/>
+                                    <constraint firstAttribute="bottom" secondItem="dOg-2O-uEx" secondAttribute="bottom" constant="15" id="yZs-5E-JeM"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="gR4-lr-4uS"/>
+                        <color key="backgroundColor" red="0.066666666666666666" green="0.082352941176470587" blue="0.16862745098039217" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="uXw-eL-Mvm" firstAttribute="top" secondItem="CXx-9F-rg6" secondAttribute="bottom" constant="-10" id="4mO-He-T8Y"/>
+                            <constraint firstAttribute="trailing" secondItem="CXx-9F-rg6" secondAttribute="trailing" id="95E-mp-0M0"/>
+                            <constraint firstAttribute="bottom" secondItem="uXw-eL-Mvm" secondAttribute="bottom" id="BIL-lG-u1T"/>
+                            <constraint firstItem="CXx-9F-rg6" firstAttribute="top" secondItem="qBQ-qx-rEC" secondAttribute="top" id="BQw-Sc-RAk"/>
+                            <constraint firstItem="uXw-eL-Mvm" firstAttribute="leading" secondItem="qBQ-qx-rEC" secondAttribute="leading" id="S6w-Te-Qiq"/>
+                            <constraint firstItem="CXx-9F-rg6" firstAttribute="leading" secondItem="qBQ-qx-rEC" secondAttribute="leading" id="a8b-aH-N5c"/>
+                            <constraint firstAttribute="trailing" secondItem="uXw-eL-Mvm" secondAttribute="trailing" id="ds4-bs-WWR"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" selectedImage="ParticleSelected" id="v4q-Ge-qj7">
+                        <imageReference key="image" image="ParticleUnselected" symbolScale="large"/>
+                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
+                    </tabBarItem>
+                    <connections>
+                        <outlet property="backButton" destination="ljG-bW-4N4" id="ChQ-um-9bl"/>
+                        <outlet property="collectionView" destination="uXw-eL-Mvm" id="eTm-Dd-BoA"/>
+                        <outlet property="headerTopView" destination="CXx-9F-rg6" id="m1O-02-Y3Z"/>
+                        <outlet property="userMoneyLabel" destination="dOg-2O-uEx" id="btq-Tf-d6F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lb7-du-z5u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="263" y="2305"/>
         </scene>
     </scenes>
     <resources>
         <image name="ARButton" width="1000" height="1000"/>
         <image name="BackButton" width="504" height="263"/>
+        <image name="BallSelected" width="61" height="61"/>
+        <image name="BallUnselected" width="61" height="61"/>
         <image name="LevelsButton" width="1000" height="299"/>
-        <image name="PaddleShop" width="36.333332061767578" height="15"/>
+        <image name="PaddleSelected" width="105" height="40.5"/>
+        <image name="PaddleUnselected" width="105" height="40.5"/>
+        <image name="ParticleSelected" width="59.5" height="57.5"/>
+        <image name="ParticleUnselected" width="59.5" height="57.5"/>
         <image name="SettingsButton" width="1000" height="291"/>
-        <image name="ShopButton" width="128" height="128"/>
+        <image name="ShopButton" width="1000" height="1000"/>
         <image name="Tabbar" width="390" height="89"/>
         <image name="arkit" catalog="system" width="128" height="125"/>
         <image name="arkit.badge.xmark" catalog="system" width="128" height="116"/>
@@ -1647,14 +1653,12 @@
         <image name="arrowshape.turn.up.backward.fill" catalog="system" width="128" height="104"/>
         <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="104"/>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
-        <image name="circle" catalog="system" width="128" height="123"/>
         <image name="circle.fill" catalog="system" width="128" height="123"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
         <image name="pause.circle" catalog="system" width="128" height="123"/>
         <image name="pause.circle.fill" catalog="system" width="128" height="123"/>
         <image name="rhombus.fill" catalog="system" width="110" height="128"/>
-        <image name="square.on.square" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

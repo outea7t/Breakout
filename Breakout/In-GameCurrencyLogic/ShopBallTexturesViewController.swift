@@ -32,6 +32,11 @@ class ShopBallTexturesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        if let ballUnselectedImage = UIImage(named: "BallUnselected.png"), let ballSelectedImage = UIImage(named: "BallSelected.png") {
+//            self.tabBarItem.image = ballUnselectedImage
+//            self.tabBarItem.selectedImage = ballSelectedImage
+//        }
+        
         // находим класс, который будем использовать для ячеек
         let cellClass = UINib(nibName: self.cellIdentifier, bundle: nil)
         self.collectionView.register(cellClass, forCellWithReuseIdentifier: self.cellIdentifier)

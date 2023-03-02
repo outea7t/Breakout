@@ -31,6 +31,10 @@ class ShopPaddleTexturesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        if let paddleUnselectedImage = UIImage(named: "PaddleUnselected.png"), let paddleSelectedImage = UIImage(named: "PaddleSelected.png") {
+//            self.tabBarItem.image = paddleUnselectedImage
+//            self.tabBarItem.selectedImage = paddleSelectedImage
+//        }
         // находим класс ячеек и устанавливаем его в collectionView
         let cellClass = UINib(nibName: self.cellIdentifier, bundle: nil)
         self.collectionView.register(cellClass, forCellWithReuseIdentifier: self.cellIdentifier)
