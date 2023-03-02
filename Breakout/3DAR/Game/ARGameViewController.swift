@@ -571,10 +571,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 if lives <= 0 {
                     // переходы из одного контролера в другой должны выполняться в главном потоке
                     // причем, очень важно - синхронно, чтобы мы не переходили в контроллер проигрыша/ победы по нескольку раз
+                    HapticManager.loseHaptic()
                     if !self.wantDetectPlane && !self.wantSetPosition {
                         self.resetObjects()
                         self.pauseGame()
-                        HapticManager.loseHaptic()
+                        
                         self.gameSceneView.session.pause()
                         DispatchQueue.main.async { [weak self] in
                             self?.performSegue(withIdentifier: "FromARGameToARLose", sender: self)
@@ -629,10 +630,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             let isAllBricksDeleted = self.currentLevel?.deleteDestroyedBricks() ?? false
             if  isAllBricksDeleted {
                 // переходы из одного контролера в другой должны выполняться в главном потоке
+                HapticManager.winHaptic()
                 if !self.wantDetectPlane && !self.wantSetPosition {
                     self.resetObjects()
                     self.pauseGame()
-                    HapticManager.winHaptic()
+//                    HapticManager.winHaptic()
                     self.gameSceneView.session.pause()
                     
                     DispatchQueue.main.async { [weak self] in

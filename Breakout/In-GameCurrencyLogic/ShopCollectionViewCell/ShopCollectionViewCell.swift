@@ -62,10 +62,23 @@ class ShopCollectionViewCell: UICollectionViewCell {
         
         self.clipsToBounds = false
         self.layer.shadowOpacity = 0.0
-        self.layer.shadowColor = #colorLiteral(red: 0.1557792425, green: 0.5071008801, blue: 0.2520245314, alpha: 0.5)
-        self.layer.shadowRadius = self.bounds.width/15
-        self.layer.shadowOffset = CGSize(width: self.bounds.width/10,
-                                         height: self.bounds.height/14)
+        
+        self.layer.shadowColor = #colorLiteral(red: 0.1557792425, green: 0.5071008801, blue: 0.2520245314, alpha: 0.7)
+        let shadowSize = CGSize(width: self.bounds.width*1.15,
+                                height: self.bounds.height*1.15)
+        
+        let xCoordinate = ((self.bounds.width - shadowSize.width) / 2)
+        let yCoordinate = ((self.bounds.height - shadowSize.height) / 2)
+        let shadowRect = CGRect(x: xCoordinate,
+                                y: yCoordinate,
+                                width: shadowSize.width,
+                                height: shadowSize.height)
+        
+        
+        
+        self.layer.shadowPath = UIBezierPath(rect: shadowRect).cgPath
+        self.layer.shadowRadius = self.bounds.width/8
+        self.layer.shadowOffset = .zero
         
     }
     // так как мы используем reusable cells то мы должны обнулять
