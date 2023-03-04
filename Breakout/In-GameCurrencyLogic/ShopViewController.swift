@@ -15,9 +15,12 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // чтобы цвет элементов не менялся в зависимости от темной или светлой темы телефона
-        overrideUserInterfaceStyle = .dark
+        self.overrideUserInterfaceStyle = .dark
         self.delegate = self
         self.selectedIndex = 0
+        
+        
+        self.tabBar.frame.size.height = self.view.bounds.height/10.0
         
         
         let barTintColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 0.3)
@@ -35,7 +38,7 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
             self.tabBar.tintColor = imageTintColor
          }
         self.tabBar.isTranslucent = true
-        self.tabBar.layer.cornerRadius = 40
+        self.tabBar.layer.cornerRadius = self.view.bounds.width/10
         
         self.tabBar.layer.masksToBounds = true
         self.tabBar.shadowImage = UIImage()

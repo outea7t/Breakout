@@ -36,13 +36,13 @@ class MenuViewController: UIViewController {
         self.backgroundViewModel.play(animationName: "backAnimation", loop: .loop)
         
         
+        self.backgroundViewModel.alignment = .center
+        self.backgroundViewModel.fit = .fill
         self.view.addSubview(self.backgroundView)
         self.view.sendSubviewToBack(self.backgroundView)
         
         self.backgroundView.frame = self.view.bounds
         self.backgroundView.center = self.view.center
-        
-        
         
         
         
@@ -157,6 +157,11 @@ class MenuViewController: UIViewController {
         self.performSegue(withIdentifier: "FromMenuToLevelsMenu", sender: self)
     }
     
+    
+    @IBAction func shopButtonPressed(_ sender: UIButton) {
+        
+        self.menuScene?.pauseMenu()
+    }
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         
     }

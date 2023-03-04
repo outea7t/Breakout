@@ -17,7 +17,7 @@ class ARMenuScene: SKScene {
     private var outARAnimatedLabel: AnimatedText?
     
     private var originalColorOfLabel = #colorLiteral(red: 0.03566226363, green: 0.9870653749, blue: 0.0007029015105, alpha: 1)
-    private var colorOfLabelWhileAnimated = #colorLiteral(red: 0, green: 0.9536209702, blue: 0.9942776561, alpha: 1)
+    private var colorOfLabelWhileAnimated = #colorLiteral(red: 0, green: 0.1004967913, blue: 1, alpha: 1)
     private var colorOfShadow = #colorLiteral(red: 0.05089633912, green: 0, blue: 0.3513666987, alpha: 1)
     deinit {
         print("ARMenuScene DEINITIALIZED")
@@ -36,11 +36,8 @@ class ARMenuScene: SKScene {
         let o = UIImage(named: "OAR.png")!
         let u = UIImage(named: "UAR.png")!
         let t = UIImage(named: "TAR.png")!
-        let A = UIImage(named: "AAR.png")!
-        let R = UIImage(named: "RAR.png")!
-        let exMark = UIImage(named: "!AR.png")!
         let images_1 = [b,r,e,a,k]
-        let images_2 = [o,u,t,A,R,exMark]
+        let images_2 = [o,u,t]
         
 //        self.breakAnimatedLabel = AnimatedText(text: "BREAK",
 //                                               color: self.originalColorOfLabel,
@@ -59,6 +56,7 @@ class ARMenuScene: SKScene {
                                                
         self.outARAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: .white)
         self.outARAnimatedLabel?.calculatePosition(under: self.breakAnimatedLabel!, for: self.frame.size)
+        
         
         if let breakAnimatedLabel = self.breakAnimatedLabel {
             for letter in breakAnimatedLabel.sprites {

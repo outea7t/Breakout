@@ -43,16 +43,7 @@
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="arkit" catalog="system">
-                                    <imageReference key="backgroundImage" image="ARButton" renderingMode="hierarchical-single">
-                                        <hierarchicalColors>
-                                            <color red="0.019607843137254902" green="0.0" blue="0.64313725490196072" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <color systemColor="secondaryLabelColor"/>
-                                            <color systemColor="tertiaryLabelColor"/>
-                                        </hierarchicalColors>
-                                    </imageReference>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50"/>
-                                </state>
+                                <state key="normal" image="ARButton"/>
                                 <connections>
                                     <action selector="toARMenuButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="Ak4-Db-iwg"/>
                                     <action selector="touchDownOnARMenuButton:" destination="BV1-FR-VrT" eventType="touchDown" id="PCv-dr-i5l"/>
@@ -67,11 +58,10 @@
                                 </constraints>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="cart.fill" catalog="system" backgroundImage="ShopButton">
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50"/>
-                                </state>
+                                <state key="normal" image="ShopButton"/>
                                 <connections>
-                                    <segue destination="sLQ-jT-mcQ" kind="presentation" identifier="FromMainMenuToShop" modalPresentationStyle="fullScreen" id="ZNT-0S-EYt"/>
+                                    <action selector="shopButtonPressed:" destination="BV1-FR-VrT" eventType="touchUpInside" id="TAL-8g-xPt"/>
+                                    <segue destination="sLQ-jT-mcQ" kind="presentation" identifier="FromMainMenuToShop" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="ZNT-0S-EYt"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 " textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ldv-ZQ-WN0" userLabel="UserMoney">
@@ -193,12 +183,12 @@
                         <viewLayoutGuide key="safeArea" id="WYz-j4-9kl"/>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.12941176470588234" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Cd2-RX-ZFw" secondAttribute="bottom" id="6Fa-5X-tv0"/>
-                            <constraint firstItem="Cd2-RX-ZFw" firstAttribute="leading" secondItem="WYz-j4-9kl" secondAttribute="leading" id="Nx9-wZ-N4R"/>
-                            <constraint firstItem="Cd2-RX-ZFw" firstAttribute="trailing" secondItem="WYz-j4-9kl" secondAttribute="trailing" id="OAP-ba-GUB"/>
                             <constraint firstItem="WYz-j4-9kl" firstAttribute="bottom" secondItem="qAX-V8-CAt" secondAttribute="bottom" constant="300" id="PaF-xZ-gr9"/>
+                            <constraint firstAttribute="bottom" secondItem="Cd2-RX-ZFw" secondAttribute="bottom" id="SPd-L1-cPO"/>
+                            <constraint firstAttribute="trailing" secondItem="Cd2-RX-ZFw" secondAttribute="trailing" id="ZTV-Rr-lSQ"/>
                             <constraint firstItem="qAX-V8-CAt" firstAttribute="leading" secondItem="WYz-j4-9kl" secondAttribute="leading" id="gBA-iN-uGm"/>
-                            <constraint firstItem="Cd2-RX-ZFw" firstAttribute="top" secondItem="6C9-H0-yPm" secondAttribute="top" id="qre-su-02l"/>
+                            <constraint firstItem="Cd2-RX-ZFw" firstAttribute="top" secondItem="6C9-H0-yPm" secondAttribute="top" id="wiS-ha-QE1"/>
+                            <constraint firstItem="Cd2-RX-ZFw" firstAttribute="leading" secondItem="6C9-H0-yPm" secondAttribute="leading" id="zQb-YX-aAT"/>
                         </constraints>
                     </view>
                     <connections>
@@ -345,7 +335,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntH-ib-MTj" userLabel="Restart">
-                                <rect key="frame" x="242" y="307" width="120" height="117"/>
+                                <rect key="frame" x="241" y="303" width="118" height="119"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -364,7 +354,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzI-cz-tyQ" userLabel="Quit">
-                                <rect key="frame" x="7" y="307" width="116" height="117"/>
+                                <rect key="frame" x="4" y="303" width="117" height="119"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -385,7 +375,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ZJ-ht-IGd" userLabel="Resume">
-                                <rect key="frame" x="7" y="431" width="349" height="104"/>
+                                <rect key="frame" x="4" y="428" width="349" height="107"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.92941176889999999" green="0.44705885649999999" blue="0.1843137443" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="50"/>
@@ -399,7 +389,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pause" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="34" id="wXd-e6-bsH" userLabel="Pause">
-                                <rect key="frame" x="61" y="83" width="248" height="133"/>
+                                <rect key="frame" x="59" y="82" width="249" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="88"/>
                                 <color key="textColor" red="0.97254908080000002" green="0.82745099070000006" blue="0.27843138579999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -479,7 +469,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNY-Zf-pkN" userLabel="Replay">
-                                <rect key="frame" x="20" y="428" width="343" height="117"/>
+                                <rect key="frame" x="18" y="427" width="342" height="115"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.093322322275342873" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="50"/>
@@ -908,109 +898,144 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Clp-EZ-w1w">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <skView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BdR-1c-FnC">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                            <color key="backgroundColor" systemColor="tintColor"/>
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </skView>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Breakout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs3-zJ-i3A">
-                                            <rect key="frame" x="30" y="57" width="332" height="92"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="55"/>
-                                            <color key="textColor" red="0.011213675159053249" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <nil key="highlightedColor"/>
-                                            <color key="shadowColor" red="0.045547726429999998" green="0.0" blue="0.33333334329999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <size key="shadowOffset" width="5" height="4"/>
-                                        </label>
-                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AR!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZP-g3-byd">
-                                            <rect key="frame" x="119" y="157" width="153" height="92"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="67"/>
-                                            <color key="textColor" red="0.011213675159053249" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <nil key="highlightedColor"/>
-                                            <color key="shadowColor" red="0.045547726429999998" green="0.0" blue="0.33333334329999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <size key="shadowOffset" width="5" height="4"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqo-Re-iW7" userLabel="ToMenu">
-                                            <rect key="frame" x="16" y="705" width="110" height="110"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="110" id="AfO-Ce-Bn9"/>
-                                                <constraint firstAttribute="height" constant="111.33" id="Zbe-mM-PEf"/>
-                                            </constraints>
-                                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" image="arkit.badge.xmark" catalog="system">
-                                                <imageReference key="backgroundImage" image="circle.fill" catalog="system" renderingMode="hierarchical-single">
-                                                    <hierarchicalColors>
-                                                        <color red="0.0" green="0.86078917980194092" blue="0.07292998851548041" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <color systemColor="secondaryLabelColor"/>
-                                                        <color systemColor="tertiaryLabelColor"/>
-                                                    </hierarchicalColors>
-                                                </imageReference>
-                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="50"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="backToMenuButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="Yfe-hU-FFO"/>
-                                                <action selector="mainMenuButtonTouchDown:" destination="6iE-Oo-vvq" eventType="touchDown" id="cFS-58-iP2"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mC1-gL-K5r" userLabel="Levels">
-                                            <rect key="frame" x="63" y="315" width="265" height="75"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.0007549300969108099" green="0.18398810169582852" blue="0.87232156357474744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="45"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="LEVELS">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="levelsButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="iuH-KA-CRA"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEX-yr-P8P" userLabel="Settings">
-                                            <rect key="frame" x="66" y="445" width="258" height="71"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.041238018392610681" green="0.12912109502078856" blue="0.62482244318181812" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="45"/>
-                                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                            <state key="normal" title="SETTINGS">
-                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="settingsButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="BUq-X8-dew"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="BdR-1c-FnC" firstAttribute="leading" secondItem="Clp-EZ-w1w" secondAttribute="leading" id="9lD-bE-kMd"/>
-                                        <constraint firstItem="BdR-1c-FnC" firstAttribute="top" secondItem="Clp-EZ-w1w" secondAttribute="top" id="Fs2-GP-cRW"/>
-                                        <constraint firstAttribute="bottom" secondItem="lqo-Re-iW7" secondAttribute="bottom" constant="28.670000000000002" id="JeC-Bw-c1n"/>
-                                        <constraint firstAttribute="trailing" secondItem="BdR-1c-FnC" secondAttribute="trailing" id="j8h-iX-JxT"/>
-                                        <constraint firstAttribute="bottom" secondItem="BdR-1c-FnC" secondAttribute="bottom" id="pYD-ou-jdQ"/>
-                                        <constraint firstItem="lqo-Re-iW7" firstAttribute="leading" secondItem="Clp-EZ-w1w" secondAttribute="leading" constant="16" id="zDf-JM-oL5"/>
-                                    </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
+                            <skView opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BdR-1c-FnC">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="tintColor"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </skView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Breakout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs3-zJ-i3A">
+                                <rect key="frame" x="32" y="55" width="332" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="55"/>
+                                <color key="textColor" red="0.011213675159053249" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.045547726429999998" green="0.0" blue="0.33333334329999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <size key="shadowOffset" width="5" height="4"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AR!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZP-g3-byd">
+                                <rect key="frame" x="122" y="144" width="153" height="92"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="67"/>
+                                <color key="textColor" red="0.011213675159053249" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" red="0.045547726429999998" green="0.0" blue="0.33333334329999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <size key="shadowOffset" width="5" height="4"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqo-Re-iW7" userLabel="ToMenu">
+                                <rect key="frame" x="10" y="704" width="110" height="110"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="aNR-Qb-T2s"/>
+                                    <constraint firstAttribute="height" constant="110" id="puw-Ha-iK2"/>
+                                </constraints>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="NotARButton"/>
+                                <connections>
+                                    <action selector="backToMenuButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="Yfe-hU-FFO"/>
+                                    <action selector="mainMenuButtonTouchDown:" destination="6iE-Oo-vvq" eventType="touchDown" id="cFS-58-iP2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEX-yr-P8P" userLabel="Settings">
+                                <rect key="frame" x="58" y="470" width="275" height="80"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="275" id="1k0-iF-QeC"/>
+                                    <constraint firstAttribute="height" constant="80" id="3kM-SP-nTV"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ARSettingsButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="settingsButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="BUq-X8-dew"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mC1-gL-K5r" userLabel="Levels">
+                                <rect key="frame" x="58" y="360" width="275" height="80"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="275" id="Kg3-Op-0r3"/>
+                                    <constraint firstAttribute="height" constant="80" id="RcS-wO-IyJ"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ARLevelsButton">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="levelsButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="iuH-KA-CRA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCB-pG-pHl">
+                                <rect key="frame" x="265" y="699" width="115" height="115"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="115" id="bpg-es-2Xp"/>
+                                    <constraint firstAttribute="width" constant="115" id="fD2-bs-EOO"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="ARShopButton"/>
+                                <connections>
+                                    <action selector="shopButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="DJ4-8V-Y83"/>
+                                    <segue destination="sLQ-jT-mcQ" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="p3I-S7-oBl"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rhombus.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4Z9-xq-mjW">
+                                <rect key="frame" x="350" y="650" width="30" height="38.666666666666629"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="auZ-Ku-9Ke"/>
+                                    <constraint firstAttribute="width" constant="30" id="jXG-dO-DCM"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX5-aU-549">
+                                <rect key="frame" x="250" y="654" width="100" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="DAJ-If-Kvo"/>
+                                    <constraint firstAttribute="height" constant="35" id="sZ4-jZ-MNu"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2Fn-yI-fkd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="No1-zu-Rvf" firstAttribute="leading" secondItem="TSp-45-4WU" secondAttribute="leading" id="5Av-SY-4DK"/>
+                            <constraint firstItem="2Fn-yI-fkd" firstAttribute="trailing" secondItem="AEX-yr-P8P" secondAttribute="trailing" constant="57.5" id="5xe-Ww-HxM"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="AEX-yr-P8P" secondAttribute="bottom" constant="260" id="A9V-Hw-icf"/>
                             <constraint firstAttribute="bottom" secondItem="No1-zu-Rvf" secondAttribute="bottom" id="Awy-f6-wyH"/>
                             <constraint firstItem="4w4-W0-NtI" firstAttribute="trailing" secondItem="2Fn-yI-fkd" secondAttribute="trailing" id="Cpg-k3-geg"/>
+                            <constraint firstItem="lqo-Re-iW7" firstAttribute="leading" secondItem="2Fn-yI-fkd" secondAttribute="leading" constant="10" id="JN2-VJ-C6H"/>
                             <constraint firstItem="4w4-W0-NtI" firstAttribute="leading" secondItem="2Fn-yI-fkd" secondAttribute="leading" id="JQU-kL-mlp"/>
+                            <constraint firstAttribute="bottom" secondItem="ZCB-pG-pHl" secondAttribute="bottom" constant="30" id="NsI-WW-smE"/>
+                            <constraint firstItem="2Fn-yI-fkd" firstAttribute="trailing" secondItem="mC1-gL-K5r" secondAttribute="trailing" constant="57.5" id="OC9-a3-wVL"/>
                             <constraint firstItem="4w4-W0-NtI" firstAttribute="top" secondItem="TSp-45-4WU" secondAttribute="top" id="aCc-9w-eD4"/>
+                            <constraint firstAttribute="bottom" secondItem="lqo-Re-iW7" secondAttribute="bottom" constant="30" id="eR6-8N-LVf"/>
+                            <constraint firstItem="4Z9-xq-mjW" firstAttribute="leading" secondItem="AX5-aU-549" secondAttribute="trailing" id="iB7-UD-NFi"/>
                             <constraint firstAttribute="bottom" secondItem="4w4-W0-NtI" secondAttribute="bottom" id="jEQ-iI-h9q"/>
+                            <constraint firstItem="ZCB-pG-pHl" firstAttribute="top" secondItem="AX5-aU-549" secondAttribute="bottom" constant="10" id="qqM-xc-4pI"/>
+                            <constraint firstItem="AEX-yr-P8P" firstAttribute="leading" secondItem="2Fn-yI-fkd" secondAttribute="leading" constant="57.5" id="rPA-Nn-hVV"/>
                             <constraint firstAttribute="trailing" secondItem="No1-zu-Rvf" secondAttribute="trailing" id="smz-fL-NZY"/>
                             <constraint firstItem="No1-zu-Rvf" firstAttribute="top" secondItem="TSp-45-4WU" secondAttribute="top" id="ucJ-zS-nUn"/>
+                            <constraint firstItem="2Fn-yI-fkd" firstAttribute="trailing" secondItem="4Z9-xq-mjW" secondAttribute="trailing" constant="10" id="utD-xV-o8l"/>
+                            <constraint firstItem="2Fn-yI-fkd" firstAttribute="trailing" secondItem="ZCB-pG-pHl" secondAttribute="trailing" constant="10" id="vVB-89-L0h"/>
+                            <constraint firstItem="mC1-gL-K5r" firstAttribute="leading" secondItem="2Fn-yI-fkd" secondAttribute="leading" constant="57.5" id="xou-v9-rlW"/>
+                            <constraint firstItem="AEX-yr-P8P" firstAttribute="top" secondItem="mC1-gL-K5r" secondAttribute="bottom" constant="30" id="zBg-Fe-B7w"/>
+                            <constraint firstItem="ZCB-pG-pHl" firstAttribute="top" secondItem="4Z9-xq-mjW" secondAttribute="bottom" constant="10" id="zyh-46-dQo"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="blurView" destination="No1-zu-Rvf" id="d5S-WC-nRc"/>
+                        <outlet property="cameraView" destination="4w4-W0-NtI" id="dn1-XA-3vT"/>
                         <outlet property="levelsButton" destination="mC1-gL-K5r" id="vUu-6L-LAz"/>
                         <outlet property="settingsButton" destination="AEX-yr-P8P" id="oV6-WW-HBJ"/>
+                        <outlet property="shopButton" destination="ZCB-pG-pHl" id="jNv-AG-FZy"/>
                         <outlet property="toMainMenuButton" destination="lqo-Re-iW7" id="jfs-jG-uYI"/>
+                        <outlet property="userMoney" destination="AX5-aU-549" id="VWu-7M-CES"/>
                         <segue destination="zSG-9G-ihC" kind="presentation" identifier="FromARMenuToLevelsARMenu" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Stv-wn-I8o"/>
                     </connections>
                 </viewController>
@@ -1030,7 +1055,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-bM-DRn">
-                                <rect key="frame" x="266" y="37" width="115" height="110"/>
+                                <rect key="frame" x="262" y="34" width="116" height="113"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <imageReference key="image" image="pause.circle.fill" catalog="system" renderingMode="hierarchical">
@@ -1210,7 +1235,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="128"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fU-ao-gHt" userLabel="back">
-                                        <rect key="frame" x="10" y="50" width="136.33333333333334" height="71"/>
+                                        <rect key="frame" x="10" y="50" width="158" height="71"/>
                                         <color key="backgroundColor" red="0.28627450980392155" green="0.99607843137254903" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1224,7 +1249,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LEVELS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="Em7-xe-Sj2">
-                                        <rect key="frame" x="186.33333333333337" y="50" width="187.66666666666663" height="71"/>
+                                        <rect key="frame" x="208" y="50" width="166" height="71"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="45"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -1294,18 +1319,17 @@
         <scene sceneID="0dE-AF-6IR">
             <objects>
                 <tabBarController id="sLQ-jT-mcQ" customClass="ShopViewController" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" backgroundImage="Tabbar" itemPositioning="centered" itemSpacing="50" itemWidth="50" id="gzj-Va-Jif">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" itemPositioning="centered" itemSpacing="50" itemWidth="50" id="gzj-Va-Jif">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="tintColor" red="0.28627450980392155" green="0.99607843137254903" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.090196078431372548" green="0.11372549019607843" blue="0.23137254901960785" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                        <color key="selectedImageTintColor" red="0.28627450980392155" green="0.99607843137254903" blue="0.48627450980392156" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="jWT-hf-bgl" kind="relationship" relationship="viewControllers" id="4dU-BB-YQz"/>
-                        <segue destination="uuE-hq-1BQ" kind="relationship" relationship="viewControllers" id="jCa-XX-hoc"/>
                         <segue destination="pSy-uB-vfJ" kind="relationship" relationship="viewControllers" id="Lcb-NE-qHA"/>
+                        <segue destination="uuE-hq-1BQ" kind="relationship" relationship="viewControllers" id="aZv-JX-uwz"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RhV-22-ipL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1409,10 +1433,11 @@
                                 <color systemColor="tertiaryLabelColor"/>
                             </hierarchicalColors>
                         </imageReference>
-                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
+                        <inset key="imageInsets" minX="0.0" minY="14" maxX="0.0" maxY="-10"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="BallIcon" destination="OCR-2v-DXp" id="red-oR-7hs"/>
                         <outlet property="backButton" destination="Rp0-9z-LgO" id="qPD-8b-Jlx"/>
                         <outlet property="collectionView" destination="EP1-2Y-t9l" id="Anx-m3-NhH"/>
                         <outlet property="headerTopView" destination="5Um-xL-zeW" id="E44-J4-GdQ"/>
@@ -1513,7 +1538,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="PaddleUnselected" selectedImage="PaddleSelected" id="wVV-Za-no3">
-                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
+                        <inset key="imageInsets" minX="0.0" minY="12" maxX="0.0" maxY="-10"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
@@ -1618,7 +1643,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" selectedImage="ParticleSelected" id="v4q-Ge-qj7">
                         <imageReference key="image" image="ParticleUnselected" symbolScale="large"/>
-                        <inset key="imageInsets" minX="0.0" minY="10" maxX="0.0" maxY="-10"/>
+                        <inset key="imageInsets" minX="0.0" minY="14" maxX="0.0" maxY="-10"/>
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
@@ -1633,26 +1658,29 @@
             <point key="canvasLocation" x="263" y="2305"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="p3I-S7-oBl"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="ARButton" width="1000" height="1000"/>
+        <image name="ARLevelsButton" width="1000" height="299"/>
+        <image name="ARSettingsButton" width="1000" height="299"/>
+        <image name="ARShopButton" width="1000" height="1000"/>
         <image name="BackButton" width="504" height="263"/>
-        <image name="BallSelected" width="61" height="61"/>
-        <image name="BallUnselected" width="61" height="61"/>
+        <image name="BallSelected" width="62" height="62"/>
+        <image name="BallUnselected" width="62" height="62"/>
         <image name="LevelsButton" width="1000" height="299"/>
+        <image name="NotARButton" width="1000" height="1000"/>
         <image name="PaddleSelected" width="105" height="40.5"/>
         <image name="PaddleUnselected" width="105" height="40.5"/>
-        <image name="ParticleSelected" width="59.5" height="57.5"/>
-        <image name="ParticleUnselected" width="59.5" height="57.5"/>
-        <image name="SettingsButton" width="1000" height="291"/>
+        <image name="ParticleSelected" width="60.5" height="58.5"/>
+        <image name="ParticleUnselected" width="60.5" height="58.5"/>
+        <image name="SettingsButton" width="1000" height="299"/>
         <image name="ShopButton" width="1000" height="1000"/>
-        <image name="Tabbar" width="390" height="89"/>
-        <image name="arkit" catalog="system" width="128" height="125"/>
-        <image name="arkit.badge.xmark" catalog="system" width="128" height="116"/>
         <image name="arrow.clockwise" catalog="system" width="113" height="128"/>
         <image name="arrow.counterclockwise" catalog="system" width="113" height="128"/>
         <image name="arrowshape.turn.up.backward.fill" catalog="system" width="128" height="104"/>
         <image name="arrowshape.turn.up.left.fill" catalog="system" width="128" height="104"/>
-        <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="circle.fill" catalog="system" width="128" height="123"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>

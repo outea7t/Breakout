@@ -25,6 +25,7 @@
 		22096B5C2986EC0B0072F4C6 /* level_26.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22096B4F2986EC0B0072F4C6 /* level_26.txt */; };
 		2214055329A3E0570086DEC7 /* background.riv in Resources */ = {isa = PBXBuildFile; fileRef = 2214055229A3E0570086DEC7 /* background.riv */; };
 		2214055529A3E6CA0086DEC7 /* button.riv in Resources */ = {isa = PBXBuildFile; fileRef = 2214055429A3E6CA0086DEC7 /* button.riv */; };
+		221EF7BD29B3D2C300CF2A5A /* arbackground.riv in Resources */ = {isa = PBXBuildFile; fileRef = 221EF7BC29B3D2C300CF2A5A /* arbackground.riv */; };
 		223BDB0F29AABE0F001CE63D /* AREndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */; };
 		223BDB1329AB4D07001CE63D /* ARPauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1229AB4D07001CE63D /* ARPauseScene.swift */; };
 		223BDB1529AB565C001CE63D /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1429AB565C001CE63D /* Plane.swift */; };
@@ -141,6 +142,7 @@
 		22096B4F2986EC0B0072F4C6 /* level_26.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_26.txt; sourceTree = "<group>"; };
 		2214055229A3E0570086DEC7 /* background.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.riv; sourceTree = "<group>"; };
 		2214055429A3E6CA0086DEC7 /* button.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = button.riv; sourceTree = "<group>"; };
+		221EF7BC29B3D2C300CF2A5A /* arbackground.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = arbackground.riv; sourceTree = "<group>"; };
 		223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREndGameScene.swift; sourceTree = "<group>"; };
 		223BDB1229AB4D07001CE63D /* ARPauseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPauseScene.swift; sourceTree = "<group>"; };
 		223BDB1429AB565C001CE63D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 		22F9D96E293BCD2200A5D776 /* RiveAssets */ = {
 			isa = PBXGroup;
 			children = (
+				221EF7BC29B3D2C300CF2A5A /* arbackground.riv */,
 				2214055429A3E6CA0086DEC7 /* button.riv */,
 				2214055229A3E0570086DEC7 /* background.riv */,
 			);
@@ -676,6 +679,7 @@
 				22096B522986EC0B0072F4C6 /* level_20.txt in Resources */,
 				22096B512986EC0B0072F4C6 /* level_18.txt in Resources */,
 				224F5C4C29865EE9005E8E47 /* level_17.txt in Resources */,
+				221EF7BD29B3D2C300CF2A5A /* arbackground.riv in Resources */,
 				22F20C0E28BE045E00415CE5 /* level_4.txt in Resources */,
 				224F5C4D29865EE9005E8E47 /* level_14.txt in Resources */,
 				2275FA32288ACDCC0075AFD6 /* Main.storyboard in Resources */,

@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import SceneKit
 import ARKit
-
+import RiveRuntime
 
 class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     
@@ -19,18 +19,41 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var levelsButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var toMainMenuButton: UIButton!
+    @IBOutlet weak var userMoney: UILabel!
+    @IBOutlet weak var shopButton: UIButton!
+    
     
     // переменные для захвата видео с задней камеры телефона
     var session: AVCaptureSession?
     private let output = AVCapturePhotoOutput()
     private let previewLayer = AVCaptureVideoPreviewLayer()
+    @IBOutlet weak var cameraView: UIView!
     
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    // фоновая анимация
+    private let backgroundView = RiveView()
+    private let backgroundViewModel = RiveViewModel(fileName: "arbackground")
     
     deinit {
         print("ARMenuViewController DEINITIALIZED")
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // настраиваем riveView
+        self.backgroundViewModel.setView(self.backgroundView)
+        self.backgroundViewModel.play(animationName: "AmbientAnimation", loop: .loop)
+        
+        
+        self.backgroundViewModel.alignment = .topLeft
+        self.backgroundViewModel.fit = .fill
+        self.view.addSubview(self.backgroundView)
+        self.view.sendSubviewToBack(self.backgroundView)
+        self.view.sendSubviewToBack(self.blurView)
+        self.view.sendSubviewToBack(self.cameraView)
+        
+        self.backgroundView.frame = self.view.bounds
+        self.backgroundView.center = self.view.center
         
         if let view = self.view.viewWithTag(1) as? SKView {
             view.backgroundColor = .clear
@@ -44,30 +67,31 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
             }
         }
         
-        
-        
-        // делаем кнопки округлее
-        self.levelsButton.layer.cornerRadius = self.levelsButton.frame.width / 10.0
-        self.settingsButton.layer.cornerRadius = self.settingsButton.frame.width / 10.0
         // настраиваем тени этих кнопок
         self.levelsButton.layer.shadowOpacity = 1.0
-        self.levelsButton.layer.shadowColor = #colorLiteral(red: 0.003220230108, green: 0.1214692518, blue: 0.5943663716, alpha: 1)
+        self.levelsButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.levelsButton.layer.shadowRadius = 0
         self.levelsButton.layer.shadowOffset = CGSize(width: self.levelsButton.frame.width/30,
-                                                      height: self.levelsButton.frame.width/20)
+                                                      height: self.levelsButton.frame.height/10)
         
         self.settingsButton.layer.shadowOpacity = 1.0
-        self.settingsButton.layer.shadowColor = #colorLiteral(red: 0.005399688613, green: 0.1200461462, blue: 0.5884372592, alpha: 1)
+        self.settingsButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.settingsButton.layer.shadowRadius = 0
         self.settingsButton.layer.shadowOffset = CGSize(width: self.settingsButton.frame.width/30,
-                                                        height: self.settingsButton.frame.width/20)
+                                                        height: self.settingsButton.frame.height/10)
                                                      
         
         self.toMainMenuButton.layer.shadowOpacity = 1.0
-        self.toMainMenuButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.5084269643, blue: 0, alpha: 1)
+        self.toMainMenuButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.08817758411, blue: 0.04436858743, alpha: 1)
         self.toMainMenuButton.layer.shadowRadius = 0
         self.toMainMenuButton.layer.shadowOffset = CGSize(width: self.toMainMenuButton.frame.width/12,
                                                           height: self.toMainMenuButton.frame.height/16)
+        
+        self.shopButton.layer.shadowOpacity = 1.0
+        self.shopButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.08817758411, blue: 0.04436858743, alpha: 1)
+        self.shopButton.layer.shadowRadius = 0
+        self.shopButton.layer.shadowOffset = CGSize(width: self.shopButton.frame.width/15,
+                                                    height: self.shopButton.frame.height/15)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -83,7 +107,7 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -111,6 +135,9 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         self.session?.stopRunning()
     }
     
+    @IBAction func shopButtonPressed(_ sender: UIButton) {
+        self.arMenuScene?.pauseScene()
+    }
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         
     }
