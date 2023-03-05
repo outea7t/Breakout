@@ -12,8 +12,6 @@ import SpriteKit
 struct AnimatedParticles {
     /// отображаемый текст
     var text = "BREAKOUT"
-    /// цвет частички
-    var originalColor = #colorLiteral(red: 0, green: 0.2352433503, blue: 1, alpha: 0.8)
     /// цвета во время анимации
     var colorsDuringAnimation = [UIColor]()
     /// шрифты во время анимации
@@ -33,11 +31,12 @@ struct AnimatedParticles {
     /// активируем тени у частичек
     private var enable3D: Bool = false
     
-    init(text: String, pointSize: CGFloat, color: UIColor, enable3D: Bool) {
+    init(text: String, pointSize: CGFloat, colors: [UIColor], enable3D: Bool) {
         self.text = text
-        self.originalColor = color
         self.pointSize = pointSize
         self.enable3D = enable3D
+        self.colorsDuringAnimation = colors
+        
         self.initialize()
     }
     init(text: String, pointSize: CGFloat, enable3D: Bool) {
@@ -48,13 +47,6 @@ struct AnimatedParticles {
     }
     
     private mutating func initialize() {
-        let color_1 = #colorLiteral(red: 0.9962161183, green: 1, blue: 0, alpha: 0.8)
-        let color_2 = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 0.8)
-        let color_3 = #colorLiteral(red: 0, green: 1, blue: 1, alpha: 0.8)
-        let color_4 = #colorLiteral(red: 1, green: 0, blue: 1, alpha: 0.8)
-        let color_5 = #colorLiteral(red: 0, green: 1, blue: 0.1056410149, alpha: 0.8)
-        self.colorsDuringAnimation += [color_1,color_2,color_3, color_4, color_5]
-        
         let font_1 = UIFont(name: "Bungee", size: self.pointSize)
 //        let font_2 = UIFont(name: "Marker Felt Thin", size: self.pointSize)
 //        let font_3 = UIFont(name: "Times New Roman", size: self.pointSize)
@@ -69,9 +61,13 @@ struct AnimatedParticles {
         
         for letter in text {
             let labelNode = SKLabelNode(text: String(letter))
-            labelNode.fontName = "Futura Bold"
+            labelNode.fontName = "Bungee"
             labelNode.fontSize = self.pointSize
-            labelNode.color = self.originalColor
+            if !self.colorsDuringAnimation.isEmpty {
+                labelNode.color = self.colorsDuringAnimation[Int.random(in: 0..<self.colorsDuringAnimation.count)]
+            } else {
+                labelNode.color = .white
+            }
             labelNode.colorBlendFactor = 1.0
             
             if self.enable3D {
@@ -111,7 +107,7 @@ struct AnimatedParticles {
             // генерируем частички с небольшим разрывом (чтобы они не сливались)
             if self.currentTime - self.lastTime >= self.gap {
                 // если мы слишком долго не активировали эту анимацию, то начинаем анимировать слово с его начала
-                if self.currentTime - self.lastTime >= 2.0 {
+                if self.currentTime - self.lastTime >= 1.0 {
                     self.indexOfLetterShouldSpawn = 0
                 }
                 self.lastTime = currentTime
@@ -161,7 +157,7 @@ struct AnimatedParticles {
                             
                         }
                     }
-                    self.resizeAndColorize(colorToChange: color, letter: nodeShouldSpawn)
+                    self.resizeAndColorize(letter: nodeShouldSpawn)
                     scene.addChild(nodeShouldSpawn)
                 }
                 
@@ -174,7 +170,7 @@ struct AnimatedParticles {
         return Int(arc4random()) % upperBorder
     }
     /// функция, анимирующая букву
-    private func resizeAndColorize(colorToChange: UIColor, letter: SKLabelNode) {
+    private func resizeAndColorize(letter: SKLabelNode) {
         let downSize_0 = SKAction.group([
             SKAction.scaleX(to: 1.4, duration: 0.22),
             SKAction.scaleY(to: 0.7, duration: 0.22)
@@ -210,28 +206,8 @@ struct AnimatedParticles {
             normalSize
         ])
         
-        
-        let toUserColor = SKAction.colorize(
-            with: colorToChange,
-            colorBlendFactor: 1.0,
-            duration: 0.20)
-        let wait = SKAction.wait(forDuration: 0.35)
-        
-        
-        let toOriginalColor = SKAction.colorize(
-            with: self.originalColor,
-            colorBlendFactor: 1.0,
-            duration: 0.15)
-        
-        let colorizeSequence = SKAction.sequence([
-            toUserColor,
-            wait,
-            toOriginalColor
-        ])
-        
         let resultAction = SKAction.group([
             resizeSequence,
-            colorizeSequence
         ])
         letter.run(SKAction.group([
             resultAction

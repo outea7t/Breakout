@@ -65,6 +65,7 @@ class LoseViewController: UIViewController {
         self.endGameScene?.isWin = false
         self.endGameScene?.addConfetti()
         self.endGameScene?.setText()
+        self.endGameScene?.setAnimatedParticles()
     }
 
     @IBAction func restartButtonPressed(_ sender: UIButton) {

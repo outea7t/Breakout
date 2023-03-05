@@ -35,6 +35,9 @@ class ARPauseScene: SKScene {
         }
     }
     
+    override func update(_ currentTime: TimeInterval) {
+        self.pauseAnimatedLabel?.ambientAnimating(colorToChange: colorToChange, currentTime: currentTime)
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             self.touchDownOnPause(touch)

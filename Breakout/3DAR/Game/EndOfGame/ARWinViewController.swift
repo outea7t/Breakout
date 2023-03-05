@@ -95,6 +95,7 @@ class ARWinViewController: UIViewController {
         self.endGameScene?.isWin = true
         self.endGameScene?.addConfetti()
         self.endGameScene?.setText()
+        self.endGameScene?.setAnimatedParticles()
     }
     // кнопка возвращения в меню
     @IBAction func homeButtonPressed(_ sender: UIButton) {

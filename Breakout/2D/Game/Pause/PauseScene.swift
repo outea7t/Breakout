@@ -10,13 +10,18 @@ import SpriteKit
 
 class PauseScene: SKScene {
     var animatedPauseLabel: AnimatedText?
+    var animatedParticles: AnimatedParticles?
     
     let colorOfLabelWhileAnimated = #colorLiteral(red: 0.916108631, green: 0.447783801, blue: 0.168627451, alpha: 1)
     let originalColorOfLabel = #colorLiteral(red: 1, green: 0.8205810189, blue: 0, alpha: 1)
     
     override func didMove(to view: SKView) {
         self.backgroundColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
+        let pointSize = self.frame.height/10
+        var colors = [UIColor]()
         
+        colors = [#colorLiteral(red: 0, green: 1, blue: 0, alpha: 0.8), #colorLiteral(red: 1, green: 0.9465779662, blue: 0, alpha: 0.8), #colorLiteral(red: 0.0133848507, green: 0, blue: 1, alpha: 0.8), #colorLiteral(red: 1, green: 0, blue: 0, alpha: 0.8), #colorLiteral(red: 1, green: 0, blue: 0.9527272582, alpha: 0.8)]
+        self.animatedParticles = AnimatedParticles(text: "BREAKOUT", pointSize: pointSize, colors: colors, enable3D: false)
         
         let animatedPauseLabelColor = #colorLiteral(red: 1, green: 0.8205810189, blue: 0, alpha: 1)
         self.animatedPauseLabel = AnimatedText(text: "Pause",
@@ -37,16 +42,25 @@ class PauseScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         self.animatedPauseLabel?.ambientAnimating(colorToChange: self.colorOfLabelWhileAnimated, currentTime: currentTime)
+        self.animatedParticles?.update(currentTime)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             self.touchDownOnLetter(touch)
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                
+                HapticManager.collisionVibrate(with: .soft, 0.75)
+                self.animatedParticles?.animate(touch, scene: self)
+            }
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             self.touchProcessOnLetter(touch)
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                self.animatedParticles?.animate(touch, scene: self)
+            }
         }
     }
     

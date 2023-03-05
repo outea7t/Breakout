@@ -19,13 +19,12 @@ class EndGameScene: SKScene {
     private var gameLoseLabel: AnimatedText?
     private var gameWinLabel: AnimatedText?
     private var colorsForWinLabelAnimation = [UIColor]()
+    // 
+    private var animatedParticles: AnimatedParticles?
     
     override func didMove(to view: SKView) {
-//        self.view?.backgroundColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         self.backgroundColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-        
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.5)
         
         let confettiSize = CGSize(width: self.frame.width*0.03846, height: self.frame.height*0.02962)
@@ -106,6 +105,14 @@ class EndGameScene: SKScene {
             self.createConfetti()
         }
     }
+    func setAnimatedParticles() {
+        let pointSize = self.frame.height/10
+        
+        self.animatedParticles = AnimatedParticles(text: "BREAKOUT",
+                                                   pointSize: pointSize,
+                                                   colors: self.isWin ? self.winColors : self.loseColors,
+                                                   enable3D: false)
+    }
     // настраиваем анимированный текст
     func setText() {
         if self.isWin {
@@ -172,6 +179,11 @@ class EndGameScene: SKScene {
             } else {
                 self.touchDownOnLetterLOSE(touch)
             }
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                HapticManager.collisionVibrate(with: .soft, 0.75)
+                self.animatedParticles?.animate(touch, scene: self)
+            }
+            
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -180,6 +192,9 @@ class EndGameScene: SKScene {
                 self.touchProcessOnLetterWIN(touch)
             } else {
                 self.touchProcessOnLetterLOSE(touch)
+            }
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                self.animatedParticles?.animate(touch, scene: self)
             }
         }
     }

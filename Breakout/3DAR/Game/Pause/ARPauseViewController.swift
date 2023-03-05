@@ -65,6 +65,8 @@ class ARPauseViewController: UIViewController {
             arGameViewController.unpauseGame()
         }
     }
+    
+    
     // функции, отслеживающие нажатия кнопок
     // нажата кнопка продолжения игры
     @IBAction func playButtonPressed(_ sender: UIButton) {

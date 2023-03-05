@@ -19,17 +19,16 @@ class AREndGameScene: SKScene {
     private var gameLoseLabel: AnimatedText?
     private var gameWinLabel: AnimatedText?
     private var colorsForWinLabelAnimation = [UIColor]()
+    // анимированные частички
+    private var animatedParticles: AnimatedParticles?
     
     override func didMove(to view: SKView) {
 //        self.view?.backgroundColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         self.backgroundColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-        
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        
         self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.5)
         
         let confettiSize = CGSize(width: self.frame.width*0.03846, height: self.frame.height*0.02962)
-        
         self.confetti = SKSpriteNode(color: .white, size: confettiSize)
         
         // настраиваем варианты цветов для победы
@@ -40,28 +39,18 @@ class AREndGameScene: SKScene {
         self.winColors.append(.init(red: 200/255, green: 112/255, blue: 159/255, alpha: 1.0))
         
         // настраиваем варианты для поражения
+        self.loseColors += [#colorLiteral(red: 0.5, green: 0.0, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.2398, green: 0.0, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.2398, green: 0.1175, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.2398, green: 0.1175, blue: 0.0, alpha: 1.0)]
         self.loseColors.append(.red)
-        self.loseColors.append(.init(red: 0.5, green: 0.0, blue: 0.0, alpha: 1.0))
-        self.loseColors.append(.init(red: 0.2398, green: 0.0, blue: 0.0, alpha: 1.0))
-        self.loseColors.append(.init(red: 0.2398, green: 0.1175, blue: 0.0, alpha: 1.0))
-        self.loseColors.append(.init(red: 0.2398, green: 0.1175, blue: 0.0, alpha: 1.0))
         
         // настраиваем физическое тело confetti
         self.confetti?.physicsBody = SKPhysicsBody(rectangleOf: confettiSize)
         self.confetti?.physicsBody?.friction = 0.0
         self.confetti?.physicsBody?.linearDamping = 0.0
         self.confetti?.physicsBody?.allowsRotation = true
-        
         self.confetti?.zPosition = -1
         
-        
-        colorsForWinLabelAnimation += [
-            .init(red: 0.966, green: 0.0, blue: 0.036, alpha: 1.0),
-            .init(red: 0.966, green: 0.904, blue: 0.0, alpha: 1.0),
-            .init(red: 0.0, green: 0.964, blue: 0.966, alpha: 1.0),
-            .init(red: 0.334, green: 0.0, blue: 0.916, alpha: 1.0)
-        ]
-        
+//        #colorLiteral(red: 0.2217126489, green: 0, blue: 0.3598205447, alpha: 1)
+        self.colorsForWinLabelAnimation += [ #colorLiteral(red: 0.966, green: 0.0, blue: 0.036, alpha: 1.0), #colorLiteral(red: 0.966, green: 0.904, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.0, green: 0.964, blue: 0.966, alpha: 1.0), #colorLiteral(red: 0.334, green: 0.0, blue: 0.916, alpha: 1.0) ]
         
         let wait = SKAction.wait(forDuration: 1.0)
         let fadeOut = SKAction.fadeOut(withDuration: 1.5)
@@ -99,12 +88,28 @@ class AREndGameScene: SKScene {
             }
         }
     }
-
+    
+    override func update(_ currentTime: TimeInterval) {
+        let randWinColorIndex = Int.random(in: 0..<self.winColors.count)
+        self.gameWinLabel?.ambientAnimating(colorToChange: self.winColors[randWinColorIndex], currentTime: currentTime)
+        
+        let randLoseColorIndex = Int.random(in: 0..<self.loseColors.count)
+        self.gameLoseLabel?.ambientAnimating(colorToChange: self.loseColors[randLoseColorIndex], currentTime: currentTime)
+        
+    }
     // добавляем конфетти
     func addConfetti() {
         for _ in 0..<35 {
             self.createConfetti()
         }
+    }
+    // настраиваем анимированные частички
+    func setAnimatedParticles() {
+        let pointSize: CGFloat = self.frame.height/10
+        self.animatedParticles = AnimatedParticles(text: "BREAKOUT",
+                                                   pointSize: pointSize,
+                                                   colors: self.isWin ? self.winColors : self.loseColors,
+                                                   enable3D: true)
     }
     // настраиваем анимированный текст
     func setText() {
@@ -172,6 +177,10 @@ class AREndGameScene: SKScene {
             } else {
                 self.touchDownOnLetterLOSE(touch)
             }
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                HapticManager.collisionVibrate(with: .soft, 0.75)
+                self.animatedParticles?.animate(touch, scene: self)
+            }
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -180,6 +189,9 @@ class AREndGameScene: SKScene {
                 self.touchProcessOnLetterWIN(touch)
             } else {
                 self.touchProcessOnLetterLOSE(touch)
+            }
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                self.animatedParticles?.animate(touch, scene: self)
             }
         }
     }

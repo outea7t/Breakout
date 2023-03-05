@@ -63,6 +63,7 @@ class WinViewController: UIViewController {
         self.endGameScene?.isWin = true
         self.endGameScene?.addConfetti()
         self.endGameScene?.setText()
+        self.endGameScene?.setAnimatedParticles()
     }
     @IBAction func mainMenuButtonPressed(_ sender: UIButton) {
         self.endGameScene = nil

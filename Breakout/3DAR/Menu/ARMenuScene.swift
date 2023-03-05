@@ -57,6 +57,29 @@ class ARMenuScene: SKScene {
         self.outARAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: .white)
         self.outARAnimatedLabel?.calculatePosition(under: self.breakAnimatedLabel!, for: self.frame.size)
         
+        // загружаем маленькую надпись AR! и располагаем ее в парвом верхнем углу последней букву OUT
+        let arLabelImage = UIImage(named: "AR!Label.png")
+        if let arLabelImage = arLabelImage {
+            let textureForArLabelImage = SKTexture(image: arLabelImage)
+            let widthToHeightConstant = arLabelImage.size.width/arLabelImage.size.height
+            if let lastLetter = self.outARAnimatedLabel?.sprites.last {
+                let heightForArLabelImage = lastLetter.size.height/2.2
+                let sizeForArLabelImage = CGSize(width: heightForArLabelImage*widthToHeightConstant,
+                                                 height: heightForArLabelImage)
+                let arSprite = SKSpriteNode(texture: textureForArLabelImage,
+                                            color: .white,
+                                            size: sizeForArLabelImage)
+                
+                
+                let positionForArSprite = CGPoint(x: lastLetter.position.x + lastLetter.size.width + sizeForArLabelImage.width/5,
+                                                  y: lastLetter.position.y + lastLetter.size.height)
+                
+                arSprite.position = positionForArSprite
+                self.addChild(arSprite)
+            }
+            
+        }
+        
         
         if let breakAnimatedLabel = self.breakAnimatedLabel {
             for letter in breakAnimatedLabel.sprites {
