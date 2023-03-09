@@ -24,18 +24,21 @@ class ARMenuScene: SKScene {
     }
     override func didMove(to view: SKView) {
         let pointSize = self.frame.height/10
-        self.animatedParticles = AnimatedParticles(text: "ARBreakout", pointSize: pointSize,enable3D: true)
+        self.animatedParticles = AnimatedParticles(text: "ARBreakout",
+                                                   pointSize: pointSize,
+                                                   colors: [colorOfLabelWhileAnimated],
+                                                   enable3D: true)
         
         self.backgroundColor = .clear
         
-        let b = UIImage(named: "BAR.png")!
-        let r = UIImage(named: "RAR.png")!
-        let e = UIImage(named: "EAR.png")!
-        let a = UIImage(named: "AAR.png")!
-        let k = UIImage(named: "KAR.png")!
-        let o = UIImage(named: "OAR.png")!
-        let u = UIImage(named: "UAR.png")!
-        let t = UIImage(named: "TAR.png")!
+        let b = UIImage(named: "B.png")!
+        let r = UIImage(named: "R.png")!
+        let e = UIImage(named: "E.png")!
+        let a = UIImage(named: "A.png")!
+        let k = UIImage(named: "K.png")!
+        let o = UIImage(named: "O.png")!
+        let u = UIImage(named: "U.png")!
+        let t = UIImage(named: "T.png")!
         let images_1 = [b,r,e,a,k]
         let images_2 = [o,u,t]
         

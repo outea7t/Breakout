@@ -15,8 +15,6 @@ class ARPauseScene: SKScene {
     let shadowPauseLabelColor = #colorLiteral(red: 0.3743131161, green: 0.3061052263, blue: 0.04920960218, alpha: 1)
     let colorToChange = #colorLiteral(red: 1, green: 0.5343436599, blue: 0, alpha: 1)
     override func didMove(to view: SKView) {
-        
-        
         self.pauseAnimatedLabel = AnimatedText(
             text: "PAUSE",
             color: mainPauseLabelColor,

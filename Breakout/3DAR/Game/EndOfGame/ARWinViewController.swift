@@ -11,7 +11,6 @@ import ARKit
 
 class ARWinViewController: UIViewController {
 
-    @IBOutlet weak var infoLabel: UILabel!
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
@@ -47,13 +46,6 @@ class ARWinViewController: UIViewController {
         self.nextLevelButton.layer.shadowOpacity = 1.0
         self.nextLevelButton.layer.masksToBounds = false
         
-        // надпись
-        self.infoLabel.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.infoLabel.layer.shadowOffset = CGSize(width: infoLabel.frame.width*0.06,
-                                                   height: infoLabel.frame.height*0.06)
-        self.infoLabel.layer.shadowRadius = 4
-        self.infoLabel.layer.shadowOpacity = 1.0
-        self.infoLabel.layer.masksToBounds = false
         
         // кнопка меню
         self.menuButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)

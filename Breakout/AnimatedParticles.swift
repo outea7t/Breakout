@@ -39,12 +39,12 @@ struct AnimatedParticles {
         
         self.initialize()
     }
-    init(text: String, pointSize: CGFloat, enable3D: Bool) {
-        self.text = text
-        self.pointSize = pointSize
-        self.enable3D = enable3D
-        self.initialize()
-    }
+//    init(text: String, pointSize: CGFloat, enable3D: Bool) {
+//        self.text = text
+//        self.pointSize = pointSize
+//        self.enable3D = enable3D
+//        self.initialize()
+//    }
     
     private mutating func initialize() {
         let font_1 = UIFont(name: "Bungee", size: self.pointSize)

@@ -11,11 +11,7 @@ import SpriteKit
 class ARLoseViewController: UIViewController {
 
     @IBOutlet weak var restartButton: UIButton!
-    
-    @IBOutlet weak var infoLabel: UILabel!
-    
     @IBOutlet weak var settingsButton: UIButton!
-    
     @IBOutlet weak var menuButton: UIButton!
     
     var endGameScene: AREndGameScene?
@@ -35,34 +31,27 @@ class ARLoseViewController: UIViewController {
                 skView.presentScene(endGameScene)
             }
         }
-        self.restartButton.backgroundColor = #colorLiteral(red: 1, green: 0.1491002738, blue: 0, alpha: 1)
+        
         self.restartButton.layer.cornerRadius = 30
-        self.restartButton.layer.shadowColor = #colorLiteral(red: 0.5262494683, green: 0, blue: 0, alpha: 1)
+        self.restartButton.layer.shadowColor = #colorLiteral(red: 0.2526390254, green: 0.01980083622, blue: 0.01480148733, alpha: 1)
         self.restartButton.layer.shadowOffset = CGSize(width: restartButton.frame.width*0.05,
                                                        height: restartButton.frame.height*0.12)
-        self.restartButton.layer.shadowRadius = 4
+        self.restartButton.layer.shadowRadius = 0
         self.restartButton.layer.shadowOpacity = 1.0
         self.restartButton.layer.masksToBounds = false
         
         
-        self.infoLabel.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.infoLabel.layer.shadowOffset = CGSize(width: infoLabel.frame.width*0.025,
-                                                   height: infoLabel.frame.height*0.025)
-        self.infoLabel.layer.shadowRadius = 4
-        self.infoLabel.layer.shadowOpacity = 1.0
-        self.infoLabel.layer.masksToBounds = false
-        
-        self.menuButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.menuButton.layer.shadowColor = #colorLiteral(red: 0.2481062114, green: 0, blue: 0, alpha: 1)
         self.menuButton.layer.shadowOffset = CGSize(width: menuButton.frame.width*0.025,
                                                    height: menuButton.frame.height*0.025)
-        self.menuButton.layer.shadowRadius = 4
+        self.menuButton.layer.shadowRadius = 0
         self.menuButton.layer.shadowOpacity = 1.0
         self.menuButton.layer.masksToBounds = false
         
-        self.settingsButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.settingsButton.layer.shadowColor = #colorLiteral(red: 0.2235294118, green: 0, blue: 0.007843137255, alpha: 1)
         self.settingsButton.layer.shadowOffset = CGSize(width: settingsButton.frame.width*0.025,
                                                    height: settingsButton.frame.height*0.025)
-        self.settingsButton.layer.shadowRadius = 4
+        self.settingsButton.layer.shadowRadius = 0
         self.settingsButton.layer.shadowOpacity = 1.0
         self.settingsButton.layer.masksToBounds = false
         

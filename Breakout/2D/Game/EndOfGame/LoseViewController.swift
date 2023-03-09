@@ -11,7 +11,6 @@ import SpriteKit
 class LoseViewController: UIViewController {
 
     
-    @IBOutlet weak var infoLabel: UILabel!
     var endGameScene: EndGameScene?
     @IBOutlet weak var blurView: UIVisualEffectView!
     

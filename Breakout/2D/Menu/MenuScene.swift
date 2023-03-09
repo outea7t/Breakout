@@ -32,7 +32,7 @@ class MenuScene: SKScene {
         // размер частичек будет особенным для каждого устройства
         let pointSize = self.frame.height/10
         
-        self.animatedParticles = AnimatedParticles(text: "Breakout", pointSize: pointSize, enable3D: false)
+        self.animatedParticles = AnimatedParticles(text: "Breakout", pointSize: pointSize, colors: [#colorLiteral(red: 0.5082114339, green: 0, blue: 1, alpha: 1)], enable3D: false)
         // настраиваем частички на заднем фоне
         self.particle.strokeColor = .white
         self.particle.fillColor = .white
