@@ -165,7 +165,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.gameSceneView.scene.physicsWorld.contactDelegate = self
         // устанавливаем предпочтительное количество кадров в секунду у view
         self.gameSceneView.preferredFramesPerSecond = 60
-        self.gameSceneView.rendersMotionBlur = true
+//        self.gameSceneView.rendersMotionBlur = true
         
         self.currentLevel?.removeAllBricksBeforeSettingLevel()
         self.currentLevel = self.levels[self.levelChoosed-1]
@@ -198,6 +198,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             }
 //        }
     }
+//    @objc func moveGesture(_ gesture: UIgesture)
     private func rotateScene(_ angle: CGFloat) {
         let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: 0.0001)
 //        if !self.isRotated {
@@ -307,6 +308,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         let z = CGFloat(planeAnchor.center.z)
         
         planeNode!.position = SCNVector3(x, y, z)
+        
         //  для обновления позиции коробки (если мы добавляем ее не к обнаруженной плоскости, а к rootNode)
         if let planeNodePosition = self.detectedPlaneNode?.worldPosition {
             if self.wantSetPosition && !self.wantDetectPlane {
@@ -314,6 +316,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 self.createScene()
                 self.wantSetPosition = false
             }
+            
+            if let frame = self.frame {
+//                frame.plate.position.y = Float(planeNodePosition.y) + frame.plateVolume.y
+            }
+            self.updateLightPosition()
         }
         
         if !self.planeAnchors.contains(planeAnchor) {
@@ -458,6 +465,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             if isAttachedToPaddle {
                 if let direction = self.trajectoryLine?.currentDirection, let isTrajectoryCreated = self.trajectoryLine?.isTrajectoryCreated {
                     if isTrajectoryCreated {
+                        print(direction)
                         self.ball?.removedFromPaddle(with: direction)
                         self.trajectoryLine?.isTrajectoryCreated = false
                     }
@@ -521,7 +529,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                     if abs(percentage) > 0.5 {
                         percentage = 0.5 * (abs(percentage)/percentage)
                     }
-                    
+                    print(percentage, distance)
                     if let oldVelocity = ball.ball.physicsBody?.velocity {
                         // используем магическое число 0.065 (для нормального отталкивания мяча от ракетки)
                         let ballImpulse = 0.065*4
@@ -647,11 +655,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     private func applyBonusEffectOnGame(type: BonusType3D) {
         switch type {
-        case .rotate:
-            if !self.isRotated {
-                self.isRotated = true
-                self.rotateFrame()
-            }
+//        case .rotate:
+//            if !self.isRotated {
+//                self.isRotated = true
+//                self.rotateFrame()
+//            }
         case .decreaseSpeedOfPaddle:
             if !self.isPaddleSlowed {
                 self.isPaddleSlowed = true
@@ -666,7 +674,10 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             self.addLive()
         case .maxValue:
             break
+        default:
+            break
         }
+        
     }
     private func rotateFrame() {
         if let plate = self.frame?.plate {
@@ -870,7 +881,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         lightObject.shadowMapSize = CGSize(width: 2048, height: 2048)
         lightObject.shadowSampleCount = 128
-//        lightObject.intensity = 100
+        lightObject.intensity = 1000
         
         self.light.light = lightObject
         if let planeNodePosition = self.planeNodePosition {
@@ -886,7 +897,15 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
         
     }
-    
+    private func updateLightPosition() {
+//        if let planeNodePosition = self.planeNodePosition {
+//            let destinationVector = SCNVector3(x: planeNodePosition.x,
+//                                               y: planeNodePosition.y + 1.0,
+//                                               z: planeNodePosition.z - 0.4)
+//
+//            self.light.runAction(SCNAction.move(to: destinationVector, duration: 0.01))
+//        }
+    }
 }
 
 // let hitlist = self.gameSceneView.hitTest(location, options: nil)

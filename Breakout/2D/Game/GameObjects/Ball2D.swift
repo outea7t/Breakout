@@ -33,6 +33,10 @@ struct Ball2D {
     
     var isAttachedToPaddle = true
     
+    private var upperBorderVelocityTrigger: CGFloat = 0.51
+    private var bottomBorderVelocityTrigger: CGFloat = 0.49
+    private var lengthOfVelocity: CGFloat = 0.5
+    
     init(frame: CGRect) {
         // настройка мяча
         // делаем размер мяча зависимым от размера экрана

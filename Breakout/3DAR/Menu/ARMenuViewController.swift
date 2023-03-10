@@ -114,7 +114,7 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         return false
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
         return []

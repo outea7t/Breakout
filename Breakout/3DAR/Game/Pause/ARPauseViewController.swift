@@ -99,10 +99,10 @@ class ARPauseViewController: UIViewController {
 //            gameViewController.gameSceneView.session.pause()
             gameViewController.unpauseGame()
             gameViewController.restartGame()
-            gameViewController.updateConfiguration()
-            gameViewController.removeAllChildren()
-            gameViewController.wantDetectPlane = true
-            gameViewController.wantSetPosition = true
+//            gameViewController.removeAllChildren()
+//            gameViewController.wantDetectPlane = true
+//            gameViewController.wantSetPosition = true
+            
         }
         self.dismiss(animated: true)
     }

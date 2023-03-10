@@ -68,10 +68,15 @@ struct Ball3D {
     }
     
     // обновляем позицию и скорость мяча
-    func update(paddle: Paddle3D) {
+    mutating func update(paddle: Paddle3D) {
         // скорость мяча по оси ординат всегда должна быть равна 0 (иначе есть шанс, что он улетит в небо)
         if let v = self.ball.physicsBody?.velocity {
-            print(v, ball.position)
+            let x = ball.presentation.position.x.isNaN
+            let y = ball.presentation.position.y.isNaN
+            let z = ball.presentation.position.z.isNaN
+            if x || y || z {
+                self.isAttachedToPaddle = true
+            }
         }
         self.ball.physicsBody?.velocity.y = 0.0
         // если мяч привязан к ракетке, то он должен находиться прямо на ней (высчитываем его позицию)
