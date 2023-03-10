@@ -165,7 +165,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.gameSceneView.scene.physicsWorld.contactDelegate = self
         // устанавливаем предпочтительное количество кадров в секунду у view
         self.gameSceneView.preferredFramesPerSecond = 60
-//        self.gameSceneView.rendersMotionBlur = true
+        self.gameSceneView.rendersMotionBlur = true
         
         self.currentLevel?.removeAllBricksBeforeSettingLevel()
         self.currentLevel = self.levels[self.levelChoosed-1]

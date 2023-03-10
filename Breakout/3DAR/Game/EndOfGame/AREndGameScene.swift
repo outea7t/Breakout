@@ -90,10 +90,10 @@ class AREndGameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         let randWinColorIndex = Int.random(in: 0..<self.winColors.count)
-        self.gameWinLabel?.ambientAnimating(colorToChange: self.winColors[randWinColorIndex], currentTime: currentTime)
+        self.gameWinLabel?.ambientAnimating(colorToChange: .green, currentTime: currentTime)
         
         let randLoseColorIndex = Int.random(in: 0..<self.loseColors.count)
-        self.gameLoseLabel?.ambientAnimating(colorToChange: self.loseColors[randLoseColorIndex], currentTime: currentTime)
+        self.gameLoseLabel?.ambientAnimating(colorToChange: .red, currentTime: currentTime)
         
     }
     // добавляем конфетти
