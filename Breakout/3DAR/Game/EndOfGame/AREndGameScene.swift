@@ -49,7 +49,6 @@ class AREndGameScene: SKScene {
         self.confetti?.physicsBody?.allowsRotation = true
         self.confetti?.zPosition = -1
         
-//        #colorLiteral(red: 0.2217126489, green: 0, blue: 0.3598205447, alpha: 1)
         self.colorsForWinLabelAnimation += [ #colorLiteral(red: 0.966, green: 0.0, blue: 0.036, alpha: 1.0), #colorLiteral(red: 0.966, green: 0.904, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.0, green: 0.964, blue: 0.966, alpha: 1.0), #colorLiteral(red: 0.334, green: 0.0, blue: 0.916, alpha: 1.0) ]
         
         let wait = SKAction.wait(forDuration: 1.0)
@@ -202,7 +201,7 @@ class AREndGameScene: SKScene {
                 if letter.contains(touch.location(in: self)) {
                     let randIndex = Int(arc4random()) % self.colorsForWinLabelAnimation.count
                     let randomColor = self.colorsForWinLabelAnimation[randIndex]
-                    self.gameWinLabel?.animate(colorToChange: randomColor, letter: letter)
+                    self.gameWinLabel?.animate(colorToChange: .green, letter: letter)
                 }
             }
         }
@@ -213,7 +212,7 @@ class AREndGameScene: SKScene {
                 if letter.contains(touch.location(in: self)) {
                     let color = self.colorsForWinLabelAnimation[index]
                     if !letter.hasActions() {
-                        self.gameWinLabel?.animate(colorToChange: color, letter: letter)
+                        self.gameWinLabel?.animate(colorToChange: .green, letter: letter)
                     }
                 }
             }

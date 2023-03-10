@@ -49,8 +49,10 @@ struct Bonus2D {
         self.color = .white
         let size = CGSize(width: 100, height: 100)
 
-        self.bonus = SKShapeNode(rectOf: size, cornerRadius: size.width/10.0)
-
+        self.bonus = SKShapeNode(rectOf: size, cornerRadius: 0)
+        self.bonus.fillColor = .white
+        self.bonus.strokeColor = .clear
+        
         let rawBonusType = Int.random(in: 0..<BonusType2D.maxValue.rawValue)
         if let bonusType = BonusType2D(rawValue: rawBonusType) {
             self.type = bonusType
@@ -60,16 +62,18 @@ struct Bonus2D {
         
         switch self.type {
             case .addLive:
-                self.bonus.fillColor = .red
+                self.bonus.fillTexture = SKTexture(imageNamed: "LiveBonus.png")
             case .increaseBallSpeed:
-                self.bonus.fillColor = .blue
+                self.bonus.fillTexture = SKTexture(imageNamed: "BallSpeedBonus.png")
+//                self.bonus
             case .decreaseSpeedOfPaddle:
-                self.bonus.fillColor = .purple
+                self.bonus.fillTexture = SKTexture(imageNamed: "PaddleSpeedBonus.png")
             case .rotate:
-                self.bonus.fillColor = .green
+                self.bonus.fillTexture = SKTexture(imageNamed: "RotateBonus.png")
             default:
-                self.bonus.fillColor = .white
+                break
         }
+        
         
         self.bonus.physicsBody = SKPhysicsBody(rectangleOf: self.bonus.frame.size)
         self.bonus.physicsBody?.affectedByGravity = false

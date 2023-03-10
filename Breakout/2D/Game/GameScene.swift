@@ -66,7 +66,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /// длительность эффекта замедленной ракетки
     private var paddleSlowedDuration = 10.0
     /// множитель скорости для мяча
-    private var ballSpeedMult = 1.3
+    private var ballSpeedMult = 2.0
     /// ускорен ли мяч
     private var isBallSpeeded = false
     /// длительность эффекта ускорения для мяча
@@ -361,7 +361,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private func decreaseSpeedOfPaddle() {
         let action = SKAction.wait(forDuration: self.paddleSlowedDuration)
-        self.paddleSpeedMult = 0.7
+        self.paddleSpeedMult = 0.6
         self.gameNode.run(action) {
             self.paddleSpeedMult = 1.0
             self.isPaddleSlowed = false
@@ -369,9 +369,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private func increaseBallSpeed() {
         self.ball?.ball.speed = self.ballSpeedMult
+        self.ball?.ball.physicsBody?.velocity.dx *= 1.25
+        self.ball?.ball.physicsBody?.velocity.dy *= 1.25
         let action = SKAction.wait(forDuration: self.ballSpeededDuration)
         self.gameNode.run(action) {
-            self.ball?.ball.speed = 1.0
+            self.ball?.ball.physicsBody?.velocity.dx /= 1.25
+            self.ball?.ball.physicsBody?.velocity.dy /= 1.25
             self.isBallSpeeded = false
         }
     }

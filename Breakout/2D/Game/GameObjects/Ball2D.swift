@@ -72,11 +72,7 @@ struct Ball2D {
             ball.position = CGPoint(x: paddle.position.x,
                                          y: paddle.position.y + paddle.frame.size.height/2.0 + ball.frame.size.height/2.0)
         } else {
-//            if ball.physicsBody?.velocity.dx == 0 {
-//                ball.physicsBody?.applyImpulse(CGVector(dx: 10.0, dy: 0.0))
-//            } else if ball.physicsBody?.velocity.dy == 0 {
-//                ball.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: 10.0))
-//            }
+            
         }
     }
     

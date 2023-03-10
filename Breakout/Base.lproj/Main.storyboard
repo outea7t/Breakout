@@ -321,7 +321,7 @@
                                 <rect key="frame" x="15" y="347" width="360" height="110"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzI-cz-tyQ" userLabel="Quit">
-                                        <rect key="frame" x="0.0" y="1" width="115" height="109"/>
+                                        <rect key="frame" x="0.0" y="1" width="114.66666666666667" height="108.66666666666667"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal">
@@ -357,7 +357,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntH-ib-MTj" userLabel="Restart">
-                                        <rect key="frame" x="245" y="1" width="115" height="109"/>
+                                        <rect key="frame" x="245.33333333333329" y="1" width="114.66666666666666" height="108.66666666666667"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="arrow.clockwise" catalog="system">
@@ -386,7 +386,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="CZn-dq-AkF"/>
                                     <constraint firstAttribute="height" constant="100" id="cDD-kr-f62"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="50"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="50"/>
                                 <color key="tintColor" red="0.92941176889999999" green="0.44705885649999999" blue="0.18039217590000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="RESUME">
@@ -504,7 +504,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="SLs-Sj-dmy"/>
                                     <constraint firstAttribute="height" constant="100" id="SYd-Vm-IgM"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="50"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="50"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="RESTART">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -571,7 +571,7 @@
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="0O5-PU-u0Y"/>
                                     <constraint firstAttribute="height" constant="100" id="uHD-ms-ZMf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="41"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="41"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="NEXT LEVEL">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -787,6 +787,11 @@
                             <constraint firstItem="Qld-SP-orD" firstAttribute="leading" secondItem="eLA-95-sgv" secondAttribute="leading" id="ysZ-oO-bL1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="menuButton" destination="8uP-6v-o3q" id="ewy-bG-OnZ"/>
+                        <outlet property="restartButton" destination="snM-pP-I3w" id="yfq-WG-ORR"/>
+                        <outlet property="settingsButton" destination="NQb-8q-Nmm" id="syP-Gp-b7I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kjc-CV-Ekc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1164,12 +1169,12 @@
                             </skView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FNq-8W-7NW" userLabel="Resume">
                                 <rect key="frame" x="45" y="465" width="300" height="100"/>
-                                <color key="backgroundColor" red="0.92941176889999999" green="0.44705885649999999" blue="0.18039217590000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.92941176470588238" green="0.44705882352941173" blue="0.1803921568627451" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Iqp-iI-2La"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="zTi-Dm-ppE"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="50"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="50"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="RESUME">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

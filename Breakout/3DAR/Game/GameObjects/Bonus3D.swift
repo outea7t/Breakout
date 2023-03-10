@@ -93,22 +93,14 @@ struct Bonus3D {
         if random(border: 1) {
             frame.plate.addChildNode(bonus)
             // скорость бонуса
-            let bonusVelocity: Float = 0.05
+            let bonusVelocity: Float = 0.1
             // расчитываем время относительно их расстояния до низа экрана, чтобы их скорость была одинаковой
             var timeToBottom: TimeInterval = 0
             // из-за систем координат plate (0;0;0 находится в центре node) мы разделяем три случая
             
-            if self.position.z < 0 {
                 // дальше чем центр
-                timeToBottom = TimeInterval(((frame.plateVolume.z/2.0) + self.position.z) / bonusVelocity)
-            } else if self.position.z == 0 {
-                // в центре
-                timeToBottom = TimeInterval((frame.plateVolume.z/2.0)/bonusVelocity)
-            } else {
-                // ближе центра
-                timeToBottom = TimeInterval(abs(self.position.z)/bonusVelocity)
-                
-            }
+            timeToBottom = TimeInterval((frame.bottomWall.position.z - self.position.z) / bonusVelocity)
+            
 
             let destinationPosition = SCNVector3(x: self.position.x,
                                                  y: self.position.y,

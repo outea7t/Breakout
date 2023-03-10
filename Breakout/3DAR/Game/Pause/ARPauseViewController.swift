@@ -38,7 +38,7 @@ class ARPauseViewController: UIViewController {
         // настраиваем округлость кнопки и ее тень
         self.resumeButton.layer.cornerRadius = 30
         self.resumeButton.layer.shadowOpacity = 1.0
-        self.resumeButton.layer.shadowColor = #colorLiteral(red: 0.3084659874, green: 0.1308560073, blue: 0.04094462097, alpha: 1)
+        self.resumeButton.layer.shadowColor = #colorLiteral(red: 0.2478538454, green: 0.1077214703, blue: 0.03691976517, alpha: 1)
         self.resumeButton.layer.shadowRadius = 0.0
         self.resumeButton.layer.shadowOffset = CGSize(width: self.resumeButton.frame.width/20,
                                                       height: self.resumeButton.frame.height/15)
@@ -99,7 +99,7 @@ class ARPauseViewController: UIViewController {
 //            gameViewController.gameSceneView.session.pause()
             gameViewController.unpauseGame()
             gameViewController.restartGame()
-//            gameViewController.updateConfiguration()
+            gameViewController.updateConfiguration()
             gameViewController.removeAllChildren()
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true
@@ -110,7 +110,7 @@ class ARPauseViewController: UIViewController {
     // настраиваем тени для круглых кнопок (их в этом меню много, поэтому код объединен в отдельную функцию)
     private func setShadowForRoundButtons(button: UIButton) {
         button.layer.shadowOpacity = 1.0
-        button.layer.shadowColor = #colorLiteral(red: 0, green: 0.003032777924, blue: 0.3135387301, alpha: 1)
+        button.layer.shadowColor = #colorLiteral(red: 0, green: 0.002615191974, blue: 0.2709097266, alpha: 1)
         button.layer.shadowRadius = 0.0
         button.layer.shadowOffset = CGSize(width: button.frame.width/13.0,
                                            height: button.frame.height/13.0)

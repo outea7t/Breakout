@@ -37,9 +37,8 @@ class ARWinViewController: UIViewController {
             
         }
         // настройка тени для кнопок (следующий уровень)
-        self.nextLevelButton.backgroundColor = #colorLiteral(red: 0, green: 1, blue: 0.1163903061, alpha: 1)
         self.nextLevelButton.layer.cornerRadius = 30
-        self.nextLevelButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.6644610969, blue: 0.1157955602, alpha: 1)
+        self.nextLevelButton.layer.shadowColor = #colorLiteral(red: 0.03893337026, green: 0.1971413791, blue: 0.04509567469, alpha: 1)
         self.nextLevelButton.layer.shadowOffset = CGSize(width: nextLevelButton.frame.width*0.05,
                                                          height: nextLevelButton.frame.height*0.12)
         self.nextLevelButton.layer.shadowRadius = 0
@@ -51,7 +50,7 @@ class ARWinViewController: UIViewController {
         self.menuButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.menuButton.layer.shadowOffset = CGSize(width: menuButton.frame.width*0.06,
                                                    height: menuButton.frame.height*0.06)
-        self.menuButton.layer.shadowRadius = 4
+        self.menuButton.layer.shadowRadius = 0
         self.menuButton.layer.shadowOpacity = 1.0
         self.menuButton.layer.masksToBounds = false
         
@@ -59,7 +58,7 @@ class ARWinViewController: UIViewController {
         self.restartButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.restartButton.layer.shadowOffset = CGSize(width: restartButton.frame.width*0.06,
                                                          height: restartButton.frame.height*0.06)
-        self.restartButton.layer.shadowRadius = 4
+        self.restartButton.layer.shadowRadius = 0
         self.restartButton.layer.shadowOpacity = 1.0
         self.restartButton.layer.masksToBounds = false
         
@@ -67,7 +66,7 @@ class ARWinViewController: UIViewController {
         self.settingsButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.settingsButton.layer.shadowOffset = CGSize(width: settingsButton.frame.width*0.06,
                                                          height: settingsButton.frame.height*0.06)
-        self.settingsButton.layer.shadowRadius = 4
+        self.settingsButton.layer.shadowRadius = 0
         self.settingsButton.layer.shadowOpacity = 1.0
         self.settingsButton.layer.masksToBounds = false
         
