@@ -59,7 +59,7 @@ class Brick3D {
         self.brick = SCNNode(geometry: brickGeometry)
         self.brick.name = "brick"
         let brickShape = SCNPhysicsShape(geometry: brickGeometry)
-        self.brick.physicsBody = SCNPhysicsBody(type: .static, shape: brickShape)
+        self.brick.physicsBody = SCNPhysicsBody(type: .kinematic, shape: brickShape)
         // настраиваем физическое тело
         self.brick.physicsBody?.restitution = 1.0
         self.brick.physicsBody?.damping = 0.0

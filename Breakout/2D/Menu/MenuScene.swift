@@ -20,7 +20,7 @@ class MenuScene: SKScene {
     private var outAnimatedLabel: AnimatedText?
     
 //    #colorLiteral(red: 0, green: 0.941948235, blue: 0.4499601722, alpha: 1)
-    private let colorOfLabelWhileAnimated = #colorLiteral(red: 0.6404069066, green: 0, blue: 1, alpha: 1)
+    private let colorOfLabelWhileAnimated = #colorLiteral(red: 0.4820304513, green: 0, blue: 0.8957515955, alpha: 1)
 //    private let colorOfLabelWhileAnimated = #colorLiteral(red: 0.8019102812, green: 0, blue: 1, alpha: 1)
     private let originalColorOfLabel = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     

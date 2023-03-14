@@ -51,7 +51,7 @@ struct Paddle3D {
         self.paddle.position = SCNVector3(x: 0, y: volume.y/2.0, z: frame.plateVolume.z/2.0 - volume.z/2.0)
         
         let shape = SCNPhysicsShape(geometry: geometry)
-        self.paddle.physicsBody = SCNPhysicsBody(type: .static, shape: shape)
+        self.paddle.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shape)
         self.paddle.physicsBody?.damping = 0.0
         self.paddle.physicsBody?.friction = 0.0
         self.paddle.physicsBody?.restitution = 1.0

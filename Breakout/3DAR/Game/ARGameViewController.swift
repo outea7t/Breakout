@@ -18,7 +18,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     // игровая логика
     /// количество жизней у игрока
-    var lives = 300 {
+    var lives = 3 {
         willSet {
             // каждый раз, когда устанавливается новое значение, мы обновляем показатель жизней в игре
             if let geometry = self.livesLabel.geometry as? SCNText {
@@ -133,7 +133,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем debug опции
-        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents]
+        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showPhysicsShapes]
         
         // устанавливаем делегат для AR
         self.gameSceneView.delegate = self
@@ -173,6 +173,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
         
         self.view.addGestureRecognizer(rotationGestureRecognizer)
+        
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
+        
+        // пока не добавляю, так как много багов(((((
+//        self.view.addGestureRecognizer(pinchGestureRecognizer)
     }
     
     @objc func rotationGesture(_ gesture: UIRotationGestureRecognizer) {
@@ -183,10 +188,10 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             switch gesture.state {
             case .began:
                 let rotation = gesture.rotation/20
-                self.rotateScene(rotation)
+                self.rotateScene(rotation, duration: 0.0001)
             case .changed:
                 let rotation = gesture.rotation/20
-                self.rotateScene(rotation)
+                self.rotateScene(rotation, duration: 0.0001)
             case .cancelled:
                 break
             case .ended:
@@ -195,32 +200,88 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 break
             case .possible:
                 break
+            @unknown default:
+                break
             }
 //        }
     }
-//    @objc func moveGesture(_ gesture: UIgesture)
-    private func rotateScene(_ angle: CGFloat) {
-        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: 0.0001)
-//        if !self.isRotated {
-        
-        print("entered rotation func")
-        self.frame?.plate.runAction(rotateAction)
-        let quanterion = SCNQuaternion(0.0, angle, 0.0, angle)
-            self.frame?.frontWall.localRotate(by: quanterion)
-            self.frame?.bottomWall.localRotate(by: quanterion)
-            self.frame?.leftSideWall.localRotate(by: quanterion)
-            self.frame?.rightSideWall.localRotate(by: quanterion)
-            
-            if let currentLevel = self.currentLevel {
-                for brick in currentLevel.bricks {
-                    if !brick.isDestroyed {
-                        brick.brick.localRotate(by: quanterion)
-                    }
-                }
+    @objc func pinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            print(gesture.scale)
+            var scale = gesture.scale
+            if scale >= 1.25 {
+                scale = 1.25
+            } else if scale <= 0.75 {
+                scale = 0.75
             }
-            
-            self.paddle?.paddle.localRotate(by: quanterion)
-//        }
+            self.scaleScene(scaleFactor: gesture.scale)
+        
+        case .changed:
+            print(gesture.scale)
+            self.scaleScene(scaleFactor: gesture.scale)
+        break
+        case .ended:
+        break
+        case .cancelled:
+        break
+        case .failed:
+        break
+        case .possible:
+        break
+        @unknown default:
+            break
+        }
+    }
+    /// вращаем всю рамку с игрой
+    /// нужно, например, для того, чтобы пользователь
+    private func rotateScene(_ angle: CGFloat, duration: TimeInterval) {
+        guard !self.isRotated && !self.isPaused else {
+            return
+        }
+        guard let frame = self.frame else {
+            return
+        }
+        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration)
+        frame.plate.runAction(rotateAction)
+        frame.plate.physicsBody?.resetTransform()
+        
+    }
+    
+    /// следим, чтобы сцена не "заехала за обнаруженную плоскость" так как иначе она станет прозрачной
+    private func moveScene(detectedNodePosition: SCNVector3) {
+        guard let frame = self.frame else {
+            return
+        }
+        
+        var destinationPlatePosition = frame.plate.position
+        destinationPlatePosition.y = detectedNodePosition.y + frame.plateVolume.y
+        
+        let moveAction = SCNAction.move(to: destinationPlatePosition, duration: 0.0001)
+        
+        var destinationLightPosition = SCNVector3(destinationPlatePosition.x,
+                                                  destinationPlatePosition.y + 1.0,
+                                                  destinationPlatePosition.z - 0.4)
+        
+        let lightMoveAction = SCNAction.move(to: destinationLightPosition, duration: 0.0001)
+        self.light.runAction(lightMoveAction)
+    }
+    private func scaleScene(scaleFactor: CGFloat) {
+        guard let frame = self.frame else {
+            return
+        }
+        let scaleAction = SCNAction.scale(by: scaleFactor, duration: 0.001)
+        frame.plate.runAction(scaleAction)
+        
+        for child in frame.plate.childNodes {
+            child.runAction(scaleAction)
+            if let physicsBody = child.physicsBody, let geometry = child.geometry?.copy() as? SCNGeometry {
+                let newScaledShape = SCNPhysicsShape(geometry: geometry)
+                physicsBody.physicsShape = newScaledShape
+                physicsBody.resetTransform()
+            }
+//            child.physicsBody?.resetTransform()
+        }
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -317,10 +378,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 self.wantSetPosition = false
             }
             
-            if let frame = self.frame {
-//                frame.plate.position.y = Float(planeNodePosition.y) + frame.plateVolume.y
-            }
-            self.updateLightPosition()
+            self.moveScene(detectedNodePosition: planeNodePosition)
         }
         
         if !self.planeAnchors.contains(planeAnchor) {
@@ -375,291 +433,306 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     /// полльзователь коснулся экрана
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !self.isPaused {
-            for touch in touches {
-                let location = touch.location(in: self.gameSceneView)
-                self.startTouchPosition = location
-                
-                
-                if let frame = self.frame, let ball = self.ball {
-                    let touchLocation = touch.location(in: self.gameSceneView)
-                    let center = self.gameSceneView.center
-                    
-                    // у игровой рамки вершина находится в центре, а у sceneView.frame - в левом верхнем углу
-                    // поэтому мы переводим координаты .frame в координаты игровой рамки
-                    let xPosition = touchLocation.x - center.x
-                    let yPosition = touchLocation.y - center.y
-                    
-                    let percentCoordinates = SCNVector3(xPosition/self.gameSceneView.bounds.width,
-                                                        0.0,
-                                                        yPosition/self.gameSceneView.bounds.height)
-                    
-                    // переводим эти координаты в логальные для игровой рамки
-                    let frameTouchLocalCoordinates = SCNVector3(percentCoordinates.x*frame.plateVolume.x,
-                                                                0.0,
-                                                                percentCoordinates.z*frame.plateVolume.z)
-                    // считаем для определенной позиции траекторию
-                    if ball.isAttachedToPaddle {
-                        let height = self.gameSceneView.bounds.height
-                        if height - location.y > 50 {
-                            if let gameScene = self.gameScene {
-                                self.trajectoryLine?.touchDown(touchLocation: frameTouchLocalCoordinates, scene: gameScene, ball: ball)
-                            }
-                        }
-                        
-                    }
-                }
-                
-            }
+        
+        guard !self.isPaused else {
+            return
         }
+        guard touches.count == 1 else {
+            return
+        }
+        
+        for touch in touches {
+            let location = touch.location(in: self.gameSceneView)
+            self.startTouchPosition = location
+            
+            
+            if let frame = self.frame, let ball = self.ball {
+                let touchLocation = touch.location(in: self.gameSceneView)
+                let center = self.gameSceneView.center
+                
+                // у игровой рамки вершина находится в центре, а у sceneView.frame - в левом верхнем углу
+                // поэтому мы переводим координаты .frame в координаты игровой рамки
+                let xPosition = touchLocation.x - center.x
+                let yPosition = touchLocation.y - center.y
+                
+                let percentCoordinates = SCNVector3(xPosition/self.gameSceneView.bounds.width,
+                                                    0.0,
+                                                    yPosition/self.gameSceneView.bounds.height)
+                
+                // переводим эти координаты в логальные для игровой рамки
+                let frameTouchLocalCoordinates = SCNVector3(percentCoordinates.x*frame.plateVolume.x,
+                                                            0.0,
+                                                            percentCoordinates.z*frame.plateVolume.z)
+                // считаем для определенной позиции траекторию
+                if ball.isAttachedToPaddle {
+                    let height = self.gameSceneView.bounds.height
+                    if height - location.y > 50 {
+                        if let gameScene = self.gameScene {
+                            self.trajectoryLine?.touchDown(touchLocation: frameTouchLocalCoordinates, scene: gameScene, ball: ball)
+                        }
+                    }
+                    
+                }
+            }
+            
+        }
+        
     }
     /// пользователь провел пальцем по экрану
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !self.isPaused {
-            for touch in touches {
-                self.lastTouchPosition = touch.location(in: self.gameSceneView)
-                let result = CGPoint(x: -(self.startTouchPosition.x-lastTouchPosition.x)/2000, y: 0)
-                if let ball = self.ball {
-                    if !ball.isAttachedToPaddle {
-                        self.paddle?.move(by: result)
-                    }
+        guard !self.isPaused else {
+            return
+        }
+        guard touches.count == 1 else {
+            return
+        }
+        for touch in touches {
+            self.lastTouchPosition = touch.location(in: self.gameSceneView)
+            let result = CGPoint(x: -(self.startTouchPosition.x-lastTouchPosition.x)/2000, y: 0)
+            if let ball = self.ball {
+                if !ball.isAttachedToPaddle {
+                    self.paddle?.move(by: result)
                 }
+            }
+            
+            self.startTouchPosition = self.lastTouchPosition
+            if let frame = self.frame, let ball = self.ball {
+                let touchLocation = touch.location(in: self.gameSceneView)
+                let center = self.gameSceneView.center
                 
-                self.startTouchPosition = self.lastTouchPosition
-                if let frame = self.frame, let ball = self.ball {
-                    let touchLocation = touch.location(in: self.gameSceneView)
-                    let center = self.gameSceneView.center
-                    
-                    // у игровой рамки вершина находится в центре, а у sceneView.frame - в левом верхнем углу
-                    // поэтому мы переводим координаты .frame в координаты игровой рамки
-                    let xPosition = touchLocation.x - center.x
-                    let yPosition = touchLocation.y - center.y
-                    
-                    let percentCoordinates = SCNVector3(xPosition/self.gameSceneView.bounds.width,
-                                                        0.0,
-                                                        yPosition/self.gameSceneView.bounds.height)
-                    
-                    // переводим эти координаты в логальные для игровой рамки
-                    let frameTouchLocalCoordinates = SCNVector3(percentCoordinates.x*frame.plateVolume.x,
-                                                                0.0,
-                                                                percentCoordinates.z*frame.plateVolume.z)
-                    // считаем для определенной позиции траекторию
-                    if ball.isAttachedToPaddle {
-                        let height = self.gameSceneView.bounds.height
-                        if height - touchLocation.y > height/15 {
-                            if let gameScene = self.gameScene {
-                                self.trajectoryLine?.touchDown(touchLocation: frameTouchLocalCoordinates,
-                                                               scene: gameScene,
-                                                               ball: ball)
-                            }
+                // у игровой рамки вершина находится в центре, а у sceneView.frame - в левом верхнем углу
+                // поэтому мы переводим координаты .frame в координаты игровой рамки
+                let xPosition = touchLocation.x - center.x
+                let yPosition = touchLocation.y - center.y
+                
+                let percentCoordinates = SCNVector3(xPosition/self.gameSceneView.bounds.width,
+                                                    0.0,
+                                                    yPosition/self.gameSceneView.bounds.height)
+                
+                // переводим эти координаты в логальные для игровой рамки
+                let frameTouchLocalCoordinates = SCNVector3(percentCoordinates.x*frame.plateVolume.x,
+                                                            0.0,
+                                                            percentCoordinates.z*frame.plateVolume.z)
+                // считаем для определенной позиции траекторию
+                if ball.isAttachedToPaddle {
+                    let height = self.gameSceneView.bounds.height
+                    if height - touchLocation.y > height/15 {
+                        if let gameScene = self.gameScene {
+                            self.trajectoryLine?.touchDown(touchLocation: frameTouchLocalCoordinates,
+                                                           scene: gameScene,
+                                                           ball: ball)
                         }
                     }
                 }
             }
         }
+        
     }
     /// нажатия закончились
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !self.isPaused {
-            let isAttachedToPaddle = self.ball?.isAttachedToPaddle ?? false
-            if isAttachedToPaddle {
-                if let direction = self.trajectoryLine?.currentDirection, let isTrajectoryCreated = self.trajectoryLine?.isTrajectoryCreated {
-                    if isTrajectoryCreated {
-                        print(direction)
-                        self.ball?.removedFromPaddle(with: direction)
-                        self.trajectoryLine?.isTrajectoryCreated = false
-                    }
-                    // убираем нарисованные траектории
-                    self.trajectoryLine?.clearTrajectories()
-                    self.trajectoryLine?.isFirstTouch = true
+        guard !self.isPaused else {
+            return
+        }
+        guard touches.count == 1 else {
+            return
+        }
+        let isAttachedToPaddle = self.ball?.isAttachedToPaddle ?? false
+        if isAttachedToPaddle {
+            if let direction = self.trajectoryLine?.currentDirection, let isTrajectoryCreated = self.trajectoryLine?.isTrajectoryCreated {
+                if isTrajectoryCreated {
+                    self.ball?.removedFromPaddle(with: direction)
+                    self.trajectoryLine?.isTrajectoryCreated = false
                 }
+                // убираем нарисованные траектории
+                self.trajectoryLine?.clearTrajectories()
+                self.trajectoryLine?.isFirstTouch = true
             }
         }
+        
     }
     /// функция с обработкой столкновений
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        if !self.isPaused {
-            let nodeA = contact.nodeA.physicsBody?.categoryBitMask ?? 0
-            let nodeB = contact.nodeB.physicsBody?.categoryBitMask ?? 0
-            let result = nodeB | nodeA
+        guard !self.isPaused else {
+            return
+        }
+        let nodeA = contact.nodeA.physicsBody?.categoryBitMask ?? 0
+        let nodeB = contact.nodeB.physicsBody?.categoryBitMask ?? 0
+        let result = nodeB | nodeA
+        
+        if result == self.brickBitmask | self.ballBitmask {
+            if nodeA == self.brickBitmask {
+                self.currentLevel?.collisionHappened(brickNode: contact.nodeA)
+                let brickNode = contact.nodeA
+                
+                let bonusPosition = SCNVector3(x: brickNode.position.x,
+                                               y: 0.03,
+                                               z: brickNode.position.z + 0.05)
+                if let frame = self.frame {
+                    let bonus = Bonus3D(frame: frame, position: bonusPosition)
+                    if bonus.tryToAdd(to: frame) {
+                        self.bonuses.append(bonus)
+                    }
+                }
+            } else {
+                self.currentLevel?.collisionHappened(brickNode: contact.nodeB)
+                let brickNode = contact.nodeB
+                
+                let bonusPosition = SCNVector3(x: brickNode.position.x,
+                                               y: 0.03,
+                                               z: brickNode.position.z + 0.05)
+                if let frame = self.frame {
+                    let bonus = Bonus3D(frame: frame, position: bonusPosition)
+                    if bonus.tryToAdd(to: frame) {
+                        self.bonuses.append(bonus)
+                    }
+                }
+            }
             
-            if result == self.brickBitmask | self.ballBitmask {
-                if nodeA == self.brickBitmask {
-                    self.currentLevel?.collisionHappened(brickNode: contact.nodeA)
-                    let brickNode = contact.nodeA
-                    
-                    let bonusPosition = SCNVector3(x: brickNode.position.x,
-                                                   y: 0.03,
-                                                   z: brickNode.position.z + 0.05)
-                    if let frame = self.frame {
-                        let bonus = Bonus3D(frame: frame, position: bonusPosition)
-                        if bonus.tryToAdd(to: frame) {
-                            self.bonuses.append(bonus)
-                        }
-                    }
-                } else {
-                    self.currentLevel?.collisionHappened(brickNode: contact.nodeB)
-                    let brickNode = contact.nodeB
-                    
-                    let bonusPosition = SCNVector3(x: brickNode.position.x,
-                                                   y: 0.03,
-                                                   z: brickNode.position.z + 0.05)
-                    if let frame = self.frame {
-                        let bonus = Bonus3D(frame: frame, position: bonusPosition)
-                        if bonus.tryToAdd(to: frame) {
-                            self.bonuses.append(bonus)
-                        }
-                    }
-                }
+            HapticManager.collisionVibrate(with: .light, 0.5)
+        }
+        else if result == self.paddleBitmask | self.ballBitmask {
+            HapticManager.collisionVibrate(with: .light, 0.9)
+            // логика высчитывания угла наклона при столкновении с ракеткой
+            if let paddle = self.paddle, let ball = self.ball {
+                let centerOfBoard = paddle.paddle.presentation.position.x
+                let presentationOfBall = ball.ball.presentation.position.x
+                let distance = (presentationOfBall - centerOfBoard)
+                // насколько будем изменять скорость
                 
-                HapticManager.collisionVibrate(with: .light, 0.5)
-            }
-            else if result == self.paddleBitmask | self.ballBitmask {
-                HapticManager.collisionVibrate(with: .light, 0.9)
-                // логика высчитывания угла наклона при столкновении с ракеткой
-                if let paddle = self.paddle, let ball = self.ball {
-                    let centerOfBoard = paddle.paddle.presentation.position.x
-                    let presentationOfBall = ball.ball.presentation.position.x
-                    let distance = (presentationOfBall - centerOfBoard)
-                    // насколько будем изменять скорость
+                // корректируем процент, на который будем изменять скорость, чтобы он не выходил за 0.5
+                // в противном случае мяч будет слишком сильно уходить влево или вправо
+                var percentage = (distance / (paddle.paddleVolume.x/2.0))/2.0
+                if abs(percentage) > 0.5 {
+                    percentage = 0.5 * (abs(percentage)/percentage)
+                }
+                if let oldVelocity = ball.ball.physicsBody?.velocity {
+                    // используем магическое число 0.065 (для нормального отталкивания мяча от ракетки)
+                    let ballImpulse = 0.065*4
+                    let v = CGVector(dx: ballImpulse * Double(percentage) * 2.0,
+                                     dy: Double(oldVelocity.z))
                     
-                    // корректируем процент, на который будем изменять скорость, чтобы он не выходил за 0.5
-                    // в противном случае мяч будет слишком сильно уходить влево или вправо
-                    var percentage = (distance / (paddle.paddleVolume.x/2.0))/2.0
-                    if abs(percentage) > 0.5 {
-                        percentage = 0.5 * (abs(percentage)/percentage)
-                    }
-                    print(percentage, distance)
-                    if let oldVelocity = ball.ball.physicsBody?.velocity {
-                        // используем магическое число 0.065 (для нормального отталкивания мяча от ракетки)
-                        let ballImpulse = 0.065*4
-                        let v = CGVector(dx: ballImpulse * Double(percentage) * 2.0,
-                                         dy: Double(oldVelocity.z))
+                    self.ball?.ball.physicsBody?.velocity.x = Float(v.dx)
+                    self.ball?.ball.presentation.physicsBody?.velocity.x = Float(v.dx)
+                    
+                    if let currentBallVelocity = self.ball?.ball.physicsBody?.velocity {
+                        let simdVelocity = simd_float2(Float(currentBallVelocity.x),
+                                                       Float(currentBallVelocity.z))
                         
-                        self.ball?.ball.physicsBody?.velocity.x = Float(v.dx)
-                        self.ball?.ball.presentation.physicsBody?.velocity.x = Float(v.dx)
+                        let normalizedVelocity = simd_normalize(simdVelocity)
                         
-                        if let currentBallVelocity = self.ball?.ball.physicsBody?.velocity {
-                            let simdVelocity = simd_float2(Float(currentBallVelocity.x),
-                                                           Float(currentBallVelocity.z))
-                            
-                            let normalizedVelocity = simd_normalize(simdVelocity)
-                            
-                            let simdOldVelocity = simd_float2(Float(oldVelocity.x),
-                                                              Float(oldVelocity.z))
-                            
-                            let lengthOfOldVelocity = simd_length(simdOldVelocity)
-                            
-                            let newBallVelocity = SCNVector3(
-                                normalizedVelocity.x * lengthOfOldVelocity * 0.9,
-                                0.0,
-                                normalizedVelocity.y * lengthOfOldVelocity * 0.9)
-                            
-                            self.ball?.ball.physicsBody?.velocity = newBallVelocity
-                            self.ball?.ballImpulse = newBallVelocity
-                        }
+                        let simdOldVelocity = simd_float2(Float(oldVelocity.x),
+                                                          Float(oldVelocity.z))
                         
-                    }
-                }
-                
-            }
-            else if result == self.ballBitmask | frameBitmask {
-                HapticManager.collisionVibrate(with: .light, 0.7)
-            }
-            else if result == self.ballBitmask | self.bottomBitMask {
-                if self.lives - 1 > 0 {
-                    HapticManager.collisionVibrate(with: .heavy, 1.0)
-                }
-                // столкнулись с нижней стенкой - уменьшаем жизни
-                self.ball?.reset()
-                self.paddle?.reset()
-                
-                self.lives -= 1
-                // если жизней меньше нуля - мы проиграли
-                if lives <= 0 {
-                    // переходы из одного контролера в другой должны выполняться в главном потоке
-                    // причем, очень важно - синхронно, чтобы мы не переходили в контроллер проигрыша/ победы по нескольку раз
-                    HapticManager.loseHaptic()
-                    if !self.wantDetectPlane && !self.wantSetPosition {
-                        self.resetObjects()
-                        self.pauseGame()
+                        let lengthOfOldVelocity = simd_length(simdOldVelocity)
                         
-                        self.gameSceneView.session.pause()
-                        DispatchQueue.main.async { [weak self] in
-                            self?.performSegue(withIdentifier: "FromARGameToARLose", sender: self)
-                        }
+                        let newBallVelocity = SCNVector3(
+                            normalizedVelocity.x * lengthOfOldVelocity * 0.9,
+                            0.0,
+                            normalizedVelocity.y * lengthOfOldVelocity * 0.9)
+                        
+                        self.ball?.ball.physicsBody?.velocity = newBallVelocity
+                        self.ball?.ballImpulse = newBallVelocity
                     }
+                    
                 }
             }
-            else if result == self.bonusBitMask | self.paddleBitmask {
-                if nodeA == bonusBitMask {
-                    let bonusNode = contact.nodeA
-                    for (i,bonus) in self.bonuses.enumerated() {
-                        if bonus.bonus === bonusNode {
-                            print("removed")
-                            // логика взаимодействия с бонусом ...
-                            self.applyBonusEffectOnGame(type: bonus.type)
-                            bonus.remove()
-                            self.bonuses.remove(at: i)
-                        }
-                    }
-                } else {
-                    let bonusNode = contact.nodeB
-                    for (i,bonus) in self.bonuses.enumerated() {
-                        if bonus.bonus === bonusNode {
-                            print("removed")
-                            // логика взаимодействия с бонусом ...
-                            self.applyBonusEffectOnGame(type: bonus.type)
-                            bonus.remove()
-                            self.bonuses.remove(at: i)
-                        }
-                    }
-                }
+            
+        }
+        else if result == self.ballBitmask | frameBitmask {
+            HapticManager.collisionVibrate(with: .light, 0.7)
+        }
+        else if result == self.ballBitmask | self.bottomBitMask {
+            if self.lives - 1 > 0 {
+                HapticManager.collisionVibrate(with: .heavy, 1.0)
             }
-            else if result == self.bonusBitMask | self.bottomBitMask {
-                if nodeA == self.bonusBitMask {
-                    let bonuseNode = contact.nodeA
-                    for (i,bonus) in self.bonuses.enumerated() {
-                        if bonus.bonus === bonuseNode {
-                            bonus.remove()
-                            self.bonuses.remove(at: i)
-                        }
-                    }
-                } else {
-                    let bonuseNode = contact.nodeB
-                    for (i,bonus) in self.bonuses.enumerated() {
-                        if bonus.bonus === bonuseNode {
-                            bonus.remove()
-                            self.bonuses.remove(at: i)
-                        }
-                    }
-                }
-            }
-            let isAllBricksDeleted = self.currentLevel?.deleteDestroyedBricks() ?? false
-            if  isAllBricksDeleted {
+            // столкнулись с нижней стенкой - уменьшаем жизни
+            self.ball?.reset()
+            self.paddle?.reset()
+            
+            self.lives -= 1
+            // если жизней меньше нуля - мы проиграли
+            if lives <= 0 {
                 // переходы из одного контролера в другой должны выполняться в главном потоке
-                HapticManager.winHaptic()
+                // причем, очень важно - синхронно, чтобы мы не переходили в контроллер проигрыша/ победы по нескольку раз
+                HapticManager.loseHaptic()
                 if !self.wantDetectPlane && !self.wantSetPosition {
                     self.resetObjects()
                     self.pauseGame()
-//                    HapticManager.winHaptic()
-                    self.gameSceneView.session.pause()
                     
+                    self.gameSceneView.session.pause()
                     DispatchQueue.main.async { [weak self] in
-                        self?.performSegue(withIdentifier: "FromARGameToARWin", sender: self)
+                        self?.performSegue(withIdentifier: "FromARGameToARLose", sender: self)
                     }
                 }
-                
             }
         }
+        else if result == self.bonusBitMask | self.paddleBitmask {
+            if nodeA == bonusBitMask {
+                let bonusNode = contact.nodeA
+                for (i,bonus) in self.bonuses.enumerated() {
+                    if bonus.bonus === bonusNode {
+                        // логика взаимодействия с бонусом ...
+                        self.applyBonusEffectOnGame(type: bonus.type)
+                        bonus.remove()
+                        self.bonuses.remove(at: i)
+                    }
+                }
+            } else {
+                let bonusNode = contact.nodeB
+                for (i,bonus) in self.bonuses.enumerated() {
+                    if bonus.bonus === bonusNode {
+                        // логика взаимодействия с бонусом ...
+                        self.applyBonusEffectOnGame(type: bonus.type)
+                        bonus.remove()
+                        self.bonuses.remove(at: i)
+                    }
+                }
+            }
+        }
+        else if result == self.bonusBitMask | self.bottomBitMask {
+            if nodeA == self.bonusBitMask {
+                let bonuseNode = contact.nodeA
+                for (i,bonus) in self.bonuses.enumerated() {
+                    if bonus.bonus === bonuseNode {
+                        bonus.remove()
+                        self.bonuses.remove(at: i)
+                    }
+                }
+            } else {
+                let bonuseNode = contact.nodeB
+                for (i,bonus) in self.bonuses.enumerated() {
+                    if bonus.bonus === bonuseNode {
+                        bonus.remove()
+                        self.bonuses.remove(at: i)
+                    }
+                }
+            }
+        }
+        let isAllBricksDeleted = self.currentLevel?.deleteDestroyedBricks() ?? false
+        if  isAllBricksDeleted {
+            // переходы из одного контролера в другой должны выполняться в главном потоке
+            HapticManager.winHaptic()
+            if !self.wantDetectPlane && !self.wantSetPosition {
+                self.resetObjects()
+                self.pauseGame()
+//                    HapticManager.winHaptic()
+                self.gameSceneView.session.pause()
+                
+                DispatchQueue.main.async { [weak self] in
+                    self?.performSegue(withIdentifier: "FromARGameToARWin", sender: self)
+                }
+            }
+            
+        }
     }
+    
     private func applyBonusEffectOnGame(type: BonusType3D) {
         switch type {
-//        case .rotate:
-//            if !self.isRotated {
-//                self.isRotated = true
-//                self.rotateFrame()
-//            }
+        case .rotate:
+            if !self.isRotated {
+                self.isRotated = true
+                self.rotateFrame()
+            }
         case .decreaseSpeedOfPaddle:
             if !self.isPaddleSlowed {
                 self.isPaddleSlowed = true
@@ -683,9 +756,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         if let plate = self.frame?.plate {
             
             let waitAction = SCNAction.wait(duration: self.rotationDuration)
-            self.rotateScene(CGFloat.pi/20.0)
+            self.rotateScene(CGFloat.pi, duration: 0.5)
             plate.runAction(waitAction) {
-                self.rotateScene(CGFloat.pi/20.0)
+                self.rotateScene(CGFloat.pi, duration: 0.5)
                 self.isRotated = false
             }
         }
@@ -896,15 +969,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             gameScene.rootNode.addChildNode(self.light)
         }
         
-    }
-    private func updateLightPosition() {
-//        if let planeNodePosition = self.planeNodePosition {
-//            let destinationVector = SCNVector3(x: planeNodePosition.x,
-//                                               y: planeNodePosition.y + 1.0,
-//                                               z: planeNodePosition.z - 0.4)
-//
-//            self.light.runAction(SCNAction.move(to: destinationVector, duration: 0.01))
-//        }
     }
 }
 

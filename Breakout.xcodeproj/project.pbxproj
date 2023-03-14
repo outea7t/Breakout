@@ -422,14 +422,14 @@
 		22B516A729238AB7006B1B6F /* GameObjects */ = {
 			isa = PBXGroup;
 			children = (
-				22B516A829238AB7006B1B6F /* Level3D.swift */,
-				22B516A929238AB7006B1B6F /* Bonus3D.swift */,
 				22B516AA29238AB7006B1B6F /* Frame3D.swift */,
-				22B516AB29238AB7006B1B6F /* Particle3D.swift */,
-				22B516AD29238AB7006B1B6F /* Brick3D.swift */,
 				22B516AE29238AB7006B1B6F /* Ball3D.swift */,
 				22B516AF29238AB7006B1B6F /* Paddle3D.swift */,
+				22B516AB29238AB7006B1B6F /* Particle3D.swift */,
+				22B516A929238AB7006B1B6F /* Bonus3D.swift */,
 				227936242943CABA002C519F /* TrajectoryLine3D.swift */,
+				22B516AD29238AB7006B1B6F /* Brick3D.swift */,
+				22B516A829238AB7006B1B6F /* Level3D.swift */,
 			);
 			path = GameObjects;
 			sourceTree = "<group>";

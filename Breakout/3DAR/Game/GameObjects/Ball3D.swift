@@ -41,7 +41,7 @@ struct Ball3D {
         let geometry = SCNSphere(radius: CGFloat(radius))
         let material = SCNMaterial()
         material.lightingModel = .physicallyBased
-        material.roughness.contents = 0.3
+        material.roughness.contents = 0.0
         material.metalness.contents = 1.0
         material.diffuse.contents = UIColor.purple
         material.specular.contents = UIColor.red
@@ -76,12 +76,12 @@ struct Ball3D {
         let z = ball.presentation.position.z.isNaN
         if x || y || z {
             self.isAttachedToPaddle = true
+            self.ball.position = SCNVector3()
         }
         
         self.ball.physicsBody?.velocity.y = 0.0
         // если мяч привязан к ракетке, то он должен находиться прямо на ней (высчитываем его позицию)
         if self.isAttachedToPaddle {
-            print(true)
             self.ball.physicsBody?.clearAllForces()
             self.ball.position = SCNVector3(paddle.paddle.position.x,
                                             self.ball.position.y,

@@ -124,7 +124,7 @@ struct Frame3D {
         wall.geometry?.materials = [material]
         if let geometry = wall.geometry {
             let shapeOfWall = SCNPhysicsShape(geometry: geometry, options: nil)
-            wall.physicsBody = SCNPhysicsBody(type: .static, shape: shapeOfWall)
+            wall.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shapeOfWall)
         }
         
         // настраиваем физическое тело
@@ -141,6 +141,7 @@ struct Frame3D {
         }
         wall.physicsBody?.collisionBitMask = self.ballBitmask | self.trajectoryBallMask
         wall.physicsBody?.contactTestBitMask = self.ballBitmask
+        
         
         return wall
     }

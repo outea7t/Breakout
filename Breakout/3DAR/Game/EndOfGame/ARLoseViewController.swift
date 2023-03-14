@@ -69,13 +69,14 @@ class ARLoseViewController: UIViewController {
         return [.bottom]
     }
     func setConfetti() {
-        self.endGameScene?.isWin = true
+        self.endGameScene?.isWin = false
         self.endGameScene?.addConfetti()
         self.endGameScene?.setText()
         self.endGameScene?.setAnimatedParticles()
     }
     @IBAction func menuButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
+            print("yeeeees")
             self.endGameScene = nil
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
