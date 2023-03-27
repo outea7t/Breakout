@@ -90,7 +90,7 @@ struct Bonus3D {
     /// возвращает true, если бонус появился
     /// false - если нет
     func tryToAdd(to frame: Frame3D) -> Bool {
-        if random(border: 1) {
+        if random(border: 5) {
             frame.plate.addChildNode(bonus)
             // скорость бонуса
             let bonusVelocity: Float = 0.1

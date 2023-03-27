@@ -70,24 +70,28 @@ struct Ball3D {
     // обновляем позицию и скорость мяча
     mutating func update(paddle: Paddle3D) {
         // скорость мяча по оси ординат всегда должна быть равна 0 (иначе есть шанс, что он улетит в небо)
-        
         let x = ball.presentation.position.x.isNaN
         let y = ball.presentation.position.y.isNaN
         let z = ball.presentation.position.z.isNaN
         if x || y || z {
             self.isAttachedToPaddle = true
-            self.ball.position = SCNVector3()
+            self.ball.position = SCNVector3(paddle.paddle.position.x,
+                                            self.ballRadius*1.5,
+                                            paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius)*1.2)
         }
         
         self.ball.physicsBody?.velocity.y = 0.0
         // если мяч привязан к ракетке, то он должен находиться прямо на ней (высчитываем его позицию)
         if self.isAttachedToPaddle {
             self.ball.physicsBody?.clearAllForces()
-            self.ball.position = SCNVector3(paddle.paddle.position.x,
-                                            self.ball.position.y,
-                                            paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius/2.0)*2.0)
+            if !x && !y && !z {
+                self.ball.position = SCNVector3(paddle.paddle.position.x,
+                                                self.ballRadius*1.5,
+                                                paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius)*1.2)
+            }
             
         } else {
+            
             // поправляем работу sceneKit и если мяч сильно замедляется или сильно ускоряется, то данный алгоритм нормализует скорость мяча
             if let currentBallVelocity = self.ball.physicsBody?.velocity {
                 let simdVelocity = simd_float2(Float(currentBallVelocity.x),

@@ -56,7 +56,7 @@ class ARWinViewController: UIViewController {
         
         // кнопка перезапуска
         self.restartButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.restartButton.layer.shadowOffset = CGSize(width: restartButton.frame.width*0.06,
+        self.restartButton.layer.shadowOffset = CGSize(width: restartButton.frame.width*0.04,
                                                          height: restartButton.frame.height*0.06)
         self.restartButton.layer.shadowRadius = 0
         self.restartButton.layer.shadowOpacity = 1.0

@@ -33,9 +33,7 @@ struct Ball2D {
     
     var isAttachedToPaddle = true
     
-    private var upperBorderVelocityTrigger: CGFloat = 0.51
-    private var bottomBorderVelocityTrigger: CGFloat = 0.49
-    private var lengthOfVelocity: CGFloat = 0.5
+    var lengthOfBallVelocityConstant: CGFloat = 800
     
     init(frame: CGRect) {
         // настройка мяча
@@ -76,7 +74,22 @@ struct Ball2D {
             ball.position = CGPoint(x: paddle.position.x,
                                          y: paddle.position.y + paddle.frame.size.height/2.0 + ball.frame.size.height/2.0)
         } else {
-            
+            if let currentBallVelocity = self.ball.physicsBody?.velocity {
+                let simdVelocity = simd_float2(Float(currentBallVelocity.dx),
+                                               Float(currentBallVelocity.dy))
+                
+                let normalizedVelocity = simd_normalize(simdVelocity)
+                
+                let simdOldVelocity = simd_float2(Float(currentBallVelocity.dx),
+                                                  Float(currentBallVelocity.dy))
+                
+                let lengthOfOldVelocity = CGFloat(simd_length(simdOldVelocity))
+                    let newBallVelocity = CGVector(
+                        dx: Double(normalizedVelocity.x) * self.lengthOfBallVelocityConstant * 0.9,
+                        dy: Double(normalizedVelocity.y) * self.lengthOfBallVelocityConstant * 0.9)
+                    self.ball.physicsBody?.velocity = newBallVelocity
+
+            }
         }
     }
     

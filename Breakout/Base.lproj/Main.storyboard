@@ -165,11 +165,9 @@
                             <skView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-RX-ZFw" userLabel="Game View">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </skView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAX-V8-CAt" userLabel="Pause">
-                                <rect key="frame" x="5" y="357" width="130" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="qAX-V8-CAt" secondAttribute="height" multiplier="1:1" id="qNB-LQ-2wu"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAX-V8-CAt" userLabel="Pause">
+                                <rect key="frame" x="0.0" y="427" width="130" height="130"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.049443685436521556" blue="0.96611279249191284" alpha="0.75" colorSpace="custom" customColorSpace="displayP3"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="" image="pause.circle" catalog="system">
@@ -185,9 +183,7 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="Cd2-RX-ZFw" secondAttribute="bottom" id="SPd-L1-cPO"/>
                             <constraint firstAttribute="trailing" secondItem="Cd2-RX-ZFw" secondAttribute="trailing" id="ZTV-Rr-lSQ"/>
-                            <constraint firstItem="qAX-V8-CAt" firstAttribute="centerY" secondItem="Cd2-RX-ZFw" secondAttribute="centerY" id="puu-QQ-dPf"/>
                             <constraint firstItem="Cd2-RX-ZFw" firstAttribute="top" secondItem="6C9-H0-yPm" secondAttribute="top" id="wiS-ha-QE1"/>
-                            <constraint firstItem="qAX-V8-CAt" firstAttribute="leading" secondItem="WYz-j4-9kl" secondAttribute="leading" constant="5" id="zNp-DV-0WM"/>
                             <constraint firstItem="Cd2-RX-ZFw" firstAttribute="leading" secondItem="6C9-H0-yPm" secondAttribute="leading" id="zQb-YX-aAT"/>
                         </constraints>
                     </view>

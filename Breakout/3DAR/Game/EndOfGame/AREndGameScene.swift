@@ -95,6 +95,7 @@ class AREndGameScene: SKScene {
         let randLoseColorIndex = Int.random(in: 0..<self.loseColors.count)
         self.gameLoseLabel?.ambientAnimating(colorToChange: .red, currentTime: currentTime)
         
+        self.animatedParticles?.update(currentTime)
     }
     // добавляем конфетти
     func addConfetti() {
@@ -105,9 +106,15 @@ class AREndGameScene: SKScene {
     // настраиваем анимированные частички
     func setAnimatedParticles() {
         let pointSize: CGFloat = self.frame.height/10
+        var colors = [UIColor]()
+        if self.isWin {
+            colors = [ #colorLiteral(red: 0.966, green: 0.0, blue: 0.036, alpha: 1.0), #colorLiteral(red: 0.966, green: 0.904, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.0, green: 0.964, blue: 0.966, alpha: 1.0), #colorLiteral(red: 0.334, green: 0.0, blue: 0.916, alpha: 1.0) ]
+        } else {
+            colors = [#colorLiteral(red: 0.5, green: 0.0, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.2398, green: 0.0, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.2398, green: 0.1175, blue: 0.0, alpha: 1.0), #colorLiteral(red: 0.2398, green: 0.1175, blue: 0.0, alpha: 1.0)]
+        }
         self.animatedParticles = AnimatedParticles(text: "BREAKOUT",
                                                    pointSize: pointSize,
-                                                   colors: self.isWin ? self.winColors : self.loseColors,
+                                                   colors: colors,
                                                    enable3D: true)
     }
     // настраиваем анимированный текст

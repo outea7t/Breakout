@@ -92,13 +92,12 @@ struct Bonus2D {
     /// возвращает true, если бонус появился
     /// false - если нет
     func tryToAdd(to scene: SKNode) -> Bool {
-        
-        if random(border: 1) {
+        if random(border: 2) {
             scene.addChild(bonus)
             // скорость бонуса
             let bonusVelocity: CGFloat = 150.0
             // расчитываем время относительно их расстояния до низа экрана, чтобы их скорость была одинаковой
-            let timeToBottom = self.position.y/bonusVelocity
+            let timeToBottom = self.position.y / bonusVelocity
             print(timeToBottom)
             let moveAction = SKAction.move(to: CGPoint(x: self.position.x, y: 0.0), duration: timeToBottom)
 
@@ -106,7 +105,6 @@ struct Bonus2D {
             
             return true
         }
-        
         return false
     }
     func remove() {

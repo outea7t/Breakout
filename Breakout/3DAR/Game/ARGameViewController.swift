@@ -175,6 +175,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.view.addGestureRecognizer(rotationGestureRecognizer)
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
+//        pinchGestureRecognizer.delaysTouchesBegan = true
         
         // пока не добавляю, так как много багов(((((
 //        self.view.addGestureRecognizer(pinchGestureRecognizer)
@@ -206,20 +207,19 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
 //        }
     }
     @objc func pinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        var scale = gesture.scale
+        if scale >= 1.001 {
+            scale = 1.01
+        } else if scale <= 0.999 {
+            scale = 0.99
+        }
+        
         switch gesture.state {
         case .began:
-            print(gesture.scale)
-            var scale = gesture.scale
-            if scale >= 1.25 {
-                scale = 1.25
-            } else if scale <= 0.75 {
-                scale = 0.75
-            }
-            self.scaleScene(scaleFactor: gesture.scale)
+            self.scaleScene(scaleFactor: scale)
         
         case .changed:
-            print(gesture.scale)
-            self.scaleScene(scaleFactor: gesture.scale)
+            self.scaleScene(scaleFactor: scale)
         break
         case .ended:
         break
@@ -242,6 +242,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         guard let frame = self.frame else {
             return
         }
+        
         let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration)
         frame.plate.runAction(rotateAction)
         frame.plate.physicsBody?.resetTransform()
@@ -255,7 +256,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
         
         var destinationPlatePosition = frame.plate.position
-        destinationPlatePosition.y = detectedNodePosition.y + frame.plateVolume.y
+        destinationPlatePosition.y = detectedNodePosition.y + frame.plateVolume.y*2
         
         let moveAction = SCNAction.move(to: destinationPlatePosition, duration: 0.0001)
         
@@ -263,24 +264,26 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                                                   destinationPlatePosition.y + 1.0,
                                                   destinationPlatePosition.z - 0.4)
         
+        frame.plate.runAction(moveAction)
         let lightMoveAction = SCNAction.move(to: destinationLightPosition, duration: 0.0001)
-        self.light.runAction(lightMoveAction)
+//        self.light.runAction(lightMoveAction)
     }
     private func scaleScene(scaleFactor: CGFloat) {
         guard let frame = self.frame else {
             return
         }
-        let scaleAction = SCNAction.scale(by: scaleFactor, duration: 0.001)
-        frame.plate.runAction(scaleAction)
+        
+//        let scaleAction = SCNAction.scale(by: scaleFactor, duration: 0.001)
+//        frame.plate.runAction(scaleAction)
+        frame.plate.transform = SCNMatrix4Scale(frame.plate.transform, Float(scaleFactor), Float(scaleFactor), Float(scaleFactor))
+        
         
         for child in frame.plate.childNodes {
-            child.runAction(scaleAction)
-            if let physicsBody = child.physicsBody, let geometry = child.geometry?.copy() as? SCNGeometry {
-                let newScaledShape = SCNPhysicsShape(geometry: geometry)
-                physicsBody.physicsShape = newScaledShape
-                physicsBody.resetTransform()
+            if let geometry = child.geometry {
+                let scaledShape = SCNPhysicsShape(geometry: geometry)
+                child.physicsBody?.physicsShape = scaledShape
             }
-//            child.physicsBody?.resetTransform()
+            child.physicsBody?.resetTransform()
         }
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -377,7 +380,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 self.createScene()
                 self.wantSetPosition = false
             }
-            
+            print("The Scene was moved")
             self.moveScene(detectedNodePosition: planeNodePosition)
         }
         
@@ -392,18 +395,24 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// обновляем игровые объекты
     private func update(_ currentTime: TimeInterval) {
         // обновляем мяч, ракетку и добавляем частички только если игра не на паузе
-        if !self.isPaused {
-            if let frame = self.frame, let paddle = self.paddle, let ball = self.ball {
-                self.ball?.update(paddle: paddle)
-                self.paddle?.update(frame: frame, isBallAttachedToPaddle: ball.isAttachedToPaddle)
-                
-                if currentTime - self.lastTime > 1.0/14.0 {
-                    self.particle?.addParticle(to: ball, frame: frame)
-                    self.lastTime = currentTime
-                }
-                
-            }
+        guard !self.isPaused else {
+            return
         }
+        guard let frame = self.frame, let paddle = self.paddle, let ball = self.ball else {
+            return
+        }
+        
+            
+        self.ball?.update(paddle: paddle)
+        paddle.update(frame: frame, isBallAttachedToPaddle: ball.isAttachedToPaddle)
+        
+        if currentTime - self.lastTime > 1.0/14.0 {
+            self.particle?.addParticle(to: ball, frame: frame)
+            self.lastTime = currentTime
+        }
+                
+            
+        
         
     }
     /// вызывается, когда сессия прерывается
@@ -434,10 +443,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// полльзователь коснулся экрана
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        guard !self.isPaused else {
-            return
-        }
-        guard touches.count == 1 else {
+        guard !self.isPaused && touches.count == 1 else {
             return
         }
         
@@ -594,14 +600,15 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             HapticManager.collisionVibrate(with: .light, 0.9)
             // логика высчитывания угла наклона при столкновении с ракеткой
             if let paddle = self.paddle, let ball = self.ball {
-                let centerOfBoard = paddle.paddle.presentation.position.x
+                let centerOfBoard = paddle.paddle.position.x
+                
                 let presentationOfBall = ball.ball.presentation.position.x
                 let distance = (presentationOfBall - centerOfBoard)
                 // насколько будем изменять скорость
                 
                 // корректируем процент, на который будем изменять скорость, чтобы он не выходил за 0.5
                 // в противном случае мяч будет слишком сильно уходить влево или вправо
-                var percentage = (distance / (paddle.paddleVolume.x/2.0))/2.0
+                var percentage = (distance / (paddle.paddleVolume.x/2.0))
                 if abs(percentage) > 0.5 {
                     percentage = 0.5 * (abs(percentage)/percentage)
                 }

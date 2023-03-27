@@ -13,7 +13,6 @@ class ARLoseViewController: UIViewController {
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var menuButton: UIButton!
-    
     var endGameScene: AREndGameScene?
     
     deinit {

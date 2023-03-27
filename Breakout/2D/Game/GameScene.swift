@@ -253,7 +253,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                                               Float(oldVelocity.dy))
                             
                             let lengthOfOldVelocity = CGFloat(simd_length(simdOldVelocity))
-                            
+                            print(lengthOfOldVelocity)
                             let newBallVelocity = CGVector(dx: CGFloat(normalizedVelocity.x) * lengthOfOldVelocity,
                                                            dy: CGFloat(normalizedVelocity.y) * lengthOfOldVelocity)
                             self.ball?.ball.physicsBody?.velocity = newBallVelocity
@@ -369,12 +369,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private func increaseBallSpeed() {
         self.ball?.ball.speed = self.ballSpeedMult
-        self.ball?.ball.physicsBody?.velocity.dx *= 1.25
-        self.ball?.ball.physicsBody?.velocity.dy *= 1.25
+        self.ball?.lengthOfBallVelocityConstant *= 1.2
+        
         let action = SKAction.wait(forDuration: self.ballSpeededDuration)
         self.gameNode.run(action) {
-            self.ball?.ball.physicsBody?.velocity.dx /= 1.25
-            self.ball?.ball.physicsBody?.velocity.dy /= 1.25
+            
+            self.ball?.lengthOfBallVelocityConstant /= 1.2
             self.isBallSpeeded = false
         }
     }

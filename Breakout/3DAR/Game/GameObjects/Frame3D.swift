@@ -87,8 +87,9 @@ struct Frame3D {
         plate.geometry?.materials = [material]
 
         if let plateGeometry = plate.geometry {
-            let shapeOfPlate = SCNPhysicsShape(geometry: plateGeometry, options: nil)
-            plate.physicsBody = SCNPhysicsBody(type: .static, shape: shapeOfPlate)
+            let shapeOfPlate = SCNPhysicsShape(geometry: plateGeometry, options: [.scale : 1])
+            plate.physicsBody = SCNPhysicsBody(type: .kinematic, shape: shapeOfPlate)
+            
         }
         
 
