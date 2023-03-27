@@ -122,6 +122,7 @@ struct Frame3D {
 //        material.metalness.contents = 0.85
         material.emission.contents = UIColor.black
         
+        
         wall.geometry?.materials = [material]
         if let geometry = wall.geometry {
             let shapeOfWall = SCNPhysicsShape(geometry: geometry, options: nil)
