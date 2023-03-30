@@ -121,7 +121,7 @@ struct Particle2D {
         }
     }
     
-    private mutating func initializeParticleSkins() {
+    mutating func initializeParticleSkins() {
         for i in 0..<(UserCustomization.maxParticleSkinIndex) {
             let textureImage = UIImage(named: "Particle-\(i+1)")
             

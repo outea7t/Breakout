@@ -25,7 +25,10 @@ class EndGameScene: SKScene {
     override func didMove(to view: SKView) {
         self.backgroundColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
-        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -2.5)
+        self.physicsWorld.gravity = CGVector(dx: 0.0, dy: 0)
+        
+        self.physicsBody?.friction = 0.5
+        self.physicsBody?.linearDamping = 0.5
         
         let confettiSize = CGSize(width: self.frame.width*0.03846, height: self.frame.height*0.02962)
         
@@ -65,11 +68,11 @@ class EndGameScene: SKScene {
         let wait = SKAction.wait(forDuration: 1.0)
         let fadeOut = SKAction.fadeOut(withDuration: 1.5)
         
-        self.confetti?.run(SKAction.sequence([
-            wait,
-            fadeOut,
-            SKAction.removeFromParent()
-        ]))
+//        self.confetti?.run(SKAction.sequence([
+//            wait,
+//            fadeOut,
+//            SKAction.removeFromParent()
+//        ]))
         
         print("USUAL")
         // настраиваем анимированный текст
@@ -171,7 +174,17 @@ class EndGameScene: SKScene {
             
         }
     }
-    
+    override func update(_ currentTime: TimeInterval) {
+        if self.isWin {
+            let randIndex = Int(arc4random()) % self.colorsForWinLabelAnimation.count
+            let randomColor = self.colorsForWinLabelAnimation[randIndex]
+            self.gameWinLabel?.ambientAnimating(colorToChange: randomColor, currentTime: currentTime)
+        } else {
+            
+            self.gameLoseLabel?.ambientAnimating(colorToChange: .red, currentTime: currentTime)
+        }
+        self.animatedParticles?.update(currentTime)
+    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             if self.isWin {

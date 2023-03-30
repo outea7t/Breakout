@@ -100,6 +100,7 @@ struct Ball2D {
         self.isAttachedToPaddle = true
     }
     func setBallSkin() {
+        print(UserCustomization.ballSkinIndex, self.ballSkins.count)
         if !UserCustomization.buyedBallSkinIndexes.isEmpty && UserCustomization.ballSkinIndex < self.ballSkins.count {
             let currentBallSkin = self.ballSkins[UserCustomization.ballSkinIndex]
             self.ball.fillColor = currentBallSkin.fillColor
@@ -110,7 +111,7 @@ struct Ball2D {
             }
         }
     }
-    private mutating func initializeBallSkins() {
+    mutating func initializeBallSkins() {
         // 1
         for i in 0..<(UserCustomization.maxBallSkinIndex) {
             let textureImage = UIImage(named: "Ball-\(i+1)")

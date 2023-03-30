@@ -7,11 +7,13 @@
 
 import UIKit
 import SpriteKit
+import RiveRuntime
 
 class PauseViewController: UIViewController {
 
     weak var pauseScene: PauseScene?
     
+    @IBOutlet weak var pauseView: SKView!
     @IBOutlet weak var blurView: UIVisualEffectView!
     
     @IBOutlet weak var homeButton: UIButton!
@@ -19,9 +21,27 @@ class PauseViewController: UIViewController {
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var resumeButton: UIButton!
     
+    private let backgroundView = RiveView()
+    private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // настраиваем riveView
+        self.backgroundViewModel.setView(self.backgroundView)
+        self.backgroundViewModel.play(loop: .loop)
+        
+        self.backgroundViewModel.alignment = .topLeft
+        self.backgroundViewModel.fit = .fill
+        self.view.addSubview(self.backgroundView)
+        
+        self.view.sendSubviewToBack(self.pauseView)
+        self.view.sendSubviewToBack(self.backgroundView)
+        self.view.sendSubviewToBack(self.blurView)
+        
+        self.backgroundView.frame = self.view.bounds
+        self.backgroundView.center = self.view.center
+        
         if let view = self.view.viewWithTag(1) as? SKView {
             view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0)
             let scene = PauseScene(size: view.bounds.size)
@@ -36,22 +56,18 @@ class PauseViewController: UIViewController {
             view.showsPhysics = true
         }
         
-        self.setShadow(for: self.homeButton)
-        self.setShadow(for: self.settingsButton)
-        self.setShadow(for: self.restartButton)
+//        self.setShadow(for: self.homeButton)
+//        self.setShadow(for: self.settingsButton)
+//        self.setShadow(for: self.restartButton)
         
         self.resumeButton.layer.cornerRadius = self.restartButton.frame.height/4.0
         
         let resumeButtonShadowColor = #colorLiteral(red: 0.4924743176, green: 0.1744754016, blue: 0.0226278659, alpha: 1)
         self.resumeButton.layer.shadowColor = resumeButtonShadowColor.cgColor
-        self.resumeButton.layer.shadowOpacity = 1.0
+        self.resumeButton.layer.shadowOpacity = 0.0
         self.resumeButton.layer.shadowRadius = 0
         self.resumeButton.layer.shadowOffset = CGSize(width: self.resumeButton.frame.width/30,
                                                       height: self.resumeButton.frame.height/10)
-        
-        // Do any additional setup after loading the view.
-        
-        
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -81,8 +97,8 @@ class PauseViewController: UIViewController {
         self.pauseScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
             gameViewController.gameScene?.unpauseGame()
-            gameViewController.gameScene?.setBallSkin()
-            gameViewController.gameScene?.setParticlesSkin()
+//            gameViewController.gameScene?.setBallSkin()
+//            gameViewController.gameScene?.setParticlesSkin()
         }
         self.dismiss(animated: true)
     }
@@ -91,10 +107,11 @@ class PauseViewController: UIViewController {
     @IBAction func restartButtonPressed(_ sender: UIButton) {
         self.pauseScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
-            gameViewController.gameScene?.unpauseGame()
+            
             gameViewController.gameScene?.resetTheGame()
-            gameViewController.gameScene?.setBallSkin()
-            gameViewController.gameScene?.setParticlesSkin()
+            gameViewController.gameScene?.unpauseGame()
+//            gameViewController.gameScene?.setBallSkin()
+//            gameViewController.gameScene?.setParticlesSkin()
         }
         self.dismiss(animated: true)
     }

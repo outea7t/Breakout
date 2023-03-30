@@ -7,22 +7,37 @@
 
 import UIKit
 import SpriteKit
+import RiveRuntime
 
 class LoseViewController: UIViewController {
 
     
     var endGameScene: EndGameScene?
     @IBOutlet weak var blurView: UIVisualEffectView!
-    
+    @IBOutlet weak var endGameView: SKView!
     
     // аутлеты с кнопками для их настройки
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     
+    private let backgroundView = RiveView()
+    private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.backgroundViewModel.setView(self.backgroundView)
+        self.backgroundViewModel.play(animationName: "AmbientAnimation", loop: .loop)
+        
+        self.view.addSubview(self.backgroundView)
+        
+        self.view.sendSubviewToBack(self.endGameView)
+        self.view.sendSubviewToBack(self.backgroundView)
+        self.view.sendSubviewToBack(self.blurView)
+        
+        self.backgroundView.frame = self.view.bounds
+        self.backgroundView.center = self.view.center
         
         if let view = self.view.viewWithTag(1) as? SKView {
 //            view.backgroundColor = #colorLiteral(red: 0.6630792942, green: 0, blue: 0, alpha: 0.2)
@@ -39,14 +54,14 @@ class LoseViewController: UIViewController {
         }
         self.setConfetti()
         self.restartButton.layer.cornerRadius = 30
-        self.restartButton.layer.shadowOpacity = 1.0
+        self.restartButton.layer.shadowOpacity = 0.0
         self.restartButton.layer.shadowRadius = 0.0
         self.restartButton.layer.shadowColor = #colorLiteral(red: 0.4212525189, green: 0.03159917518, blue: 0.02470676601, alpha: 1)
         self.restartButton.layer.shadowOffset = CGSize(width: self.restartButton.frame.width/30.0,
                                                        height: self.restartButton.frame.height/10.0)
         
-        self.setShadow(for: self.homeButton)
-        self.setShadow(for: self.settingsButton)
+//        self.setShadow(for: self.homeButton)
+//        self.setShadow(for: self.settingsButton)
         
     }
     

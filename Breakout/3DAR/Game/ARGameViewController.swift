@@ -9,8 +9,6 @@ import UIKit
 import SceneKit
 import ARKit
 
-
-
 class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
     
     @IBOutlet weak var gameSceneView: ARSCNView!

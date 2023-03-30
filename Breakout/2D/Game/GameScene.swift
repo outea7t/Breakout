@@ -171,12 +171,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setParticlesSkin() {
+        self.particle?.initializeParticleSkins()
         self.particle?.setParticlesSkin()
     }
     func setBallSkin() {
+        self.ball?.initializeBallSkins()
         self.ball?.setBallSkin()
     }
     func setPaddleSkin() {
+        self.paddle?.initializePaddleSkins()
         self.paddle?.setPaddleSkin()
     }
     // начало контакта
