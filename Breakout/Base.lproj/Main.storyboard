@@ -900,19 +900,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4w4-W0-NtI" userLabel="Camera View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="812"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="No1-zu-Rvf">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="812"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Clp-EZ-w1w">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="812"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <skView opaque="NO" tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BdR-1c-FnC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="812"/>
                                 <color key="backgroundColor" systemColor="tintColor"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </skView>
@@ -949,7 +949,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEX-yr-P8P" userLabel="Settings">
-                                <rect key="frame" x="57.666666666666657" y="438" width="260" height="80"/>
+                                <rect key="frame" x="57.666666666666657" y="438" width="275" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="1k0-iF-QeC"/>
@@ -964,7 +964,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mC1-gL-K5r" userLabel="Levels">
-                                <rect key="frame" x="57.666666666666657" y="328" width="260" height="80"/>
+                                <rect key="frame" x="57.666666666666657" y="328" width="275" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="275" id="Kg3-Op-0r3"/>
@@ -979,7 +979,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCB-pG-pHl">
-                                <rect key="frame" x="250" y="667" width="115" height="115"/>
+                                <rect key="frame" x="265" y="667" width="115" height="115"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="115" id="bpg-es-2Xp"/>
                                     <constraint firstAttribute="width" constant="115" id="fD2-bs-EOO"/>
@@ -992,7 +992,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rhombus.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="4Z9-xq-mjW">
-                                <rect key="frame" x="335" y="618" width="30" height="38.666666666666629"/>
+                                <rect key="frame" x="350" y="618" width="30" height="38.666666666666629"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="auZ-Ku-9Ke"/>
@@ -1000,7 +1000,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AX5-aU-549">
-                                <rect key="frame" x="235" y="622" width="100" height="35"/>
+                                <rect key="frame" x="250" y="622" width="100" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="DAJ-If-Kvo"/>
                                     <constraint firstAttribute="height" constant="35" id="sZ4-jZ-MNu"/>

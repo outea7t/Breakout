@@ -24,20 +24,43 @@ class PauseScene: SKScene {
         self.animatedParticles = AnimatedParticles(text: "BREAKOUT", pointSize: pointSize, colors: colors, enable3D: false)
         
         let animatedPauseLabelColor = #colorLiteral(red: 1, green: 0.8205810189, blue: 0, alpha: 1)
-        self.animatedPauseLabel = AnimatedText(text: "Pause",
-                                               color: animatedPauseLabelColor,
-                                               frame: self.frame,
-                                               shouldAnimateShadows: false,
-                                               sizeConstant: 105)
+        let p = UIImage(named: "PauseP.png")!
+        let a = UIImage(named: "PauseA.png")!
+        let u = UIImage(named: "PauseU.png")!
+        let s = UIImage(named: "PauseS.png")!
+        let e = UIImage(named: "PauseE.png")!
+        let pauseImages = [p,a,u,s,e]
+
+        self.animatedPauseLabel = AnimatedText(images: pauseImages, frame: self.frame, color: .white, sizeConstant: 67)
         
-        self.animatedPauseLabel?.calculatePosition(for: self.frame.size, offsetY: 2.8)
+//        AnimatedText(text: "Pause", color: animatedPauseLabelColor, frame: self.frame, shouldAnimateShadows: false, sizeConstant: 105)
+        
+        self.animatedPauseLabel?.calculatePosition(for: self.frame.size, offsetY: 2.35)
         
         if let animatedPauseLabel = self.animatedPauseLabel {
-            for letter in animatedPauseLabel.label {
+            for letter in animatedPauseLabel.sprites {
                 self.addChild(letter)
             }
         }
+        self.addGlowToPauseLabel()
         
+    }
+    private func addGlowToPauseLabel() {
+        guard let firstSprite = self.animatedPauseLabel?.sprites.first, let animatedPauseLabel = self.animatedPauseLabel else {
+            return
+            
+        }
+        let size = CGSize(width: self.frame.width/1.2,
+                          height: firstSprite.size.height)
+        let spriteNode = SKSpriteNode(color: .white.withAlphaComponent(0.4), size: size)
+        
+        spriteNode.position = CGPoint(x: self.frame.midX, y: firstSprite.position.y+30)
+        
+        let blur = SKEffectNode()
+        blur.filter = CIFilter(name: "CIGaussianBlur", parameters: ["inputRadius": 100])
+        blur.zPosition = -2
+        blur.addChild(spriteNode)
+        self.addChild(blur)
         
     }
     override func update(_ currentTime: TimeInterval) {
@@ -65,20 +88,20 @@ class PauseScene: SKScene {
     }
     
     private func touchDownOnLetter(_ touch: UITouch) {
-        if let breakoutLabel = self.animatedPauseLabel?.label {
+        if let breakoutLabel = self.animatedPauseLabel?.sprites {
             for letter in breakoutLabel {
                 if letter.contains(touch.location(in: self)) {
-                    self.animatedPauseLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                    self.animatedPauseLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                 }
             }
         }
     }
     private func touchProcessOnLetter(_ touch: UITouch) {
-        if let breakoutLabel = self.animatedPauseLabel?.label {
+        if let breakoutLabel = self.animatedPauseLabel?.sprites {
             for letter in breakoutLabel {
                 if letter.contains(touch.location(in: self)) {
                     if !letter.hasActions() {
-                        self.animatedPauseLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, letter: letter)
+                        self.animatedPauseLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
                     }
                 }
             }

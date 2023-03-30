@@ -97,8 +97,6 @@ class PauseViewController: UIViewController {
         self.pauseScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
             gameViewController.gameScene?.unpauseGame()
-//            gameViewController.gameScene?.setBallSkin()
-//            gameViewController.gameScene?.setParticlesSkin()
         }
         self.dismiss(animated: true)
     }

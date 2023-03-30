@@ -159,7 +159,6 @@ class MenuViewController: UIViewController {
     
     
     @IBAction func shopButtonPressed(_ sender: UIButton) {
-        
         self.menuScene?.pauseMenu()
     }
     @IBAction func settingsButtonPressed(_ sender: UIButton) {

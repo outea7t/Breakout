@@ -47,7 +47,7 @@ class ARMenuScene: SKScene {
 //                                               frame: self.frame,
 //                                               shouldAnimateShadows: true,
 //                                               shadowColor: self.colorOfShadow
-        self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: .white)
+        self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: .white, sizeConstant: 59)
         self.breakAnimatedLabel?.calculatePosition(for: self.frame.size, offsetY: 2.2)
         
         
@@ -57,7 +57,7 @@ class ARMenuScene: SKScene {
 //                                               shouldAnimateShadows: true,
 //                                               shadowColor: self.colorOfShadow
                                                
-        self.outARAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: .white)
+        self.outARAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: .white, sizeConstant: 59)
         self.outARAnimatedLabel?.calculatePosition(under: self.breakAnimatedLabel!, for: self.frame.size)
         
         // загружаем маленькую надпись AR! и располагаем ее в парвом верхнем углу последней букву OUT

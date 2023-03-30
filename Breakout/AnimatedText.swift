@@ -31,7 +31,44 @@ struct AnimatedText {
     var lastAmbientAnimationTime = TimeInterval()
     
     var currentTime = TimeInterval()
-    
+    var lengthOfWord: CGFloat {
+        get {
+            var sm: CGFloat = 0
+            if !self.label.isEmpty {
+                for l in self.label {
+                    sm += l.frame.size.width
+                }
+                return sm
+            }
+            for s in self.sprites {
+                sm += s.frame.size.width
+            }
+            return sm
+        }
+    }
+    var position: CGFloat {
+        get {
+            if !self.label.isEmpty {
+                if self.label.count % 2 == 0 {
+                    let middle: Int = Int(label.count)/2
+                    return (self.label[middle].position.x + self.label[middle-1].position.x)/2.0
+                } else {
+                    let middle: Int = Int(label.count)/2
+                    return self.label[middle].position.x
+                }
+            }
+            if !self.sprites.isEmpty {
+                if self.sprites.count % 2 == 0 {
+                    let middle: Int = Int(self.sprites.count)/2
+                    return (self.sprites[middle].position.x + self.sprites[middle-1].position.x)/2.0
+                } else {
+                    let middle: Int = Int(self.sprites.count)/2
+                    return self.sprites[middle].position.x
+                }
+            }
+            return 0
+        }
+    }
     private var positions = [CGPoint]()
     /// конструктор, который не предусматривает использование текстур
     init(text: String,
@@ -63,11 +100,11 @@ struct AnimatedText {
         }
     }
     /// конструктор, который предусматривает исопльзование текстур
-    init(images: [UIImage], frame: CGRect, color: UIColor) {
+    init(images: [UIImage], frame: CGRect, color: UIColor, sizeConstant: CGFloat = 80) {
         self.shouldAnimateShadows = false
         self.textOfLabel = ""
         self.originalColor = color
-        self.sizeConstant = 80
+        self.sizeConstant = sizeConstant
         self.shadowColor = .clear
         // настраиваем интерактивную надпись-название игры
         for image in images {
@@ -298,7 +335,7 @@ struct AnimatedText {
         let widthToHeightConstant = image.size.width/image.size.height
         let texture = SKTexture(image: image)
         // подстраиваем размер для каждого размера экрана
-        let sizeConstant: CGFloat = 59/844 * frame.height
+        let sizeConstant: CGFloat = self.sizeConstant/844 * frame.height
         let height = sizeConstant*1.2
         let width = height*widthToHeightConstant
         // из-за особенности шрифта Bungee высота всегда больше ширины в 1.2 раза

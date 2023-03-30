@@ -190,7 +190,9 @@ class ShopBallTexturesViewController: UIViewController {
         
     }
     @IBAction func backButtonPressed(_ sender: UIButton) {
-        self.dismiss(animated: true)
+        DispatchQueue.main.async {
+            self.dismiss(animated: true)
+        }
     }
     // содержит ли массив с индексами купленных элементов определенный индекс
     private func doesBuyedItemsContains(item: IndexPath) -> Bool {

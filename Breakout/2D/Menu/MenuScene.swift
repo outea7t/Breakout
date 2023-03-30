@@ -55,13 +55,13 @@ class MenuScene: SKScene {
         
         let images_1 = [b,r,e,a,k]
         // настраиваем интерактивную надпись-название игры
-        self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: self.originalColorOfLabel)
+        self.breakAnimatedLabel = AnimatedText(images: images_1, frame: self.frame, color: self.originalColorOfLabel, sizeConstant: 59)
 
         
         self.breakAnimatedLabel?.calculatePosition(for: self.frame.size, offsetY: 2.25)
         
         let images_2 = [o,u,t]
-        self.outAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: self.originalColorOfLabel)
+        self.outAnimatedLabel = AnimatedText(images: images_2, frame: self.frame, color: self.originalColorOfLabel, sizeConstant: 59)
 //        self.outAnimatedLabel = AnimatedText(text: "OUT", color: self.originalColorOfLabel, frame: self.frame, shouldAnimateShadows: false)
         if let breakAnimatedLabel = self.breakAnimatedLabel {
             self.outAnimatedLabel?.calculatePosition(under: breakAnimatedLabel,
@@ -83,12 +83,19 @@ class MenuScene: SKScene {
         
     }
     func pauseMenu() {
+        guard !self.isPaused else {
+            return
+        }
+        print("PAUSED")
         self.isPaused = true
         self.physicsWorld.speed = 0.0
         self.isHidden = true
         
     }
     func unpauseMenu() {
+        guard self.isPaused else {
+            return
+        }
         self.isPaused = false
         self.physicsWorld.speed = 1.0
         self.isHidden = false
