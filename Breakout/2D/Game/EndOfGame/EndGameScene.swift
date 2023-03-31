@@ -74,29 +74,35 @@ class EndGameScene: SKScene {
 //            SKAction.removeFromParent()
 //        ]))
         
-        print("USUAL")
         // настраиваем анимированный текст
-        self.gameWinLabel = AnimatedText(text: "WIN!",
-                                         color: .init(red: 0, green: 1, blue: 0, alpha: 1),
-                                         frame: self.frame,shouldAnimateShadows: false,
-                                         sizeConstant: 130)
+        let winW = UIImage(named: "WinW.png")!
+        let winI = UIImage(named: "WinI.png")!
+        let winN = UIImage(named: "WinN.png")!
+        let winExMark = UIImage(named: "Win!.png")!
+        let imagesForWinLabel = [winW, winI, winN, winExMark]
         
-        self.gameWinLabel?.calculatePosition(for: self.frame.size, offsetY: 2.1)
+        self.gameWinLabel = AnimatedText(images: imagesForWinLabel, frame: self.frame, color: .white, sizeConstant: 90)
+//        AnimatedText(text: "WIN!", color: .init(red: 0, green: 1, blue: 0, alpha: 1), frame: self.frame,shouldAnimateShadows: false, sizeConstant: 130)
+        self.gameWinLabel?.calculatePosition(for: self.frame.size, offsetY: 1.9)
         
-        self.gameLoseLabel = AnimatedText(text: "LOSE!",
-                                          color: .init(red: 1, green: 0, blue: 0, alpha: 1),
-                                          frame: self.frame, shouldAnimateShadows: false,
-                                          sizeConstant: 120)
+        let loseL = UIImage(named: "LoseL.png")!
+        let loseO = UIImage(named: "LoseO.png")!
+        let loseS = UIImage(named: "LoseS.png")!
+        let loseE = UIImage(named: "LoseE.png")!
+        let loseExMark = UIImage(named: "Lose!.png")!
+        let imagesForLoseLabel = [loseL, loseO, loseS, loseE, loseExMark]
+        self.gameLoseLabel = AnimatedText(images: imagesForLoseLabel, frame: self.frame, color: .white, sizeConstant: 80)
+//        AnimatedText(text: "LOSE!", color: .init(red: 1, green: 0, blue: 0, alpha: 1), frame: self.frame, shouldAnimateShadows: false, sizeConstant: 120)
         
-        self.gameLoseLabel?.calculatePosition(for: self.frame.size, offsetY: 2.5)
+        self.gameLoseLabel?.calculatePosition(for: self.frame.size, offsetY: 2.1)
         
         if let gameWinLabel = gameWinLabel {
-            for letter in gameWinLabel.label {
+            for letter in gameWinLabel.sprites {
                 self.addChild(letter)
             }
         }
         if let gameLoseLabel = gameLoseLabel {
-            for letter in gameLoseLabel.label {
+            for letter in gameLoseLabel.sprites {
                 self.addChild(letter)
             }
         }
@@ -118,29 +124,45 @@ class EndGameScene: SKScene {
     }
     // настраиваем анимированный текст
     func setText() {
+        // для того, чтобы настроить свечение у надписей
+        let blurNode = SKEffectNode()
+        blurNode.filter = CIFilter(name: "CIGaussianBlur", parameters: ["inputRadius": 100])
+        blurNode.zPosition = -2
+        
         if self.isWin {
-            if let gameWinLabel = gameWinLabel?.label {
-                for letter in gameWinLabel {
-                    letter.color = .init(red: 0, green: 1, blue: 0, alpha: 1)
+            if let gameWinLabel = gameWinLabel {
+                for letter in gameWinLabel.sprites {
+                    letter.color = .white.withAlphaComponent(1.0)
                 }
+                
+                let glowSize = CGSize(width: gameWinLabel.width*1.2, height: gameWinLabel.height*1.2)
+                let greenGlow = SKSpriteNode(color: #colorLiteral(red: 0.007843137255, green: 1, blue: 0.1254901961, alpha: 0.4), size: glowSize)
+                greenGlow.position = gameWinLabel.position
+                
+                blurNode.addChild(greenGlow)
+                self.addChild(blurNode)
             }
-            if let gameLoseLabel = gameLoseLabel?.label {
-                for letter in gameLoseLabel {
-                    letter.color = .init(red: 0, green: 0, blue: 0, alpha: 0)
+            if let gameLoseLabel = gameLoseLabel {
+                for letter in gameLoseLabel.sprites {
                     letter.removeFromParent()
                 }
             }
         } else {
-            if let gameWinLabel = gameWinLabel?.label {
-                for letter in gameWinLabel {
-                    letter.color = .init(red: 0, green: 0, blue: 0, alpha: 0)
+            if let gameWinLabel = gameWinLabel {
+                for letter in gameWinLabel.sprites {
                     letter.removeFromParent()
                 }
             }
-            if let gameLoseLabel = gameLoseLabel?.label {
-                for letter in gameLoseLabel {
-                    letter.color = .init(red: 1, green: 0, blue: 0, alpha: 1)
+            if let gameLoseLabel = gameLoseLabel {
+                for letter in gameLoseLabel.sprites {
+                    letter.color = .white.withAlphaComponent(1.0)
                 }
+                let glowSize = CGSize(width: gameLoseLabel.width*1.2, height: gameLoseLabel.height*1.2)
+                let redGlow = SKSpriteNode(color: #colorLiteral(red: 1, green: 0.2078431373, blue: 0.1568627451, alpha: 0.4), size: glowSize)
+                redGlow.position = gameLoseLabel.position
+                
+                blurNode.addChild(redGlow)
+                self.addChild(blurNode)
             }
         }
     }
@@ -213,47 +235,18 @@ class EndGameScene: SKScene {
     }
     
     private func touchDownOnLetterWIN(_ touch: UITouch) {
-        if let gameWinLabel = gameWinLabel?.label {
-            for letter in gameWinLabel {
-                if letter.contains(touch.location(in: self)) {
-                    let randIndex = Int(arc4random()) % self.colorsForWinLabelAnimation.count
-                    let randomColor = self.colorsForWinLabelAnimation[randIndex]
-                    self.gameWinLabel?.animate(colorToChange: randomColor, letter: letter)
-                }
-            }
-        }
+//        let randIndex = Int(arc4random()) % self.colorsForWinLabelAnimation.count
+//        let randomColor = self.colorsForWinLabelAnimation[randIndex]
+        self.gameWinLabel?.touchDown(touchPosition: touch.location(in: self), color: .green)
     }
     private func touchProcessOnLetterWIN(_ touch: UITouch) {
-        if let gameWinLabel = self.gameWinLabel?.label {
-            for (index, letter) in gameWinLabel.enumerated() {
-                if letter.contains(touch.location(in: self)) {
-                    let color = self.colorsForWinLabelAnimation[index]
-                    if !letter.hasActions() {
-                        self.gameWinLabel?.animate(colorToChange: color, letter: letter)
-                    }
-                }
-            }
-        }
+        self.gameWinLabel?.touchProcess(touchPosition: touch.location(in: self), color: .green)
     }
     
     private func touchDownOnLetterLOSE(_ touch: UITouch) {
-        if let gameLoseLabel = gameLoseLabel?.label {
-            for letter in gameLoseLabel {
-                if letter.contains(touch.location(in: self)) {
-                    self.gameLoseLabel?.animate(colorToChange: .red, letter: letter)
-                }
-            }
-        }
+        self.gameLoseLabel?.touchDown(touchPosition: touch.location(in: self), color: .red)
     }
     private func touchProcessOnLetterLOSE(_ touch: UITouch) {
-        if let gameLoseLabel = gameLoseLabel?.label {
-            for letter in gameLoseLabel {
-                if letter.contains(touch.location(in: self)) {
-                    if !letter.hasActions() {
-                        self.gameLoseLabel?.animate(colorToChange: .red, letter: letter)
-                    }
-                }
-            }
-        }
+        self.gameLoseLabel?.touchProcess(touchPosition: touch.location(in: self), color: .red)
     }
 }

@@ -31,42 +31,72 @@ struct AnimatedText {
     var lastAmbientAnimationTime = TimeInterval()
     
     var currentTime = TimeInterval()
-    var lengthOfWord: CGFloat {
+    /// высота слова
+    var height: CGFloat {
+        get {
+            if !self.label.isEmpty {
+                return self.label[0].frame.height
+            }
+            if !self.sprites.isEmpty {
+                return self.sprites[0].frame.height
+            }
+            return 0
+        }
+    }
+    /// длина слова
+    var width: CGFloat {
         get {
             var sm: CGFloat = 0
             if !self.label.isEmpty {
                 for l in self.label {
                     sm += l.frame.size.width
+                    sm += l.frame.size.width * self.spaceConstant
                 }
+                // отнимаем одну такую константу, потому что для первой буквы мы ее не считаем
+                sm -= label[0].frame.size.width * self.spaceConstant
                 return sm
             }
-            for s in self.sprites {
-                sm += s.frame.size.width
+            if !self.sprites.isEmpty {
+                for s in self.sprites {
+                    sm += s.frame.size.width
+                    sm += s.frame.size.width * self.spaceConstant
+                }
+                sm -= self.sprites[0].frame.size.width * self.spaceConstant
+                return sm
             }
-            return sm
+            return 0
         }
     }
-    var position: CGFloat {
+    /// позиция текста (находится в его середине)
+    var position: CGPoint {
         get {
             if !self.label.isEmpty {
                 if self.label.count % 2 == 0 {
                     let middle: Int = Int(label.count)/2
-                    return (self.label[middle].position.x + self.label[middle-1].position.x)/2.0
+                    let positionX = (self.label[middle].position.x + self.label[middle-1].position.x)/2.0
+                    let positionY = self.label[middle].position.y
+                    return CGPoint(x: positionX, y: positionY)
                 } else {
                     let middle: Int = Int(label.count)/2
-                    return self.label[middle].position.x
+                    let positionX = self.label[middle].position.x
+                    let positionY = self.label[middle].position.y
+                    return CGPoint(x: positionX, y: positionY)
                 }
             }
             if !self.sprites.isEmpty {
                 if self.sprites.count % 2 == 0 {
                     let middle: Int = Int(self.sprites.count)/2
-                    return (self.sprites[middle].position.x + self.sprites[middle-1].position.x)/2.0
+                    let positionX = self.sprites[middle-1].position.x + self.sprites[middle-1].frame.width/2
+                    let positionY = self.sprites[middle].position.y
+                    return CGPoint(x: positionX, y: positionY)
                 } else {
                     let middle: Int = Int(self.sprites.count)/2
-                    return self.sprites[middle].position.x
+                    let positionX = self.sprites[middle].position.x
+                    let positionY = self.sprites[middle].position.y + self.sprites[middle].frame.height/2.0
+                    return CGPoint(x: positionX, y: positionY)
                 }
             }
-            return 0
+            return CGPoint()
         }
     }
     private var positions = [CGPoint]()
@@ -244,7 +274,6 @@ struct AnimatedText {
             
             self.calculatePosition(with: offsetX, offsetY: realOffsetY)
         }
-        
         if !self.label.isEmpty {
             let heighOfWord = self.label[0].frame.height
             
@@ -264,6 +293,35 @@ struct AnimatedText {
             
             self.calculatePosition(with: offsetX, offsetY: realOffsetY)
         }
+    }
+    /// размещаем анимированный текст в любом месте
+    mutating func calculatePosition(for frameSize: CGSize, in position: CGPoint) {
+        
+    }
+    mutating func touchDown(touchPosition: CGPoint, color: UIColor = .white) {
+        for letter in self.label {
+            if letter.contains(touchPosition) && !letter.hasActions() {
+                self.animate(colorToChange: color, letter: letter)
+            }
+        }
+        for sprite in sprites {
+            if sprite.contains(touchPosition) && !sprite.hasActions() {
+                self.animate(colorToChange: color, sprite: sprite)
+            }
+        }
+    }
+    mutating func touchProcess(touchPosition: CGPoint, color: UIColor = .white) {
+        for letter in self.label {
+            if letter.contains(touchPosition) && !letter.hasActions() {
+                self.animate(colorToChange: color, letter: letter)
+            }
+        }
+        for sprite in self.sprites {
+            if sprite.contains(touchPosition) && !sprite.hasActions() {
+                self.animate(colorToChange: color, sprite: sprite)
+            }
+        }
+        
     }
     /// функция, которая возвращает анимацию, которую можно проиграть на любой букве
     /// сделано для того, чтобы не дублировать код при создании ambientAnimation

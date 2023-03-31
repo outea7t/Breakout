@@ -50,11 +50,11 @@ class PauseScene: SKScene {
             return
             
         }
-        let size = CGSize(width: self.frame.width/1.2,
-                          height: firstSprite.size.height)
+        let size = CGSize(width: animatedPauseLabel.width*1.2,
+                          height: animatedPauseLabel.height*1.2)
         let spriteNode = SKSpriteNode(color: .white.withAlphaComponent(0.4), size: size)
         
-        spriteNode.position = CGPoint(x: self.frame.midX, y: firstSprite.position.y+30)
+        spriteNode.position = CGPoint(x: animatedPauseLabel.position.x, y: animatedPauseLabel.position.y)
         
         let blur = SKEffectNode()
         blur.filter = CIFilter(name: "CIGaussianBlur", parameters: ["inputRadius": 100])
@@ -88,23 +88,9 @@ class PauseScene: SKScene {
     }
     
     private func touchDownOnLetter(_ touch: UITouch) {
-        if let breakoutLabel = self.animatedPauseLabel?.sprites {
-            for letter in breakoutLabel {
-                if letter.contains(touch.location(in: self)) {
-                    self.animatedPauseLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
-                }
-            }
-        }
+        self.animatedPauseLabel?.touchDown(touchPosition: touch.location(in: self), color: self.colorOfLabelWhileAnimated)
     }
     private func touchProcessOnLetter(_ touch: UITouch) {
-        if let breakoutLabel = self.animatedPauseLabel?.sprites {
-            for letter in breakoutLabel {
-                if letter.contains(touch.location(in: self)) {
-                    if !letter.hasActions() {
-                        self.animatedPauseLabel?.animate(colorToChange: self.colorOfLabelWhileAnimated, sprite: letter)
-                    }
-                }
-            }
-        }
+        self.animatedPauseLabel?.touchProcess(touchPosition: touch.location(in: self), color: self.colorOfLabelWhileAnimated)
     }
 }
