@@ -8,6 +8,7 @@
 import UIKit
 import SpriteKit
 import ARKit
+import RiveRuntime
 
 class ARWinViewController: UIViewController {
 
@@ -16,25 +17,41 @@ class ARWinViewController: UIViewController {
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var nextLevelButton: UIButton!
     
+    
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    @IBOutlet weak var endGameView: SKView!
+    
     deinit {
         print("ARWinViewController Deinitialization")
     }
+    private var endGameScene: EndGameScene?
     
-    private var endGameScene: AREndGameScene?
+    private let backgroundView = RiveView()
+    private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.backgroundViewModel.setView(self.backgroundView)
+        self.backgroundViewModel.play(animationName: "AmbientAnimation", loop: .loop)
+        
+        self.view.addSubview(self.backgroundView)
+        
+        self.view.sendSubviewToBack(self.endGameView)
+        self.view.sendSubviewToBack(self.backgroundView)
+        self.view.sendSubviewToBack(self.blurView)
+        
+        self.backgroundView.frame = self.view.bounds
+        self.backgroundView.center = self.view.center
+        
         if let skView = self.view.viewWithTag(1) as? SKView {
             skView.backgroundColor = .clear
-            self.endGameScene = AREndGameScene(size: skView.bounds.size)
+            self.endGameScene = EndGameScene(size: skView.bounds.size)
             self.endGameScene?.backgroundColor = .clear
             
             if let endGameScene = self.endGameScene {
                 skView.presentScene(endGameScene)
             }
-            
-            
         }
         // настройка тени для кнопок (следующий уровень)
         self.nextLevelButton.layer.cornerRadius = 30
@@ -42,7 +59,7 @@ class ARWinViewController: UIViewController {
         self.nextLevelButton.layer.shadowOffset = CGSize(width: nextLevelButton.frame.width*0.05,
                                                          height: nextLevelButton.frame.height*0.12)
         self.nextLevelButton.layer.shadowRadius = 0
-        self.nextLevelButton.layer.shadowOpacity = 1.0
+        self.nextLevelButton.layer.shadowOpacity = 0.0
         self.nextLevelButton.layer.masksToBounds = false
         
         
@@ -51,7 +68,7 @@ class ARWinViewController: UIViewController {
         self.menuButton.layer.shadowOffset = CGSize(width: menuButton.frame.width*0.06,
                                                    height: menuButton.frame.height*0.06)
         self.menuButton.layer.shadowRadius = 0
-        self.menuButton.layer.shadowOpacity = 1.0
+        self.menuButton.layer.shadowOpacity = 0.0
         self.menuButton.layer.masksToBounds = false
         
         // кнопка перезапуска
@@ -59,7 +76,7 @@ class ARWinViewController: UIViewController {
         self.restartButton.layer.shadowOffset = CGSize(width: restartButton.frame.width*0.04,
                                                          height: restartButton.frame.height*0.06)
         self.restartButton.layer.shadowRadius = 0
-        self.restartButton.layer.shadowOpacity = 1.0
+        self.restartButton.layer.shadowOpacity = 0.0
         self.restartButton.layer.masksToBounds = false
         
         // кнопка настроек
@@ -67,7 +84,7 @@ class ARWinViewController: UIViewController {
         self.settingsButton.layer.shadowOffset = CGSize(width: settingsButton.frame.width*0.06,
                                                          height: settingsButton.frame.height*0.06)
         self.settingsButton.layer.shadowRadius = 0
-        self.settingsButton.layer.shadowOpacity = 1.0
+        self.settingsButton.layer.shadowOpacity = 0.0
         self.settingsButton.layer.masksToBounds = false
         
         // устанавливаем конфетти при выигрыше, настраиваем сцену

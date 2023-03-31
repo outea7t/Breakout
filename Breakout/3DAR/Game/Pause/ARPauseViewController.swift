@@ -8,6 +8,7 @@
 import UIKit
 import SceneKit
 import SpriteKit
+import RiveRuntime
 
 class ARPauseViewController: UIViewController {
     
@@ -17,13 +18,37 @@ class ARPauseViewController: UIViewController {
     @IBOutlet weak var resetLevelButton: UIButton!
     @IBOutlet weak var resumeButton: UIButton!
     
+    
+    @IBOutlet weak var blurView: UIVisualEffectView!
+    
+    @IBOutlet weak var pauseView: SKView!
+    private var pauseScene: ARPauseScene?
+    
     deinit {
         print("ARPauseViewController Deinitialization")
     }
     
-    private var pauseScene: ARPauseScene?
+    
+    private let backgroundView = RiveView()
+    private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // настраиваем riveView
+        self.backgroundViewModel.setView(self.backgroundView)
+        self.backgroundViewModel.play(loop: .loop)
+        
+        self.backgroundViewModel.alignment = .topLeft
+        self.backgroundViewModel.fit = .fill
+        self.view.addSubview(self.backgroundView)
+        
+        self.view.sendSubviewToBack(self.pauseView)
+        self.view.sendSubviewToBack(self.backgroundView)
+        self.view.sendSubviewToBack(self.blurView)
+        
+        self.backgroundView.frame = self.view.bounds
+        self.backgroundView.center = self.view.center
         
         if let skView = self.view.viewWithTag(1) as? SKView {
             skView.backgroundColor = .clear
@@ -37,16 +62,16 @@ class ARPauseViewController: UIViewController {
         }
         // настраиваем округлость кнопки и ее тень
         self.resumeButton.layer.cornerRadius = 30
-        self.resumeButton.layer.shadowOpacity = 1.0
+        self.resumeButton.layer.shadowOpacity = 0.0
         self.resumeButton.layer.shadowColor = #colorLiteral(red: 0.2478538454, green: 0.1077214703, blue: 0.03691976517, alpha: 1)
         self.resumeButton.layer.shadowRadius = 0.0
         self.resumeButton.layer.shadowOffset = CGSize(width: self.resumeButton.frame.width/20,
                                                       height: self.resumeButton.frame.height/15)
         
         
-        self.setShadowForRoundButtons(button: self.toMenuButton)
-        self.setShadowForRoundButtons(button: self.settingsButton)
-        self.setShadowForRoundButtons(button: self.resetLevelButton)
+//        self.setShadowForRoundButtons(button: self.toMenuButton)
+//        self.setShadowForRoundButtons(button: self.settingsButton)
+//        self.setShadowForRoundButtons(button: self.resetLevelButton)
         
     }
     override var prefersStatusBarHidden: Bool {

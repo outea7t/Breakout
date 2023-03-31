@@ -86,8 +86,10 @@ struct AnimatedText {
             if !self.sprites.isEmpty {
                 if self.sprites.count % 2 == 0 {
                     let middle: Int = Int(self.sprites.count)/2
-                    let positionX = self.sprites[middle-1].position.x + self.sprites[middle-1].frame.width/2
-                    let positionY = self.sprites[middle].position.y
+                    
+                    let offsetX = self.sprites[0].position.x - self.sprites[0].frame.width/2.0
+                    let positionX = self.width/2.0 + offsetX
+                    let positionY = self.sprites[middle].position.y + self.sprites[middle].frame.height/2.0
                     return CGPoint(x: positionX, y: positionY)
                 } else {
                     let middle: Int = Int(self.sprites.count)/2

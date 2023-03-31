@@ -35,11 +35,9 @@ class EndGameScene: SKScene {
         self.confetti = SKSpriteNode(color: .white, size: confettiSize)
         
         // настраиваем варианты цветов для победы
-        self.winColors.append(.blue)
-        self.winColors.append(.green)
-        self.winColors.append(.red)
-        self.winColors.append(.purple)
-        self.winColors.append(.init(red: 200/255, green: 112/255, blue: 159/255, alpha: 1.0))
+        
+        let colorsForWin = [#colorLiteral(red: 0.3169264197, green: 0.9787195325, blue: 0.5586557984, alpha: 1), #colorLiteral(red: 1, green: 0.4980392157, blue: 0.2, alpha: 1), #colorLiteral(red: 0.2969256639, green: 0.5910822749, blue: 1, alpha: 1), #colorLiteral(red: 0.236546725, green: 0.9203231931, blue: 0.9252752662, alpha: 1), #colorLiteral(red: 1, green: 0.9136478305, blue: 0.253780663, alpha: 1), #colorLiteral(red: 0.7343662381, green: 0.3822629452, blue: 1, alpha: 1)]
+        self.winColors += colorsForWin
         
         // настраиваем варианты для поражения
         self.loseColors.append(.red)
@@ -65,9 +63,8 @@ class EndGameScene: SKScene {
         ]
         
         
-        let wait = SKAction.wait(forDuration: 1.0)
-        let fadeOut = SKAction.fadeOut(withDuration: 1.5)
-        
+//        let wait = SKAction.wait(forDuration: 1.0)
+//        let fadeOut = SKAction.fadeOut(withDuration: 1.5)
 //        self.confetti?.run(SKAction.sequence([
 //            wait,
 //            fadeOut,
@@ -81,7 +78,7 @@ class EndGameScene: SKScene {
         let winExMark = UIImage(named: "Win!.png")!
         let imagesForWinLabel = [winW, winI, winN, winExMark]
         
-        self.gameWinLabel = AnimatedText(images: imagesForWinLabel, frame: self.frame, color: .white, sizeConstant: 90)
+        self.gameWinLabel = AnimatedText(images: imagesForWinLabel, frame: self.frame, color: .white, sizeConstant: 80)
 //        AnimatedText(text: "WIN!", color: .init(red: 0, green: 1, blue: 0, alpha: 1), frame: self.frame,shouldAnimateShadows: false, sizeConstant: 130)
         self.gameWinLabel?.calculatePosition(for: self.frame.size, offsetY: 1.9)
         
@@ -136,6 +133,7 @@ class EndGameScene: SKScene {
                 }
                 
                 let glowSize = CGSize(width: gameWinLabel.width*1.2, height: gameWinLabel.height*1.2)
+                
                 let greenGlow = SKSpriteNode(color: #colorLiteral(red: 0.007843137255, green: 1, blue: 0.1254901961, alpha: 0.4), size: glowSize)
                 greenGlow.position = gameWinLabel.position
                 
@@ -160,6 +158,7 @@ class EndGameScene: SKScene {
                 let glowSize = CGSize(width: gameLoseLabel.width*1.2, height: gameLoseLabel.height*1.2)
                 let redGlow = SKSpriteNode(color: #colorLiteral(red: 1, green: 0.2078431373, blue: 0.1568627451, alpha: 0.4), size: glowSize)
                 redGlow.position = gameLoseLabel.position
+                print(gameLoseLabel.position)
                 
                 blurNode.addChild(redGlow)
                 self.addChild(blurNode)
@@ -198,11 +197,8 @@ class EndGameScene: SKScene {
     }
     override func update(_ currentTime: TimeInterval) {
         if self.isWin {
-            let randIndex = Int(arc4random()) % self.colorsForWinLabelAnimation.count
-            let randomColor = self.colorsForWinLabelAnimation[randIndex]
-            self.gameWinLabel?.ambientAnimating(colorToChange: randomColor, currentTime: currentTime)
+            self.gameWinLabel?.ambientAnimating(colorToChange: .green, currentTime: currentTime)
         } else {
-            
             self.gameLoseLabel?.ambientAnimating(colorToChange: .red, currentTime: currentTime)
         }
         self.animatedParticles?.update(currentTime)
