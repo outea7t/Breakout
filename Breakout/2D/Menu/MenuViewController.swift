@@ -123,20 +123,18 @@ class MenuViewController: UIViewController {
             height: self.shopButton.frame.height/15)
         
         // подгатавливаем, чтобы можно было проигрывать кастомные анимации
-        
-        
         HapticManager.prepare()
         
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.menuScene?.pauseMenu()
+//        self.menuScene?.pauseMenu()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.menuScene?.unpauseMenu()
+//        self.menuScene?.unpauseMenu()
         
-        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+//        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -152,19 +150,14 @@ class MenuViewController: UIViewController {
     @IBAction func levelsButtonPressed(_ sender: UIButton) {
         // ставим на паузу сцену(для производительности)
         self.menuScene?.pauseMenu()
-        
         // переходим к игровому контроллеру
         self.performSegue(withIdentifier: "FromMenuToLevelsMenu", sender: self)
     }
     
     
-    @IBAction func shopButtonPressed(_ sender: UIButton) {
-        self.menuScene?.pauseMenu()
-    }
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         
     }
-    
     
     @IBAction func touchDownOnARMenuButton(_ sender: UIButton) {
         HapticManager.collisionVibrate(with: .medium, 20.0)

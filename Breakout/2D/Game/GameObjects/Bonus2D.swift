@@ -98,7 +98,6 @@ struct Bonus2D {
             let bonusVelocity: CGFloat = 150.0
             // расчитываем время относительно их расстояния до низа экрана, чтобы их скорость была одинаковой
             let timeToBottom = self.position.y / bonusVelocity
-            print(timeToBottom)
             let moveAction = SKAction.move(to: CGPoint(x: self.position.x, y: 0.0), duration: timeToBottom)
 
             self.bonus.run(moveAction)

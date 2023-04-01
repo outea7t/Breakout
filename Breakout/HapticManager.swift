@@ -24,8 +24,6 @@ struct HapticManager {
         guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else {
             return
         }
-        
-        print("prepared")
         do {
             HapticManager.engine = try CHHapticEngine()
             try HapticManager.engine?.start()

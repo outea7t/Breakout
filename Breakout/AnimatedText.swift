@@ -186,7 +186,6 @@ struct AnimatedText {
             }
             
             self.lastAmbientAnimationTime = currentTime
-//            print(currentTime)
         }
         
     }
@@ -290,9 +289,6 @@ struct AnimatedText {
             
             
             let realOffsetY = frameSize.height - heighOfWord*offsetY
-            
-            print(realOffsetY, offsetY, heighOfWord)
-            
             self.calculatePosition(with: offsetX, offsetY: realOffsetY)
         }
     }

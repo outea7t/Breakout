@@ -86,7 +86,6 @@ class LoseViewController: UIViewController {
         self.dismiss(animated: true)
         self.endGameScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
-            print("restarted")
             gameViewController.gameScene?.unpauseGame()
             gameViewController.gameScene?.resetTheGame()
             gameViewController.gameScene?.setBallSkin()
@@ -99,7 +98,6 @@ class LoseViewController: UIViewController {
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
             gameViewController.gameScene?.gameVCDelegate = nil
             gameViewController.gameScene = nil
-            print("RELEASED - \(gameViewController.gameScene)")
         }
     }
     

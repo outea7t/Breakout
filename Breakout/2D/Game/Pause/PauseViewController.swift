@@ -89,10 +89,6 @@ class PauseViewController: UIViewController {
             gameViewController.gameScene = nil
         }
     }
-    override func delete(_ sender: Any?) {
-        super.delete(sender)
-        print("delete")
-    }
     @IBAction func resumeButtonPressed(_ sender: UIButton) {
         self.pauseScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {

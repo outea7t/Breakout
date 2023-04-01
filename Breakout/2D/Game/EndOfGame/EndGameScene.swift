@@ -158,7 +158,6 @@ class EndGameScene: SKScene {
                 let glowSize = CGSize(width: gameLoseLabel.width*1.2, height: gameLoseLabel.height*1.2)
                 let redGlow = SKSpriteNode(color: #colorLiteral(red: 1, green: 0.2078431373, blue: 0.1568627451, alpha: 0.4), size: glowSize)
                 redGlow.position = gameLoseLabel.position
-                print(gameLoseLabel.position)
                 
                 blurNode.addChild(redGlow)
                 self.addChild(blurNode)

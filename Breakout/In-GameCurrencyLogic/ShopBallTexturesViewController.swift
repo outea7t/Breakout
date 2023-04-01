@@ -123,7 +123,6 @@ class ShopBallTexturesViewController: UIViewController {
         
         // для того, чтобы была видна тень
         self.view.sendSubviewToBack(self.collectionView)
-        print("BALLTEXTURES")
         
         if !UserCustomization.buyedBallSkinIndexes.isEmpty {
             self.selectedCellIndexPath = IndexPath(item: UserCustomization.ballSkinIndex, section: 0)
@@ -140,8 +139,6 @@ class ShopBallTexturesViewController: UIViewController {
         
         switch gesture.state {
         case .began:
-            
-            print("almost began for - \(targetIndexPath.item)")
             // находим нажатую ячейку
             if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell {
                 
@@ -152,7 +149,7 @@ class ShopBallTexturesViewController: UIViewController {
                     
                     UserCustomization.buyedBallSkinIndexes += [targetIndexPath.item]
                     UserCustomization.ballSkinIndex = self.selectedCellIndexPath.item
-                    GameCurrency.userMoney -= UInt(cell.price)
+                    GameCurrency.userMoney -= cell.price
                     self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
                     HapticManager.notificationVibrate(for: .success)
                 } else if GameCurrency.userMoney < cell.price {
@@ -169,15 +166,12 @@ class ShopBallTexturesViewController: UIViewController {
                 let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
                 cell?.resizeToIdentity()
             }
-
-            print("ended for - \(targetIndexPath.item)")
         case .cancelled:
             
             let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
             cell?.resizeToIdentity()
-            print("cancelled for - \(targetIndexPath.item)")
         default:
-            print("default")
+            break
         }
     }
     
@@ -264,7 +258,6 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
             if self.doesBuyedItemsContains(item: indexPath) {
                 if self.selectedCellIndexPath != indexPath {
                     self.selectedCellIndexPath = indexPath
-                    print("wasSelected")
                     cell.wasSelected()
                 }
             }
@@ -275,7 +268,6 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
             if !self.doesBuyedItemsContains(item: indexPath) {
-                print("touchDOwn")
                 cell.touchDown()
             }
         }
@@ -285,7 +277,6 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
             if self.selectedCellIndexPath != indexPath {
-                print("wasUnselected")
                 let isBuyed = self.doesBuyedItemsContains(item: indexPath)
                 cell.wasUnselected(isBuyed: isBuyed)
                 cell.resizeToIdentity()

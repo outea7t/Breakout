@@ -65,8 +65,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var isPaddleSlowed = false
     /// длительность эффекта замедленной ракетки
     private var paddleSlowedDuration = 10.0
-    /// множитель скорости для мяча
-    private var ballSpeedMult = 2.0
     /// ускорен ли мяч
     private var isBallSpeeded = false
     /// длительность эффекта ускорения для мяча
@@ -256,7 +254,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                                               Float(oldVelocity.dy))
                             
                             let lengthOfOldVelocity = CGFloat(simd_length(simdOldVelocity))
-                            print(lengthOfOldVelocity)
                             let newBallVelocity = CGVector(dx: CGFloat(normalizedVelocity.x) * lengthOfOldVelocity,
                                                            dy: CGFloat(normalizedVelocity.y) * lengthOfOldVelocity)
                             self.ball?.ball.physicsBody?.velocity = newBallVelocity
@@ -276,7 +273,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     if contact.bodyA.categoryBitMask == self.bonusMask {
                         for (i,bonus) in self.bonuses.enumerated() {
                             if bonus.bonus === nodeA {
-                                print("removed")
                                 // логика взаимодействия с бонусом ...
                                 self.applyBonusEffectOnGame(type: bonus.type)
                                 bonus.remove()
@@ -287,7 +283,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     } else {
                         for (i,bonus) in bonuses.enumerated() {
                             if bonus.bonus === nodeB {
-                                print("removed")
                                 // логика взаимодействия с бонусом ...
                                 self.applyBonusEffectOnGame(type: bonus.type)
                                 bonus.remove()
@@ -356,9 +351,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private func rotateFrame() {
         self.view?.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi)
+        self.paddle?.paddle.xScale = 1.5
+        self.paddle?.paddle.yScale = 1.5
         let rotate = SKAction.wait(forDuration: self.rotationDuration)
         self.gameNode.run(rotate) {
             self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
+            self.paddle?.paddle.xScale = 1.0
+            self.paddle?.paddle.yScale = 1.0
             self.isRotated = false
         }
     }
@@ -371,7 +370,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     private func increaseBallSpeed() {
-        self.ball?.ball.speed = self.ballSpeedMult
         self.ball?.lengthOfBallVelocityConstant *= 1.2
         
         let action = SKAction.wait(forDuration: self.ballSpeededDuration)
@@ -416,7 +414,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bonus.bonus.removeFromParent()
         }
         self.paddleSpeedMult = 1.0
-        self.ball?.ball.speed = 1.0
+        if self.isBallSpeeded {
+            self.ball?.lengthOfBallVelocityConstant /= 1.2
+            self.isBallSpeeded = false
+        }
         self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
         // снимаем мир с паузы
         self.isOnPause = false
@@ -431,7 +432,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bonus.bonus.removeFromParent()
         }
         self.paddleSpeedMult = 1.0
-        self.ball?.ball.speed = 1.0
+        if let ball = self.ball {
+            self.ball?.lengthOfBallVelocityConstant = ball.constantBallVelocityLength
+
+        }
         self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
         
         self.lives+=1

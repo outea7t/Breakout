@@ -129,9 +129,6 @@ class ShopParticlesTextureViewController: UIViewController {
         
         switch gesture.state {
         case .began:
-            print("almost began for - \(targetIndexPath.item)")
-            
-            
             if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell {
                 
                 
@@ -142,7 +139,7 @@ class ShopParticlesTextureViewController: UIViewController {
                     
                     UserCustomization.buyedParticlesSkinIndexes += [targetIndexPath.item]
                     UserCustomization.particleSkinIndex = self.selectedCellIndexPath.item
-                    GameCurrency.userMoney -= UInt(cell.price)
+                    GameCurrency.userMoney -= cell.price
                     self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
                     HapticManager.notificationVibrate(for: .success)
                 } else if GameCurrency.userMoney < cell.price {
@@ -158,15 +155,12 @@ class ShopParticlesTextureViewController: UIViewController {
                 let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
                 cell?.resizeToIdentity()
             }
-
-            print("ended for - \(targetIndexPath.item)")
         case .cancelled:
             
             let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
             cell?.resizeToIdentity()
-            print("cancelled for - \(targetIndexPath.item)")
         default:
-            print("default")
+            break
         }
     }
     

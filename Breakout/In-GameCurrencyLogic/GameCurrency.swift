@@ -18,13 +18,13 @@ import UIKit
 // возможно еще на ракетку(но с этим у меня пока что мало идей)
 
 struct GameCurrency {
-    public static var userMoney: UInt = 10000
+    public static var userMoney: Int = 10000
     public static func updateUserMoneyLabel() -> String {
         var userMoneyLabel = ""
         if GameCurrency.userMoney > 1000 {
-            var userMoney = Int(GameCurrency.userMoney)
-            let thousands = Int(userMoney/1000)
-            let hundreds = Int((userMoney-1000*thousands)/100)
+            var userMoney = GameCurrency.userMoney
+            let thousands = userMoney/1000
+            let hundreds = (userMoney-1000*thousands)/100
             if hundreds == 0 {
                 userMoneyLabel = "\(thousands)k"
             } else {

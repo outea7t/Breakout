@@ -98,6 +98,7 @@ class ARMenuScene: SKScene {
         
     }
     func pauseScene() {
+        
         self.isPaused = true
     }
     func unpauseScene() {

@@ -83,10 +83,10 @@ class MenuScene: SKScene {
         
     }
     func pauseMenu() {
+        print("PAAAAAUUUUSED")
         guard !self.isPaused else {
             return
         }
-        print("PAUSED")
         self.isPaused = true
         self.physicsWorld.speed = 0.0
         self.isHidden = true
@@ -103,48 +103,52 @@ class MenuScene: SKScene {
     
     // функция обновлений
     override func update(_ currentTime: TimeInterval) {
-        if !self.isPaused {
+        guard !self.isPaused else {
+            return
+        }
             //        if currentTime - self.lastTime > self.particlePerSecond {
             //            self.createParticle()
             //            self.lastTime = currentTime
             //        }
             
-            self.animatedParticles?.update(currentTime)
-            self.breakAnimatedLabel?.ambientAnimating(
-                colorToChange: self.colorOfLabelWhileAnimated,
-                currentTime: currentTime)
-            
-            self.outAnimatedLabel?.ambientAnimating(
-                colorToChange: self.colorOfLabelWhileAnimated,
-                currentTime: currentTime)
-        }
+        self.animatedParticles?.update(currentTime)
+        self.breakAnimatedLabel?.ambientAnimating(
+            colorToChange: self.colorOfLabelWhileAnimated,
+            currentTime: currentTime)
+        
+        self.outAnimatedLabel?.ambientAnimating(
+            colorToChange: self.colorOfLabelWhileAnimated,
+            currentTime: currentTime)
+        
     }
     
     // функции обработки нажатий
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // когда мы нажимаем на экран то появляется буква особого цвета
-        if !self.isPaused {
-            for touch in touches {
-                self.touchDownOnLetter(touch)
-                if touch.location(in: self).y < self.frame.height*0.6 {
-                    
-                    HapticManager.collisionVibrate(with: .soft, 0.75)
-                    self.animatedParticles?.animate(touch, scene: self)
-                }
+        guard !self.isPaused else {
+            return
+        }
+        for touch in touches {
+            self.touchDownOnLetter(touch)
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                
+                HapticManager.collisionVibrate(with: .soft, 0.75)
+                self.animatedParticles?.animate(touch, scene: self)
+            }
+        }
+    }
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard !self.isPaused else {
+            return
+        }
+        for touch in touches {
+            self.touchProcessOnLetter(touch)
+            // когда мы двигаем пальцем по экрану, то создается буква особого цвета
+            if touch.location(in: self).y < self.frame.height*0.6 {
+                self.animatedParticles?.animate(touch, scene: self)
             }
         }
         
-    }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !self.isPaused {
-            for touch in touches {
-                self.touchProcessOnLetter(touch)
-                // когда мы двигаем пальцем по экрану, то создается буква особого цвета
-                if touch.location(in: self).y < self.frame.height*0.6 {
-                    self.animatedParticles?.animate(touch, scene: self)
-                }
-            }
-        }
         
     }
     

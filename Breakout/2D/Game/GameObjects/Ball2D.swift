@@ -32,7 +32,7 @@ struct Ball2D {
     let ballRadius: CGFloat
     
     var isAttachedToPaddle = true
-    
+    let constantBallVelocityLength: CGFloat = 800
     var lengthOfBallVelocityConstant: CGFloat = 800
     
     init(frame: CGRect) {
@@ -100,7 +100,6 @@ struct Ball2D {
         self.isAttachedToPaddle = true
     }
     func setBallSkin() {
-        print(UserCustomization.ballSkinIndex, self.ballSkins.count)
         if !UserCustomization.buyedBallSkinIndexes.isEmpty && UserCustomization.ballSkinIndex < self.ballSkins.count {
             let currentBallSkin = self.ballSkins[UserCustomization.ballSkinIndex]
             self.ball.fillColor = currentBallSkin.fillColor

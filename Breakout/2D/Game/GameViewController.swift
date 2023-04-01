@@ -54,13 +54,11 @@ class GameViewController: UIViewController {
         
     }
     @objc func appMovedBackground() {
-        print("background")
         // переходим к меню паузы и ставим игру на паузу
         self.performSegue(withIdentifier: "FromGameToPause", sender: self)
         self.gameScene?.pauseGame()
     }
     @objc func appMovedForeground() {
-        print("foreground")
     }
     override var prefersStatusBarHidden: Bool {
         return true
