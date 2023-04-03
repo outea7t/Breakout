@@ -107,7 +107,10 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+        DispatchQueue.main.async {
+            self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+        }
+        
     }
     
     override var prefersStatusBarHidden: Bool {

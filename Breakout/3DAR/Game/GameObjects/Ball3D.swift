@@ -20,6 +20,9 @@ struct Ball3D {
     private let plateBitmask:       Int = 0x1 << 6 // 64
     private let bonusBitMask:       Int = 0x1 << 7 // 128
     
+    
+    /// константа, которая используется для нормального уменьшения длины вектора скорости во время изменения размера сцены
+    let constantOfBallLengthVelocity: Float = 0.5
     /// константа, на которую умножается скорость мяча, чтобы она оставалась постоянной
     var lengthOfBallVelocityConstant: Float = 0.5
     /// нижняя граница, опустившись ниже которой скорость мяча выравнивается
@@ -103,19 +106,19 @@ struct Ball3D {
                                                   Float(currentBallVelocity.z))
                 
                 let lengthOfOldVelocity = simd_length(simdOldVelocity)
-                if lengthOfOldVelocity > self.upperBorderVelocityTrigger {
-                    let newBallVelocity = SCNVector3(
-                        normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
-                        0.0,
-                        normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
-                    self.ball.physicsBody?.velocity = newBallVelocity
-                } else if lengthOfOldVelocity < self.lowerBorderVelocityTrigger {
-                    let newBallVelocity = SCNVector3(
-                        normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
-                        0.0,
-                        normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
-                    self.ball.physicsBody?.velocity = newBallVelocity
-                }
+//                if lengthOfOldVelocity > self.upperBorderVelocityTrigger {
+                let newBallVelocity = SCNVector3(
+                    normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
+                    0.0,
+                    normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
+                self.ball.physicsBody?.velocity = newBallVelocity
+//                } else if lengthOfOldVelocity < self.lowerBorderVelocityTrigger {
+//                    let newBallVelocity = SCNVector3(
+//                        normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
+//                        0.0,
+//                        normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
+//                    self.ball.physicsBody?.velocity = newBallVelocity
+//                }
             }
         }
         // старый алгоритм обновления скорости мяча
@@ -145,9 +148,13 @@ struct Ball3D {
         
         self.ball.physicsBody?.applyForce(impulse, asImpulse: true)
     }
-    // перезагружаем мяч (когда, например, переходим к новому уровню)
+    /// перезагружаем мяч (когда, например, переходим к новому уровню)
     mutating func reset() {
         self.isAttachedToPaddle = true
     }
+    mutating func updateBallVelocityLength(scaleFactor: Float) {
+        self.lengthOfBallVelocityConstant = self.constantOfBallLengthVelocity*scaleFactor
+    }
+    
     
 }

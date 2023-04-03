@@ -134,7 +134,9 @@ class MenuViewController: UIViewController {
         super.viewWillAppear(animated)
 //        self.menuScene?.unpauseMenu()
         
-//        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+        DispatchQueue.main.async {
+            self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+        }
     }
     
     override var prefersStatusBarHidden: Bool {

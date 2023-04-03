@@ -131,7 +131,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем debug опции
-        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showPhysicsShapes]
+        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents]
         
         // устанавливаем делегат для AR
         self.gameSceneView.delegate = self
@@ -176,7 +176,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
 //        pinchGestureRecognizer.delaysTouchesBegan = true
         
         // пока не добавляю, так как много багов(((((
-//        self.view.addGestureRecognizer(pinchGestureRecognizer)
+        self.view.addGestureRecognizer(pinchGestureRecognizer)
     }
     
     @objc func rotationGesture(_ gesture: UIRotationGestureRecognizer) {
@@ -206,10 +206,10 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     @objc func pinchGesture(_ gesture: UIPinchGestureRecognizer) {
         var scale = gesture.scale
-        if scale >= 1.001 {
-            scale = 1.01
-        } else if scale <= 0.999 {
-            scale = 0.99
+        if scale >= 1.5 {
+            scale = 1.5
+        } else if scale <= 0.5 {
+            scale = 0.5
         }
         
         switch gesture.state {
@@ -271,18 +271,15 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             return
         }
         
-//        let scaleAction = SCNAction.scale(by: scaleFactor, duration: 0.001)
-//        frame.plate.runAction(scaleAction)
-        frame.plate.transform = SCNMatrix4Scale(frame.plate.transform, Float(scaleFactor), Float(scaleFactor), Float(scaleFactor))
+        let scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
+        frame.plate.scale = scale
         
-        
+        self.ball?.updateBallVelocityLength(scaleFactor: Float(scaleFactor))
+        self.updatePhysicsBodyScale(node: frame.plate, scale: scale)
         for child in frame.plate.childNodes {
-            if let geometry = child.geometry {
-                let scaledShape = SCNPhysicsShape(geometry: geometry)
-                child.physicsBody?.physicsShape = scaledShape
-            }
-            child.physicsBody?.resetTransform()
+            self.updatePhysicsBodyScale(node: child, scale: scale)
         }
+        
     }
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
@@ -974,6 +971,16 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             gameScene.rootNode.addChildNode(self.light)
         }
         
+    }
+    
+    private func updatePhysicsBodyScale(node: SCNNode, scale: SCNVector3) {
+        if let body = node.physicsBody {
+            let oldShape = body.physicsShape
+            if let newShapeSourceObject = oldShape?.sourceObject as? SCNGeometry {
+                let newShape = SCNPhysicsShape(geometry: newShapeSourceObject, options: [.scale: scale])
+                body.physicsShape = newShape
+            }
+        }
     }
 }
 

@@ -44,6 +44,7 @@ class ARWinViewController: UIViewController {
         self.backgroundView.frame = self.view.bounds
         self.backgroundView.center = self.view.center
         
+        self.view.backgroundColor = .clear
         if let skView = self.view.viewWithTag(1) as? SKView {
             skView.backgroundColor = .clear
             self.endGameScene = EndGameScene(size: skView.bounds.size)

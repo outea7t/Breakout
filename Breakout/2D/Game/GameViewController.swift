@@ -37,6 +37,7 @@ class GameViewController: UIViewController {
             view.presentScene(scene)
             // сцена с игрой
             self.gameScene = scene
+            self.gameScene?.scaleMode = .aspectFill
             // подписываемся на делегат игры (для перехода на экран конца игры)
             self.gameScene?.gameVCDelegate = self
             

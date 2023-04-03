@@ -56,7 +56,6 @@
 		22784E6C28BBFBC3001C3E61 /* Bonus2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22784E6B28BBFBC3001C3E61 /* Bonus2D.swift */; };
 		2279362329438E3C002C519F /* TrajectoryLine2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2279362229438E3C002C519F /* TrajectoryLine2D.swift */; };
 		227936252943CABA002C519F /* TrajectoryLine3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227936242943CABA002C519F /* TrajectoryLine3D.swift */; };
-		227ECEB229D5B7B200B6DDE0 /* pausemenu.riv in Resources */ = {isa = PBXBuildFile; fileRef = 227ECEB129D5B7B200B6DDE0 /* pausemenu.riv */; };
 		2293A9EE29610DE50066279B /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2293A9ED29610DE50066279B /* HapticManager.swift */; };
 		2293A9F12962449B0066279B /* GameCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2293A9F02962449B0066279B /* GameCurrency.swift */; };
 		2293A9F4296248A30066279B /* UserCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2293A9F3296248A30066279B /* UserCustomization.swift */; };
@@ -91,6 +90,7 @@
 		22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD3F4E2893DFA70026E98C /* GameViewController.swift */; };
 		22DD3F512893EE3D0026E98C /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD3F502893EE3D0026E98C /* PauseViewController.swift */; };
 		22E4719F29A2079E00C41084 /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */; };
+		22F200FD29DB2FAD000C6843 /* pausemenu.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22F200FC29DB2FAD000C6843 /* pausemenu.riv */; };
 		22F20C0728BE045E00415CE5 /* level_5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22F20BFD28BE045D00415CE5 /* level_5.txt */; };
 		22F20C0828BE045E00415CE5 /* level_1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22F20BFE28BE045D00415CE5 /* level_1.txt */; };
 		22F20C0928BE045E00415CE5 /* level_2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22F20BFF28BE045D00415CE5 /* level_2.txt */; };
@@ -177,7 +177,6 @@
 		22784E6B28BBFBC3001C3E61 /* Bonus2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bonus2D.swift; sourceTree = "<group>"; };
 		2279362229438E3C002C519F /* TrajectoryLine2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrajectoryLine2D.swift; sourceTree = "<group>"; };
 		227936242943CABA002C519F /* TrajectoryLine3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrajectoryLine3D.swift; sourceTree = "<group>"; };
-		227ECEB129D5B7B200B6DDE0 /* pausemenu.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = pausemenu.riv; sourceTree = "<group>"; };
 		2293A9ED29610DE50066279B /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		2293A9F02962449B0066279B /* GameCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCurrency.swift; sourceTree = "<group>"; };
 		2293A9F3296248A30066279B /* UserCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCustomization.swift; sourceTree = "<group>"; };
@@ -213,6 +212,7 @@
 		22DD3F502893EE3D0026E98C /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
 		22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		22E471A029A207B900C41084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		22F200FC29DB2FAD000C6843 /* pausemenu.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = pausemenu.riv; sourceTree = "<group>"; };
 		22F20BFD28BE045D00415CE5 /* level_5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_5.txt; sourceTree = "<group>"; };
 		22F20BFE28BE045D00415CE5 /* level_1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_1.txt; sourceTree = "<group>"; };
 		22F20BFF28BE045D00415CE5 /* level_2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_2.txt; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 			isa = PBXGroup;
 			children = (
 				223B044B29BA38D600C90529 /* arbackground.riv */,
-				227ECEB129D5B7B200B6DDE0 /* pausemenu.riv */,
+				22F200FC29DB2FAD000C6843 /* pausemenu.riv */,
 				22406F7529D47C1B00D3313F /* background.riv */,
 				2214055429A3E6CA0086DEC7 /* button.riv */,
 			);
@@ -682,7 +682,7 @@
 				22F20C0A28BE045E00415CE5 /* level_3.txt in Resources */,
 				22096B522986EC0B0072F4C6 /* level_20.txt in Resources */,
 				22096B512986EC0B0072F4C6 /* level_18.txt in Resources */,
-				227ECEB229D5B7B200B6DDE0 /* pausemenu.riv in Resources */,
+				22F200FD29DB2FAD000C6843 /* pausemenu.riv in Resources */,
 				224F5C4C29865EE9005E8E47 /* level_17.txt in Resources */,
 				223B044C29BA38D600C90529 /* arbackground.riv in Resources */,
 				22F20C0E28BE045E00415CE5 /* level_4.txt in Resources */,

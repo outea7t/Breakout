@@ -375,7 +375,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let action = SKAction.wait(forDuration: self.ballSpeededDuration)
         self.gameNode.run(action) {
             
-            self.ball?.lengthOfBallVelocityConstant /= 1.2
+            if let constantLength = self.ball?.constantBallVelocityLength {
+                self.ball?.lengthOfBallVelocityConstant = constantLength
+            }
             self.isBallSpeeded = false
         }
     }
@@ -414,9 +416,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bonus.bonus.removeFromParent()
         }
         self.paddleSpeedMult = 1.0
-        if self.isBallSpeeded {
-            self.ball?.lengthOfBallVelocityConstant /= 1.2
-            self.isBallSpeeded = false
+        self.paddle?.paddle.xScale = 1.0
+        self.paddle?.paddle.yScale = 1.0
+        if let ball = self.ball {
+            self.ball?.lengthOfBallVelocityConstant = ball.constantBallVelocityLength
         }
         self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
         // снимаем мир с паузы
@@ -432,6 +435,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             bonus.bonus.removeFromParent()
         }
         self.paddleSpeedMult = 1.0
+        self.paddle?.paddle.xScale = 1.0
+        self.paddle?.paddle.yScale = 1.0
         if let ball = self.ball {
             self.ball?.lengthOfBallVelocityConstant = ball.constantBallVelocityLength
 
