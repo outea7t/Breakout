@@ -107,6 +107,7 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.arMenuScene?.unpauseScene()
         DispatchQueue.main.async {
             self.userMoney.text = GameCurrency.updateUserMoneyLabel()
         }

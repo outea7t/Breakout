@@ -151,7 +151,7 @@ class MenuViewController: UIViewController {
     
     @IBAction func levelsButtonPressed(_ sender: UIButton) {
         // ставим на паузу сцену(для производительности)
-        self.menuScene?.pauseMenu()
+//        self.menuScene?.pauseMenu()
         // переходим к игровому контроллеру
         self.performSegue(withIdentifier: "FromMenuToLevelsMenu", sender: self)
     }
@@ -169,6 +169,7 @@ class MenuViewController: UIViewController {
         self.performSegue(withIdentifier: "FromMenuToARMenu", sender: self)
     }
     @IBAction func unwindToMenu(_ sender: UIStoryboardSegue) {
-        self.menuScene?.unpauseMenu()
+//        self.menuScene?.unpauseMenu()
+        
     }
 }

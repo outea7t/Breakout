@@ -173,6 +173,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.view.addGestureRecognizer(rotationGestureRecognizer)
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
+        
 //        pinchGestureRecognizer.delaysTouchesBegan = true
         
         // пока не добавляю, так как много багов(((((
@@ -182,29 +183,40 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     @objc func rotationGesture(_ gesture: UIRotationGestureRecognizer) {
         
         // чтобы пользователь не мог обратно перевернуть рамку во время эффекта разворота
-//        if !self.isRotated {
-        print("enter")
-            switch gesture.state {
-            case .began:
-                let rotation = gesture.rotation/20
-                self.rotateScene(rotation, duration: 0.0001)
-            case .changed:
-                let rotation = gesture.rotation/20
-                self.rotateScene(rotation, duration: 0.0001)
-            case .cancelled:
-                break
-            case .ended:
-                break
-            case .failed:
-                break
-            case .possible:
-                break
-            @unknown default:
-                break
-            }
-//        }
+        guard let isAttachedToPaddle = self.ball?.isAttachedToPaddle else {
+            return
+        }
+        guard isAttachedToPaddle else {
+            return
+        }
+        switch gesture.state {
+        case .began:
+            let rotation = gesture.rotation/20
+            self.rotateScene(rotation, duration: 0.0001)
+        case .changed:
+            let rotation = gesture.rotation/20
+            self.rotateScene(rotation, duration: 0.0001)
+        case .cancelled:
+            break
+        case .ended:
+            break
+        case .failed:
+            break
+        case .possible:
+            break
+        @unknown default:
+            break
+        }
     }
     @objc func pinchGesture(_ gesture: UIPinchGestureRecognizer) {
+        // смотрим, если пользователь запустил мяч, то он не сможет изменять размер рамки
+        guard let isAttachedToPaddle = self.ball?.isAttachedToPaddle else {
+            return
+        }
+        guard isAttachedToPaddle else {
+            return
+        }
+        
         var scale = gesture.scale
         if scale >= 1.5 {
             scale = 1.5
@@ -401,7 +413,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.ball?.update(paddle: paddle)
         paddle.update(frame: frame, isBallAttachedToPaddle: ball.isAttachedToPaddle)
         
-        if currentTime - self.lastTime > 1.0/14.0 {
+        if currentTime - self.lastTime > 1.0/3 {
             self.particle?.addParticle(to: ball, frame: frame)
             self.lastTime = currentTime
         }

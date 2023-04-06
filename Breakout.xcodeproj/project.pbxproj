@@ -89,6 +89,7 @@
 		22CF24FF28BBB0FA00306926 /* Paddle2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF24FE28BBB0FA00306926 /* Paddle2D.swift */; };
 		22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD3F4E2893DFA70026E98C /* GameViewController.swift */; };
 		22DD3F512893EE3D0026E98C /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD3F502893EE3D0026E98C /* PauseViewController.swift */; };
+		22E3DCE329DF33C200AADD94 /* test.dae in Resources */ = {isa = PBXBuildFile; fileRef = 22E3DCE229DF33C200AADD94 /* test.dae */; };
 		22E4719F29A2079E00C41084 /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */; };
 		22F200FD29DB2FAD000C6843 /* pausemenu.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22F200FC29DB2FAD000C6843 /* pausemenu.riv */; };
 		22F20C0728BE045E00415CE5 /* level_5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22F20BFD28BE045D00415CE5 /* level_5.txt */; };
@@ -210,6 +211,7 @@
 		22CF24FE28BBB0FA00306926 /* Paddle2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paddle2D.swift; sourceTree = "<group>"; };
 		22DD3F4E2893DFA70026E98C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		22DD3F502893EE3D0026E98C /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
+		22E3DCE229DF33C200AADD94 /* test.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = test.dae; sourceTree = "<group>"; };
 		22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		22E471A029A207B900C41084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		22F200FC29DB2FAD000C6843 /* pausemenu.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = pausemenu.riv; sourceTree = "<group>"; };
@@ -279,6 +281,14 @@
 				223BDB1229AB4D07001CE63D /* ARPauseScene.swift */,
 			);
 			path = Pause;
+			sourceTree = "<group>";
+		};
+		223658FA29DEEB450062F82E /* GameAssets */ = {
+			isa = PBXGroup;
+			children = (
+				22E3DCE229DF33C200AADD94 /* test.dae */,
+			);
+			path = GameAssets;
 			sourceTree = "<group>";
 		};
 		2275FA1A288ACDCC0075AFD6 = {
@@ -451,6 +461,7 @@
 			children = (
 				22B516B629238AB7006B1B6F /* ARGameViewController.swift */,
 				223BDB1429AB565C001CE63D /* Plane.swift */,
+				223658FA29DEEB450062F82E /* GameAssets */,
 				22B516A729238AB7006B1B6F /* GameObjects */,
 				22B516B729238AB7006B1B6F /* EndOfGame */,
 				222D1B3E29240D1C009100C8 /* Pause */,
@@ -671,6 +682,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22E3DCE329DF33C200AADD94 /* test.dae in Resources */,
 				224F5C4529865EE2005E8E47 /* level_12.txt in Resources */,
 				2275FA66288ACF370075AFD6 /* Actions.sks in Resources */,
 				22F20C0828BE045E00415CE5 /* level_1.txt in Resources */,
