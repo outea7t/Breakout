@@ -267,6 +267,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         var destinationPlatePosition = frame.plate.position
         destinationPlatePosition.y = detectedNodePosition.y + frame.plateVolume.y*2
+//        self.ball?.ball.position.y =
         
         let moveAction = SCNAction.move(to: destinationPlatePosition, duration: 0.0001)
         
@@ -413,7 +414,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.ball?.update(paddle: paddle)
         paddle.update(frame: frame, isBallAttachedToPaddle: ball.isAttachedToPaddle)
         
-        if currentTime - self.lastTime > 1.0/3 {
+        if currentTime - self.lastTime > 1.0/5 {
             self.particle?.addParticle(to: ball, frame: frame)
             self.lastTime = currentTime
         }

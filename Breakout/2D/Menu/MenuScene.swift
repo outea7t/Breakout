@@ -8,6 +8,7 @@
 import SpriteKit
 import CoreAudioTypes
 
+
 class MenuScene: SKScene {
     // для интерактивности - спиннеры
     private var animatedParticles: AnimatedParticles?
@@ -24,7 +25,6 @@ class MenuScene: SKScene {
 //    private let colorOfLabelWhileAnimated = #colorLiteral(red: 0.8019102812, green: 0, blue: 1, alpha: 1)
     private let originalColorOfLabel = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
     
-    
     override func didMove(to view: SKView) {
         self.backgroundColor = .clear
         
@@ -36,7 +36,8 @@ class MenuScene: SKScene {
         // настраиваем частички на заднем фоне
         self.particle.strokeColor = .white
         self.particle.fillColor = .white
-
+        
+        
         // настраиваем количество частичек в зависимости от размера устройства
         if self.frame.height > 1000 && self.frame.width > 700 {
             self.particlePerSecond = 1.0/80.0

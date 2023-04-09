@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShopPaddleTexturesViewController: UIViewController {
+class ShopPaddleTexturesViewController: UIViewController, Textures2DShopController {
         
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
@@ -16,7 +16,7 @@ class ShopPaddleTexturesViewController: UIViewController {
     
     private var paddleCellData = [ShopCellData]()
     private let cellIdentifier = "ShopCollectionViewCell"
-    private var selectedCellIndexPath = IndexPath() {
+    var selectedCellIndexPath = IndexPath() {
         willSet {
             if newValue != selectedCellIndexPath {
                 let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
@@ -25,6 +25,7 @@ class ShopPaddleTexturesViewController: UIViewController {
             }
         }
     }
+    var type = TypeOfShopController.paddle
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
@@ -70,18 +71,18 @@ class ShopPaddleTexturesViewController: UIViewController {
         
         let color = self.unselectedColor
         self.paddleCellData = [
-            ShopCellData(image: image1, price: 10, color: color, id: 0),
-            ShopCellData(image: image2, price: 20, color: color, id: 1),
-            ShopCellData(image: image3, price: 30, color: color, id: 2),
-            ShopCellData(image: image4, price: 40, color: color, id: 3),
-            ShopCellData(image: image5, price: 50, color: color, id: 4),
-            ShopCellData(image: image6, price: 60, color: color, id: 5),
-            ShopCellData(image: image7, price: 70, color: color, id: 6),
-            ShopCellData(image: image8, price: 80, color: color, id: 7),
-            ShopCellData(image: image9, price: 90, color: color, id: 8),
-            ShopCellData(image: image10, price: 100, color: color, id: 9),
-            ShopCellData(image: image11, price: 110, color: color, id: 10),
-            ShopCellData(image: image12, price: 120, color: color, id: 11),
+            ShopCellData(image: image1, price: 10, color: color, id: 0, type: .paddle),
+            ShopCellData(image: image2, price: 20, color: color, id: 1, type: .paddle),
+            ShopCellData(image: image3, price: 30, color: color, id: 2, type: .paddle),
+            ShopCellData(image: image4, price: 40, color: color, id: 3, type: .paddle),
+            ShopCellData(image: image5, price: 50, color: color, id: 4, type: .paddle),
+            ShopCellData(image: image6, price: 60, color: color, id: 5, type: .paddle),
+            ShopCellData(image: image7, price: 70, color: color, id: 6, type: .paddle),
+            ShopCellData(image: image8, price: 80, color: color, id: 7, type: .paddle),
+            ShopCellData(image: image9, price: 90, color: color, id: 8, type: .paddle),
+            ShopCellData(image: image10, price: 100, color: color, id: 9, type: .paddle),
+            ShopCellData(image: image11, price: 110, color: color, id: 10, type: .paddle),
+            ShopCellData(image: image12, price: 120, color: color, id: 11, type: .paddle),
       ]
         UserCustomization.maxPaddleSkinIndex = paddleCellData.count
         
@@ -117,6 +118,10 @@ class ShopPaddleTexturesViewController: UIViewController {
             self.selectedCellIndexPath = IndexPath(item: UserCustomization.paddleSkinIndex, section: 0)
         }
         // Do any additional setup after loading the view.
+    }
+    func updateInfo() {
+        self.userMoneyLabel.text = (GameCurrency.updateUserMoneyLabel())
+        self.collectionView.reloadData()
     }
     @objc func longPressGesture(_ gesture: UILongPressGestureRecognizer) {
         

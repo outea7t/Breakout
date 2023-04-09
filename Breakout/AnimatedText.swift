@@ -229,6 +229,7 @@ struct AnimatedText {
             self.calculatePosition(with: offsetX, offsetY: offsetY)
         }
     }
+    /// считаем позицию с определенным сдвигом
     private mutating func calculatePosition(with offsetX: CGFloat, offsetY: CGFloat) {
         for (index, letter) in self.label.enumerated() {
             if index == 0 {
@@ -293,8 +294,11 @@ struct AnimatedText {
         }
     }
     /// размещаем анимированный текст в любом месте
+    /// Anchor Point строки будет находиться в ее центре
     mutating func calculatePosition(for frameSize: CGSize, in position: CGPoint) {
-        
+        let offsetX = (position.x - self.width/2.0)
+        let offsetY = position.y
+        self.calculatePosition(with: offsetX, offsetY: offsetY)
     }
     mutating func touchDown(touchPosition: CGPoint, color: UIColor = .white) {
         for letter in self.label {

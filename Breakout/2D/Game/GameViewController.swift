@@ -9,7 +9,6 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-
     // сцена с игрой
     var gameScene: GameScene?
     var levelChoosed = 1 {
@@ -26,7 +25,6 @@ class GameViewController: UIViewController {
     private var levels = [Level2D]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         if let view = self.view.viewWithTag(1) as? SKView {
             let scene = GameScene(size: view.bounds.size)

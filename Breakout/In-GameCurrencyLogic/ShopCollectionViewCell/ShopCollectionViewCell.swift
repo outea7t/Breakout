@@ -15,6 +15,7 @@ class ShopCollectionViewCell: UICollectionViewCell {
     /// цена
     var price: Int = 0
     var id: Int = -1
+    var data: ShopCellData?
     /// для анимирования размера и цвета ячейки
     private var viewPropertyAnimator: UIViewPropertyAnimator?
     private var selectionViewPropertyAnimator: UIViewPropertyAnimator?
@@ -28,8 +29,10 @@ class ShopCollectionViewCell: UICollectionViewCell {
     private let borderColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
     /// размер рамки, которая появляется, когда мы выбираем рамку
     private var borderWidth: CGFloat = 0.0
+    
     /// замена инициализатору
     func setup(with data: ShopCellData) {
+        self.data = data
         self.backgroundColor = data.color
         self.id = data.id
         self.priceLabel.text = "\(data.price)"

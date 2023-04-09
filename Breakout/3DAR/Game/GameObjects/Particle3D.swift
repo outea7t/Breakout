@@ -87,25 +87,33 @@ struct Particle3D {
         let decreasedScale = SCNVector3(scale.x*0.5, scale.y*0.5, scale.z*0.5)
         particle.scale = decreasedScale
 
-        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: self.particle))
-        self.particle.physicsBody = physicsBody
-        self.particle.physicsBody?.isAffectedByGravity = false
-        self.particle.physicsBody?.damping = 0.0
-        self.particle.physicsBody?.friction = 0.0
-        self.particle.physicsBody?.restitution = 1.0
-        self.particle.physicsBody?.angularDamping = 0.0
-        self.particle.physicsBody?.categoryBitMask = 0
+//        let physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(node: self.particle))
+//        self.particle.physicsBody = physicsBody
+//        self.particle.physicsBody?.isAffectedByGravity = false
+//        self.particle.physicsBody?.damping = 0.0
+//        self.particle.physicsBody?.friction = 0.0
+//        self.particle.physicsBody?.restitution = 1.0
+//        self.particle.physicsBody?.angularDamping = 0.0
+//        self.particle.physicsBody?.categoryBitMask = 0
         frame.plate.addChildNode(particle)
         
         let fadeOut = SCNAction.fadeOut(duration: 1.0)
-        particle.runAction(SCNAction.group([
-            fadeOut
-        ]))
+        let rotation = SCNAction.rotate(by: 1.0,
+                                        around: SCNVector3(0.0, 1.0, 0.0),
+                                        duration: 2.0)
+        
+        var moveAction = SCNAction.wait(duration: 2.0)
         if let v = ball.physicsBody?.velocity {
-            let force = SCNVector3(-v.x*0.05, 0.035, -v.z*0.05)
-            particle.physicsBody?.applyForce(force,
-                                             asImpulse: true)
-            particle.physicsBody?.applyTorque(SCNVector4(0.0, 0.09, 0.0, 1.0), asImpulse: true)
+            
+            let moveVector = SCNVector3(-v.x*0.1, 0.1, -v.z*0.1)
+            moveAction = SCNAction.move(by: moveVector, duration: 2.0)
+            
         }
+        particle.runAction(SCNAction.group([
+            fadeOut,
+//            rotation,
+            moveAction
+        ]))
+        
     }
 }

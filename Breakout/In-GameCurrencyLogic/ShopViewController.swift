@@ -6,7 +6,16 @@
 //
 
 import UIKit
-
+enum TypeOfShopController {
+    case ball
+    case paddle
+    case particles
+}
+protocol Textures2DShopController: AnyObject {
+    var type: TypeOfShopController {get}
+    var selectedCellIndexPath: IndexPath {get set}
+    func updateInfo()
+}
 class ShopViewController: UITabBarController, UITabBarControllerDelegate {
 
     required init?(coder: NSCoder) {
@@ -25,7 +34,7 @@ class ShopViewController: UITabBarController, UITabBarControllerDelegate {
         
         let barTintColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 0.3)
         let imageTintColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
-        
+        print(self.viewControllers)
         if #available(iOS 15, *) {
             let tabBarAppearance = UITabBarAppearance()
             tabBarAppearance.selectionIndicatorTintColor = imageTintColor

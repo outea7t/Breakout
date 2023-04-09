@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShopBallTexturesViewController: UIViewController {
+class ShopBallTexturesViewController: UIViewController, Textures2DShopController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -18,8 +18,9 @@ class ShopBallTexturesViewController: UIViewController {
     
     var ballCellData = [ShopCellData]()
     private let cellIdentifier = "ShopCollectionViewCell"
-    private var selectedCellIndexPath = IndexPath() {
+    var selectedCellIndexPath = IndexPath() {
         willSet {
+            print("ShouldSelect")
             if newValue != selectedCellIndexPath {
                 let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
@@ -27,6 +28,8 @@ class ShopBallTexturesViewController: UIViewController {
             }
         }
     }
+    var type = TypeOfShopController.ball
+    private var cellMenuCellData: ShopCellData?
     
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
@@ -80,18 +83,18 @@ class ShopBallTexturesViewController: UIViewController {
         
         let color = self.unselectedColor
         self.ballCellData = [
-             ShopCellData(image: image1, price: 10, color: color, id: 0),
-             ShopCellData(image: image2, price: 20, color: color, id: 1),
-             ShopCellData(image: image3, price: 30, color: color, id: 2),
-             ShopCellData(image: image4, price: 40, color: color, id: 3),
-             ShopCellData(image: image5, price: 50, color: color, id: 4),
-             ShopCellData(image: image6, price: 60, color: color, id: 5),
-             ShopCellData(image: image7, price: 70, color: color, id: 6),
-             ShopCellData(image: image8, price: 80, color: color, id: 7),
-             ShopCellData(image: image9, price: 90, color: color, id: 8),
-             ShopCellData(image: image10, price: 100, color: color, id: 9),
-             ShopCellData(image: image11, price: 110, color: color, id: 10),
-             ShopCellData(image: image12, price: 120, color: color, id: 11),
+            ShopCellData(image: image1, price: 10, color: color, id: 0, type: .ball),
+             ShopCellData(image: image2, price: 20, color: color, id: 1, type: .ball),
+             ShopCellData(image: image3, price: 30, color: color, id: 2, type: .ball),
+             ShopCellData(image: image4, price: 40, color: color, id: 3, type: .ball),
+             ShopCellData(image: image5, price: 50, color: color, id: 4, type: .ball),
+             ShopCellData(image: image6, price: 60, color: color, id: 5, type: .ball),
+             ShopCellData(image: image7, price: 70, color: color, id: 6, type: .ball),
+             ShopCellData(image: image8, price: 80, color: color, id: 7, type: .ball),
+             ShopCellData(image: image9, price: 90, color: color, id: 8, type: .ball),
+             ShopCellData(image: image10, price: 100, color: color, id: 9, type: .ball),
+             ShopCellData(image: image11, price: 110, color: color, id: 10, type: .ball),
+             ShopCellData(image: image12, price: 120, color: color, id: 11, type: .ball),
         ]
         
         UserCustomization.maxBallSkinIndex = ballCellData.count
@@ -130,7 +133,10 @@ class ShopBallTexturesViewController: UIViewController {
         
         
     }
-    
+    func updateInfo() {
+        self.userMoneyLabel.text = (GameCurrency.updateUserMoneyLabel())
+        self.collectionView.reloadData()
+    }
     @objc func longPressGesture(_ gesture: UILongPressGestureRecognizer) {
         let gestureLocation = gesture.location(in: self.collectionView)
         guard let targetIndexPath = self.collectionView.indexPathForItem(at: gestureLocation) else {
@@ -254,17 +260,38 @@ extension ShopBallTexturesViewController: UICollectionViewDelegateFlowLayout {
 extension ShopBallTexturesViewController: UICollectionViewDelegate {
     // активируется, когда мы выбираем какой-то уже купленный скин
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
-            if self.doesBuyedItemsContains(item: indexPath) {
-                if self.selectedCellIndexPath != indexPath {
-                    self.selectedCellIndexPath = indexPath
-                    cell.wasSelected()
-                }
-            }
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell else {
+            return
         }
-
+        if self.doesBuyedItemsContains(item: indexPath) && self.selectedCellIndexPath != indexPath {
+            self.selectedCellIndexPath = indexPath
+            cell.wasSelected()
+        }
+        
+        // В этом месте стоит вызывать функцию с переходом в расширенное меню со скином
+        // Так как это место активируется только тогда, когда мы не затригерели longPressGestureRecognizer
+        // Но когда нажали на ячейку
+        if !self.doesBuyedItemsContains(item: indexPath) {
+            if let cellData = cell.data {
+                self.cellMenuCellData = cellData
+            }
+            self.performSegue(withIdentifier: "FromBallTexturesToCellMenu", sender: self)
+        }
+        
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let cellMenu = segue.destination as? CellMenuViewController else {
+            return
+        }
+        guard let cellMenuCellData = self.cellMenuCellData else {
+            return
+        }
+        cellMenu.image = cellMenuCellData.image
+        cellMenu.price = (cellMenuCellData.price)
+        cellMenu.cellID = cellMenuCellData.id
+        cellMenu.typeOfCurrentShopController = self.type
+        print(cellMenuCellData.price, cellMenuCellData.id)
+    }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
             if !self.doesBuyedItemsContains(item: indexPath) {
