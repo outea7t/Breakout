@@ -199,7 +199,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="128"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kPo-pw-GmB" userLabel="Back">
-                                        <rect key="frame" x="10" y="50" width="158" height="71"/>
+                                        <rect key="frame" x="10" y="50" width="136.33333333333334" height="71"/>
                                         <color key="backgroundColor" red="0.17846872050000001" green="0.24072952219999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -219,7 +219,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LEVELS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="yir-7F-rFx">
-                                        <rect key="frame" x="208" y="50" width="166" height="71"/>
+                                        <rect key="frame" x="186.33333333333337" y="50" width="187.66666666666663" height="71"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="45"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -1196,7 +1196,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="128"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fU-ao-gHt" userLabel="back">
-                                        <rect key="frame" x="10" y="50" width="158" height="71"/>
+                                        <rect key="frame" x="10" y="50" width="136.33333333333334" height="71"/>
                                         <color key="backgroundColor" red="0.40667767772465702" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1210,7 +1210,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LEVELS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="Em7-xe-Sj2">
-                                        <rect key="frame" x="208" y="50" width="166" height="71"/>
+                                        <rect key="frame" x="186.33333333333337" y="50" width="187.66666666666663" height="71"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="45"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -1508,7 +1508,7 @@
                         <outlet property="collectionView" destination="CJM-8i-nKR" id="htc-Sw-9hU"/>
                         <outlet property="headerTopView" destination="aIj-wG-z0C" id="nVV-nu-ERS"/>
                         <outlet property="userMoneyLabel" destination="GOv-RJ-0EJ" id="NaI-dK-NYX"/>
-                        <segue destination="mxo-nP-0bi" kind="presentation" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="zZ2-TM-33E"/>
+                        <segue destination="mxo-nP-0bi" kind="presentation" identifier="FromPaddleTexturesToCellMenu" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="zZ2-TM-33E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCc-9p-aNp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1694,7 +1694,7 @@
                         <outlet property="collectionView" destination="uXw-eL-Mvm" id="eTm-Dd-BoA"/>
                         <outlet property="headerTopView" destination="CXx-9F-rg6" id="m1O-02-Y3Z"/>
                         <outlet property="userMoneyLabel" destination="dOg-2O-uEx" id="btq-Tf-d6F"/>
-                        <segue destination="mxo-nP-0bi" kind="presentation" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="yGa-Sh-8Tf"/>
+                        <segue destination="mxo-nP-0bi" kind="presentation" identifier="FromParticleTexturesToCellMenu" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="yGa-Sh-8Tf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lb7-du-z5u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

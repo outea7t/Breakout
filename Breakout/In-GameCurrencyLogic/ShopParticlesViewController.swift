@@ -26,6 +26,7 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
         }
     }
     var type = TypeOfShopController.particles
+    private var cellMenuCellData: ShopCellData?
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
@@ -245,16 +246,34 @@ extension ShopParticlesTextureViewController: UICollectionViewDelegateFlowLayout
 extension ShopParticlesTextureViewController: UICollectionViewDelegate {
     // активируется, когда мы выбираем какой-то уже купленный скин
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
-            if self.doesBuyedItemsContains(item: indexPath) {
-                if self.selectedCellIndexPath != indexPath {
-                    self.selectedCellIndexPath = indexPath
-                    UserCustomization.particleSkinIndex = self.selectedCellIndexPath.item
-                    cell.wasSelected()
-                }
-            }
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell else {
+            return
         }
-
+        
+        if self.doesBuyedItemsContains(item: indexPath) && self.selectedCellIndexPath != indexPath {
+            self.selectedCellIndexPath = indexPath
+            cell.wasSelected()
+        }
+        
+        if !self.doesBuyedItemsContains(item: indexPath) {
+            if let cellData = cell.data {
+                self.cellMenuCellData = cellData
+            }
+            self.performSegue(withIdentifier: "FromParticleTexturesToCellMenu", sender: self)
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let cellMenu = segue.destination as? CellMenuViewController else {
+            return
+        }
+        guard let cellMenuCellData = self.cellMenuCellData else {
+            return
+        }
+        cellMenu.image = cellMenuCellData.image
+        cellMenu.price = (cellMenuCellData.price)
+        cellMenu.cellID = cellMenuCellData.id
+        cellMenu.typeOfCurrentShopController = self.type
+        print(cellMenuCellData.price, cellMenuCellData.id)
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

@@ -71,10 +71,17 @@ class CellMenuViewController: UIViewController {
     @IBAction func buyButtonPressed(_ sender: UIButton) {
         if GameCurrency.userMoney >= self.price {
             GameCurrency.userMoney -= self.price
-            UserCustomization.buyedBallSkinIndexes += [self.cellID]
-            UserCustomization.ballSkinIndex = self.cellID
+            if self.typeOfCurrentShopController == .ball {
+                UserCustomization.buyedBallSkinIndexes += [self.cellID]
+                UserCustomization.ballSkinIndex = self.cellID
+            } else if self.typeOfCurrentShopController == .paddle {
+                UserCustomization.buyedPaddleSkinIndexes += [self.cellID]
+                UserCustomization.paddleSkinIndex = self.cellID
+            } else if self.typeOfCurrentShopController == .particles {
+                UserCustomization.buyedParticlesSkinIndexes += [self.cellID]
+                UserCustomization.particleSkinIndex = self.cellID
+            }
             self.setParent()
-            
             HapticManager.notificationVibrate(for: .success)
             self.dismiss(animated: true)
         } else {
