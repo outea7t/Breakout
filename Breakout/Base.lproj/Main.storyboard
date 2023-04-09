@@ -199,7 +199,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="128"/>
                                 <subviews>
                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kPo-pw-GmB" userLabel="Back">
-                                        <rect key="frame" x="10" y="50" width="136" height="71"/>
+                                        <rect key="frame" x="10" y="50" width="158" height="71"/>
                                         <color key="backgroundColor" red="0.17846872050000001" green="0.24072952219999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="tintColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -219,7 +219,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LEVELS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="yir-7F-rFx">
-                                        <rect key="frame" x="186" y="50" width="188" height="71"/>
+                                        <rect key="frame" x="208" y="50" width="166" height="71"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="45"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -1196,7 +1196,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="128"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fU-ao-gHt" userLabel="back">
-                                        <rect key="frame" x="10" y="50" width="136.33333333333334" height="71"/>
+                                        <rect key="frame" x="10" y="50" width="158" height="71"/>
                                         <color key="backgroundColor" red="0.40667767772465702" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -1210,7 +1210,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LEVELS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="Em7-xe-Sj2">
-                                        <rect key="frame" x="186.33333333333337" y="50" width="187.66666666666663" height="71"/>
+                                        <rect key="frame" x="208" y="50" width="166" height="71"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="45"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -1544,9 +1544,9 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2QV-pD-rMU">
-                                        <rect key="frame" x="21" y="347" width="252" height="42"/>
+                                        <rect key="frame" x="21" y="339" width="252" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.28627450980392155" green="0.99607843137254903" blue="0.48627450980392156" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.21701800271663915" green="0.96552985906600952" blue="0.45262083607550058" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="30"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" title="BUY">

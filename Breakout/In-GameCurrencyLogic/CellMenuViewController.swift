@@ -28,16 +28,35 @@ class CellMenuViewController: UIViewController {
         self.skinImageView.image = self.image
         self.priceLabel.text = "\(self.price)"
         self.effectsInformationLabel.text = "\u{2022} NONE \n\u{2022} NONE"
-        self.buyButton.backgroundColor = #colorLiteral(red: 0.3169264197, green: 0.9787195325, blue: 0.558655858, alpha: 1)
         
         self.buyButton.layer.cornerRadius = self.buyButton.frame.height/3
+        self.buyButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.buyButton.layer.shadowOffset = CGSize(width: 0,
+                                                   height: self.buyButton.frame.height/10.0)
+        self.buyButton.layer.shadowOpacity = 0.5
+        self.buyButton.layer.shadowRadius = self.buyButton.frame.height/10.0
         
         self.cellInformationView.layer.borderWidth = 10
         self.cellInformationView.layer.borderColor = UIColor.white.cgColor
+        self.cellInformationView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let shadowPath = UIBezierPath(rect:
+                                        CGRect(x: cellInformationView.bounds.origin.x-10,
+                                               y: cellInformationView.bounds.origin.x,
+                                               width: cellInformationView.bounds.width+20,
+                                               height: cellInformationView.bounds.height))
+        self.cellInformationView.layer.shadowPath = shadowPath.cgPath
+        self.cellInformationView.layer.shadowOffset = CGSize(width: 0.0, height: 20)
+        self.cellInformationView.layer.shadowOpacity = 0.5
+        self.cellInformationView.layer.shadowRadius = 10
         
         self.cellInformationView.layer.cornerRadius = self.cellInformationView.frame.height/18
         
-        
+        self.skinImageView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        self.skinImageView.layer.shadowOffset = CGSize(width: self.skinImageView.bounds.width/10,
+                                                       height: self.skinImageView.bounds.height/10)
+        self.skinImageView.layer.shadowOpacity = 0.5
+        self.skinImageView.layer.shadowRadius = self.skinImageView.bounds.width/10
+        self.skinImageView.clipsToBounds = false
         // Do any additional setup after loading the view.
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
