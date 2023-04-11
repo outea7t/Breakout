@@ -21,9 +21,14 @@ class WinViewController: UIViewController {
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
+    @IBOutlet weak var earnedMoneyLabel: UILabel!
+    
     
     private let backgroundView = RiveView()
     private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
+    
+    /// Полученное количество денег
+    var scoredMoney: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +63,9 @@ class WinViewController: UIViewController {
         self.nextLevelButton.layer.shadowRadius = 0
         self.nextLevelButton.layer.shadowOffset = CGSize(width: self.nextLevelButton.frame.width/30,
                                                          height: self.nextLevelButton.frame.height/10.0)
+        
+        self.earnedMoneyLabel.text = "\(self.scoredMoney)"
+        GameCurrency.userMoney += self.scoredMoney
         
 //        self.setShadow(for: self.homeButton)
 //        self.setShadow(for: self.restartButton)

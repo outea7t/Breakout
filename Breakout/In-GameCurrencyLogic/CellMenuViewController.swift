@@ -18,16 +18,27 @@ class CellMenuViewController: UIViewController {
     @IBOutlet weak var effectsLabel: UILabel!
     @IBOutlet weak var effectsInformationLabel: UILabel!
     @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var moneyLabel: UILabel!
     
     var cellID: Int = 0
     var price: Int = 0
     var image = UIImage()
     var typeOfCurrentShopController = TypeOfShopController.ball
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.skinImageView.image = self.image
         self.priceLabel.text = "\(self.price)"
         self.effectsInformationLabel.text = "\u{2022} NONE \n\u{2022} NONE"
+        
+        if let text = self.effectsInformationLabel.text {
+            self.effectsInformationLabel.textAlignment = .center
+            let attributedText = NSMutableAttributedString(string: text)
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 10
+            attributedText.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedText.length))
+            self.effectsInformationLabel.attributedText = attributedText
+        }
         
         self.buyButton.layer.cornerRadius = self.buyButton.frame.height/3
         self.buyButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -58,6 +69,7 @@ class CellMenuViewController: UIViewController {
         self.skinImageView.layer.shadowRadius = self.skinImageView.bounds.width/10
         self.skinImageView.clipsToBounds = false
         // Do any additional setup after loading the view.
+        self.moneyLabel.text = GameCurrency.updateUserMoneyLabel()
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {

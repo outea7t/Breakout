@@ -20,6 +20,7 @@ class GameViewController: UIViewController {
     }
     let maxLevelIndex = 30
     
+    
     var isWin = false
     // массив со всеми уровнями
     private var levels = [Level2D]()
@@ -126,9 +127,36 @@ extension GameViewController: EndOfGameHandler {
         self.performSegue(withIdentifier: "FromGameToLose", sender: self)
         self.gameScene?.pauseGame()
     }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let gameScene = self.gameScene else {
+            return
+        }
+        if let winViewController = segue.destination as? WinViewController {
+            var scoredMoney = gameScene.score
+            if gameScene.losedLives == 0 {
+                
+            } else if gameScene.losedLives == 1 {
+                scoredMoney = scoredMoney*0.9
+            } else if gameScene.losedLives == 2 {
+                scoredMoney = scoredMoney*0.8
+            } else if gameScene.losedLives == 3 {
+                scoredMoney = scoredMoney*0.75
+            } else if gameScene.losedLives > 3 {
+                scoredMoney = scoredMoney*0.65
+            }
+            
+            winViewController.scoredMoney = Int(scoredMoney/3)
+        }
+        if let loseViewController = segue.destination as? LoseViewController {
+            var losedMoney = 10 - gameScene.score/4
+            
+            if losedMoney < 2 {
+                losedMoney = 2
+            } else if losedMoney > 10 {
+                losedMoney = 10
+            }
+            loseViewController.losedMoney = Int(losedMoney)
+        }
+    }
 
 }
-
-
-

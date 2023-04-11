@@ -59,7 +59,6 @@
 		2293A9F12962449B0066279B /* GameCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2293A9F02962449B0066279B /* GameCurrency.swift */; };
 		2293A9F4296248A30066279B /* UserCustomization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2293A9F3296248A30066279B /* UserCustomization.swift */; };
 		22A6607229E2A8DB00871FB2 /* CellMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A6607129E2A8DB00871FB2 /* CellMenuViewController.swift */; };
-		22A9DBB329DFF70C005F0CE3 /* test.dae in Resources */ = {isa = PBXBuildFile; fileRef = 22A9DBB229DFF70C005F0CE3 /* test.dae */; };
 		22AB8CC22983ED8C009A50F1 /* GradientImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB8CC12983ED8C009A50F1 /* GradientImage.swift */; };
 		22AB8CC62985A3F0009A50F1 /* LevelsMenuViewColntroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB8CC52985A3F0009A50F1 /* LevelsMenuViewColntroller.swift */; };
 		22AB8CC92985A594009A50F1 /* LevelsMenuCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB8CC82985A594009A50F1 /* LevelsMenuCellData.swift */; };
@@ -88,9 +87,11 @@
 		22BE9A35289665A200FB99D2 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE9A34289665A200FB99D2 /* EndGameScene.swift */; };
 		22CF24FD28BBB0D000306926 /* Ball2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF24FC28BBB0D000306926 /* Ball2D.swift */; };
 		22CF24FF28BBB0FA00306926 /* Paddle2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CF24FE28BBB0FA00306926 /* Paddle2D.swift */; };
+		22D38B7629E56B1B00BF1E1E /* BackgroundBallsAnimationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D38B7529E56B1B00BF1E1E /* BackgroundBallsAnimationFile.swift */; };
+		22D38B7829E58CE200BF1E1E /* test.dae in Resources */ = {isa = PBXBuildFile; fileRef = 22D38B7729E58CE200BF1E1E /* test.dae */; };
+		22D38B7A29E58DB000BF1E1E /* arbackground.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22D38B7929E58DB000BF1E1E /* arbackground.riv */; };
 		22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD3F4E2893DFA70026E98C /* GameViewController.swift */; };
 		22DD3F512893EE3D0026E98C /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD3F502893EE3D0026E98C /* PauseViewController.swift */; };
-		22E3DCE729DF4BCB00AADD94 /* arbackground.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22E3DCE629DF4BCB00AADD94 /* arbackground.riv */; };
 		22E4719F29A2079E00C41084 /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */; };
 		22F200FD29DB2FAD000C6843 /* pausemenu.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22F200FC29DB2FAD000C6843 /* pausemenu.riv */; };
 		22F20C0728BE045E00415CE5 /* level_5.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22F20BFD28BE045D00415CE5 /* level_5.txt */; };
@@ -182,7 +183,6 @@
 		2293A9F02962449B0066279B /* GameCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCurrency.swift; sourceTree = "<group>"; };
 		2293A9F3296248A30066279B /* UserCustomization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCustomization.swift; sourceTree = "<group>"; };
 		22A6607129E2A8DB00871FB2 /* CellMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMenuViewController.swift; sourceTree = "<group>"; };
-		22A9DBB229DFF70C005F0CE3 /* test.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = test.dae; sourceTree = "<group>"; };
 		22AB8CC12983ED8C009A50F1 /* GradientImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImage.swift; sourceTree = "<group>"; };
 		22AB8CC52985A3F0009A50F1 /* LevelsMenuViewColntroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsMenuViewColntroller.swift; sourceTree = "<group>"; };
 		22AB8CC82985A594009A50F1 /* LevelsMenuCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelsMenuCellData.swift; sourceTree = "<group>"; };
@@ -211,9 +211,11 @@
 		22BE9A34289665A200FB99D2 /* EndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameScene.swift; sourceTree = "<group>"; };
 		22CF24FC28BBB0D000306926 /* Ball2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ball2D.swift; sourceTree = "<group>"; };
 		22CF24FE28BBB0FA00306926 /* Paddle2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paddle2D.swift; sourceTree = "<group>"; };
+		22D38B7529E56B1B00BF1E1E /* BackgroundBallsAnimationFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundBallsAnimationFile.swift; sourceTree = "<group>"; };
+		22D38B7729E58CE200BF1E1E /* test.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = test.dae; sourceTree = "<group>"; };
+		22D38B7929E58DB000BF1E1E /* arbackground.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = arbackground.riv; sourceTree = "<group>"; };
 		22DD3F4E2893DFA70026E98C /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		22DD3F502893EE3D0026E98C /* PauseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseViewController.swift; sourceTree = "<group>"; };
-		22E3DCE629DF4BCB00AADD94 /* arbackground.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = arbackground.riv; sourceTree = "<group>"; };
 		22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		22E471A029A207B900C41084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		22F200FC29DB2FAD000C6843 /* pausemenu.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = pausemenu.riv; sourceTree = "<group>"; };
@@ -288,7 +290,7 @@
 		223658FA29DEEB450062F82E /* GameAssets */ = {
 			isa = PBXGroup;
 			children = (
-				22A9DBB229DFF70C005F0CE3 /* test.dae */,
+				22D38B7729E58CE200BF1E1E /* test.dae */,
 			);
 			path = GameAssets;
 			sourceTree = "<group>";
@@ -323,6 +325,7 @@
 				22F36F74296034A900059579 /* 2D */,
 				22F20C2B28BF630500415CE5 /* AnimatedText.swift */,
 				22AB8CC12983ED8C009A50F1 /* GradientImage.swift */,
+				22D38B7529E56B1B00BF1E1E /* BackgroundBallsAnimationFile.swift */,
 				2293A9ED29610DE50066279B /* HapticManager.swift */,
 				2250A7202921846100E42F7E /* AnimatedParticles.swift */,
 				2293A9EF296244470066279B /* In-GameCurrencyLogic */,
@@ -567,7 +570,7 @@
 		22F9D96E293BCD2200A5D776 /* RiveAssets */ = {
 			isa = PBXGroup;
 			children = (
-				22E3DCE629DF4BCB00AADD94 /* arbackground.riv */,
+				22D38B7929E58DB000BF1E1E /* arbackground.riv */,
 				22F200FC29DB2FAD000C6843 /* pausemenu.riv */,
 				22406F7529D47C1B00D3313F /* background.riv */,
 				2214055429A3E6CA0086DEC7 /* button.riv */,
@@ -685,7 +688,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A9DBB329DFF70C005F0CE3 /* test.dae in Resources */,
+				22D38B7829E58CE200BF1E1E /* test.dae in Resources */,
 				224F5C4529865EE2005E8E47 /* level_12.txt in Resources */,
 				2275FA66288ACF370075AFD6 /* Actions.sks in Resources */,
 				22F20C0828BE045E00415CE5 /* level_1.txt in Resources */,
@@ -697,7 +700,7 @@
 				22F20C0A28BE045E00415CE5 /* level_3.txt in Resources */,
 				22096B522986EC0B0072F4C6 /* level_20.txt in Resources */,
 				22096B512986EC0B0072F4C6 /* level_18.txt in Resources */,
-				22E3DCE729DF4BCB00AADD94 /* arbackground.riv in Resources */,
+				22D38B7A29E58DB000BF1E1E /* arbackground.riv in Resources */,
 				22F200FD29DB2FAD000C6843 /* pausemenu.riv in Resources */,
 				224F5C4C29865EE9005E8E47 /* level_17.txt in Resources */,
 				22F20C0E28BE045E00415CE5 /* level_4.txt in Resources */,
@@ -789,6 +792,7 @@
 				22B516C129238AB7006B1B6F /* Ball3D.swift in Sources */,
 				223BDB1529AB565C001CE63D /* Plane.swift in Sources */,
 				22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */,
+				22D38B7629E56B1B00BF1E1E /* BackgroundBallsAnimationFile.swift in Sources */,
 				2293A9EE29610DE50066279B /* HapticManager.swift in Sources */,
 				22096B412986E0AA0072F4C6 /* ARLevelsMenuCollectionViewCell.swift in Sources */,
 				22B516C029238AB7006B1B6F /* Brick3D.swift in Sources */,

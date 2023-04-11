@@ -92,6 +92,8 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         self.shopButton.layer.shadowRadius = 0
         self.shopButton.layer.shadowOffset = CGSize(width: self.shopButton.frame.width/15,
                                                     height: self.shopButton.frame.height/15)
+        
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -102,8 +104,10 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
             self.previewLayer.position = cameraView.center
             cameraView.layer.addSublayer(previewLayer)
         }
-       
-        checkCameraPermission()
+        
+        self.checkCameraPermission()
+        
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -158,10 +162,13 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
             case .notDetermined:
                 self.requestAccess()
+                showCameraRestrictedAlert()
             case .restricted:
                 self.requestAccess()
+            showCameraRestrictedAlert()
             case .denied:
                 self.requestAccess()
+            showCameraRestrictedAlert()
             case .authorized:
                 self.setUpCamera()
             @unknown default:
@@ -170,12 +177,31 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     private func requestAccess() {
         AVCaptureDevice.requestAccess(for: .video) {[weak self] granted in
+            print("requested - 1")
             guard granted else {
                 return
             }
+            print("requested - 2")
             DispatchQueue.main.async {
                 self?.setUpCamera()
             }
+        }
+    }
+    private func showCameraRestrictedAlert() {
+        let alert = UIAlertController(title: "Camera Access Restricted",
+                                      message: "Camera access is restricted. Please enable camera access in Settings to use this feature.",
+                                      preferredStyle: .alert)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) in
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingsURL, completionHandler: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alert.addAction(settingsAction)
+        alert.addAction(cancelAction)
+        
+        DispatchQueue.main.async {
+            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     // настраиваем камеру

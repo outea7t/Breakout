@@ -35,6 +35,10 @@ struct Ball2D {
     let constantBallVelocityLength: CGFloat = 800
     var lengthOfBallVelocityConstant: CGFloat = 800
     
+    var particle: Particle2D
+    private var lastParticleSpawnTime: TimeInterval = 0
+    // знаменатель означает число частичек, которые будут появляться за 1 секунду
+    private let numberOfParticleConstant: CGFloat = 1/26
     init(frame: CGRect) {
         // настройка мяча
         // делаем размер мяча зависимым от размера экрана
@@ -47,6 +51,7 @@ struct Ball2D {
             self.ball = SKShapeNode(circleOfRadius: ballRadius)
             self.ballRadius = ballRadius
         }
+        self.particle = Particle2D(ballRadius: ballRadius)
         self.initializeBallSkins()
         
         self.ball.name = "ball"
@@ -68,27 +73,27 @@ struct Ball2D {
         self.setBallSkin()
     }
     
-    func update(paddle: SKShapeNode) {
+    mutating func update(paddle: SKShapeNode, currentTime: TimeInterval, gameNode: SKSpriteNode) {
         if self.isAttachedToPaddle {
             ball.physicsBody?.velocity = CGVector()
             ball.position = CGPoint(x: paddle.position.x,
                                          y: paddle.position.y + paddle.frame.size.height/2.0 + ball.frame.size.height/2.0)
         } else {
+            // добавляем к мячу частички
+            if currentTime - self.lastParticleSpawnTime > self.numberOfParticleConstant {
+                self.lastParticleSpawnTime = currentTime
+                self.particle.addParticle(to: gameNode, ball: self)
+            }
+            // обновляем скорость мяча, чтобы она была постоянной
             if let currentBallVelocity = self.ball.physicsBody?.velocity {
                 let simdVelocity = simd_float2(Float(currentBallVelocity.dx),
                                                Float(currentBallVelocity.dy))
                 
                 let normalizedVelocity = simd_normalize(simdVelocity)
-                
-                let simdOldVelocity = simd_float2(Float(currentBallVelocity.dx),
-                                                  Float(currentBallVelocity.dy))
-                
-                let lengthOfOldVelocity = CGFloat(simd_length(simdOldVelocity))
-                    let newBallVelocity = CGVector(
-                        dx: Double(normalizedVelocity.x) * self.lengthOfBallVelocityConstant * 0.9,
-                        dy: Double(normalizedVelocity.y) * self.lengthOfBallVelocityConstant * 0.9)
-                    self.ball.physicsBody?.velocity = newBallVelocity
-
+                let newBallVelocity = CGVector(
+                    dx: Double(normalizedVelocity.x) * self.lengthOfBallVelocityConstant * 0.9,
+                    dy: Double(normalizedVelocity.y) * self.lengthOfBallVelocityConstant * 0.9)
+                self.ball.physicsBody?.velocity = newBallVelocity
             }
         }
     }

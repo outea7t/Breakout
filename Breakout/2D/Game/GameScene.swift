@@ -30,7 +30,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     /// косметические эфекты
     /// частички, которые отлетают от мяча
-    private var particle: Particle2D?
+//    private var particle: Particle2D?
     
     // битовые маски различных объектов
     private let ballMask: UInt32           = 0b1 << 0 // 1
@@ -80,8 +80,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /// логическую переменную для остановки процессов обновления
     private var isOnPause = false
     
-    
-   
+    /// количество очков, которое заработал пользователь
+    var score: CGFloat = 0
+    /// количество потерянных жизней
+    var losedLives: Int = 0
     // настраиваем все члены
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.07905098051, green: 0.1308179498, blue: 0.1934371293, alpha: 1)
@@ -148,9 +150,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // настройка косметического эффекта ("след от мяча")
-        if let ballRadius = self.ball?.ballRadius {
-            self.particle = Particle2D(ballRadius: ballRadius)
-        }
+//        if let ballRadius = self.ball?.ballRadius {
+//            self.particle = Particle2D(ballRadius: ballRadius)
+//        }
         
         
         self.gameNode.position = CGPoint(x: 0.0, y: 0.0)
@@ -169,8 +171,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setParticlesSkin() {
-        self.particle?.initializeParticleSkins()
-        self.particle?.setParticlesSkin()
+        self.ball?.particle.initializeParticleSkins()
+        self.ball?.particle.setParticlesSkin()
     }
     func setBallSkin() {
         self.ball?.initializeBallSkins()
@@ -187,6 +189,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             // если столкнулся мяч с кирпичиком
             if collision == self.ballMask | self.brickMask {
+                self.score += 1
                 // если тело А - мяч, работаем с телом В
                 if contact.bodyA.categoryBitMask == ballMask {
                     if contact.bodyB.node?.name == "brick" {
@@ -225,6 +228,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 if self.lives - 1 > 0 {
                     HapticManager.collisionVibrate(with: .heavy, 1.0)
+                    self.losedLives += 1
                 }
             }
             else if collision == self.ballMask | self.paddleMask {
@@ -407,6 +411,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     func resetTheGame() {
         self.lives = 3
+        self.losedLives = 0
+        self.score = 0
         self.currentLevel?.resetLevel(frame: self.frame, gameNode: self.gameNode)
         // перезагружаем позицию ракетки и мяч
         self.ball?.reset()
@@ -444,6 +450,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
         
         self.lives+=1
+        self.losedLives = 0
+        self.score = 0
     }
     // если какая-то из осевых скоростей мяча равна 0, то исправляем это
     override func update(_ currentTime: TimeInterval) {
@@ -453,15 +461,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             self.ballUpdate(currentTime)
             self.paddleUpdate(currentTime)
-            if currentTime - self.lastTime > 1/26 {
-                if let isAttachedToPaddle = self.ball?.isAttachedToPaddle {
-                    if !isAttachedToPaddle {
-                        self.particle?.addParticle(to: self.gameNode, ball: self.ball)
-                        self.lastTime = currentTime
-                    }
-                }
-                
-            }
+//            if currentTime - self.lastTime > 1/26 {
+//                if let isAttachedToPaddle = self.ball?.isAttachedToPaddle {
+//                    if !isAttachedToPaddle {
+//                        self.particle?.addParticle(to: self.gameNode, ball: self.ball)
+//                        self.lastTime = currentTime
+//                    }
+//                }
+//                
+//            }
             
         }
     }
@@ -572,7 +580,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // ограничения для мяча и ракетки
     private func ballUpdate(_ currentTime: TimeInterval) {
         if let paddle = self.paddle?.paddle {
-            self.ball?.update(paddle: paddle)
+            self.ball?.update(paddle: paddle, currentTime: currentTime, gameNode: self.gameNode)
         }
         if let isAttachedToPaddle = self.ball?.isAttachedToPaddle {
             if isAttachedToPaddle {

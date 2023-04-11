@@ -152,9 +152,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <skView tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-RX-ZFw" userLabel="Game View">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="815"/>
-                            </skView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAX-V8-CAt" userLabel="Pause">
                                 <rect key="frame" x="0.0" y="427" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -167,6 +164,9 @@
                                     <action selector="pauseButtonPressed:" destination="xHc-4y-LUL" eventType="touchUpInside" id="13C-6M-6BH"/>
                                 </connections>
                             </button>
+                            <skView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-RX-ZFw" userLabel="Game View">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </skView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WYz-j4-9kl"/>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.12941176470588234" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -185,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ho5-A4-HLr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2207.1999999999998" y="64.285714285714292"/>
+            <point key="canvasLocation" x="2206.1538461538462" y="63.981042654028435"/>
         </scene>
         <!--Levels Menu View Colntroller-->
         <scene sceneID="asG-Je-rkg">
@@ -483,6 +483,12 @@
                                     <action selector="restartButtonPressed:" destination="t8r-zK-EGk" eventType="touchUpInside" id="Ifw-dZ-dZ8"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yK2-yG-ej7">
+                                <rect key="frame" x="102.66666666666669" y="716" width="185" height="50"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="50"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="uvK-PR-mfl"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
@@ -495,11 +501,13 @@
                             <constraint firstItem="uvK-PR-mfl" firstAttribute="trailing" secondItem="lNY-Zf-pkN" secondAttribute="trailing" constant="30" id="PxO-nv-ODa"/>
                             <constraint firstItem="5iC-Ds-k0J" firstAttribute="leading" secondItem="uvK-PR-mfl" secondAttribute="leading" id="afr-2V-aYI"/>
                             <constraint firstItem="5iC-Ds-k0J" firstAttribute="top" secondItem="iHr-Id-5bA" secondAttribute="top" id="atg-Yb-ZzU"/>
+                            <constraint firstItem="uvK-PR-mfl" firstAttribute="bottom" secondItem="yK2-yG-ej7" secondAttribute="bottom" constant="78" id="cHe-ex-cPW"/>
                             <constraint firstItem="f2d-JB-nXf" firstAttribute="leading" secondItem="uvK-PR-mfl" secondAttribute="leading" constant="25" id="hAP-VR-DCa"/>
                             <constraint firstItem="DFs-Zg-Jju" firstAttribute="top" secondItem="iHr-Id-5bA" secondAttribute="top" id="hqk-Ac-xrP"/>
                             <constraint firstItem="5iC-Ds-k0J" firstAttribute="trailing" secondItem="uvK-PR-mfl" secondAttribute="trailing" id="iAq-CJ-Cme"/>
                             <constraint firstItem="lNY-Zf-pkN" firstAttribute="top" secondItem="f2d-JB-nXf" secondAttribute="bottom" constant="20" id="iey-Oa-iCA"/>
                             <constraint firstAttribute="bottom" secondItem="DFs-Zg-Jju" secondAttribute="bottom" id="lZx-bK-6aD"/>
+                            <constraint firstItem="yK2-yG-ej7" firstAttribute="centerX" secondItem="5iC-Ds-k0J" secondAttribute="centerX" id="qZt-ci-My2"/>
                             <constraint firstAttribute="bottom" secondItem="5iC-Ds-k0J" secondAttribute="bottom" id="yHz-YQ-3aU"/>
                         </constraints>
                     </view>
@@ -507,6 +515,7 @@
                         <outlet property="blurView" destination="DFs-Zg-Jju" id="a5T-wU-txb"/>
                         <outlet property="endGameView" destination="5iC-Ds-k0J" id="UYl-k2-Gn8"/>
                         <outlet property="homeButton" destination="oy2-5T-6VV" id="zno-Jc-tmT"/>
+                        <outlet property="losedMoneyLabel" destination="yK2-yG-ej7" id="mS3-na-bOW"/>
                         <outlet property="restartButton" destination="lNY-Zf-pkN" id="Zjh-Yb-CXO"/>
                         <outlet property="settingsButton" destination="s8q-ua-9to" id="LG3-ES-iUQ"/>
                     </connections>
@@ -608,6 +617,12 @@
                                     <action selector="nextLevelButtonPressed:" destination="YzS-cn-L9e" eventType="touchUpInside" id="bWb-iG-fh2"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Money" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jC7-gI-j8S">
+                                <rect key="frame" x="102.66666666666669" y="719" width="185" height="50"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="50"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CmK-Jy-7oV"/>
                         <color key="backgroundColor" red="0.00043839962947249465" green="0.0" blue="0.0083153826337483295" alpha="0.0" colorSpace="custom" customColorSpace="displayP3"/>
@@ -620,7 +635,9 @@
                             <constraint firstAttribute="bottom" secondItem="snU-ij-SF6" secondAttribute="bottom" id="UzK-6O-y6y"/>
                             <constraint firstItem="snU-ij-SF6" firstAttribute="leading" secondItem="CmK-Jy-7oV" secondAttribute="leading" id="XGf-EF-w7e"/>
                             <constraint firstItem="bzc-Qb-qZ3" firstAttribute="leading" secondItem="CmK-Jy-7oV" secondAttribute="leading" constant="30" id="ccg-y9-Bak"/>
+                            <constraint firstItem="jC7-gI-j8S" firstAttribute="centerX" secondItem="snU-ij-SF6" secondAttribute="centerX" id="d72-R1-rK1"/>
                             <constraint firstAttribute="trailing" secondItem="gHK-2q-FQp" secondAttribute="trailing" constant="2" id="eHi-JE-ocM"/>
+                            <constraint firstItem="CmK-Jy-7oV" firstAttribute="bottom" secondItem="jC7-gI-j8S" secondAttribute="bottom" constant="75" id="edf-i1-6IM"/>
                             <constraint firstAttribute="bottomMargin" secondItem="bzc-Qb-qZ3" secondAttribute="bottom" constant="236.66999999999999" id="irw-nb-mea"/>
                             <constraint firstItem="snU-ij-SF6" firstAttribute="trailing" secondItem="CmK-Jy-7oV" secondAttribute="trailing" id="rds-Qf-33h"/>
                             <constraint firstItem="bzc-Qb-qZ3" firstAttribute="top" secondItem="gHK-2q-FQp" secondAttribute="bottom" constant="20" id="tGq-mO-PRl"/>
@@ -630,6 +647,7 @@
                     </view>
                     <connections>
                         <outlet property="blurView" destination="03x-dE-B73" id="LBu-cT-Lhy"/>
+                        <outlet property="earnedMoneyLabel" destination="jC7-gI-j8S" id="f5C-s5-aDq"/>
                         <outlet property="endGameView" destination="snU-ij-SF6" id="LuN-Ua-KVm"/>
                         <outlet property="homeButton" destination="eP9-RZ-eZI" id="UGQ-I8-hwI"/>
                         <outlet property="nextLevelButton" destination="bzc-Qb-qZ3" id="2kE-Ar-fz4"/>
@@ -1529,6 +1547,18 @@
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="lI3-9q-os3">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mo8-9M-KMH">
+                                            <rect key="frame" x="86.666666666666686" y="697" width="217" height="62"/>
+                                            <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="62"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="mo8-9M-KMH" secondAttribute="bottom" constant="85" id="4oV-8p-ZJp"/>
+                                        <constraint firstItem="mo8-9M-KMH" firstAttribute="centerX" secondItem="lI3-9q-os3" secondAttribute="centerX" id="QAS-jC-p64"/>
+                                    </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
@@ -1587,6 +1617,7 @@
                         <outlet property="cellInformationView" destination="mL5-E7-7Ai" id="hep-8C-8Sr"/>
                         <outlet property="effectsInformationLabel" destination="ddh-b9-fqg" id="bMB-tj-LJq"/>
                         <outlet property="effectsLabel" destination="BiZ-3i-tAf" id="XXs-cz-svW"/>
+                        <outlet property="moneyLabel" destination="mo8-9M-KMH" id="fXI-Qu-IRk"/>
                         <outlet property="priceLabel" destination="vOZ-HF-hGL" id="SZl-g5-tw3"/>
                         <outlet property="skinImageView" destination="og3-0j-1i4" id="qcU-3W-kVa"/>
                     </connections>
@@ -1704,7 +1735,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="yGa-Sh-8Tf"/>
-        <segue reference="p3I-S7-oBl"/>
+        <segue reference="rui-cb-CKg"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="ARButton" width="1000" height="1000"/>

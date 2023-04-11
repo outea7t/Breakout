@@ -13,7 +13,7 @@ import UIKit
 
 struct Particle3D {
     
-    let particle: SCNNode
+    var particle: SCNNode
 //    private let geometry: SCNShape
     init(ballRadius: Float) {
         let size = Double(ballRadius) * 3.5
@@ -53,8 +53,8 @@ struct Particle3D {
 //        self.geometry = shape
         
         // настраиваем ее и добавляем к сценe
-        let rotationAngle = 3*Double.pi/2
-        self.particle.rotation = SCNVector4(rotationAngle, 0, 0, rotationAngle)
+//        let rotationAngle = 3*Double.pi/2
+//        self.particle.rotation = SCNVector4(rotationAngle, 0, 0, rotationAngle)
         
         
         let waitAndDelete = SCNAction.sequence([
