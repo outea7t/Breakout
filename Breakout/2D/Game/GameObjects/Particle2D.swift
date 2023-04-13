@@ -18,7 +18,6 @@ struct ParticleSkin2D {
     var glowWidth = 0
 }
 struct Particle2D {
-    
     var particle: SKShapeNode
     private static var particleSkins = [ParticleSkin2D]()
     private var ballRadius: CGFloat

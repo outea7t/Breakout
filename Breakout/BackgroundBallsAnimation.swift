@@ -20,6 +20,7 @@ class BackgroundBallAnimation {
     private let screenWidth: CGFloat
     private let screenHeight: CGFloat
     private var lastTime: TimeInterval = 0
+    private let particlesPerSecondConstant: CGFloat = 1/12
     init(screenWidth: CGFloat, screenHeight: CGFloat) {
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
@@ -28,14 +29,14 @@ class BackgroundBallAnimation {
         if currentTime - self.lastTime >= self.numberOfBallsConstant {
             self.lastTime = currentTime
             self.addNewBall(nodeToAdd: nodeToAdd)
-            for (i, ball) in balls.enumerated() {
-                if ball.ball.position.x <= (self.screenWidth + ball.ballRadius) {
-                    ball.update(currentTime: currentTime, gameNode: nodeToAdd)
-                } else {
-                    ball.ball.removeAllActions()
-                    ball.ball.removeFromParent()
-                    self.balls.remove(at: i)
-                }
+        }
+        for (i, ball) in balls.enumerated() {
+            if ball.ball.position.x <= (self.screenWidth + ball.ballRadius) {
+                ball.update(currentTime: currentTime, gameNode: nodeToAdd)
+            } else {
+                ball.ball.removeAllActions()
+                ball.ball.removeFromParent()
+                self.balls.remove(at: i)
             }
         }
     }
@@ -44,8 +45,8 @@ class BackgroundBallAnimation {
         guard UserCustomization.maxBallSkinIndex != 0 && UserCustomization.maxParticleSkinIndex != 0 else {
             return
         }
-        let oneTenth = self.screenHeight*0.4
-        let randomPositionY = CGFloat.random(in: 0...(self.screenHeight))
+        let oneTenth = self.screenHeight*0.95
+        let randomPositionY = CGFloat.random(in: 0...(self.screenHeight - self.screenHeight*0.2))
         
         let ballStartPosition = CGPoint(x: -100, y: randomPositionY)
         let ballEndPosition = CGPoint(x: self.screenWidth*3, y: randomPositionY + oneTenth)
@@ -58,7 +59,9 @@ class BackgroundBallAnimation {
         
         let time = distance/ballVelocity
         
-        let ball = Ball2D(frame: nodeToAdd.frame, ballRadius: 40)
+        // создаем расширенную рамку, чтобы радиус мяча был больше
+        let sizeForBall = CGSize(width: nodeToAdd.frame.width*2, height: nodeToAdd.frame.height)
+        let ball = Ball2D(frame: sizeForBall)
         ball.setCertainBallSkin(skinIndex: randomBallSkin)
         ball.particle.setCertainParticleIndex(skinIndex: randomParticleSkin)
         ball.isAttachedToPaddle = false
@@ -66,6 +69,7 @@ class BackgroundBallAnimation {
         if ball.ball.parent == nil {
             nodeToAdd.addChild(ball.ball)
         }
+        ball.numberOfParticleConstant = self.particlesPerSecondConstant
         ball.ball.position = ballStartPosition
         let moveAction = SKAction.move(to: ballEndPosition, duration: time)
         ball.ball.run(moveAction)

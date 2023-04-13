@@ -129,7 +129,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // настройка мяча
-        self.ball = Ball2D(frame: self.frame)
+        self.ball = Ball2D(frame: self.frame.size)
         if let ball = self.ball?.ball {
             self.gameNode.addChild(ball)
         }
@@ -159,7 +159,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func setParticlesSkin() {
 //        self.ball?.particle.initializeParticleSkins()
-        self.ball?.particle.setParticlesSkin()
+//        self.ball?.particle.setParticlesSkin()
     }
     
     func setBallSkin() {

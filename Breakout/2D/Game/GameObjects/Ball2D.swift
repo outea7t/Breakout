@@ -38,13 +38,12 @@ class Ball2D {
     var particle: Particle2D
     private var lastParticleSpawnTime: TimeInterval = 0
     // знаменатель означает число частичек, которые будут появляться за 1 секунду
-    private let numberOfParticleConstant: CGFloat = 1/26
-    init(frame: CGRect, ballRadius:CGFloat = 0) {
+    var numberOfParticleConstant: CGFloat = 1/26
+    init(frame: CGSize) {
         // настройка мяча
         // делаем размер мяча зависимым от размера экрана
-        if ballRadius == 0 {
-            let ballRadius = 0.0513 * frame.width
-        }
+        
+        let ballRadius = 0.0513 * frame.width
         if frame.width > 700 && frame.height > 1000 {
             self.ball = SKShapeNode(circleOfRadius: ballRadius * 0.8)
             self.ballRadius = ballRadius * 0.8
