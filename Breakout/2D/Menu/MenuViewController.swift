@@ -67,9 +67,6 @@ class MenuViewController: UIViewController {
             
             
             view.presentScene(scene)
-            view.ignoresSiblingOrder = false
-            view.showsFPS = true // показываем кадры в секунды
-            view.showsNodeCount = true // количество nodes
             view.showsPhysics = true
             // сцена меню, чтобы можно было ей управлять
             self.menuScene = scene
@@ -124,7 +121,8 @@ class MenuViewController: UIViewController {
         
         // подгатавливаем, чтобы можно было проигрывать кастомные анимации
         HapticManager.prepare()
-        
+        Ball2D.initializeBallSkins()
+        Particle2D.initializeParticleSkins()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

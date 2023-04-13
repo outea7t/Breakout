@@ -5,7 +5,9 @@
 //  Created by Out East on 09.04.2023.
 //
 
+import Foundation
 import UIKit
+import SpriteKit
 
 class CellMenuViewController: UIViewController {
 
@@ -70,6 +72,22 @@ class CellMenuViewController: UIViewController {
         self.skinImageView.clipsToBounds = false
         // Do any additional setup after loading the view.
         self.moneyLabel.text = GameCurrency.updateUserMoneyLabel()
+        
+        if let spriteKitView = self.view.viewWithTag(1) as? SKView {
+            spriteKitView.backgroundColor = .clear
+            let scene = ExtendedCellMenuScene(size: spriteKitView.frame.size)
+            scene.scaleMode = .aspectFill
+            scene.backgroundColor = .clear
+            
+            spriteKitView.presentScene(scene)
+            scene.removeAllActions()
+            scene.removeAllChildren()
+            
+            spriteKitView.showsFPS = true
+            spriteKitView.showsNodeCount = true
+        }
+        
+        
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {

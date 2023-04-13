@@ -9,7 +9,7 @@ import UIKit
 import SpriteKit
 
 
-struct Ball2D {
+class Ball2D {
     private struct BallSkin2D {
         var fillColor: UIColor
         var strokeColor: UIColor
@@ -26,7 +26,7 @@ struct Ball2D {
     private let trajectoryBallMask: UInt32 = 0b1 << 4 // 16
     private let frameMask: UInt32          = 0b1 << 5 // 32
     private let bonusMask: UInt32          = 0b1 << 6 // 64
-    private var ballSkins = [BallSkin2D]()
+    private static var ballSkins = [BallSkin2D]()
     
     let ball: SKShapeNode
     let ballRadius: CGFloat
@@ -39,11 +39,12 @@ struct Ball2D {
     private var lastParticleSpawnTime: TimeInterval = 0
     // знаменатель означает число частичек, которые будут появляться за 1 секунду
     private let numberOfParticleConstant: CGFloat = 1/26
-    init(frame: CGRect) {
+    init(frame: CGRect, ballRadius:CGFloat = 0) {
         // настройка мяча
         // делаем размер мяча зависимым от размера экрана
-        
-        let ballRadius = 0.0513 * frame.width
+        if ballRadius == 0 {
+            let ballRadius = 0.0513 * frame.width
+        }
         if frame.width > 700 && frame.height > 1000 {
             self.ball = SKShapeNode(circleOfRadius: ballRadius * 0.8)
             self.ballRadius = ballRadius * 0.8
@@ -52,7 +53,6 @@ struct Ball2D {
             self.ballRadius = ballRadius
         }
         self.particle = Particle2D(ballRadius: ballRadius)
-        self.initializeBallSkins()
         
         self.ball.name = "ball"
         self.ball.position = CGPoint(x: 100.0, y: 100.0)
@@ -73,50 +73,36 @@ struct Ball2D {
         self.setBallSkin()
     }
     
-    mutating func update(paddle: SKShapeNode, currentTime: TimeInterval, gameNode: SKSpriteNode) {
+    func update(paddle: SKShapeNode, currentTime: TimeInterval, gameNode: SKNode) {
         if self.isAttachedToPaddle {
             ball.physicsBody?.velocity = CGVector()
             ball.position = CGPoint(x: paddle.position.x,
                                          y: paddle.position.y + paddle.frame.size.height/2.0 + ball.frame.size.height/2.0)
         } else {
-            // добавляем к мячу частички
-            if currentTime - self.lastParticleSpawnTime > self.numberOfParticleConstant {
-                self.lastParticleSpawnTime = currentTime
-                self.particle.addParticle(to: gameNode, ball: self)
-            }
-            // обновляем скорость мяча, чтобы она была постоянной
-            if let currentBallVelocity = self.ball.physicsBody?.velocity {
-                let simdVelocity = simd_float2(Float(currentBallVelocity.dx),
-                                               Float(currentBallVelocity.dy))
-                
-                let normalizedVelocity = simd_normalize(simdVelocity)
-                let newBallVelocity = CGVector(
-                    dx: Double(normalizedVelocity.x) * self.lengthOfBallVelocityConstant * 0.9,
-                    dy: Double(normalizedVelocity.y) * self.lengthOfBallVelocityConstant * 0.9)
-                self.ball.physicsBody?.velocity = newBallVelocity
-            }
+            self.updateCode(currentTime: currentTime, gameNode: gameNode)
         }
     }
-    
-    mutating func collidedToBottom() {
+    func update(currentTime: TimeInterval, gameNode: SKNode) {
+        self.updateCode(currentTime: currentTime, gameNode: gameNode)
+    }
+    func collidedToBottom() {
         self.isAttachedToPaddle = true
     }
-    mutating func reset() {
+    func reset() {
         self.isAttachedToPaddle = true
     }
     func setBallSkin() {
-        if !UserCustomization.buyedBallSkinIndexes.isEmpty && UserCustomization.ballSkinIndex < self.ballSkins.count {
-            let currentBallSkin = self.ballSkins[UserCustomization.ballSkinIndex]
-            self.ball.fillColor = currentBallSkin.fillColor
-            self.ball.strokeColor = currentBallSkin.strokeColor
-            self.ball.lineWidth = currentBallSkin.lineWidth
-            if let ballFillTexture = currentBallSkin.fillTexture {
-                self.ball.fillTexture = ballFillTexture
-            }
+        if !UserCustomization.buyedBallSkinIndexes.isEmpty && UserCustomization.ballSkinIndex < Ball2D.ballSkins.count {
+            self.setSkinCode(skinIndex: UserCustomization.ballSkinIndex)
         }
     }
-    mutating func initializeBallSkins() {
-        // 1
+    func setCertainBallSkin(skinIndex: Int) {
+        if skinIndex < Ball2D.ballSkins.count {
+            setSkinCode(skinIndex: skinIndex)
+        }
+    }
+    
+    static func initializeBallSkins() {
         for i in 0..<(UserCustomization.maxBallSkinIndex) {
             let textureImage = UIImage(named: "Ball-\(i+1)")
             if let textureImage = textureImage {
@@ -130,9 +116,33 @@ struct Ball2D {
                 self.ballSkins.append(ballSkin)
             }
         }
-       
-        
     }
-    
+    private func updateCode(currentTime: TimeInterval, gameNode: SKNode) {
+        // добавляем к мячу частички
+        if currentTime - self.lastParticleSpawnTime > self.numberOfParticleConstant {
+            self.lastParticleSpawnTime = currentTime
+            self.particle.addParticle(to: gameNode, ball: self)
+        }
+        // обновляем скорость мяча, чтобы она была постоянной
+        if let currentBallVelocity = self.ball.physicsBody?.velocity {
+            let simdVelocity = simd_float2(Float(currentBallVelocity.dx),
+                                           Float(currentBallVelocity.dy))
+            
+            let normalizedVelocity = simd_normalize(simdVelocity)
+            let newBallVelocity = CGVector(
+                dx: Double(normalizedVelocity.x) * self.lengthOfBallVelocityConstant * 0.9,
+                dy: Double(normalizedVelocity.y) * self.lengthOfBallVelocityConstant * 0.9)
+            self.ball.physicsBody?.velocity = newBallVelocity
+        }
+    }
+    private func setSkinCode(skinIndex: Int) {
+        let currentBallSkin = Ball2D.ballSkins[skinIndex]
+        self.ball.fillColor = currentBallSkin.fillColor
+        self.ball.strokeColor = currentBallSkin.strokeColor
+        self.ball.lineWidth = currentBallSkin.lineWidth
+        if let ballFillTexture = currentBallSkin.fillTexture {
+            self.ball.fillTexture = ballFillTexture
+        }
+    }
 }
 

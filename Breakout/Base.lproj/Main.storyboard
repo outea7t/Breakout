@@ -152,6 +152,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <skView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-RX-ZFw" userLabel="Game View">
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                            </skView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAX-V8-CAt" userLabel="Pause">
                                 <rect key="frame" x="0.0" y="427" width="130" height="130"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -164,9 +167,6 @@
                                     <action selector="pauseButtonPressed:" destination="xHc-4y-LUL" eventType="touchUpInside" id="13C-6M-6BH"/>
                                 </connections>
                             </button>
-                            <skView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-RX-ZFw" userLabel="Game View">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                            </skView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WYz-j4-9kl"/>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.12941176470588234" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -1313,7 +1313,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RhV-22-ipL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-597" y="1483"/>
+            <point key="canvasLocation" x="1166" y="1654"/>
         </scene>
         <!--BallTexture-->
         <scene sceneID="nl8-w4-7MJ">
@@ -1426,7 +1426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GUt-J0-VVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1412.3076923076922" y="2305.4502369668244"/>
+            <point key="canvasLocation" x="352" y="2477"/>
         </scene>
         <!--PaddleTextures-->
         <scene sceneID="iqY-nm-aea">
@@ -1531,7 +1531,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCc-9p-aNp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-598" y="2305"/>
+            <point key="canvasLocation" x="1166" y="2476"/>
         </scene>
         <!--Cell Menu View Controller-->
         <scene sceneID="6va-vF-Fqc">
@@ -1548,6 +1548,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
+                                        <skView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3R9-Hv-4tR">
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                        </skView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mo8-9M-KMH">
                                             <rect key="frame" x="86.666666666666686" y="697" width="217" height="62"/>
                                             <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="62"/>
@@ -1557,7 +1560,11 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="mo8-9M-KMH" secondAttribute="bottom" constant="85" id="4oV-8p-ZJp"/>
+                                        <constraint firstItem="3R9-Hv-4tR" firstAttribute="leading" secondItem="lI3-9q-os3" secondAttribute="leading" id="FNg-HH-jHJ"/>
                                         <constraint firstItem="mo8-9M-KMH" firstAttribute="centerX" secondItem="lI3-9q-os3" secondAttribute="centerX" id="QAS-jC-p64"/>
+                                        <constraint firstItem="3R9-Hv-4tR" firstAttribute="top" secondItem="lI3-9q-os3" secondAttribute="top" id="V4Y-4j-FGj"/>
+                                        <constraint firstAttribute="trailing" secondItem="3R9-Hv-4tR" secondAttribute="trailing" id="oYZ-Pv-hrG"/>
+                                        <constraint firstAttribute="bottom" secondItem="3R9-Hv-4tR" secondAttribute="bottom" id="zkN-d1-gMQ"/>
                                     </constraints>
                                 </view>
                                 <blurEffect style="dark"/>
@@ -1624,7 +1631,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAd-ue-Ito" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-600" y="3028.4360189573458"/>
+            <point key="canvasLocation" x="1165" y="3200"/>
         </scene>
         <!--ParticlesTexture-->
         <scene sceneID="HBc-AE-PdN">
@@ -1730,11 +1737,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lb7-du-z5u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="263" y="2305"/>
+            <point key="canvasLocation" x="2026" y="2476"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yGa-Sh-8Tf"/>
+        <segue reference="zZ2-TM-33E"/>
         <segue reference="rui-cb-CKg"/>
     </inferredMetricsTieBreakers>
     <resources>

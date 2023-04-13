@@ -20,7 +20,7 @@ struct ParticleSkin2D {
 struct Particle2D {
     
     var particle: SKShapeNode
-    private var particleSkins = [ParticleSkin2D]()
+    private static var particleSkins = [ParticleSkin2D]()
     private var ballRadius: CGFloat
     init(ballRadius: CGFloat) {
         self.ballRadius = ballRadius
@@ -40,41 +40,48 @@ struct Particle2D {
         ]))
         
         self.particle.zPosition = -1
-        self.initializeParticleSkins()
+//        self.initializeParticleSkins()
         self.setParticlesSkin()
     }
     mutating func setParticlesSkin() {
-        if !UserCustomization.buyedParticlesSkinIndexes.isEmpty && UserCustomization.particleSkinIndex < self.particleSkins.count {
-            let currentPartileSkin = self.particleSkins[UserCustomization.particleSkinIndex]
-            
-            let particleHeight = self.ballRadius*0.9
-            let particleWidth = particleHeight * currentPartileSkin.widthToHeightConstant
-            let particleSize = CGSize(width: particleWidth, height: particleHeight)
-            self.particle = SKShapeNode(rectOf: particleSize)
-            
-            self.particle.glowWidth = 16.0
-            self.particle.lineWidth = 2.5
-            self.particle.fillColor = .init(red: 0, green: 0, blue: 0, alpha: 0)
-            self.particle.strokeColor = .blue
-            
-            self.particle.run(SKAction.sequence([
-                SKAction.wait(forDuration: 0.4),
-                SKAction.removeFromParent()
-            ]))
-            
-            self.particle.zPosition = -1
-            
-            self.particle.fillColor = currentPartileSkin.fillColor
-            self.particle.strokeColor = currentPartileSkin.strokeColor
-            self.particle.lineWidth = currentPartileSkin.lineWidth
-            
-            if let particleTexture = currentPartileSkin.fillTexture {
-                self.particle.fillTexture = particleTexture
-            }
+        if !UserCustomization.buyedParticlesSkinIndexes.isEmpty && UserCustomization.particleSkinIndex < Particle2D.particleSkins.count {
+            self.setSkinCode(skinIndex: UserCustomization.particleSkinIndex)
         }
     }
-    
-    func addParticle(to gameNode: SKSpriteNode, ball: Ball2D?) {
+    mutating func setCertainParticleIndex(skinIndex: Int) {
+        if skinIndex < Particle2D.particleSkins.count {
+            self.setSkinCode(skinIndex: skinIndex)
+        }
+    }
+    private mutating func setSkinCode(skinIndex: Int) {
+        let currentPartileSkin = Particle2D.particleSkins[skinIndex]
+        
+        let particleHeight = self.ballRadius*0.9
+        let particleWidth = particleHeight * currentPartileSkin.widthToHeightConstant
+        let particleSize = CGSize(width: particleWidth, height: particleHeight)
+        self.particle = SKShapeNode(rectOf: particleSize)
+        
+        self.particle.glowWidth = 16.0
+        self.particle.lineWidth = 2.5
+        self.particle.fillColor = .init(red: 0, green: 0, blue: 0, alpha: 0)
+        self.particle.strokeColor = .blue
+        
+        self.particle.run(SKAction.sequence([
+            SKAction.wait(forDuration: 0.4),
+            SKAction.removeFromParent()
+        ]))
+        
+        self.particle.zPosition = -1
+        
+        self.particle.fillColor = currentPartileSkin.fillColor
+        self.particle.strokeColor = currentPartileSkin.strokeColor
+        self.particle.lineWidth = currentPartileSkin.lineWidth
+        
+        if let particleTexture = currentPartileSkin.fillTexture {
+            self.particle.fillTexture = particleTexture
+        }
+    }
+    func addParticle(to gameNode: SKNode, ball: Ball2D?) {
         if let particle = self.particle.copy() as? SKShapeNode {
             if let ball = ball?.ball {
                 // чтобы был небольшой разброс в позиции частиц
@@ -121,7 +128,7 @@ struct Particle2D {
         }
     }
     
-    mutating func initializeParticleSkins() {
+    static func initializeParticleSkins() {
         for i in 0..<(UserCustomization.maxParticleSkinIndex) {
             let textureImage = UIImage(named: "Particle-\(i+1)")
             

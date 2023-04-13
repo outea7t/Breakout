@@ -27,11 +27,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var paddle: Paddle2D?
     private var trajectoryLine: TrajectoryLine2D?
     
-    
-    /// косметические эфекты
-    /// частички, которые отлетают от мяча
-//    private var particle: Particle2D?
-    
     // битовые маски различных объектов
     private let ballMask: UInt32           = 0b1 << 0 // 1
     private let paddleMask: UInt32         = 0b1 << 1 // 2
@@ -148,40 +143,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let paddle = self.paddle?.paddle {
             self.gameNode.addChild(paddle)
         }
-        
-        // настройка косметического эффекта ("след от мяча")
-//        if let ballRadius = self.ball?.ballRadius {
-//            self.particle = Particle2D(ballRadius: ballRadius)
-//        }
-        
-        
+ 
         self.gameNode.position = CGPoint(x: 0.0, y: 0.0)
         self.addChild(self.gameNode)
         
+
         self.setParticlesSkin()
         self.setBallSkin()
         self.setPaddleSkin()
-        
-
-        
     }
+    
     func loadLevel() {
         self.currentLevel?.loadLevel(to: self.gameNode, frame: self.frame)
-        
     }
     
     func setParticlesSkin() {
-        self.ball?.particle.initializeParticleSkins()
+//        self.ball?.particle.initializeParticleSkins()
         self.ball?.particle.setParticlesSkin()
     }
+    
     func setBallSkin() {
-        self.ball?.initializeBallSkins()
+//        self.ball?.initializeBallSkins()
         self.ball?.setBallSkin()
     }
+    
     func setPaddleSkin() {
         self.paddle?.initializePaddleSkins()
         self.paddle?.setPaddleSkin()
     }
+    
     // начало контакта
     func didBegin(_ contact: SKPhysicsContact) {
         if !self.isOnPause {
@@ -461,16 +451,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
             self.ballUpdate(currentTime)
             self.paddleUpdate(currentTime)
-//            if currentTime - self.lastTime > 1/26 {
-//                if let isAttachedToPaddle = self.ball?.isAttachedToPaddle {
-//                    if !isAttachedToPaddle {
-//                        self.particle?.addParticle(to: self.gameNode, ball: self.ball)
-//                        self.lastTime = currentTime
-//                    }
-//                }
-//                
-//            }
-            
         }
     }
     // функции которые вызываются от нажатий
