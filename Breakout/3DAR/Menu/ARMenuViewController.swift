@@ -202,6 +202,8 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         
         DispatchQueue.main.async {
             UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+//            UIWindowScene.windows.first?.rootViewController?.present(alert, animated: true)
+//            UIWindow.share
         }
     }
     // настраиваем камеру

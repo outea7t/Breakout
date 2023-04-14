@@ -88,10 +88,7 @@ class AREndGameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        let randWinColorIndex = Int.random(in: 0..<self.winColors.count)
         self.gameWinLabel?.ambientAnimating(colorToChange: .green, currentTime: currentTime)
-        
-        let randLoseColorIndex = Int.random(in: 0..<self.loseColors.count)
         self.gameLoseLabel?.ambientAnimating(colorToChange: .red, currentTime: currentTime)
         
         self.animatedParticles?.update(currentTime)
@@ -205,8 +202,6 @@ class AREndGameScene: SKScene {
         if let gameWinLabel = gameWinLabel?.label {
             for letter in gameWinLabel {
                 if letter.contains(touch.location(in: self)) {
-                    let randIndex = Int(arc4random()) % self.colorsForWinLabelAnimation.count
-                    let randomColor = self.colorsForWinLabelAnimation[randIndex]
                     self.gameWinLabel?.animate(colorToChange: .green, letter: letter)
                 }
             }
@@ -214,9 +209,8 @@ class AREndGameScene: SKScene {
     }
     private func touchProcessOnLetterWIN(_ touch: UITouch) {
         if let gameWinLabel = self.gameWinLabel?.label {
-            for (index, letter) in gameWinLabel.enumerated() {
+            for (_, letter) in gameWinLabel.enumerated() {
                 if letter.contains(touch.location(in: self)) {
-                    let color = self.colorsForWinLabelAnimation[index]
                     if !letter.hasActions() {
                         self.gameWinLabel?.animate(colorToChange: .green, letter: letter)
                     }

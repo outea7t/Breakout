@@ -14,10 +14,10 @@
             filePath = "Breakout/In-GameCurrencyLogic/ExtendedCellMenu/ExtendedCellMenuScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "didMove(to:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "E16401EF-54E0-4EC2-9F4C-158C1BEB7F03 - efd4d1f269b1e01f"

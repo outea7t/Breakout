@@ -10,9 +10,6 @@ import UIKit
 import SpriteKit
 
 class ExtendedCellMenuScene: SKScene {
-    var balls = [Ball2D]()
-    var numberOfBallsConstant: CGFloat = 1/5
-    private var lastTime: TimeInterval = 0
     var animation: BackgroundBallAnimation?
 //    let node = SKSpriteNode(color: .clear, size: CGSize())
     override func didMove(to view: SKView) {
@@ -23,8 +20,26 @@ class ExtendedCellMenuScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        if var animation = self.animation {
-            animation.update(currentTime: currentTime, nodeToAdd: self)
+        animation?.update(currentTime: currentTime, nodeToAdd: self)
+    }
+    func pause() {
+        
+        self.animation?.isPaused = true
+        guard let balls = self.animation?.balls else {
+            return
+        }
+        for ball in balls {
+            ball.ball.isPaused = true
+            
+        }
+    }
+    func unpause() {
+        self.animation?.isPaused = false
+        guard let balls = self.animation?.balls else {
+            return
+        }
+        for ball in balls {
+            ball.ball.isPaused = false
         }
     }
 }

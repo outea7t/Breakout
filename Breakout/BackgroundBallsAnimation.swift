@@ -15,6 +15,7 @@ import UIKit
 
 /// класс с анимацией, который создает мячи, летящие по диагонали слева направо
 class BackgroundBallAnimation {
+    var isPaused = false
     var balls = [Ball2D]()
     var numberOfBallsConstant: CGFloat = 1/3
     private let screenWidth: CGFloat
@@ -26,6 +27,9 @@ class BackgroundBallAnimation {
         self.screenHeight = screenHeight
     }
     func update(currentTime: TimeInterval, nodeToAdd: SKNode) {
+        guard !self.isPaused else {
+            return
+        }
         if currentTime - self.lastTime >= self.numberOfBallsConstant {
             self.lastTime = currentTime
             self.addNewBall(nodeToAdd: nodeToAdd)
@@ -36,7 +40,9 @@ class BackgroundBallAnimation {
             } else {
                 ball.ball.removeAllActions()
                 ball.ball.removeFromParent()
-                self.balls.remove(at: i)
+                if i < self.balls.count {
+                    self.balls.remove(at: i)
+                }
             }
         }
     }
@@ -46,7 +52,7 @@ class BackgroundBallAnimation {
             return
         }
         let oneTenth = self.screenHeight*0.95
-        let randomPositionY = CGFloat.random(in: 0...(self.screenHeight - self.screenHeight*0.2))
+        let randomPositionY = CGFloat.random(in: (-self.screenHeight*0.5)...(self.screenHeight - self.screenHeight*0.2))
         
         let ballStartPosition = CGPoint(x: -100, y: randomPositionY)
         let ballEndPosition = CGPoint(x: self.screenWidth*3, y: randomPositionY + oneTenth)

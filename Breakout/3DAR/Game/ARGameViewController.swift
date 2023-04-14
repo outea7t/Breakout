@@ -271,12 +271,12 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         let moveAction = SCNAction.move(to: destinationPlatePosition, duration: 0.0001)
         
-        var destinationLightPosition = SCNVector3(destinationPlatePosition.x,
-                                                  destinationPlatePosition.y + 1.0,
-                                                  destinationPlatePosition.z - 0.4)
+//        var destinationLightPosition = SCNVector3(destinationPlatePosition.x,
+//                                                  destinationPlatePosition.y + 1.0,
+//                                                  destinationPlatePosition.z - 0.4)
         
         frame.plate.runAction(moveAction)
-        let lightMoveAction = SCNAction.move(to: destinationLightPosition, duration: 0.0001)
+//        let lightMoveAction = SCNAction.move(to: destinationLightPosition, duration: 0.0001)
 //        self.light.runAction(lightMoveAction)
     }
     private func scaleScene(scaleFactor: CGFloat) {

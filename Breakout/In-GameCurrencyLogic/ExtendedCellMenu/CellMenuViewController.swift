@@ -27,6 +27,8 @@ class CellMenuViewController: UIViewController {
     var image = UIImage()
     var typeOfCurrentShopController = TypeOfShopController.ball
     
+    private var backgroundAnimationScene: ExtendedCellMenuScene?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.skinImageView.image = self.image
@@ -83,11 +85,20 @@ class CellMenuViewController: UIViewController {
             scene.removeAllActions()
             scene.removeAllChildren()
             
+            self.backgroundAnimationScene = scene
+            
             spriteKitView.showsFPS = true
             spriteKitView.showsNodeCount = true
         }
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+    }
+    @objc func didEnterBackground() {
+        self.backgroundAnimationScene?.pause()
+    }
+    @objc func willEnterForeground() {
+        self.backgroundAnimationScene?.unpause()
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
