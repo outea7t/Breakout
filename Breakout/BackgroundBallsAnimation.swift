@@ -34,16 +34,19 @@ class BackgroundBallAnimation {
             self.lastTime = currentTime
             self.addNewBall(nodeToAdd: nodeToAdd)
         }
+        var ballIndexesToDelete = [Int]()
         for (i, ball) in balls.enumerated() {
             if ball.ball.position.x <= (self.screenWidth + ball.ballRadius) {
                 ball.update(currentTime: currentTime, gameNode: nodeToAdd)
             } else {
                 ball.ball.removeAllActions()
                 ball.ball.removeFromParent()
-                if i < self.balls.count {
-                    self.balls.remove(at: i)
-                }
+                ballIndexesToDelete.append(i)
             }
+        }
+        ballIndexesToDelete = ballIndexesToDelete.sorted(by: >)
+        for index in ballIndexesToDelete {
+            self.balls.remove(at: index)
         }
     }
     

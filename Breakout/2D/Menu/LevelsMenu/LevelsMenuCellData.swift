@@ -13,3 +13,5 @@ struct LevelsMenuCellData {
     var shadowColor: UIColor
     var levelNumber: Int
 }
+
+// добавить еще переменные для количества звезд, доступности, и очков(score), на которое игрок прошел его
