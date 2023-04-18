@@ -90,7 +90,7 @@ class CellMenuViewController: UIViewController {
             spriteKitView.showsFPS = true
             spriteKitView.showsNodeCount = true
         }
-        
+//        self.transitioningDelegate = self
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
@@ -148,3 +148,13 @@ class CellMenuViewController: UIViewController {
     }
     
 }
+extension CellMenuViewController: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomTransitionToExtendedCellMenu(animationDuration: 1.5, animationType: .present)
+    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomTransitionToExtendedCellMenu(animationDuration: 1.5, animationType: .dismiss)
+    }
+}
+
+

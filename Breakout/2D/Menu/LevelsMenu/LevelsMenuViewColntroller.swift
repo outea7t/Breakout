@@ -63,7 +63,7 @@ class LevelsMenuViewColntroller: UIViewController {
         self.headerTopView.layer.shadowRadius = 8
         // кнопка возврата в меню
         self.backToMenuButton.layer.cornerRadius = 10
-       
+        
     }
     override var prefersStatusBarHidden: Bool {
         return false
@@ -169,12 +169,9 @@ extension LevelsMenuViewColntroller: UICollectionViewDelegate {
         
 
     }
-    
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
     }
-    
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
     }
-    
 }
 

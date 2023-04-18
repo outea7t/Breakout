@@ -1313,7 +1313,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RhV-22-ipL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1166" y="1654"/>
+            <point key="canvasLocation" x="1638" y="1720"/>
         </scene>
         <!--BallTexture-->
         <scene sceneID="nl8-w4-7MJ">
@@ -1426,7 +1426,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GUt-J0-VVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="352" y="2477"/>
+            <point key="canvasLocation" x="825" y="2543"/>
         </scene>
         <!--PaddleTextures-->
         <scene sceneID="iqY-nm-aea">
@@ -1531,7 +1531,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCc-9p-aNp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1166" y="2476"/>
+            <point key="canvasLocation" x="1638" y="2541"/>
         </scene>
         <!--Cell Menu View Controller-->
         <scene sceneID="6va-vF-Fqc">
@@ -1541,9 +1541,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CcD-fI-CtU">
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CcD-fI-CtU">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="lI3-9q-os3">
                                     <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1617,6 +1616,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tAW-Nj-PwF"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="CcD-fI-CtU" secondAttribute="trailing" id="Y8S-lv-aXD"/>
+                            <constraint firstAttribute="bottom" secondItem="CcD-fI-CtU" secondAttribute="bottom" id="eMV-zf-I5i"/>
+                            <constraint firstItem="CcD-fI-CtU" firstAttribute="top" secondItem="evq-VO-7sh" secondAttribute="top" id="fS9-tw-Qki"/>
+                            <constraint firstItem="CcD-fI-CtU" firstAttribute="leading" secondItem="evq-VO-7sh" secondAttribute="leading" id="lA9-Mh-ZpZ"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="blurView" destination="CcD-fI-CtU" id="pYg-QG-ty6"/>
@@ -1631,7 +1636,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dAd-ue-Ito" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165" y="3200"/>
+            <point key="canvasLocation" x="1637" y="3337"/>
         </scene>
         <!--ParticlesTexture-->
         <scene sceneID="HBc-AE-PdN">
@@ -1737,7 +1742,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lb7-du-z5u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2026" y="2476"/>
+            <point key="canvasLocation" x="2498" y="2541"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
