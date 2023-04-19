@@ -26,6 +26,7 @@ class CellMenuViewController: UIViewController {
     var price: Int = 0
     var image = UIImage()
     var typeOfCurrentShopController = TypeOfShopController.ball
+    var isBuyed = false
     
     private var backgroundAnimationScene: ExtendedCellMenuScene?
     
@@ -90,7 +91,8 @@ class CellMenuViewController: UIViewController {
             spriteKitView.showsFPS = true
             spriteKitView.showsNodeCount = true
         }
-//        self.transitioningDelegate = self
+        self.transitioningDelegate = self
+        
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
@@ -112,6 +114,7 @@ class CellMenuViewController: UIViewController {
     @IBAction func buyButtonPressed(_ sender: UIButton) {
         if GameCurrency.userMoney >= self.price {
             GameCurrency.userMoney -= self.price
+            self.isBuyed = true
             if self.typeOfCurrentShopController == .ball {
                 UserCustomization.buyedBallSkinIndexes += [self.cellID]
                 UserCustomization.ballSkinIndex = self.cellID
@@ -155,6 +158,7 @@ extension CellMenuViewController: UIViewControllerTransitioningDelegate {
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         return CustomTransitionToExtendedCellMenu(animationDuration: 1.5, animationType: .dismiss)
     }
+    
 }
 
 

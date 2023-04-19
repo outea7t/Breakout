@@ -24,11 +24,11 @@ class ShopCollectionViewCell: UICollectionViewCell {
     /// цвет, применяемый, когда ячейка куплена, но не выбрана
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     /// цвет, применяемый, когда ячейка выбрана
-    private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
+    let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
     /// цвет рамки, которая появляется, когда мы выбираем ячейку
-    private let borderColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
+    let borderColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
     /// размер рамки, которая появляется, когда мы выбираем рамку
-    private var borderWidth: CGFloat = 0.0
+    var borderWidth: CGFloat = 0.0
     
     /// замена инициализатору
     func setup(with data: ShopCellData) {

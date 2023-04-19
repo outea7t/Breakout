@@ -30,7 +30,6 @@ class ExtendedCellMenuScene: SKScene {
         }
         for ball in balls {
             ball.ball.isPaused = true
-            
         }
     }
     func unpause() {
