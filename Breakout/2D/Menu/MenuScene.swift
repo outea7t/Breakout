@@ -37,7 +37,6 @@ class MenuScene: SKScene {
         self.particle.strokeColor = .white
         self.particle.fillColor = .white
         
-        
         // настраиваем количество частичек в зависимости от размера устройства
         if self.frame.height > 1000 && self.frame.width > 700 {
             self.particlePerSecond = 1.0/80.0
@@ -84,7 +83,6 @@ class MenuScene: SKScene {
         
     }
     func pauseMenu() {
-        print("PAAAAAUUUUSED")
         guard !self.isPaused else {
             return
         }
@@ -107,11 +105,6 @@ class MenuScene: SKScene {
         guard !self.isPaused else {
             return
         }
-            //        if currentTime - self.lastTime > self.particlePerSecond {
-            //            self.createParticle()
-            //            self.lastTime = currentTime
-            //        }
-            
         self.animatedParticles?.update(currentTime)
         self.breakAnimatedLabel?.ambientAnimating(
             colorToChange: self.colorOfLabelWhileAnimated,
@@ -120,7 +113,6 @@ class MenuScene: SKScene {
         self.outAnimatedLabel?.ambientAnimating(
             colorToChange: self.colorOfLabelWhileAnimated,
             currentTime: currentTime)
-        
     }
     
     // функции обработки нажатий
@@ -149,8 +141,6 @@ class MenuScene: SKScene {
                 self.animatedParticles?.animate(touch, scene: self)
             }
         }
-        
-        
     }
     
     // функция с генерацией частичек для заднего фона сцены
@@ -172,6 +162,7 @@ class MenuScene: SKScene {
         
     }
     
+    // функция, которая вызывается, когда пользователь нажал на анимированную букву
     private func touchDownOnLetter(_ touch: UITouch) {
         if let breakLabel = self.breakAnimatedLabel?.sprites {
             for letter in breakLabel {
@@ -193,6 +184,7 @@ class MenuScene: SKScene {
             }
         }
     }
+    // функция, которая вызывается, когда пользователь "провел" пальцем по анимированному тексту в игре
     private func touchProcessOnLetter(_ touch: UITouch) {
         if let breakLabel = self.breakAnimatedLabel?.sprites {
             for letter in breakLabel {

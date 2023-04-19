@@ -27,7 +27,7 @@ struct Paddle2D {
     private let bonusMask: UInt32          = 0b1 << 6 // 64
     
     // скины для ракетки
-    private var paddleSkins = [PaddleSkin2D]()
+    private static var paddleSkins = [PaddleSkin2D]()
     
     var paddle: SKShapeNode
     init(frame: CGRect) {
@@ -41,9 +41,6 @@ struct Paddle2D {
                                 height: paddleHeight)
         let paddleCornerRadius = (paddleSize.width + paddleSize.height)/2.0 * 0.1818
         self.paddle = SKShapeNode(rectOf: paddleSize, cornerRadius: paddleCornerRadius)
-        
-        self.initializePaddleSkins()
-        
         self.paddle.position = CGPoint(x: frame.midX, y: 20.0)
         self.paddle.fillColor = #colorLiteral(red: 0.06666666667, green: 0.05490196078, blue: 0.7607843137, alpha: 1)
         //        self.paddle.lineWidth = 4
@@ -58,7 +55,6 @@ struct Paddle2D {
         // столкновения
         self.paddle.physicsBody?.categoryBitMask = self.paddleMask
         self.paddle.physicsBody?.contactTestBitMask = self.ballMask | self.bonusMask
-        
     }
     /// движение ракетки
     func move(by result: CGFloat) {
@@ -88,8 +84,8 @@ struct Paddle2D {
     }
     
     func setPaddleSkin() {
-        if !UserCustomization.buyedPaddleSkinIndexes.isEmpty && UserCustomization.paddleSkinIndex < self.paddleSkins.count {
-            let currentPaddleSkin = self.paddleSkins[UserCustomization.paddleSkinIndex]
+        if !UserCustomization.buyedPaddleSkinIndexes.isEmpty && UserCustomization.paddleSkinIndex < Paddle2D.paddleSkins.count {
+            let currentPaddleSkin = Paddle2D.paddleSkins[UserCustomization.paddleSkinIndex]
             self.paddle.fillColor = currentPaddleSkin.fillColor
             self.paddle.strokeColor = currentPaddleSkin.strokeColor
             self.paddle.lineWidth = currentPaddleSkin.lineWidth
@@ -98,7 +94,7 @@ struct Paddle2D {
             }
         }
     }
-    mutating func initializePaddleSkins() {
+    static func initializePaddleSkins() {
         
         for i in 0..<(UserCustomization.maxPaddleSkinIndex) {
             let textureImage = UIImage(named: "Paddle-\(i+1)")
@@ -110,7 +106,7 @@ struct Paddle2D {
                                           fillTexture: texture
                 )
                 
-                self.paddleSkins.append(paddleSkin)
+                Paddle2D.paddleSkins.append(paddleSkin)
             }
         }
        

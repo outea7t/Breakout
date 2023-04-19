@@ -11,9 +11,22 @@ enum TypeOfShopController {
     case paddle
     case particles
 }
+struct CellInfo {
+    var frame: CGRect
+    var borderWidth: CGFloat
+    var borderColor: CGColor
+    var cornerRadius: CGFloat
+    var backgroundColor: UIColor
+    var imageFrame: CGRect
+}
 protocol Textures2DShopController: AnyObject {
     var type: TypeOfShopController {get}
     var selectedCellIndexPath: IndexPath {get set}
+    var selectedCellInfo: CellInfo? {get}
+    var selectedCell: ShopCollectionViewCell? {get set}
+    var actualPositionOfSelectedCell: CGPoint {get}
+    var collectionView: UICollectionView! {get}
+    var view: UIView! {get}
     func updateInfo()
 }
 

@@ -8,7 +8,7 @@
 import UIKit
 
 class ShopPaddleTexturesViewController: UIViewController, Textures2DShopController {
-        
+    
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -30,6 +30,10 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
+    
+    var selectedCellInfo: CellInfo?
+    var selectedCell: ShopCollectionViewCell?
+    var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -250,9 +254,27 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegate {
             cell.wasSelected()
         }
         
+        // В этом месте стоит вызывать функцию с переходом в расширенное меню со скином
+        // Так как это место активируется только тогда, когда мы не затригерели longPressGestureRecognizer
+        // Но когда нажали на ячейку
         if !self.doesBuyedItemsContains(item: indexPath) {
             if let cellData = cell.data {
                 self.cellMenuCellData = cellData
+                self.selectedCell = cell
+                
+                var actualPosition = cell.convert(cell.bounds, to: self.collectionView.superview).origin
+                actualPosition = CGPoint(x: cell.frame.origin.x, y: actualPosition.y)
+                print(actualPosition, cell.frame.origin)
+                self.actualPositionOfSelectedCell = actualPosition
+                self.selectedCell?.layer.zPosition = 100
+                if let borderColor = cell.layer.borderColor, let backgroundColor = cell.backgroundColor {
+                    self.selectedCellInfo = CellInfo(frame: cell.frame,
+                                                     borderWidth: cell.layer.borderWidth,
+                                                     borderColor: borderColor,
+                                                     cornerRadius: cell.layer.cornerRadius,
+                                                     backgroundColor: backgroundColor,
+                                                     imageFrame: cell.imageView.frame)
+                }
             }
             self.performSegue(withIdentifier: "FromPaddleTexturesToCellMenu", sender: self)
         }

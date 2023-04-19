@@ -10,7 +10,6 @@ import UIKit
 import SpriteKit
 
 class CellMenuViewController: UIViewController {
-
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var cellInformationView: UIView!
     
@@ -29,7 +28,6 @@ class CellMenuViewController: UIViewController {
     var isBuyed = false
     
     private var backgroundAnimationScene: ExtendedCellMenuScene?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.skinImageView.image = self.image

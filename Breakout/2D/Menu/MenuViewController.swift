@@ -27,7 +27,6 @@ class MenuViewController: UIViewController {
     let backgroundView = RiveView()
     let backgroundViewModel = RiveViewModel(fileName: "background")
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -119,10 +118,12 @@ class MenuViewController: UIViewController {
             width: self.shopButton.frame.width/15,
             height: self.shopButton.frame.height/15)
         
-        // подгатавливаем, чтобы можно было проигрывать кастомные анимации
+        // подгатавливаем, чтобы можно было проигрывать кастомные "тактильные ощущения"
         HapticManager.prepare()
+        // подгадавливаем скины для игровых объектов 2д части (чтобы потом много раз не загружать их)
         Ball2D.initializeBallSkins()
         Particle2D.initializeParticleSkins()
+        Paddle2D.initializePaddleSkins()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -154,7 +155,6 @@ class MenuViewController: UIViewController {
         self.performSegue(withIdentifier: "FromMenuToLevelsMenu", sender: self)
     }
     
-    
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         
     }
@@ -162,12 +162,13 @@ class MenuViewController: UIViewController {
     @IBAction func touchDownOnARMenuButton(_ sender: UIButton) {
         HapticManager.collisionVibrate(with: .medium, 20.0)
     }
+    
     @IBAction func toARMenuButtonPressed(_ sender: UIButton) {
 //        self.menuScene?.pauseMenu()
         self.performSegue(withIdentifier: "FromMenuToARMenu", sender: self)
     }
+    
     @IBAction func unwindToMenu(_ sender: UIStoryboardSegue) {
 //        self.menuScene?.unpauseMenu()
-        
     }
 }

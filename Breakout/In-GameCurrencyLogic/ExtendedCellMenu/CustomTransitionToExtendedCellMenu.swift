@@ -27,21 +27,17 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
     }
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toViewController = transitionContext.viewController(forKey: .to),
-              let fromViewController = transitionContext.viewController(forKey: .from) else {
+              let _ = transitionContext.viewController(forKey: .from) else {
             transitionContext.completeTransition(false)
             return
         }
         switch self.animationType {
         case .present:
-//            transitionContext.containerView.addSubview(fromViewController.view)
             transitionContext.containerView.addSubview(toViewController.view)
             self.presentAnimation(with: transitionContext)
         case .dismiss:
-//            transitionContext.containerView.addSubview(toViewController.view)
             self.dismissAnimation(with: transitionContext)
-            
         }
-//        transitionContext.containerView.subviews.forEach( {$0.removeFromSuperview()})
     }
     func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning) {
         guard let shopViewController = transitionContext.viewController(forKey: .to) as? ShopViewController else{
@@ -52,12 +48,10 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             transitionContext.completeTransition(false)
             return
         }
-        var _controller: ShopBallTexturesViewController?
-        if let viewControllers = shopViewController.viewControllers {
-            for viewController in viewControllers {
-                if let controller = viewController as? ShopBallTexturesViewController {
-                    _controller = controller
-                }
+        var _controller: Textures2DShopController?
+        if let selectedViewController = shopViewController.selectedViewController {
+            if let controller = selectedViewController as? Textures2DShopController {
+                _controller = controller
             }
         }
         guard let firstViewController = _controller else {
@@ -79,7 +73,6 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
         let toImageViewFrame = selectedCellInfo.imageFrame
          
         blurView?.alpha = 1.0
-        print(blurView)
         UIView.animate(withDuration: 1.5,
                        delay: 0.0,
                        usingSpringWithDamping: 1.0,
@@ -206,14 +199,15 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
         // важно, презентует контроллер не магазина с текстурами, а ShopViewController2D (тот, который UITabbarViewCOntroller)
         // поэтому мы таким образом получаем к нему доступ
         // потом планируется сделать протокол, описывающий все свойства, которые нужны для анимации и подписать под него все магазинные контроллеры со скинами
-        var _controller: ShopBallTexturesViewController?
-        if let viewControllers = shopViewController.viewControllers {
-            for viewController in viewControllers {
-                if let controller = viewController as? ShopBallTexturesViewController {
-                    _controller = controller
-                }
+        var _controller: Textures2DShopController?
+        if let selectedViewController = shopViewController.selectedViewController {
+            
+            if let controller = selectedViewController as? Textures2DShopController {
+                _controller = controller
             }
+            
         }
+        
         guard let firstViewController = _controller else {
             transitionContext.completeTransition(false)
             return

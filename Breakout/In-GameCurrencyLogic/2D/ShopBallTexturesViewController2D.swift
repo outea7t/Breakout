@@ -6,14 +6,7 @@
 //
 
 import UIKit
-struct CellInfo {
-    var frame: CGRect
-    var borderWidth: CGFloat
-    var borderColor: CGColor
-    var cornerRadius: CGFloat
-    var backgroundColor: UIColor
-    var imageFrame: CGRect
-}
+
 class ShopBallTexturesViewController: UIViewController, Textures2DShopController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!

@@ -158,17 +158,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setParticlesSkin() {
-//        self.ball?.particle.initializeParticleSkins()
-//        self.ball?.particle.setParticlesSkin()
+        self.ball?.particle.setParticlesSkin()
     }
     
     func setBallSkin() {
-//        self.ball?.initializeBallSkins()
         self.ball?.setBallSkin()
     }
     
     func setPaddleSkin() {
-        self.paddle?.initializePaddleSkins()
         self.paddle?.setPaddleSkin()
     }
     

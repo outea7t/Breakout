@@ -141,7 +141,6 @@ struct Particle2D {
                       fillTexture: texture,
                       widthToHeightConstant: particleWidthToHeightConstant
                 )
-                
                 self.particleSkins.append(paddleSkin)
             }
         }
