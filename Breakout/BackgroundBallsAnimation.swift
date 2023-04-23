@@ -26,6 +26,7 @@ class BackgroundBallAnimation {
         self.screenWidth = screenWidth
         self.screenHeight = screenHeight
     }
+    /// функция, которая обновляет текущие мячи и создает новые
     func update(currentTime: TimeInterval, nodeToAdd: SKNode) {
         guard !self.isPaused else {
             return

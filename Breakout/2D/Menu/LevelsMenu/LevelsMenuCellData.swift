@@ -13,5 +13,10 @@ struct LevelsMenuCellData {
     var shadowColor: UIColor
     var levelNumber: Int
 }
-
+// var starsCount
+// var score
+// var isAvailable?
+// var threeStarTime: TimeInterval
+// var twoStarTime: TimeInterval
+// var oneStarTime: TimeInterval
 // добавить еще переменные для количества звезд, доступности, и очков(score), на которое игрок прошел его

@@ -8,15 +8,12 @@
 import Foundation
 import UIKit
 import CoreHaptics
-
 /// для акитивации различных вибраций и тактильных ощущений на устройстве
 struct HapticManager {
     private static var engine: CHHapticEngine?
-    
     private init() {
         
     }
-    
     /// это функция подготовки класса к работе с haptic, которые были созданы пользоваетлем
     /// чтобы класс работал корректно, нужно запустить эту функцию в initial View Controller, чтобы
     /// класс настроил все, что ему нужно, до того, как пользователь сожет задействовать пользовательские haptic

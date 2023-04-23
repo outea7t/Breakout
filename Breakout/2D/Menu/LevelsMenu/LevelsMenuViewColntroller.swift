@@ -137,9 +137,6 @@ extension LevelsMenuViewColntroller: UICollectionViewDataSource {
         
         
         cell.setup(with: self.levelsCellsData[indexPath.item])
-        
-        let cornerRadius = cell.bounds.height / 10
-        cell.layer.cornerRadius = cornerRadius
             
         
         return cell

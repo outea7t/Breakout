@@ -94,8 +94,12 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
                                                     height: self.shopButton.frame.height/15)
         
         
+        NotificationCenter.default.addObserver(self, selector: #selector(appMovedForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
-
+    
+    @objc func appMovedForeground() {
+        self.checkCameraPermission()
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // выводим изображение с камеры на экран телефона
@@ -106,8 +110,6 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         }
         
         self.checkCameraPermission()
-        
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -159,17 +161,17 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     // спрашиваем доступ к камере телефона
     private func checkCameraPermission() {
+        print("CHECKING STATUS")
         switch AVCaptureDevice.authorizationStatus(for: .video) {
             case .notDetermined:
+            print("NOT DETERMIND")
                 self.requestAccess()
+            case .denied, .restricted:
+            print("DENIED OR RESTRICTED")
                 showCameraRestrictedAlert()
-            case .restricted:
-                self.requestAccess()
-            showCameraRestrictedAlert()
-            case .denied:
-                self.requestAccess()
-            showCameraRestrictedAlert()
+                showCameraRestrictedAlert()
             case .authorized:
+            print("AUTHORIZED")
                 self.setUpCamera()
             @unknown default:
                 break
@@ -177,11 +179,9 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     private func requestAccess() {
         AVCaptureDevice.requestAccess(for: .video) {[weak self] granted in
-            print("requested - 1")
             guard granted else {
                 return
             }
-            print("requested - 2")
             DispatchQueue.main.async {
                 self?.setUpCamera()
             }
@@ -189,22 +189,20 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     private func showCameraRestrictedAlert() {
         let alert = UIAlertController(title: "Camera Access Restricted",
-                                      message: "Camera access is restricted. Please enable camera access in Settings to use this feature.",
+                                      message: "Camera access is restricted. Please enable camera access in Settings to use this game in AR.",
                                       preferredStyle: .alert)
         let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) in
             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
             UIApplication.shared.open(settingsURL, completionHandler: nil)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { _ in
+            HapticManager.notificationVibrate(for: .error)
+            self.dismiss(animated: true)
+        }
         
         alert.addAction(settingsAction)
         alert.addAction(cancelAction)
-        
-        DispatchQueue.main.async {
-            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
-//            UIWindowScene.windows.first?.rootViewController?.present(alert, animated: true)
-//            UIWindow.share
-        }
+        self.present(alert, animated: true)
     }
     // настраиваем камеру
     private func setUpCamera() {

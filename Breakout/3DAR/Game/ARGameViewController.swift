@@ -765,7 +765,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         default:
             break
         }
-        
     }
     private func rotateFrame() {
         if let plate = self.frame?.plate {

@@ -333,12 +333,10 @@ struct AnimatedText {
             SKAction.scaleY(to: 0.7, duration: 0.22)
         ])
         
-        
         let upSize_0 = SKAction.group([
             SKAction.scaleX(to: 0.7, duration: 0.13),
             SKAction.scaleY(to: 1.35, duration: 0.13)
         ])
-        
         
         let downSize_1 = SKAction.group([
             SKAction.scaleX(to: 1.15, duration: 0.12),
@@ -363,13 +361,11 @@ struct AnimatedText {
             normalSize
         ])
         
-        
         let toUserColor = SKAction.colorize(
             with: colorToChange,
             colorBlendFactor: 1.0,
             duration: 0.20)
         let wait = SKAction.wait(forDuration: 0.35)
-        
         
         let toOriginalColor = SKAction.colorize(
             with: self.originalColor,
@@ -381,8 +377,7 @@ struct AnimatedText {
             wait,
             toOriginalColor
         ])
-        
-        
+
 //        let keepPosition = SKAction.move(to: self.positions[0], duration: 0.0)
         let resultAction = SKAction.group([
             resizeSequence,
@@ -418,7 +413,6 @@ struct AnimatedText {
         s.fontName = "Bungee"
         s.color = self.originalColor
         s.colorBlendFactor = 1.0
-        
         if self.shouldAnimateShadows {
             let offset = CGSize(width: s.frame.width/15.0, height: s.frame.height/15.0)
             
@@ -437,6 +431,4 @@ struct AnimatedText {
         }
         return s
     }
-    
 }
-

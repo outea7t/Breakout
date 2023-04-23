@@ -39,7 +39,7 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             self.dismissAnimation(with: transitionContext)
         }
     }
-    func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning) {
+    private func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning) {
         guard let shopViewController = transitionContext.viewController(forKey: .to) as? ShopViewController else{
             transitionContext.completeTransition(false)
             return
@@ -96,6 +96,15 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             extendedCellMenuViewController.cellInformationView.alpha = 0.0
             extendedCellMenuViewController.skinImageView.alpha = 0.0
         }
+        
+        UIView.animate(withDuration: 0.35,
+                       delay: 0.15,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0.6,
+                       options: .curveEaseOut,
+                       animations: {
+            extendedCellMenuViewController.moneyLabel.frame.origin.y = extendedCellMenuViewController.view.frame.maxY + extendedCellMenuViewController.moneyLabel.frame.height
+        })
          
         extendedCellMenuViewController.priceLabel.alpha = 1.0
         extendedCellMenuViewController.effectsLabel.alpha = 1.0
@@ -134,8 +143,6 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             selectedCellImageView?.alpha = 1.0
 //            extendedImageView.alpha = 0.0
         }
-        selectedCell?.priceLabel.alpha = 0.0
-        
         
         UIView.animate(withDuration: 1.1,
                        delay: 0.5,
@@ -161,38 +168,33 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
                 selectedCell?.layer.cornerRadius = toCornerRadius
                 selectedCellImageView?.frame = toImageViewFrame
             }
+        })
+        selectedCell?.priceLabel.alpha = 0.0
+        UIView.animate(withDuration: 0.2,
+                       delay: 1.4,
+                       usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 0.5,
+                       options: .curveLinear,
+                       animations: {
+            selectedCell?.priceLabel.alpha = 1.0
         }) { _ in
             if extendedCellMenuViewController.isBuyed {
                 firstViewController.collectionView.reloadData()
             }
             transitionContext.completeTransition(true)
-            firstViewController.view.layoutIfNeeded()
-            selectedCell?.priceLabel.alpha = 1.0
-            
-            
-//            extendedCellViewController.view.isHidden = true
-            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                if let keyWindow = windowScene.windows.first(where: {$0.isKeyWindow}) {
-//                    keyWindow.addSubview(firstViewController.view)
-                }
-            }
-            print(transitionContext.containerView.subviews.count)
             transitionContext.containerView.subviews.forEach( {$0.removeFromSuperview()})
+            firstViewController.view.layoutIfNeeded()
         }
-        
     }
     /// Анимация появления расширенного меню со скином.
     ///
     /// Сначала блюрится задний фон, а ячейка из выбранной расширяется, перемещается в центр экрана, у нее закругляются углы, меняется цвет заднего фона, и затем появляется кнопка купить(она расширяется по оси х) и постепенно становятся видимыми label's c различной информацией
-    func presentAnimation(with transitionContext: UIViewControllerContextTransitioning) {
+    private func presentAnimation(with transitionContext: UIViewControllerContextTransitioning) {
         guard let shopViewController = transitionContext.viewController(forKey: .from) as? ShopViewController else{
-            print(type(of: transitionContext.viewController(forKey: .from)))
-            print("BALLTEXTUREs")
             transitionContext.completeTransition(false)
             return
         }
         guard let extendedCellMenuViewController = transitionContext.viewController(forKey: .to) as? CellMenuViewController else {
-            print("CELLMENU")
             transitionContext.completeTransition(false)
             return
         }
@@ -250,6 +252,7 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             extendedCellImageView?.alpha = 1.0
             firstImageView.alpha = 0.0
         }
+        // сначала наше меню слишком маленькое, и поэтому тень кажется слишком большой, поэтому мы делаем так, чтобы она появлялась постепенно
         
         UIView.animate(withDuration: 1.1,
                        delay: 0.0,
@@ -265,6 +268,16 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             extendedCellImageView?.frame = toImageViewFrame
         })
         
+        extendedCellView?.layer.shadowOpacity = 0.0
+        UIView.animate(withDuration: 0.5,
+                       delay: 0.5,
+                       usingSpringWithDamping: 1.0,
+                       initialSpringVelocity: 0.5,
+                       options: .curveLinear,
+                       animations: {
+            extendedCellView?.layer.shadowOpacity = 1.0
+        })
+        
         
         extendedCellMenuViewController.buyButton.transform = CGAffineTransform(scaleX: 0.0, y: 1.0)
         UIView.animate(withDuration: 0.4,
@@ -276,10 +289,22 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             extendedCellMenuViewController.buyButton.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
         })
         
+        let moneyLabelPosition = extendedCellMenuViewController.moneyLabel.frame.origin
+        extendedCellMenuViewController.moneyLabel.frame.origin.y = extendedCellMenuViewController.view.frame.maxY + extendedCellMenuViewController.moneyLabel.frame.height
+        
+        UIView.animate(withDuration: 0.35,
+                       delay: 1.25,
+                       usingSpringWithDamping: 0.7,
+                       initialSpringVelocity: 0.6,
+                       options: .curveEaseOut,
+                       animations: {
+            extendedCellMenuViewController.moneyLabel.frame.origin = moneyLabelPosition
+        })
+        
         extendedCellMenuViewController.priceLabel.alpha = 0.0
         extendedCellMenuViewController.effectsLabel.alpha = 0.0
         extendedCellMenuViewController.effectsInformationLabel.alpha = 0.0
-        extendedCellMenuViewController.moneyLabel.alpha = 0.0
+        
         UIView.animate(withDuration: 0.3,
                        delay: 1.3,
                        usingSpringWithDamping: 1.0,
@@ -287,7 +312,6 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
                        options: .curveEaseOut,
                        animations: {
             extendedCellMenuViewController.priceLabel.alpha = 1.0
-            extendedCellMenuViewController.moneyLabel.alpha = 1.0
             extendedCellMenuViewController.effectsLabel.alpha = 1.0
             extendedCellMenuViewController.effectsInformationLabel.alpha = 1.0
         }) { _ in

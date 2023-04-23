@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 class ShopBallTexturesViewController: UIViewController, Textures2DShopController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
@@ -18,7 +17,6 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
     private let cellIdentifier = "ShopCollectionViewCell"
     var selectedCellIndexPath = IndexPath() {
         willSet {
-            print("ShouldSelect")
             if newValue != selectedCellIndexPath {
                 let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
@@ -271,7 +269,8 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
                 
                 var actualPosition = cell.convert(cell.bounds, to: self.collectionView.superview).origin
                 actualPosition = CGPoint(x: cell.frame.origin.x, y: actualPosition.y)
-                print(actualPosition, cell.frame.origin)
+                // важно
+                // вследствие того, что высота collection view гораздо больше высота superview мы должны вычислять позицию ячейки в этом superview для более логичной и правильной анимации
                 self.actualPositionOfSelectedCell = actualPosition
                 self.selectedCell?.layer.zPosition = 100
                 if let borderColor = cell.layer.borderColor, let backgroundColor = cell.backgroundColor {
@@ -298,7 +297,6 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
         cellMenu.price = (cellMenuCellData.price)
         cellMenu.cellID = cellMenuCellData.id
         cellMenu.typeOfCurrentShopController = self.type
-        print(cellMenuCellData.price, cellMenuCellData.id)
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
