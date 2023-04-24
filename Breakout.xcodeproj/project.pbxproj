@@ -300,6 +300,37 @@
 			path = 3D;
 			sourceTree = "<group>";
 		};
+		2219CEA829F5AE3A004B0402 /* 3DAssets */ = {
+			isa = PBXGroup;
+			children = (
+				2219CEAB29F5B062004B0402 /* Particles */,
+				2219CEAA29F5B05A004B0402 /* Paddle */,
+				2219CEA929F5B04F004B0402 /* Ball */,
+			);
+			path = 3DAssets;
+			sourceTree = "<group>";
+		};
+		2219CEA929F5B04F004B0402 /* Ball */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Ball;
+			sourceTree = "<group>";
+		};
+		2219CEAA29F5B05A004B0402 /* Paddle */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Paddle;
+			sourceTree = "<group>";
+		};
+		2219CEAB29F5B062004B0402 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
 		222D1B3E29240D1C009100C8 /* Pause */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +385,7 @@
 				22F36F77296034D900059579 /* SettingsViewController.swift */,
 				22B516A629238A79006B1B6F /* 3DAR */,
 				2275FA33288ACDCD0075AFD6 /* Assets.xcassets */,
+				2219CEA829F5AE3A004B0402 /* 3DAssets */,
 				22E4719D29A206CD00C41084 /* Fonts */,
 				22F9D96E293BCD2200A5D776 /* RiveAssets */,
 				2275FA30288ACDCC0075AFD6 /* Main.storyboard */,

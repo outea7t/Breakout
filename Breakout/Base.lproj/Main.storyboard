@@ -1291,7 +1291,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9y-M9-Ozm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3614" y="2561"/>
+            <point key="canvasLocation" x="-3592" y="2541"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Aw1-Ca-gP7">
@@ -1938,7 +1938,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jsU-ur-t05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2726" y="2561"/>
+            <point key="canvasLocation" x="-2703" y="2541"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="qVc-lP-6Ww">
@@ -2029,7 +2029,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y52-uc-bzG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1883" y="2561"/>
+            <point key="canvasLocation" x="-1860" y="2541"/>
         </scene>
         <!--Cell Menu View Controller-->
         <scene sceneID="T4C-kT-B7y">
@@ -2134,7 +2134,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qlF-fZ-51y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2726" y="3412"/>
+            <point key="canvasLocation" x="-2703" y="3337"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
