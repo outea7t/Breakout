@@ -43,8 +43,8 @@ struct Particle2D {
         self.setParticlesSkin()
     }
     mutating func setParticlesSkin() {
-        if !UserCustomization.buyedParticlesSkinIndexes.isEmpty && UserCustomization.particleSkinIndex < Particle2D.particleSkins.count {
-            self.setSkinCode(skinIndex: UserCustomization.particleSkinIndex)
+        if !UserCustomization._2DbuyedParticlesSkinIndexes.isEmpty && UserCustomization._2DparticleSkinIndex < Particle2D.particleSkins.count {
+            self.setSkinCode(skinIndex: UserCustomization._2DparticleSkinIndex)
         }
     }
     mutating func setCertainParticleIndex(skinIndex: Int) {
@@ -114,7 +114,7 @@ struct Particle2D {
                                                           dy: -v.dy*0.2 + randomVelocityY)
                 }
                 
-                let rotate = SKAction.repeatForever(SKAction.rotate(byAngle: 10.0, duration: 1.0))
+//                let rotate = SKAction.repeatForever(SKAction.rotate(byAngle: 10.0, duration: 1.0))
                 let fadeOut = SKAction.fadeOut(withDuration: 0.5)
                 
                 particle.run(SKAction.group([
@@ -128,7 +128,7 @@ struct Particle2D {
     }
     
     static func initializeParticleSkins() {
-        for i in 0..<(UserCustomization.maxParticleSkinIndex) {
+        for i in 0..<(UserCustomization._2DmaxParticleSkinIndex) {
             let textureImage = UIImage(named: "Particle-\(i+1)")
             
             if let textureImage = textureImage {

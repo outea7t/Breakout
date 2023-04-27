@@ -40,7 +40,7 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
         }
     }
     private func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning) {
-        guard let shopViewController = transitionContext.viewController(forKey: .to) as? ShopViewController else{
+        guard let shopViewController = transitionContext.viewController(forKey: .to) as? ShopViewController2D else{
             transitionContext.completeTransition(false)
             return
         }
@@ -190,7 +190,7 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
     ///
     /// Сначала блюрится задний фон, а ячейка из выбранной расширяется, перемещается в центр экрана, у нее закругляются углы, меняется цвет заднего фона, и затем появляется кнопка купить(она расширяется по оси х) и постепенно становятся видимыми label's c различной информацией
     private func presentAnimation(with transitionContext: UIViewControllerContextTransitioning) {
-        guard let shopViewController = transitionContext.viewController(forKey: .from) as? ShopViewController else{
+        guard let shopViewController = transitionContext.viewController(forKey: .from) as? ShopViewController2D else{
             transitionContext.completeTransition(false)
             return
         }

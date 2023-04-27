@@ -110,6 +110,10 @@
 		22F36F76296034CE00059579 /* ShopViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F36F75296034CE00059579 /* ShopViewController2D.swift */; };
 		22F36F78296034D900059579 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F36F77296034D900059579 /* SettingsViewController.swift */; };
 		22F9D96D293BCD0500A5D776 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 22F9D96C293BCD0500A5D776 /* RiveRuntime */; };
+		22FBA99D29F99CDF008C6838 /* ShopViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */; };
+		22FBA99F29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */; };
+		22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController.swift */; };
+		22FBA9A329F9AA87008C6838 /* ShopPaddleTexturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -236,6 +240,10 @@
 		22F20C2B28BF630500415CE5 /* AnimatedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedText.swift; sourceTree = "<group>"; };
 		22F36F75296034CE00059579 /* ShopViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController2D.swift; sourceTree = "<group>"; };
 		22F36F77296034D900059579 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController3D.swift; sourceTree = "<group>"; };
+		22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBallTexturesViewController3D.swift; sourceTree = "<group>"; };
+		22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParticleTexturesViewController.swift; sourceTree = "<group>"; };
+		22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPaddleTexturesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -289,6 +297,8 @@
 				22B76AE7296BD99A00588E83 /* ShopBallTexturesViewController2D.swift */,
 				22B76AE9296BDA5000588E83 /* ShopParticlesViewController2D.swift */,
 				226573EB29A61F070096A6D8 /* ShopPaddleTexturesViewController2D.swift */,
+				22D38B7B29E821AD00BF1E1E /* ExtendedCellMenu */,
+				22B8FF8D2974198400F923DC /* ShopCollectionViewCell */,
 			);
 			path = 2D;
 			sourceTree = "<group>";
@@ -296,6 +306,10 @@
 		2219CE7829EB1D98004B0402 /* 3D */ = {
 			isa = PBXGroup;
 			children = (
+				22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */,
+				22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */,
+				22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController.swift */,
+				22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController.swift */,
 			);
 			path = 3D;
 			sourceTree = "<group>";
@@ -452,9 +466,6 @@
 			children = (
 				2219CE7729EB1CC5004B0402 /* 2D */,
 				2219CE7829EB1D98004B0402 /* 3D */,
-				22D38B7B29E821AD00BF1E1E /* ExtendedCellMenu */,
-				22B8FF9229741A3C00F923DC /* ShopCellData.swift */,
-				22B8FF8D2974198400F923DC /* ShopCollectionViewCell */,
 				2293A9F02962449B0066279B /* GameCurrency.swift */,
 				2293A9F3296248A30066279B /* UserCustomization.swift */,
 			);
@@ -540,6 +551,7 @@
 		22B8FF8D2974198400F923DC /* ShopCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				22B8FF9229741A3C00F923DC /* ShopCellData.swift */,
 				22B8FF8E297419A000F923DC /* ShopCollectionViewCell.swift */,
 				22B8FF8F297419A000F923DC /* ShopCollectionViewCell.xib */,
 			);
@@ -829,14 +841,17 @@
 				227936252943CABA002C519F /* TrajectoryLine3D.swift in Sources */,
 				2219CEA629EE7C61004B0402 /* CustomTransitionToExtendedCellMenu.swift in Sources */,
 				22096B3D2986E05F0072F4C6 /* ARLevelsMenuViewController.swift in Sources */,
+				22FBA99F29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift in Sources */,
 				2293A9F4296248A30066279B /* UserCustomization.swift in Sources */,
 				22B516BB29238AB7006B1B6F /* Level3D.swift in Sources */,
 				22784E6A28BBF85E001C3E61 /* Level2D.swift in Sources */,
 				22B8FF9329741A3C00F923DC /* ShopCellData.swift in Sources */,
+				22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController.swift in Sources */,
 				22784E6828BBF4A2001C3E61 /* Particle2D.swift in Sources */,
 				22B516C229238AB7006B1B6F /* Paddle3D.swift in Sources */,
 				22D38B7D29E821DC00BF1E1E /* ExtendedCellMenuScene.swift in Sources */,
 				22F36F76296034CE00059579 /* ShopViewController2D.swift in Sources */,
+				22FBA99D29F99CDF008C6838 /* ShopViewController3D.swift in Sources */,
 				22BE9A2F2893FD0700FB99D2 /* PauseScene.swift in Sources */,
 				2293A9F12962449B0066279B /* GameCurrency.swift in Sources */,
 				22F20C2C28BF630500415CE5 /* AnimatedText.swift in Sources */,
@@ -858,6 +873,7 @@
 				22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */,
 				22D38B7629E56B1B00BF1E1E /* BackgroundBallsAnimation.swift in Sources */,
 				2293A9EE29610DE50066279B /* HapticManager.swift in Sources */,
+				22FBA9A329F9AA87008C6838 /* ShopPaddleTexturesViewController.swift in Sources */,
 				22096B412986E0AA0072F4C6 /* ARLevelsMenuCollectionViewCell.swift in Sources */,
 				22B516C029238AB7006B1B6F /* Brick3D.swift in Sources */,
 				22CF24FF28BBB0FA00306926 /* Paddle2D.swift in Sources */,

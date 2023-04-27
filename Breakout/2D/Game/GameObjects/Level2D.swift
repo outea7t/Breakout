@@ -97,7 +97,7 @@ struct Level2D {
             for col in 0..<self.cols {
                 let index = Int(row * self.cols + col)
                 let health = self.bricksDescription[index]
-                var brick = Brick2D(health: health,
+                let brick = Brick2D(health: health,
                                     isSolid: false,
                                     frame: frame,
                                     rows: self.rows,

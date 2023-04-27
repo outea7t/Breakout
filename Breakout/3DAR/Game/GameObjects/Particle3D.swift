@@ -98,9 +98,9 @@ struct Particle3D {
         frame.plate.addChildNode(particle)
         
         let fadeOut = SCNAction.fadeOut(duration: 1.0)
-        let rotation = SCNAction.rotate(by: 1.0,
-                                        around: SCNVector3(0.0, 1.0, 0.0),
-                                        duration: 2.0)
+//        let rotation = SCNAction.rotate(by: 1.0,
+//                                        around: SCNVector3(0.0, 1.0, 0.0),
+//                                        duration: 2.0)
         
         var moveAction = SCNAction.wait(duration: 2.0)
         if let v = ball.physicsBody?.velocity {

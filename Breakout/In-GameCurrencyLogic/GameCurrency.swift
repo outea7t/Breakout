@@ -25,7 +25,7 @@ struct GameCurrency {
     public static func updateUserMoneyLabel() -> String {
         var userMoneyLabel = ""
         if GameCurrency.userMoney > 1000 {
-            var userMoney = GameCurrency.userMoney
+            let userMoney = GameCurrency.userMoney
             let thousands = userMoney/1000
             let hundreds = (userMoney-1000*thousands)/100
             if hundreds == 0 {

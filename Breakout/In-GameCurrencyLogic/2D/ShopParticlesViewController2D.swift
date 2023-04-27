@@ -21,7 +21,7 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
             if newValue != selectedCellIndexPath {
                 let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
-                UserCustomization.particleSkinIndex = newValue.item
+                UserCustomization._2DparticleSkinIndex = newValue.item
             }
         }
     }
@@ -90,7 +90,7 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
               ShopCellData(image: image11, price: 110, color: color, id: 10, type: .particles),
               ShopCellData(image: image12, price: 120, color: color, id: 11, type: .particles),
         ]
-        UserCustomization.maxParticleSkinIndex = particlesCellData.count
+        UserCustomization._2DmaxParticleSkinIndex = particlesCellData.count
         
         
         // добавляем GR для распознавания жеста покупки ячейки
@@ -120,8 +120,8 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
         
         self.view.sendSubviewToBack(self.collectionView)
         
-        if !UserCustomization.buyedParticlesSkinIndexes.isEmpty {
-            self.selectedCellIndexPath = IndexPath(item: UserCustomization.particleSkinIndex, section: 0)
+        if !UserCustomization._2DbuyedParticlesSkinIndexes.isEmpty {
+            self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DparticleSkinIndex, section: 0)
         }
         // Do any additional setup after loading the view.
     }
@@ -146,8 +146,8 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
                     self.selectedCellIndexPath = targetIndexPath
                     cell.priceLabel.text = ""
                     
-                    UserCustomization.buyedParticlesSkinIndexes += [targetIndexPath.item]
-                    UserCustomization.particleSkinIndex = self.selectedCellIndexPath.item
+                    UserCustomization._2DbuyedParticlesSkinIndexes += [targetIndexPath.item]
+                    UserCustomization._2DparticleSkinIndex = self.selectedCellIndexPath.item
                     GameCurrency.userMoney -= cell.price
                     self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
                     HapticManager.notificationVibrate(for: .success)
@@ -191,7 +191,7 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
     // содержит ли массив с индексами купленных элементов определенный индекс
     private func doesBuyedItemsContains(item: IndexPath) -> Bool {
         var doesContain = false
-        for index in UserCustomization.buyedParticlesSkinIndexes {
+        for index in UserCustomization._2DbuyedParticlesSkinIndexes {
             if index == item.item {
                 doesContain = true
             }

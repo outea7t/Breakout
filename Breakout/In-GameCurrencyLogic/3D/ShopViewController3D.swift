@@ -1,39 +1,16 @@
 //
-//  ShopViewController.swift
+//  ShopViewController3D.swift
 //  Breakout
 //
-//  Created by Out East on 31.12.2022.
+//  Created by Out East on 26.04.2023.
 //
 
+import Foundation
 import UIKit
-enum TypeOfShopController {
-    case ball
-    case paddle
-    case particles
-}
-struct CellInfo {
-    var frame: CGRect
-    var borderWidth: CGFloat
-    var borderColor: CGColor
-    var cornerRadius: CGFloat
-    var backgroundColor: UIColor
-    var imageFrame: CGRect
-}
-protocol Textures2DShopController: AnyObject {
-    var type: TypeOfShopController {get}
-    var selectedCellIndexPath: IndexPath {get set}
-    var selectedCellInfo: CellInfo? {get}
-    var selectedCell: ShopCollectionViewCell? {get set}
-    var actualPositionOfSelectedCell: CGPoint {get}
-    var collectionView: UICollectionView! {get}
-    var view: UIView! {get}
-    func updateInfo()
-}
 
-class ShopViewController2D: UITabBarController, UITabBarControllerDelegate {
-
+class ShopViewController3D: UITabBarController, UITabBarControllerDelegate {
+    
     override func viewDidLoad() {
-        super.viewDidLoad()
         // чтобы цвет элементов не менялся в зависимости от темной или светлой темы телефона
         self.overrideUserInterfaceStyle = .dark
         self.delegate = self
@@ -58,7 +35,6 @@ class ShopViewController2D: UITabBarController, UITabBarControllerDelegate {
         
         self.tabBar.layer.masksToBounds = true
         self.tabBar.shadowImage = UIImage()
-        
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {

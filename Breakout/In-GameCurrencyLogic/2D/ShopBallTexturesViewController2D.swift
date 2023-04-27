@@ -20,7 +20,7 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
             if newValue != selectedCellIndexPath {
                 let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
-                UserCustomization.ballSkinIndex = newValue.item
+                UserCustomization._2DballSkinIndex = newValue.item
             }
         }
     }
@@ -94,7 +94,7 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
              ShopCellData(image: image12, price: 120, color: color, id: 11, type: .ball),
         ]
         
-        UserCustomization.maxBallSkinIndex = ballCellData.count
+        UserCustomization._2DmaxBallSkinIndex = ballCellData.count
 
         self.collectionView.isPrefetchingEnabled = false
         // добавляем GR для распознавания жеста покупки ячейки
@@ -124,8 +124,8 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
         // для того, чтобы была видна тень
         self.view.sendSubviewToBack(self.collectionView)
         
-        if !UserCustomization.buyedBallSkinIndexes.isEmpty {
-            self.selectedCellIndexPath = IndexPath(item: UserCustomization.ballSkinIndex, section: 0)
+        if !UserCustomization._2DbuyedBallSkinIndexes.isEmpty {
+            self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DballSkinIndex, section: 0)
         }
         
         
@@ -150,8 +150,8 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
                     self.selectedCellIndexPath = targetIndexPath
                     cell.priceLabel.text = ""
                     
-                    UserCustomization.buyedBallSkinIndexes += [targetIndexPath.item]
-                    UserCustomization.ballSkinIndex = self.selectedCellIndexPath.item
+                    UserCustomization._2DbuyedBallSkinIndexes += [targetIndexPath.item]
+                    UserCustomization._2DballSkinIndex = self.selectedCellIndexPath.item
                     GameCurrency.userMoney -= cell.price
                     self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
                     HapticManager.notificationVibrate(for: .success)
@@ -190,7 +190,7 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
     // содержит ли массив с индексами купленных элементов определенный индекс
     private func doesBuyedItemsContains(item: IndexPath) -> Bool {
         var doesContain = false
-        for index in UserCustomization.buyedBallSkinIndexes {
+        for index in UserCustomization._2DbuyedBallSkinIndexes {
             if index == item.item {
                 doesContain = true
             }

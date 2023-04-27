@@ -114,14 +114,14 @@ class CellMenuViewController: UIViewController {
             GameCurrency.userMoney -= self.price
             self.isBuyed = true
             if self.typeOfCurrentShopController == .ball {
-                UserCustomization.buyedBallSkinIndexes += [self.cellID]
-                UserCustomization.ballSkinIndex = self.cellID
+                UserCustomization._2DbuyedBallSkinIndexes += [self.cellID]
+                UserCustomization._2DballSkinIndex = self.cellID
             } else if self.typeOfCurrentShopController == .paddle {
-                UserCustomization.buyedPaddleSkinIndexes += [self.cellID]
-                UserCustomization.paddleSkinIndex = self.cellID
+                UserCustomization._2DbuyedPaddleSkinIndexes += [self.cellID]
+                UserCustomization._2DpaddleSkinIndex = self.cellID
             } else if self.typeOfCurrentShopController == .particles {
-                UserCustomization.buyedParticlesSkinIndexes += [self.cellID]
-                UserCustomization.particleSkinIndex = self.cellID
+                UserCustomization._2DbuyedParticlesSkinIndexes += [self.cellID]
+                UserCustomization._2DparticleSkinIndex = self.cellID
             }
             self.setParent()
             HapticManager.notificationVibrate(for: .success)
@@ -131,7 +131,7 @@ class CellMenuViewController: UIViewController {
         }
     }
     func setParent() {
-        guard let shopViewController = self.presentingViewController as? ShopViewController else {
+        guard let shopViewController = self.presentingViewController as? ShopViewController2D else {
             return
         }
         guard let childControllers = shopViewController.viewControllers else {

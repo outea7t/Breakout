@@ -102,10 +102,10 @@ struct Ball3D {
                 
                 let normalizedVelocity = simd_normalize(simdVelocity)
                 
-                let simdOldVelocity = simd_float2(Float(currentBallVelocity.x),
-                                                  Float(currentBallVelocity.z))
+//                let simdOldVelocity = simd_float2(Float(currentBallVelocity.x),
+//                                                  Float(currentBallVelocity.z))
                 
-                let lengthOfOldVelocity = simd_length(simdOldVelocity)
+//                let lengthOfOldVelocity = simd_length(simdOldVelocity)
 //                if lengthOfOldVelocity > self.upperBorderVelocityTrigger {
                 let newBallVelocity = SCNVector3(
                     normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
@@ -121,17 +121,6 @@ struct Ball3D {
 //                }
             }
         }
-        // старый алгоритм обновления скорости мяча
-        // иначе обновляем скорость мяча
-//        else {
-//            if let v = self.ball.physicsBody?.velocity {
-//                if (abs(v.x) < self.ballImpulse.x || abs(v.x) > self.ballImpulse.x) && v.x != 0 {
-//                    self.ball.physicsBody?.velocity.x = self.ballImpulse.x * (v.x/abs(v.x))
-//                } else if (abs(v.z) < self.ballImpulse.z || abs(v.z) > self.ballImpulse.z) && v.z != 0{
-//                    self.ball.physicsBody?.velocity.z = self.ballImpulse.z * (v.z/abs(v.z))
-//                }
-//            }
-//        }
     }
     // добавляем к ноде
     func add(to node: SCNNode, in position: SCNVector3) {
@@ -158,3 +147,17 @@ struct Ball3D {
     
     
 }
+
+/*
+ // старый алгоритм обновления скорости мяча
+ // иначе обновляем скорость мяча
+//        else {
+//            if let v = self.ball.physicsBody?.velocity {
+//                if (abs(v.x) < self.ballImpulse.x || abs(v.x) > self.ballImpulse.x) && v.x != 0 {
+//                    self.ball.physicsBody?.velocity.x = self.ballImpulse.x * (v.x/abs(v.x))
+//                } else if (abs(v.z) < self.ballImpulse.z || abs(v.z) > self.ballImpulse.z) && v.z != 0{
+//                    self.ball.physicsBody?.velocity.z = self.ballImpulse.z * (v.z/abs(v.z))
+//                }
+//            }
+//        }
+ */

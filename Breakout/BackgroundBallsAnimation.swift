@@ -52,7 +52,7 @@ class BackgroundBallAnimation {
     }
     
     private func addNewBall(nodeToAdd: SKNode) {
-        guard UserCustomization.maxBallSkinIndex != 0 && UserCustomization.maxParticleSkinIndex != 0 else {
+        guard UserCustomization._2DmaxBallSkinIndex != 0 && UserCustomization._2DmaxParticleSkinIndex != 0 else {
             return
         }
         let oneTenth = self.screenHeight*0.95
@@ -61,8 +61,8 @@ class BackgroundBallAnimation {
         let ballStartPosition = CGPoint(x: -100, y: randomPositionY)
         let ballEndPosition = CGPoint(x: self.screenWidth*3, y: randomPositionY + oneTenth)
         
-        let randomBallSkin = Int.random(in: 0..<UserCustomization.maxBallSkinIndex)
-        let randomParticleSkin = Int.random(in: 0..<UserCustomization.maxParticleSkinIndex)
+        let randomBallSkin = Int.random(in: 0..<UserCustomization._2DmaxBallSkinIndex)
+        let randomParticleSkin = Int.random(in: 0..<UserCustomization._2DmaxParticleSkinIndex)
         
         let distance = sqrt(abs((ballEndPosition.x - ballStartPosition.x)*(ballEndPosition.x - ballStartPosition.x)) + abs((ballEndPosition.y - ballStartPosition.y) * (ballEndPosition.y - ballStartPosition.y)))
         let ballVelocity: CGFloat = 350

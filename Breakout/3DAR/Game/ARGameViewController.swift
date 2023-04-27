@@ -762,8 +762,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             self.addLive()
         case .maxValue:
             break
-        default:
-            break
         }
     }
     private func rotateFrame() {

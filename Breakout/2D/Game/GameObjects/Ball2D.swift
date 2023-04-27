@@ -91,8 +91,8 @@ class Ball2D {
         self.isAttachedToPaddle = true
     }
     func setBallSkin() {
-        if !UserCustomization.buyedBallSkinIndexes.isEmpty && UserCustomization.ballSkinIndex < Ball2D.ballSkins.count {
-            self.setSkinCode(skinIndex: UserCustomization.ballSkinIndex)
+        if !UserCustomization._2DbuyedBallSkinIndexes.isEmpty && UserCustomization._2DballSkinIndex < Ball2D.ballSkins.count {
+            self.setSkinCode(skinIndex: UserCustomization._2DballSkinIndex)
         }
     }
     func setCertainBallSkin(skinIndex: Int) {
@@ -102,7 +102,7 @@ class Ball2D {
     }
     
     static func initializeBallSkins() {
-        for i in 0..<(UserCustomization.maxBallSkinIndex) {
+        for i in 0..<(UserCustomization._2DmaxBallSkinIndex) {
             let textureImage = UIImage(named: "Ball-\(i+1)")
             if let textureImage = textureImage {
                 let texture = SKTexture(image: textureImage)

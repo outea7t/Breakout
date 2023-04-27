@@ -21,7 +21,7 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
             if newValue != selectedCellIndexPath {
                 let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
-                UserCustomization.paddleSkinIndex = newValue.item
+                UserCustomization._2DpaddleSkinIndex = newValue.item
             }
         }
     }
@@ -89,7 +89,7 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
             ShopCellData(image: image11, price: 110, color: color, id: 10, type: .paddle),
             ShopCellData(image: image12, price: 120, color: color, id: 11, type: .paddle),
       ]
-        UserCustomization.maxPaddleSkinIndex = paddleCellData.count
+        UserCustomization._2DmaxPaddleSkinIndex = paddleCellData.count
         
         
         // добавляем GR для распознавания жеста покупки ячейки
@@ -119,8 +119,8 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
         
         self.view.sendSubviewToBack(self.collectionView)
         
-        if !UserCustomization.buyedPaddleSkinIndexes.isEmpty {
-            self.selectedCellIndexPath = IndexPath(item: UserCustomization.paddleSkinIndex, section: 0)
+        if !UserCustomization._2DbuyedPaddleSkinIndexes.isEmpty {
+            self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DpaddleSkinIndex, section: 0)
         }
         // Do any additional setup after loading the view.
     }
@@ -145,8 +145,8 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
                     self.selectedCellIndexPath = targetIndexPath
                     cell.priceLabel.text = ""
                     
-                    UserCustomization.buyedPaddleSkinIndexes += [targetIndexPath.item]
-                    UserCustomization.paddleSkinIndex = self.selectedCellIndexPath.item
+                    UserCustomization._2DbuyedPaddleSkinIndexes += [targetIndexPath.item]
+                    UserCustomization._2DpaddleSkinIndex = self.selectedCellIndexPath.item
                     GameCurrency.userMoney -= cell.price
                     self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
                     HapticManager.notificationVibrate(for: .success)
@@ -188,7 +188,7 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
     // содержит ли массив с индексами купленных элементов определенный индекс
     private func doesBuyedItemsContains(item: IndexPath) -> Bool {
         var doesContain = false
-        for index in UserCustomization.buyedPaddleSkinIndexes {
+        for index in UserCustomization._2DbuyedPaddleSkinIndexes {
             if index == item.item {
                 doesContain = true
             }

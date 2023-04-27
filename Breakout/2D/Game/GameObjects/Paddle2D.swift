@@ -84,8 +84,8 @@ struct Paddle2D {
     }
     
     func setPaddleSkin() {
-        if !UserCustomization.buyedPaddleSkinIndexes.isEmpty && UserCustomization.paddleSkinIndex < Paddle2D.paddleSkins.count {
-            let currentPaddleSkin = Paddle2D.paddleSkins[UserCustomization.paddleSkinIndex]
+        if !UserCustomization._2DbuyedPaddleSkinIndexes.isEmpty && UserCustomization._2DpaddleSkinIndex < Paddle2D.paddleSkins.count {
+            let currentPaddleSkin = Paddle2D.paddleSkins[UserCustomization._2DpaddleSkinIndex]
             self.paddle.fillColor = currentPaddleSkin.fillColor
             self.paddle.strokeColor = currentPaddleSkin.strokeColor
             self.paddle.lineWidth = currentPaddleSkin.lineWidth
@@ -96,7 +96,7 @@ struct Paddle2D {
     }
     static func initializePaddleSkins() {
         
-        for i in 0..<(UserCustomization.maxPaddleSkinIndex) {
+        for i in 0..<(UserCustomization._2DmaxPaddleSkinIndex) {
             let textureImage = UIImage(named: "Paddle-\(i+1)")
             if let textureImage = textureImage {
                 let texture = SKTexture(image: textureImage)

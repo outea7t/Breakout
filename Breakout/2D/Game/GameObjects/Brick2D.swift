@@ -16,7 +16,6 @@
 import Foundation
 import SpriteKit
 
-
 class Brick2D {
     /// * описывает кастомизацию кирпичика
     /// * strokeTextureForHealth и fillTextureForHealth - опционально, (текстуры для кирпичика)
@@ -141,7 +140,6 @@ class Brick2D {
             
             self.healthLabel.fontName = "Avenir Next Heavy"
         }
-
     }
     // сталкиваемся с мячом
     func collision() {
@@ -167,75 +165,27 @@ class Brick2D {
         let strokeColor = #colorLiteral(red: 0.03933082521, green: 0.03008767031, blue: 0.2666499615, alpha: 1)
         let fillColor = UIColor.white
         
-        var fillSchema = [Int: SKTexture]()
         // 1
-        let _1BrickImage = UIImage.gradientImage(with: self.brick.frame,
-                                                 startPoint: CGPoint(x: 0.5, y: 0.0),
-                                                 endPoint: CGPoint(x: 0.5, y: 1.0),
-                                                 colors: [#colorLiteral(red: 0.946, green: 0.398, blue: 0.398, alpha: 1).cgColor, #colorLiteral(red: 0.416, green: 0.051, blue: 0.639, alpha: 1).cgColor])
-        
-        
-        if let _1BrickImage = _1BrickImage {
-            let i1 = UIImage(named: "Brick1-1")!
-            let texture = SKTexture(image: i1)
-            fillSchema[0] = texture
-        
-        }
+        var fillSchema = [Int: SKTexture]()
+        let i1 = UIImage(named: "Brick1-1")!
+        let texture1 = SKTexture(image: i1)
+        fillSchema[0] = texture1
         // 2
-        let _2BrickImage = UIImage.gradientImage(with: self.brick.frame,
-                                                 startPoint: CGPoint(x: 0.5, y: 0.0),
-                                                 endPoint: CGPoint(x: 0.5, y: 1.0),
-                                                 colors: [#colorLiteral(red: 0.4156862745, green: 0.05098039216, blue: 0.6392156863, alpha: 1).cgColor, #colorLiteral(red: 0.4392156863, green: 0.02352941176, blue: 0.5882352941, alpha: 1).cgColor])
-        
-        
-        if let _2BrickImage = _2BrickImage {
-            let i1 = UIImage(named: "Brick2-1")!
-            let texture = SKTexture(image: i1)
-            fillSchema[1] = texture
-        
-        }
-        
+        let i2 = UIImage(named: "Brick2-1")!
+        let texture2 = SKTexture(image: i2)
+        fillSchema[1] = texture2
         // 3
-        let _3BrickImage = UIImage.gradientImage(with: self.brick.frame,
-                                                 startPoint: CGPoint(x: 0.5, y: 0.0),
-                                                 endPoint: CGPoint(x: 0.5, y: 1.0),
-                                                 colors: [#colorLiteral(red: 0.4392156863, green: 0.02352941176, blue: 0.5882352941, alpha: 1).cgColor, #colorLiteral(red: 0.2078431373, green: 0.007843137255, blue: 0.6392156863, alpha: 1).cgColor])
-        
-        
-        if let _3BrickImage = _3BrickImage {
-            let i1 = UIImage(named: "Brick3-1")!
-            let texture = SKTexture(image: i1)
-            fillSchema[2] = texture
-        
-        }
-        
+        let i3 = UIImage(named: "Brick3-1")!
+        let texture3 = SKTexture(image: i3)
+        fillSchema[2] = texture3
         // 4
-        let _4BrickImage = UIImage.gradientImage(with: self.brick.frame,
-                                                 startPoint: CGPoint(x: 0.5, y: 0.0),
-                                                 endPoint: CGPoint(x: 0.5, y: 1.0),
-                                                 colors: [#colorLiteral(red: 0.2078431373, green: 0.007843137255, blue: 0.6392156863, alpha: 1).cgColor, #colorLiteral(red: 0.1647058824, green: 0.01960784314, blue: 0.5764705882, alpha: 1).cgColor])
-        
-        
-        if let _4BrickImage = _4BrickImage {
-            let i1 = UIImage(named: "Brick4-1")!
-            let texture = SKTexture(image: i1)
-            fillSchema[3] = texture
-        
-        }
-        
+        let i4 = UIImage(named: "Brick4-1")!
+        let texture4 = SKTexture(image: i4)
+        fillSchema[3] = texture4
         // 5
-        let _5BrickImage = UIImage.gradientImage(with: self.brick.frame,
-                                                 startPoint: CGPoint(x: 0.5, y: 0.0),
-                                                 endPoint: CGPoint(x: 0.5, y: 1.0),
-                                                 colors: [#colorLiteral(red: 0.1647058824, green: 0.01960784314, blue: 0.5764705882, alpha: 1).cgColor, #colorLiteral(red: 0.1647058824, green: 0.01960784314, blue: 0.5764705882, alpha: 1).cgColor])
-        
-        
-        if let _5BrickImage = _5BrickImage {
-            let i1 = UIImage(named: "Brick5-1")!
-            let texture = SKTexture(image: i1)
-            fillSchema[4] = texture
-        
-        }
+        let i5 = UIImage(named: "Brick5-1")!
+        let texture5 = SKTexture(image: i5)
+        fillSchema[4] = texture5
         
         let brickColorSchema = BrickColorSchema(fillTextureForHealth: fillSchema,
                                                 strokeColor: strokeColor,
@@ -243,7 +193,5 @@ class Brick2D {
                                                 lineWidth: 5)
         
         self.brickSchemas.append(brickColorSchema)
-        
-        
     }
 }
