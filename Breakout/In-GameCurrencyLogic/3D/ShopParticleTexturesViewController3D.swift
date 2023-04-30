@@ -41,9 +41,6 @@ class ShopParticlesTexturesViewController3D: UIViewController {
     var selectedCell: Shop3DCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
-    deinit {
-        print("Particle3DShop was deinitialized")
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         let cellClass = UINib(nibName: self.cellIdentifier, bundle: nil)
@@ -80,17 +77,17 @@ class ShopParticlesTexturesViewController3D: UIViewController {
         let color = self.unselectedColor
         self.particlesCellData = [
             Shop3DCellData(model: model1, backgroundColor: color, price: 10, id: 0, textureType: .particles),
-            Shop3DCellData(model: model2, backgroundColor: color, price: 20, id: 0, textureType: .particles),
-            Shop3DCellData(model: model3, backgroundColor: color, price: 30, id: 0, textureType: .particles),
-            Shop3DCellData(model: model4, backgroundColor: color, price: 40, id: 0, textureType: .particles),
-            Shop3DCellData(model: model5, backgroundColor: color, price: 50, id: 0, textureType: .particles),
-            Shop3DCellData(model: model6, backgroundColor: color, price: 60, id: 0, textureType: .particles),
-            Shop3DCellData(model: model7, backgroundColor: color, price: 70, id: 0, textureType: .particles),
-            Shop3DCellData(model: model8, backgroundColor: color, price: 80, id: 0, textureType: .particles),
-            Shop3DCellData(model: model9, backgroundColor: color, price: 90, id: 0, textureType: .particles),
-            Shop3DCellData(model: model10, backgroundColor: color, price: 100, id: 0, textureType: .particles),
-            Shop3DCellData(model: model11, backgroundColor: color, price: 110, id: 0, textureType: .particles),
-            Shop3DCellData(model: model12, backgroundColor: color, price: 120, id: 0, textureType: .particles),
+            Shop3DCellData(model: model2, backgroundColor: color, price: 20, id: 1, textureType: .particles),
+            Shop3DCellData(model: model3, backgroundColor: color, price: 30, id: 2, textureType: .particles),
+            Shop3DCellData(model: model4, backgroundColor: color, price: 40, id: 3, textureType: .particles),
+            Shop3DCellData(model: model5, backgroundColor: color, price: 50, id: 4, textureType: .particles),
+            Shop3DCellData(model: model6, backgroundColor: color, price: 60, id: 5, textureType: .particles),
+            Shop3DCellData(model: model7, backgroundColor: color, price: 70, id: 6, textureType: .particles),
+            Shop3DCellData(model: model8, backgroundColor: color, price: 80, id: 7, textureType: .particles),
+            Shop3DCellData(model: model9, backgroundColor: color, price: 90, id: 8, textureType: .particles),
+            Shop3DCellData(model: model10, backgroundColor: color, price: 100, id: 9, textureType: .particles),
+            Shop3DCellData(model: model11, backgroundColor: color, price: 110, id: 10, textureType: .particles),
+            Shop3DCellData(model: model12, backgroundColor: color, price: 120, id: 11, textureType: .particles),
         ]
         
         // добавляем GR для распознавания жеста покупки ячейки
@@ -307,5 +304,4 @@ extension ShopParticlesTexturesViewController3D: UICollectionViewDelegate {
             
         }
     }
-    
 }

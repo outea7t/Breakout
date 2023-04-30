@@ -264,7 +264,6 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegate {
                 
                 var actualPosition = cell.convert(cell.bounds, to: self.collectionView.superview).origin
                 actualPosition = CGPoint(x: cell.frame.origin.x, y: actualPosition.y)
-                print(actualPosition, cell.frame.origin)
                 self.actualPositionOfSelectedCell = actualPosition
                 self.selectedCell?.layer.zPosition = 100
                 if let borderColor = cell.layer.borderColor, let backgroundColor = cell.backgroundColor {
@@ -290,7 +289,6 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegate {
         cellMenu.price = (cellMenuCellData.price)
         cellMenu.cellID = cellMenuCellData.id
         cellMenu.typeOfCurrentShopController = self.type
-        print(cellMenuCellData.price, cellMenuCellData.id)
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

@@ -17,8 +17,10 @@ class Shop2DCollectionViewCell: UICollectionViewCell {
     var id: Int = -1
     var data: Shop2DCellData?
     /// для анимирования размера и цвета ячейки
-    private var viewPropertyAnimator: UIViewPropertyAnimator?
-    private var selectionViewPropertyAnimator: UIViewPropertyAnimator?
+    /// * так как свойство влияет на количество сильных ссылок ячейки, то решено было сделать его "weak"
+    /// * именно поэтому все дальнейшие действия с ним будут обернуты в клоужр, чтобы на него была сильная ссылка и он не деаллоцировался раньше времени
+    private weak var viewPropertyAnimator: UIViewPropertyAnimator?
+    private weak var selectionViewPropertyAnimator: UIViewPropertyAnimator?
     /// цвет, применяемый, когда ячейка невыбрана
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     /// цвет, применяемый, когда ячейка куплена, но не выбрана
@@ -58,11 +60,19 @@ class Shop2DCollectionViewCell: UICollectionViewCell {
         
         self.imageView.clipsToBounds = false
         
-        self.viewPropertyAnimator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
-            self.backgroundColor = self.selectedColor
-            self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
-        }
-        self.selectionViewPropertyAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
+        self.viewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                self.backgroundColor = self.selectedColor
+                self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
+            }
+//            animator.startAnimation()
+            return animator
+        }()
+        self.selectionViewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
+//            animator.startAnimation()
+            return animator
+        }()
         
         self.clipsToBounds = false
         self.layer.shadowOpacity = 0.0
@@ -104,51 +114,66 @@ class Shop2DCollectionViewCell: UICollectionViewCell {
         self.layer.borderWidth = self.bounds.width/12.5
     }
     func wasSelected() {
-        self.selectionViewPropertyAnimator?.addAnimations {
-            self.backgroundColor = self.selectedColor
-            self.transform = CGAffineTransform.identity.scaledBy(x: 1.2, y: 1.2)
-            self.layer.borderColor = self.borderColor.cgColor
-            self.layer.borderWidth = self.borderWidth
-            self.layer.shadowOpacity = 1.0
-        }
-        self.selectionViewPropertyAnimator?.addAnimations({
-            self.transform = CGAffineTransform.identity
-        }, delayFactor: 0.2)
-        self.selectionViewPropertyAnimator?.startAnimation()
+        self.selectionViewPropertyAnimator =  {
+            let animator =  UIViewPropertyAnimator(duration: 0.15, curve: .easeInOut) {
+                self.backgroundColor = self.selectedColor
+                self.transform = CGAffineTransform.identity.scaledBy(x: 1.12, y: 1.12)
+                self.layer.borderColor = self.borderColor.cgColor
+                self.layer.borderWidth = self.borderWidth
+                self.layer.shadowOpacity = 1.0
+            }
+            animator.startAnimation()
+            return animator
+        }()
+        self.selectionViewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.15, curve: .easeInOut) {
+                self.transform = CGAffineTransform.identity
+            }
+            animator.startAnimation(afterDelay: 0.1)
+            return animator
+        }()
     }
     /// анимация, применяемая к ячейка, когда она перешла из выбранного в невыбранное состояние
     func wasUnselected(isBuyed: Bool) {
-        self.viewPropertyAnimator?.addAnimations {
-            if isBuyed {
-                self.backgroundColor = self.buyedColor
-            } else {
-                self.backgroundColor = self.unselectedColor
+        self.viewPropertyAnimator =  {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                if isBuyed {
+                    self.backgroundColor = self.buyedColor
+                } else {
+                    self.backgroundColor = self.unselectedColor
+                }
+                self.transform = CGAffineTransform.identity
+                self.layer.borderColor = UIColor.clear.cgColor
+                self.layer.borderWidth = 0.0
+                self.layer.shadowOpacity = 0.0
             }
-            self.transform = CGAffineTransform.identity
-            self.layer.borderColor = UIColor.clear.cgColor
-            self.layer.borderWidth = 0.0
-            self.layer.shadowOpacity = 0.0
-        }
-        self.viewPropertyAnimator?.startAnimation()
+            animator.startAnimation()
+            return animator
+        }()
     }
     
     func touchDown() {
-        self.viewPropertyAnimator?.addAnimations {
-            self.backgroundColor = self.selectedColor
-            self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
-            self.layer.borderColor = self.borderColor.cgColor
-            self.layer.borderWidth = self.borderWidth
-            self.layer.shadowOpacity = 1.0
-        }
-        self.viewPropertyAnimator?.startAnimation()
+        self.viewPropertyAnimator =  {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                self.backgroundColor = self.selectedColor
+                self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
+                self.layer.borderColor = self.borderColor.cgColor
+                self.layer.borderWidth = self.borderWidth
+                self.layer.shadowOpacity = 1.0
+            }
+            animator.startAnimation()
+            return animator
+        }()
     }
     
     func resizeToIdentity() {
-        self.viewPropertyAnimator?.addAnimations {
-            self.transform = CGAffineTransform.identity
-        }
-        self.viewPropertyAnimator?.startAnimation()
-        
+        self.viewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                self.transform = CGAffineTransform.identity
+            }
+            animator.startAnimation()
+            return animator
+        }()
     }
     override func awakeFromNib() {
         super.awakeFromNib()

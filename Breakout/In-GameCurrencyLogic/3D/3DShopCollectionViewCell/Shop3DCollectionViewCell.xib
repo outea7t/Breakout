@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="153" height="175"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zl7-2u-wWP">
+                    <sceneKitView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zl7-2u-wWP">
                         <rect key="frame" x="15" y="15" width="123" height="103"/>
                     </sceneKitView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xp4-In-4dV">
@@ -30,17 +30,17 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="Xp4-In-4dV" firstAttribute="top" secondItem="zl7-2u-wWP" secondAttribute="bottom" constant="15" id="CH8-tX-XuQ"/>
-                <constraint firstItem="zl7-2u-wWP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="CPc-fw-LUc"/>
-                <constraint firstItem="zl7-2u-wWP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="IXP-4X-Zag"/>
-                <constraint firstAttribute="bottom" secondItem="Xp4-In-4dV" secondAttribute="bottom" constant="7" id="VUI-Pn-KQj"/>
-                <constraint firstItem="Xp4-In-4dV" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="kbJ-J5-wQz"/>
-                <constraint firstAttribute="trailing" secondItem="zl7-2u-wWP" secondAttribute="trailing" constant="15" id="uni-Hy-JSx"/>
+                <constraint firstItem="zl7-2u-wWP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="15" id="6Gb-qp-GJw"/>
+                <constraint firstAttribute="bottom" secondItem="Xp4-In-4dV" secondAttribute="bottom" constant="7" id="IDG-TH-fw6"/>
+                <constraint firstItem="Xp4-In-4dV" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="Kkp-VV-VpX"/>
+                <constraint firstAttribute="trailing" secondItem="zl7-2u-wWP" secondAttribute="trailing" constant="15" id="T7D-66-jG6"/>
+                <constraint firstItem="Xp4-In-4dV" firstAttribute="top" secondItem="zl7-2u-wWP" secondAttribute="bottom" constant="15" id="gsz-0P-2CZ"/>
+                <constraint firstItem="zl7-2u-wWP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="oV7-cS-R9Y"/>
             </constraints>
             <size key="customSize" width="183" height="235"/>
             <connections>
                 <outlet property="priceLabel" destination="Xp4-In-4dV" id="7Ax-E8-utO"/>
-                <outlet property="scnView" destination="zl7-2u-wWP" id="s9N-jd-3Bl"/>
+                <outlet property="scnView" destination="zl7-2u-wWP" id="fdx-zn-fuT"/>
             </connections>
             <point key="canvasLocation" x="176.33587786259542" y="-39.7887323943662"/>
         </collectionViewCell>

@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class ShopViewController3D: UITabBarController, UITabBarControllerDelegate {
-    
     override func viewDidLoad() {
         // чтобы цвет элементов не менялся в зависимости от темной или светлой темы телефона
         self.overrideUserInterfaceStyle = .dark

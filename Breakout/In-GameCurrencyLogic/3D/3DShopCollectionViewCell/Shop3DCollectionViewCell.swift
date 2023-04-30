@@ -12,14 +12,15 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var scnView: SCNView!
     @IBOutlet weak var priceLabel: UILabel!
-    var model = SCNNode()
     var price: Int = 0
     var id: Int = -1
     var textureType: TextureType = .ball
     var data: Shop3DCellData?
     /// для анимирования размера и цвета ячейки
-    private var viewPropertyAnimator: UIViewPropertyAnimator?
-    private var selectionViewPropertyAnimator: UIViewPropertyAnimator?
+    /// * так как свойство влияет на количество сильных ссылок ячейки, то решено было сделать его "weak"
+    /// * именно поэтому все дальнейшие действия с ним будут обернуты в клоужр, чтобы на него была сильная ссылка и он не деаллоцировался раньше времени
+    private weak var viewPropertyAnimator: UIViewPropertyAnimator?
+    private weak var selectionViewPropertyAnimator: UIViewPropertyAnimator?
     /// цвет, применяемый, когда ячейка невыбрана
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     /// цвет, применяемый, когда ячейка куплена, но не выбрана
@@ -30,14 +31,16 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
     let borderColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
     /// размер рамки, которая появляется, когда мы выбираем рамку
     var borderWidth: CGFloat = 0.0
+    private weak var model: SCNNode?
+    
     
     func setup(with data: Shop3DCellData) {
-        self.model = data.model
         self.price = data.price
         self.id = data.id
         self.textureType = data.textureType
+        self.model = data.model
         self.data = data
-        
+
         self.priceLabel.layer.shadowOpacity = 1.0
         self.priceLabel.layer.shadowColor = #colorLiteral(red: 0.1125956997, green: 0.1019041017, blue: 0.2261445522, alpha: 1)
         self.priceLabel.layer.shadowOffset = CGSize(width: self.priceLabel.bounds.width/20.0,
@@ -46,21 +49,117 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
         self.priceLabel.clipsToBounds = false
         
         self.priceLabel.text = "\(self.price)"
-        // считаем размер рамки (появляется, когда мы выбираем скин)
+//         считаем размер рамки (появляется, когда мы выбираем скин)
         self.borderWidth = CGFloat(self.bounds.width/12.5)
         
-        self.model.position = SCNVector3(x: 0.0, y: 0.0, z: -0.175)
-        self.model.eulerAngles = SCNVector3(Float.pi/2, 0, 0)
         
-        if !self.model.hasActions {
+        self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.175)
+        self.model?.eulerAngles = SCNVector3(Float.pi/2, 0, 0)
+
+        guard let model = self.model else {
+            return
+        }
+        if !model.hasActions {
             let rotateAction = SCNAction.rotate(by: .pi/2, around: SCNVector3(0, 1, 0), duration: 2.0)
             let cycleRotating = SCNAction.repeatForever(rotateAction)
-            self.model.runAction(cycleRotating)
+            model.runAction(cycleRotating)
         }
+        self.scnView.scene?.rootNode.addChildNode(data.model)
+        
+        self.viewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                self.backgroundColor = self.selectedColor
+                self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
+            }
+            return animator
+        }()
+        self.selectionViewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
+            return animator
+        }()
+    }
+    // так как мы используем reusable cells то мы должны обнулять
+    // некоторые косметические параметры для избежания багов
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.selectionViewPropertyAnimator = nil
+        self.viewPropertyAnimator = nil
+        self.layer.borderColor = UIColor.clear.cgColor
+        self.layer.borderWidth = 0.0
+        self.layer.shadowOpacity = 0.0
+    }
+    func select() {
+        self.layer.borderColor = self.borderColor.cgColor
+        self.backgroundColor = self.selectedColor
+        self.layer.shadowOpacity = 1.0
+        self.layer.borderWidth = self.bounds.width/12.5
+    }
+    func wasSelected() {
+        self.selectionViewPropertyAnimator =  {
+            let animator =  UIViewPropertyAnimator(duration: 0.15, curve: .easeInOut) {
+                self.backgroundColor = self.selectedColor
+                self.transform = CGAffineTransform.identity.scaledBy(x: 1.12, y: 1.12)
+                self.layer.borderColor = self.borderColor.cgColor
+                self.layer.borderWidth = self.borderWidth
+                self.layer.shadowOpacity = 1.0
+            }
+            animator.startAnimation()
+            return animator
+        }()
+        self.selectionViewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.15, curve: .easeInOut) {
+                self.transform = CGAffineTransform.identity
+            }
+            animator.startAnimation(afterDelay: 0.1)
+            return animator
+        }()
+    }
+    /// анимация, применяемая к ячейка, когда она перешла из выбранного в невыбранное состояние
+    func wasUnselected(isBuyed: Bool) {
+        self.viewPropertyAnimator =  {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                if isBuyed {
+                    self.backgroundColor = self.buyedColor
+                } else {
+                    self.backgroundColor = self.unselectedColor
+                }
+                self.transform = CGAffineTransform.identity
+                self.layer.borderColor = UIColor.clear.cgColor
+                self.layer.borderWidth = 0.0
+                self.layer.shadowOpacity = 0.0
+            }
+            animator.startAnimation()
+            return animator
+        }()
+    }
+    func touchDown() {
+        self.viewPropertyAnimator =  {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                self.backgroundColor = self.selectedColor
+                self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
+                self.layer.borderColor = self.borderColor.cgColor
+                self.layer.borderWidth = self.borderWidth
+                self.layer.shadowOpacity = 1.0
+            }
+            animator.startAnimation()
+            return animator
+        }()
+    }
+    func resizeToIdentity() {
+        self.viewPropertyAnimator = {
+            let animator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
+                self.transform = CGAffineTransform.identity
+            }
+            animator.startAnimation()
+            return animator
+        }()
+    }
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
         let scene = SCNScene()
         self.scnView.scene = scene
-        self.scnView.scene?.rootNode.addChildNode(self.model)
         
         let cameraNode = SCNNode()
         let camera = SCNCamera()
@@ -87,16 +186,9 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
         ambientLight.color = UIColor.white
         ambientLightNode.light = ambientLight
         self.scnView.scene?.rootNode.addChildNode(ambientLightNode)
-        
-        self.scnView.backgroundColor = self.unselectedColor
+        self.scnView.backgroundColor = UIColor.clear
         
         self.backgroundColor = self.unselectedColor
-        
-        self.viewPropertyAnimator = UIViewPropertyAnimator(duration: 0.4, curve: .easeInOut) {
-            self.backgroundColor = self.selectedColor
-            self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
-        }
-        self.selectionViewPropertyAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
         
         self.clipsToBounds = true
         self.layer.shadowOpacity = 0.0
@@ -118,79 +210,5 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
         self.layer.shadowRadius = self.bounds.width/8
         self.layer.shadowOffset = .zero
         
-    }
-    // так как мы используем reusable cells то мы должны обнулять
-    // некоторые косметические параметры для избежания багов
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        self.selectionViewPropertyAnimator = nil
-        self.viewPropertyAnimator = nil
-        self.layer.borderColor = UIColor.clear.cgColor
-        self.layer.borderWidth = 0.0
-        self.layer.shadowOpacity = 0.0
-        
-        guard let rootNode = self.scnView.scene?.rootNode else {
-            return
-        }
-        
-        for child in rootNode.childNodes {
-            child.removeFromParentNode()
-        }
-    }
-    func select() {
-        self.layer.borderColor = self.borderColor.cgColor
-        self.backgroundColor = self.selectedColor
-        self.layer.shadowOpacity = 1.0
-        self.layer.borderWidth = self.bounds.width/12.5
-    }
-    func wasSelected() {
-        self.selectionViewPropertyAnimator?.addAnimations {
-            self.backgroundColor = self.selectedColor
-            self.transform = CGAffineTransform.identity.scaledBy(x: 1.2, y: 1.2)
-            self.layer.borderColor = self.borderColor.cgColor
-            self.layer.borderWidth = self.borderWidth
-            self.layer.shadowOpacity = 1.0
-        }
-        self.selectionViewPropertyAnimator?.addAnimations({
-            self.transform = CGAffineTransform.identity
-        }, delayFactor: 0.2)
-        self.selectionViewPropertyAnimator?.startAnimation()
-    }
-    /// анимация, применяемая к ячейка, когда она перешла из выбранного в невыбранное состояние
-    func wasUnselected(isBuyed: Bool) {
-        self.viewPropertyAnimator?.addAnimations {
-            if isBuyed {
-                self.backgroundColor = self.buyedColor
-            } else {
-                self.backgroundColor = self.unselectedColor
-            }
-            self.transform = CGAffineTransform.identity
-            self.layer.borderColor = UIColor.clear.cgColor
-            self.layer.borderWidth = 0.0
-            self.layer.shadowOpacity = 0.0
-        }
-        self.viewPropertyAnimator?.startAnimation()
-    }
-    func touchDown() {
-        self.viewPropertyAnimator?.addAnimations {
-            self.backgroundColor = self.selectedColor
-            self.transform = CGAffineTransform(scaleX: 0.65, y: 0.65)
-            self.layer.borderColor = self.borderColor.cgColor
-            self.layer.borderWidth = self.borderWidth
-            self.layer.shadowOpacity = 1.0
-        }
-        self.viewPropertyAnimator?.startAnimation()
-    }
-    func resizeToIdentity() {
-        self.viewPropertyAnimator?.addAnimations {
-            self.transform = CGAffineTransform.identity
-        }
-        self.viewPropertyAnimator?.startAnimation()
-        
-    }
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
     }
 }
