@@ -31,18 +31,18 @@ struct UserCustomization {
     public static var _2DbuyedPaddleSkinIndexes = [Int]()
     
     /// количество существующих в игре скинов для частичек 3D
-    public static var _3DmaxParticleSkinIndex: Int = 0
+    public static var _3DmaxParticleSkinIndex: Int = 12
     /// количество существующих в игре скинов для мячей 3D
     public static var _3DmaxBallSkinIndex: Int = 0
     /// количество существующих в игре скинов для ракеток 3D
-    public static var _3DmaxPaddleSkinIndex: Int = 0
+    public static var _3DmaxPaddleSkinIndex: Int = 12
     
     /// текущий, выбранный игроком скин для частички 3D
     public static var _3DparticleSkinIndex: Int = 0
     /// текущий, выбранный игроком скин для мяча 3D
     public static var _3DballSkinIndex: Int = 0
     /// текущий, выбранный игроком скин для ракетки 3D
-    public static var _3DpaddleSkinIndex: Int = 0
+    public static var _3DpaddleSkinIndex: Int = 10
     
     /// все купленные игроком скины для частичек 3D
     public static var _3DbuyedParticlesSkinIndexes = [Int]()

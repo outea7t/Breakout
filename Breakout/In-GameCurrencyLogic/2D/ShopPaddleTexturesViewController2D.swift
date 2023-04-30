@@ -14,25 +14,25 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userMoneyLabel: UILabel!
     
-    private var paddleCellData = [ShopCellData]()
-    private let cellIdentifier = "ShopCollectionViewCell"
+    private var paddleCellData = [Shop2DCellData]()
+    private let cellIdentifier = "Shop2DCollectionViewCell"
     var selectedCellIndexPath = IndexPath() {
         willSet {
             if newValue != selectedCellIndexPath {
-                let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
+                let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? Shop2DCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
                 UserCustomization._2DpaddleSkinIndex = newValue.item
             }
         }
     }
     var type = TypeOfShopController.paddle
-    private var cellMenuCellData: ShopCellData?
+    private var cellMenuCellData: Shop2DCellData?
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
     
     var selectedCellInfo: CellInfo?
-    var selectedCell: ShopCollectionViewCell?
+    var selectedCell: Shop2DCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
@@ -76,18 +76,18 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
         
         let color = self.unselectedColor
         self.paddleCellData = [
-            ShopCellData(image: image1, price: 10, color: color, id: 0, type: .paddle),
-            ShopCellData(image: image2, price: 20, color: color, id: 1, type: .paddle),
-            ShopCellData(image: image3, price: 30, color: color, id: 2, type: .paddle),
-            ShopCellData(image: image4, price: 40, color: color, id: 3, type: .paddle),
-            ShopCellData(image: image5, price: 50, color: color, id: 4, type: .paddle),
-            ShopCellData(image: image6, price: 60, color: color, id: 5, type: .paddle),
-            ShopCellData(image: image7, price: 70, color: color, id: 6, type: .paddle),
-            ShopCellData(image: image8, price: 80, color: color, id: 7, type: .paddle),
-            ShopCellData(image: image9, price: 90, color: color, id: 8, type: .paddle),
-            ShopCellData(image: image10, price: 100, color: color, id: 9, type: .paddle),
-            ShopCellData(image: image11, price: 110, color: color, id: 10, type: .paddle),
-            ShopCellData(image: image12, price: 120, color: color, id: 11, type: .paddle),
+            Shop2DCellData(image: image1, price: 10, color: color, id: 0, type: .paddle),
+            Shop2DCellData(image: image2, price: 20, color: color, id: 1, type: .paddle),
+            Shop2DCellData(image: image3, price: 30, color: color, id: 2, type: .paddle),
+            Shop2DCellData(image: image4, price: 40, color: color, id: 3, type: .paddle),
+            Shop2DCellData(image: image5, price: 50, color: color, id: 4, type: .paddle),
+            Shop2DCellData(image: image6, price: 60, color: color, id: 5, type: .paddle),
+            Shop2DCellData(image: image7, price: 70, color: color, id: 6, type: .paddle),
+            Shop2DCellData(image: image8, price: 80, color: color, id: 7, type: .paddle),
+            Shop2DCellData(image: image9, price: 90, color: color, id: 8, type: .paddle),
+            Shop2DCellData(image: image10, price: 100, color: color, id: 9, type: .paddle),
+            Shop2DCellData(image: image11, price: 110, color: color, id: 10, type: .paddle),
+            Shop2DCellData(image: image12, price: 120, color: color, id: 11, type: .paddle),
       ]
         UserCustomization._2DmaxPaddleSkinIndex = paddleCellData.count
         
@@ -137,7 +137,7 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
         
         switch gesture.state {
         case .began:
-            if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell {
+            if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell {
                 
                 
                 if !self.doesBuyedItemsContains(item: targetIndexPath) &&
@@ -160,11 +160,11 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
             
         case .ended:
             if targetIndexPath == self.selectedCellIndexPath {
-                let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
+                let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
                 cell?.resizeToIdentity()
             }
         case .cancelled:
-            let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
+            let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
             cell?.resizeToIdentity()
         default:
             break
@@ -211,7 +211,7 @@ extension ShopPaddleTexturesViewController: UICollectionViewDataSource {
     // какие ячейки создавать
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! ShopCollectionViewCell
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! Shop2DCollectionViewCell
         
         cell.setup(with: self.paddleCellData[indexPath.item])
         cell.layer.borderWidth = 0
@@ -245,7 +245,7 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegateFlowLayout {
 extension ShopPaddleTexturesViewController: UICollectionViewDelegate {
     // активируется, когда мы выбираем какой-то уже купленный скин
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell else {
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell else {
             return
         }
         
@@ -294,7 +294,7 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
             if !self.doesBuyedItemsContains(item: indexPath) {
                 cell.touchDown()
             }
@@ -303,7 +303,7 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
             if self.selectedCellIndexPath != indexPath {
                 let isBuyed = self.doesBuyedItemsContains(item: indexPath)
                 cell.wasUnselected(isBuyed: isBuyed)

@@ -14,34 +14,29 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userMoneyLabel: UILabel!
     
-    private var particlesCellData = [ShopCellData]()
-    private let cellIdentifier = "ShopCollectionViewCell"
+    private var particlesCellData = [Shop2DCellData]()
+    private let cellIdentifier = "Shop2DCollectionViewCell"
     var selectedCellIndexPath = IndexPath() {
         willSet {
             if newValue != selectedCellIndexPath {
-                let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
+                let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? Shop2DCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
                 UserCustomization._2DparticleSkinIndex = newValue.item
             }
         }
     }
     var type = TypeOfShopController.particles
-    private var cellMenuCellData: ShopCellData?
+    private var cellMenuCellData: Shop2DCellData?
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
     
     var selectedCellInfo: CellInfo?
-    var selectedCell: ShopCollectionViewCell?
+    var selectedCell: Shop2DCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if let particleUnselectedImage = UIImage(named: "ParticleUnselected.png"), let particleSelectedImage = UIImage(named: "ParticleSelected.png") {
-//            self.tabBarItem.image = particleUnselectedImage
-//            self.tabBarItem.selectedImage = particleSelectedImage
-//        }
-        
         // находим класс ячеек и устанавливаем его в collectionView
         let cellClass = UINib(nibName: self.cellIdentifier, bundle: nil)
         self.collectionView.register(cellClass, forCellWithReuseIdentifier: self.cellIdentifier)
@@ -77,28 +72,26 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
         
         let color = self.unselectedColor
         self.particlesCellData = [
-            ShopCellData(image: image1, price: 10, color: color, id: 0, type: .particles),
-              ShopCellData(image: image2, price: 20, color: color, id: 1, type: .particles),
-              ShopCellData(image: image3, price: 30, color: color, id: 2, type: .particles),
-              ShopCellData(image: image4, price: 40, color: color, id: 3, type: .particles),
-              ShopCellData(image: image5, price: 50, color: color, id: 4, type: .particles),
-              ShopCellData(image: image6, price: 60, color: color, id: 5, type: .particles),
-              ShopCellData(image: image7, price: 70, color: color, id: 6, type: .particles),
-              ShopCellData(image: image8, price: 80, color: color, id: 7, type: .particles),
-              ShopCellData(image: image9, price: 90, color: color, id: 8, type: .particles),
-              ShopCellData(image: image10, price: 100, color: color, id: 9, type: .particles),
-              ShopCellData(image: image11, price: 110, color: color, id: 10, type: .particles),
-              ShopCellData(image: image12, price: 120, color: color, id: 11, type: .particles),
+            Shop2DCellData(image: image1, price: 10, color: color, id: 0, type: .particles),
+              Shop2DCellData(image: image2, price: 20, color: color, id: 1, type: .particles),
+              Shop2DCellData(image: image3, price: 30, color: color, id: 2, type: .particles),
+              Shop2DCellData(image: image4, price: 40, color: color, id: 3, type: .particles),
+              Shop2DCellData(image: image5, price: 50, color: color, id: 4, type: .particles),
+              Shop2DCellData(image: image6, price: 60, color: color, id: 5, type: .particles),
+              Shop2DCellData(image: image7, price: 70, color: color, id: 6, type: .particles),
+              Shop2DCellData(image: image8, price: 80, color: color, id: 7, type: .particles),
+              Shop2DCellData(image: image9, price: 90, color: color, id: 8, type: .particles),
+              Shop2DCellData(image: image10, price: 100, color: color, id: 9, type: .particles),
+              Shop2DCellData(image: image11, price: 110, color: color, id: 10, type: .particles),
+              Shop2DCellData(image: image12, price: 120, color: color, id: 11, type: .particles),
         ]
         UserCustomization._2DmaxParticleSkinIndex = particlesCellData.count
-        
         
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
         longPressGesture.minimumPressDuration = 0.4
         longPressGesture.numberOfTouchesRequired = 1
         self.collectionView.addGestureRecognizer(longPressGesture)
-        
         
         // настраиваем кнопку "назад"
         self.backButton.layer.shadowOpacity = 1.0
@@ -117,13 +110,11 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
                                                        height: 15.0)
         self.headerTopView.layer.shadowRadius = 8
         
-        
         self.view.sendSubviewToBack(self.collectionView)
         
         if !UserCustomization._2DbuyedParticlesSkinIndexes.isEmpty {
             self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DparticleSkinIndex, section: 0)
         }
-        // Do any additional setup after loading the view.
     }
     func updateInfo() {
         self.userMoneyLabel.text = (GameCurrency.updateUserMoneyLabel())
@@ -138,7 +129,7 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
         
         switch gesture.state {
         case .began:
-            if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell {
+            if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell {
                 
                 
                 if !self.doesBuyedItemsContains(item: targetIndexPath) &&
@@ -161,12 +152,12 @@ class ShopParticlesTextureViewController: UIViewController, Textures2DShopContro
             
         case .ended:
             if targetIndexPath == self.selectedCellIndexPath {
-                let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
+                let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
                 cell?.resizeToIdentity()
             }
         case .cancelled:
             
-            let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
+            let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
             cell?.resizeToIdentity()
         default:
             break
@@ -215,7 +206,7 @@ extension ShopParticlesTextureViewController: UICollectionViewDataSource {
     // какие ячейки создавать
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! ShopCollectionViewCell
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! Shop2DCollectionViewCell
         
         cell.setup(with: self.particlesCellData[indexPath.item])
         cell.layer.borderWidth = 0
@@ -249,7 +240,7 @@ extension ShopParticlesTextureViewController: UICollectionViewDelegateFlowLayout
 extension ShopParticlesTextureViewController: UICollectionViewDelegate {
     // активируется, когда мы выбираем какой-то уже купленный скин
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell else {
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell else {
             return
         }
         
@@ -298,7 +289,7 @@ extension ShopParticlesTextureViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
             if !self.doesBuyedItemsContains(item: indexPath) {
                 cell.touchDown()
             }
@@ -307,7 +298,7 @@ extension ShopParticlesTextureViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
             if self.selectedCellIndexPath != indexPath {
                 let isBuyed = self.doesBuyedItemsContains(item: indexPath)
                 cell.wasUnselected(isBuyed: isBuyed)

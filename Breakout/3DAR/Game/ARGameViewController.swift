@@ -409,19 +409,18 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         guard let frame = self.frame, let paddle = self.paddle, let ball = self.ball else {
             return
         }
-        
+        guard let particlesPerSecond = self.particle?.particlesPerSecond else {
+            return
+        }
             
         self.ball?.update(paddle: paddle)
         paddle.update(frame: frame, isBallAttachedToPaddle: ball.isAttachedToPaddle)
         
-        if currentTime - self.lastTime > 1.0/5 {
+        
+        if currentTime - self.lastTime >= particlesPerSecond {
             self.particle?.addParticle(to: ball, frame: frame)
             self.lastTime = currentTime
         }
-                
-            
-        
-        
     }
     /// вызывается, когда сессия прерывается
     func sessionWasInterrupted(_ session: ARSession) {
@@ -923,6 +922,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
         // после всех манипуляций устанавливаем позицию
         self.loadLevel()
+        
+        self.paddle?.setPaddleSkin()
+        self.particle?.setParticlesSkin()
     }
     /// ставит игру на паузу
     func pauseGame() {
@@ -936,6 +938,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.isPaused = false
         self.gameScene?.rootNode.isPaused = false
         self.gameScene?.physicsWorld.speed = 1
+        
+        self.paddle?.setPaddleSkin()
+        self.particle?.setParticlesSkin()
     }
     /// перезагружаем уровень (например, когда мы закончили проходить уровень)
     func resetObjects() {

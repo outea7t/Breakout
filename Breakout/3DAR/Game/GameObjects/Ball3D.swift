@@ -102,23 +102,11 @@ struct Ball3D {
                 
                 let normalizedVelocity = simd_normalize(simdVelocity)
                 
-//                let simdOldVelocity = simd_float2(Float(currentBallVelocity.x),
-//                                                  Float(currentBallVelocity.z))
-                
-//                let lengthOfOldVelocity = simd_length(simdOldVelocity)
-//                if lengthOfOldVelocity > self.upperBorderVelocityTrigger {
                 let newBallVelocity = SCNVector3(
                     normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
                     0.0,
                     normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
                 self.ball.physicsBody?.velocity = newBallVelocity
-//                } else if lengthOfOldVelocity < self.lowerBorderVelocityTrigger {
-//                    let newBallVelocity = SCNVector3(
-//                        normalizedVelocity.x * self.lengthOfBallVelocityConstant * 0.9,
-//                        0.0,
-//                        normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
-//                    self.ball.physicsBody?.velocity = newBallVelocity
-//                }
             }
         }
     }

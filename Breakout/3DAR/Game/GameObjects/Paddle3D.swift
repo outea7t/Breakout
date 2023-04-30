@@ -25,12 +25,14 @@ struct Paddle3D {
     
     var paddle: SCNNode
     var paddleVolume: SCNVector3
+    private static var paddleSkins = [SCNNode]()
+    
     init(frame: Frame3D) {
         // настройка ракетки
         // мы изменяем размер ракетки в зависимости от размера экрана
         // умножаем на литеральные константы (наверное плохо), но это нормально работает
         
-        let volume = SCNVector3(x: frame.bottomWallVolume.x/3.0,
+        let volume = SCNVector3(x: frame.bottomWallVolume.x/2.2,
                                 y: 0.06,
                                 z: frame.leftSideWallVolume.z/12.5)
         self.paddleVolume = volume
@@ -39,12 +41,12 @@ struct Paddle3D {
                               length: CGFloat(volume.z),
                               chamferRadius: 0.3)
         let material = SCNMaterial()
-        material.lightingModel = .physicallyBased
-        material.roughness.contents = 0.0
-        material.metalness.contents = 1.0
-        material.ambient.contents = UIColor.blue
-        material.specular.contents = UIColor.white
-        material.diffuse.contents = UIColor.purple
+//        material.lightingModel = .physicallyBased
+//        material.roughness.contents = 0.0
+//        material.metalness.contents = 1.0
+//        material.ambient.contents = UIColor.blue
+//        material.specular.contents = UIColor.white
+        material.diffuse.contents = UIColor.clear
         geometry.materials = [material]
         
         self.paddle = SCNNode(geometry: geometry)
@@ -61,6 +63,11 @@ struct Paddle3D {
         self.paddle.physicsBody?.contactTestBitMask = self.ballBitmask | self.bonusBitMask
         self.paddle.name = "Paddle"
         
+        let scene = SCNScene(named: "Paddle-11")!
+        let paddle_12 = scene.rootNode.childNode(withName: "Paddle", recursively: true)!
+        paddle_12.position = SCNVector3()
+        paddle_12.transform = SCNMatrix4Scale(paddle_12.transform, 0.4, 0.5, 0.5)
+        self.paddle.addChildNode(paddle_12)
         frame.plate.addChildNode(paddle)
     }
     // движение ракетки
@@ -113,5 +120,25 @@ struct Paddle3D {
         self.paddle.position = SCNVector3(x: self.paddle.position.x + wigglePositionValue.x,
                                           y: self.paddle.position.y + wigglePositionValue.y,
                                           z: self.paddle.position.z + wigglePositionValue.z)
+    }
+    
+    func setPaddleSkin() {
+        if !UserCustomization._3DbuyedPaddleSkinIndexes.isEmpty && UserCustomization._3DpaddleSkinIndex < Paddle3D.paddleSkins.count {
+            let currentPaddleSkin = Paddle3D.paddleSkins[UserCustomization._3DpaddleSkinIndex]
+            let choosedSkinIndex = UserCustomization._3DpaddleSkinIndex
+            let choosedModel = Paddle3D.paddleSkins[choosedSkinIndex]
+            self.paddle.addChildNode(choosedModel)
+        }
+    }
+    static func initializePaddleSkins() {
+        for i in 1...UserCustomization._3DmaxPaddleSkinIndex {
+            guard let scene = SCNScene(named: "Paddle-\(i).dae") else {
+                return
+            }
+            guard let model = scene.rootNode.childNode(withName: "Paddle", recursively: true) else {
+                return
+            }
+            Paddle3D.paddleSkins.append(model)
+        }
     }
 }

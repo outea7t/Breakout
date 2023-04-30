@@ -6,26 +6,27 @@
 //
 
 import UIKit
+
 class ShopBallTexturesViewController: UIViewController, Textures2DShopController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var userMoneyLabel: UILabel!
-    
     @IBOutlet weak var BallIcon: UITabBarItem!
-    var ballCellData = [ShopCellData]()
-    private let cellIdentifier = "ShopCollectionViewCell"
+    
+    var ballCellData = [Shop2DCellData]()
+    private let cellIdentifier = "Shop2DCollectionViewCell"
     var selectedCellIndexPath = IndexPath() {
         willSet {
             if newValue != selectedCellIndexPath {
-                let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? ShopCollectionViewCell
+                let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? Shop2DCollectionViewCell
                 unselectedCell?.wasUnselected(isBuyed: true)
                 UserCustomization._2DballSkinIndex = newValue.item
             }
         }
     }
     var type = TypeOfShopController.ball
-    private var cellMenuCellData: ShopCellData?
+    private var cellMenuCellData: Shop2DCellData?
     
     private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
@@ -33,7 +34,7 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
     
     
     var selectedCellInfo: CellInfo?
-    var selectedCell: ShopCollectionViewCell?
+    var selectedCell: Shop2DCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
@@ -80,18 +81,18 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
         
         let color = self.unselectedColor
         self.ballCellData = [
-            ShopCellData(image: image1, price: 10, color: color, id: 0, type: .ball),
-             ShopCellData(image: image2, price: 20, color: color, id: 1, type: .ball),
-             ShopCellData(image: image3, price: 30, color: color, id: 2, type: .ball),
-             ShopCellData(image: image4, price: 40, color: color, id: 3, type: .ball),
-             ShopCellData(image: image5, price: 50, color: color, id: 4, type: .ball),
-             ShopCellData(image: image6, price: 60, color: color, id: 5, type: .ball),
-             ShopCellData(image: image7, price: 70, color: color, id: 6, type: .ball),
-             ShopCellData(image: image8, price: 80, color: color, id: 7, type: .ball),
-             ShopCellData(image: image9, price: 90, color: color, id: 8, type: .ball),
-             ShopCellData(image: image10, price: 100, color: color, id: 9, type: .ball),
-             ShopCellData(image: image11, price: 110, color: color, id: 10, type: .ball),
-             ShopCellData(image: image12, price: 120, color: color, id: 11, type: .ball),
+            Shop2DCellData(image: image1, price: 10, color: color, id: 0, type: .ball),
+            Shop2DCellData(image: image2, price: 20, color: color, id: 1, type: .ball),
+            Shop2DCellData(image: image3, price: 30, color: color, id: 2, type: .ball),
+            Shop2DCellData(image: image4, price: 40, color: color, id: 3, type: .ball),
+            Shop2DCellData(image: image5, price: 50, color: color, id: 4, type: .ball),
+            Shop2DCellData(image: image6, price: 60, color: color, id: 5, type: .ball),
+            Shop2DCellData(image: image7, price: 70, color: color, id: 6, type: .ball),
+            Shop2DCellData(image: image8, price: 80, color: color, id: 7, type: .ball),
+            Shop2DCellData(image: image9, price: 90, color: color, id: 8, type: .ball),
+            Shop2DCellData(image: image10, price: 100, color: color, id: 9, type: .ball),
+            Shop2DCellData(image: image11, price: 110, color: color, id: 10, type: .ball),
+            Shop2DCellData(image: image12, price: 120, color: color, id: 11, type: .ball),
         ]
         
         UserCustomization._2DmaxBallSkinIndex = ballCellData.count
@@ -139,11 +140,10 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
         guard let targetIndexPath = self.collectionView.indexPathForItem(at: gestureLocation) else {
             return
         }
-        
         switch gesture.state {
         case .began:
             // находим нажатую ячейку
-            if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell {
+            if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell {
                 
                 if !self.doesBuyedItemsContains(item: targetIndexPath) &&
                     GameCurrency.userMoney >= cell.price {
@@ -163,12 +163,12 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
 //        case .changed:
         case .ended:
             if targetIndexPath == self.selectedCellIndexPath {
-                let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
+                let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
                 cell?.resizeToIdentity()
             }
         case .cancelled:
             
-            let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
+            let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
             cell?.resizeToIdentity()
         default:
             break
@@ -212,7 +212,7 @@ extension ShopBallTexturesViewController: UICollectionViewDataSource {
     
     // какие ячейки создавать
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! ShopCollectionViewCell
+        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! Shop2DCollectionViewCell
         
         
         cell.setup(with: self.ballCellData[indexPath.row])
@@ -251,7 +251,7 @@ extension ShopBallTexturesViewController: UICollectionViewDelegateFlowLayout {
 extension ShopBallTexturesViewController: UICollectionViewDelegate {
     // активируется, когда мы выбираем какой-то уже купленный скин
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell else {
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell else {
             return
         }
         if self.doesBuyedItemsContains(item: indexPath) && self.selectedCellIndexPath != indexPath {
@@ -299,7 +299,7 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
         cellMenu.typeOfCurrentShopController = self.type
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
             if !self.doesBuyedItemsContains(item: indexPath) {
                 cell.touchDown()
             }
@@ -308,7 +308,7 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
             if self.selectedCellIndexPath != indexPath {
                 let isBuyed = self.doesBuyedItemsContains(item: indexPath)
                 cell.wasUnselected(isBuyed: isBuyed)

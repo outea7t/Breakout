@@ -95,7 +95,6 @@ struct Paddle2D {
         }
     }
     static func initializePaddleSkins() {
-        
         for i in 0..<(UserCustomization._2DmaxPaddleSkinIndex) {
             let textureImage = UIImage(named: "Paddle-\(i+1)")
             if let textureImage = textureImage {

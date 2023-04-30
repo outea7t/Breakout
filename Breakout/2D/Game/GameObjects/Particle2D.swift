@@ -144,7 +144,6 @@ struct Particle2D {
                 self.particleSkins.append(paddleSkin)
             }
         }
-        
     }
     
 }

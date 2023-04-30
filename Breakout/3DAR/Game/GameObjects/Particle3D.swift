@@ -14,7 +14,10 @@ import UIKit
 struct Particle3D {
     
     var particle: SCNNode
+    let particlesPerSecond: Double = 1/10.0
 //    private let geometry: SCNShape
+    
+    private static var particleSkins = [SCNNode]()
     init(ballRadius: Float) {
         let size = Double(ballRadius) * 3.5
         
@@ -41,14 +44,14 @@ struct Particle3D {
         
 //        shape.materials = [material]
         // создаем ноду
-        let scene = SCNScene(named: "test.dae")!
-        let donut = scene.rootNode.childNode(withName: "donut", recursively: true)!
+        let scene = SCNScene(named: "Particle-1.dae")!
+        let donut = scene.rootNode.childNode(withName: "Particle", recursively: true)!
 //        let donutNode = modelNode.childNode(withName: "donut", recursively: true)!
-        print(donut.renderingOrder)
         
 //        self.particle = SCNNode(geometry: shape)
         self.particle = donut
-        self.particle.scale = SCNVector3(0.5, 0.5, 0.5)
+        
+//        self.particle.scale = SCNVector3(0.5, 0.5, 0.5)
         self.particle.name = "Particle"
 //        self.geometry = shape
         
@@ -115,5 +118,32 @@ struct Particle3D {
             moveAction
         ]))
         
+    }
+    
+    mutating func setParticlesSkin() {
+        if !UserCustomization._3DbuyedParticlesSkinIndexes.isEmpty && UserCustomization._3DparticleSkinIndex < Particle3D.particleSkins.count {
+            
+            self.particle.childNode(withName: "Particle", recursively: true)?.removeFromParentNode()
+            let choosedSkinIndex = UserCustomization._3DparticleSkinIndex
+            let choosedModel = Particle3D.particleSkins[choosedSkinIndex]
+            
+            self.particle = choosedModel
+            self.particle.name = "Particle"
+            self.particle.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
+            
+        }
+    }
+    
+    static func initializeParticleSkins() {
+        for i in 1...UserCustomization._3DmaxParticleSkinIndex {
+            guard let scene = SCNScene(named: "Particle-\(i).dae") else {
+                return
+            }
+            guard let model = scene.rootNode.childNode(withName: "Particle", recursively: true) else {
+                return
+            }
+            
+            Particle3D.particleSkins.append(model)
+        }
     }
 }

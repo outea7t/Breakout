@@ -25,6 +25,8 @@
 		22096B5C2986EC0B0072F4C6 /* level_26.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22096B4F2986EC0B0072F4C6 /* level_26.txt */; };
 		2214055529A3E6CA0086DEC7 /* button.riv in Resources */ = {isa = PBXBuildFile; fileRef = 2214055429A3E6CA0086DEC7 /* button.riv */; };
 		2219CEA629EE7C61004B0402 /* CustomTransitionToExtendedCellMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2219CEA529EE7C61004B0402 /* CustomTransitionToExtendedCellMenu.swift */; };
+		222B18C729FADF0900F982D0 /* Shop3DCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18C529FADF0900F982D0 /* Shop3DCollectionViewCell.swift */; };
+		222B18C829FADF0900F982D0 /* Shop3DCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 222B18C629FADF0900F982D0 /* Shop3DCollectionViewCell.xib */; };
 		223BDB0F29AABE0F001CE63D /* AREndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */; };
 		223BDB1329AB4D07001CE63D /* ARPauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1229AB4D07001CE63D /* ARPauseScene.swift */; };
 		223BDB1529AB565C001CE63D /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1429AB565C001CE63D /* Plane.swift */; };
@@ -37,6 +39,49 @@
 		224F5C4D29865EE9005E8E47 /* level_14.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4929865EE9005E8E47 /* level_14.txt */; };
 		224F5C4E29865EE9005E8E47 /* level_16.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4A29865EE9005E8E47 /* level_16.txt */; };
 		2250A7212921846100E42F7E /* AnimatedParticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250A7202921846100E42F7E /* AnimatedParticles.swift */; };
+		2257547329FD97B0000C9A96 /* Particle-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257545029FD97AF000C9A96 /* Particle-5.png */; };
+		2257547429FD97B0000C9A96 /* Particle-5.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257545129FD97AF000C9A96 /* Particle-5.dae */; };
+		2257547529FD97B0000C9A96 /* Particle-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257545329FD97AF000C9A96 /* Particle-4.png */; };
+		2257547629FD97B0000C9A96 /* Particle-4.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257545429FD97AF000C9A96 /* Particle-4.dae */; };
+		2257547729FD97B0000C9A96 /* Particle-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257545629FD97AF000C9A96 /* Particle-3.png */; };
+		2257547829FD97B0000C9A96 /* Particle-3.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257545729FD97AF000C9A96 /* Particle-3.dae */; };
+		2257547929FD97B0000C9A96 /* Particle-11.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257545929FD97AF000C9A96 /* Particle-11.dae */; };
+		2257547A29FD97B0000C9A96 /* Particle-11Core.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257545A29FD97AF000C9A96 /* Particle-11Core.png */; };
+		2257547B29FD97B0000C9A96 /* Particle-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257545B29FD97AF000C9A96 /* Particle-11.png */; };
+		2257547C29FD97B0000C9A96 /* Particle-12.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257545D29FD97AF000C9A96 /* Particle-12.dae */; };
+		2257547D29FD97B0000C9A96 /* Particle-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257545E29FD97AF000C9A96 /* Particle-12.png */; };
+		2257547E29FD97B0000C9A96 /* Particle-6.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257546029FD97AF000C9A96 /* Particle-6.dae */; };
+		2257547F29FD97B0000C9A96 /* Particle-9.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257546229FD97AF000C9A96 /* Particle-9.dae */; };
+		2257548029FD97B0000C9A96 /* Particle-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257546329FD97AF000C9A96 /* Particle-9.png */; };
+		2257548129FD97B0000C9A96 /* Particle-8.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257546529FD97AF000C9A96 /* Particle-8.dae */; };
+		2257548229FD97B0000C9A96 /* Particle-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257546729FD97AF000C9A96 /* Particle-2.png */; };
+		2257548329FD97B0000C9A96 /* Particle-2.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257546829FD97AF000C9A96 /* Particle-2.dae */; };
+		2257548429FD97B0000C9A96 /* Particle-10.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257546A29FD97B0000C9A96 /* Particle-10.dae */; };
+		2257548529FD97B0000C9A96 /* Particle-10Core.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257546B29FD97B0000C9A96 /* Particle-10Core.png */; };
+		2257548629FD97B0000C9A96 /* Particle-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257546C29FD97B0000C9A96 /* Particle-10.png */; };
+		2257548729FD97B0000C9A96 /* Particle-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257546E29FD97B0000C9A96 /* Particle-1.png */; };
+		2257548829FD97B0000C9A96 /* Particle-1.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257546F29FD97B0000C9A96 /* Particle-1.dae */; };
+		2257548929FD97B0000C9A96 /* Particle-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257547129FD97B0000C9A96 /* Particle-7.png */; };
+		2257548A29FD97B0000C9A96 /* Particle-7.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257547229FD97B0000C9A96 /* Particle-7.dae */; };
+		2257548C29FE3FCB000C9A96 /* Shop3DCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2257548B29FE3FCB000C9A96 /* Shop3DCellData.swift */; };
+		225754A929FE462D000C9A96 /* Paddle-9Core.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257548E29FE462C000C9A96 /* Paddle-9Core.png */; };
+		225754AA29FE462D000C9A96 /* Paddle-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257548F29FE462C000C9A96 /* Paddle-9.png */; };
+		225754AB29FE462D000C9A96 /* Paddle-9.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257549029FE462C000C9A96 /* Paddle-9.dae */; };
+		225754AC29FE462D000C9A96 /* Paddle-3.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257549229FE462C000C9A96 /* Paddle-3.dae */; };
+		225754AD29FE462D000C9A96 /* Paddle-7.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257549429FE462C000C9A96 /* Paddle-7.dae */; };
+		225754AE29FE462D000C9A96 /* Paddle-6.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257549729FE462C000C9A96 /* Paddle-6.dae */; };
+		225754AF29FE462D000C9A96 /* Paddle-5.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257549929FE462C000C9A96 /* Paddle-5.dae */; };
+		225754B029FE462D000C9A96 /* Paddle-8.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257549B29FE462C000C9A96 /* Paddle-8.dae */; };
+		225754B129FE462D000C9A96 /* Paddle-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257549D29FE462C000C9A96 /* Paddle-10.png */; };
+		225754B229FE462D000C9A96 /* Paddle-10.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257549E29FE462C000C9A96 /* Paddle-10.dae */; };
+		225754B329FE462D000C9A96 /* Paddle-2.dae in Resources */ = {isa = PBXBuildFile; fileRef = 225754A029FE462C000C9A96 /* Paddle-2.dae */; };
+		225754B429FE462D000C9A96 /* Paddle-1.dae in Resources */ = {isa = PBXBuildFile; fileRef = 225754A229FE462C000C9A96 /* Paddle-1.dae */; };
+		225754B529FE462D000C9A96 /* Paddle-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 225754A429FE462D000C9A96 /* Paddle-12.png */; };
+		225754B629FE462D000C9A96 /* Paddle-12Core.png in Resources */ = {isa = PBXBuildFile; fileRef = 225754A529FE462D000C9A96 /* Paddle-12Core.png */; };
+		225754B729FE462D000C9A96 /* Paddle-12.dae in Resources */ = {isa = PBXBuildFile; fileRef = 225754A629FE462D000C9A96 /* Paddle-12.dae */; };
+		225754B829FE462D000C9A96 /* Paddle-4.dae in Resources */ = {isa = PBXBuildFile; fileRef = 225754A829FE462D000C9A96 /* Paddle-4.dae */; };
+		225754BC29FE94B3000C9A96 /* Paddle-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 225754BA29FE94B3000C9A96 /* Paddle-11.png */; };
+		225754BE29FEC677000C9A96 /* Paddle-11.dae in Resources */ = {isa = PBXBuildFile; fileRef = 225754BD29FEC677000C9A96 /* Paddle-11.dae */; };
 		226573EC29A61F070096A6D8 /* ShopPaddleTexturesViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226573EB29A61F070096A6D8 /* ShopPaddleTexturesViewController2D.swift */; };
 		226FF8B5292DD397001478E3 /* WinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226FF8B4292DD397001478E3 /* WinViewController.swift */; };
 		2275FA27288ACDCC0075AFD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2275FA26288ACDCC0075AFD6 /* AppDelegate.swift */; };
@@ -80,9 +125,9 @@
 		22B516CC29239465006B1B6F /* ARMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B516CB29239465006B1B6F /* ARMenuScene.swift */; };
 		22B76AE8296BD99A00588E83 /* ShopBallTexturesViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B76AE7296BD99A00588E83 /* ShopBallTexturesViewController2D.swift */; };
 		22B76AEA296BDA5000588E83 /* ShopParticlesViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B76AE9296BDA5000588E83 /* ShopParticlesViewController2D.swift */; };
-		22B8FF90297419A000F923DC /* ShopCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8FF8E297419A000F923DC /* ShopCollectionViewCell.swift */; };
-		22B8FF91297419A000F923DC /* ShopCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B8FF8F297419A000F923DC /* ShopCollectionViewCell.xib */; };
-		22B8FF9329741A3C00F923DC /* ShopCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8FF9229741A3C00F923DC /* ShopCellData.swift */; };
+		22B8FF90297419A000F923DC /* Shop2DCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8FF8E297419A000F923DC /* Shop2DCollectionViewCell.swift */; };
+		22B8FF91297419A000F923DC /* Shop2DCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B8FF8F297419A000F923DC /* Shop2DCollectionViewCell.xib */; };
+		22B8FF9329741A3C00F923DC /* Shop2DCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8FF9229741A3C00F923DC /* Shop2DCellData.swift */; };
 		22BE9A2F2893FD0700FB99D2 /* PauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE9A2E2893FD0700FB99D2 /* PauseScene.swift */; };
 		22BE9A32289597FC00FB99D2 /* LoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE9A31289597FC00FB99D2 /* LoseViewController.swift */; };
 		22BE9A35289665A200FB99D2 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE9A34289665A200FB99D2 /* EndGameScene.swift */; };
@@ -112,8 +157,8 @@
 		22F9D96D293BCD0500A5D776 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 22F9D96C293BCD0500A5D776 /* RiveRuntime */; };
 		22FBA99D29F99CDF008C6838 /* ShopViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */; };
 		22FBA99F29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */; };
-		22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController.swift */; };
-		22FBA9A329F9AA87008C6838 /* ShopPaddleTexturesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController.swift */; };
+		22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */; };
+		22FBA9A329F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -152,6 +197,8 @@
 		22096B4F2986EC0B0072F4C6 /* level_26.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_26.txt; sourceTree = "<group>"; };
 		2214055429A3E6CA0086DEC7 /* button.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = button.riv; sourceTree = "<group>"; };
 		2219CEA529EE7C61004B0402 /* CustomTransitionToExtendedCellMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTransitionToExtendedCellMenu.swift; sourceTree = "<group>"; };
+		222B18C529FADF0900F982D0 /* Shop3DCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop3DCollectionViewCell.swift; sourceTree = "<group>"; };
+		222B18C629FADF0900F982D0 /* Shop3DCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Shop3DCollectionViewCell.xib; sourceTree = "<group>"; };
 		223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREndGameScene.swift; sourceTree = "<group>"; };
 		223BDB1229AB4D07001CE63D /* ARPauseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPauseScene.swift; sourceTree = "<group>"; };
 		223BDB1429AB565C001CE63D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -164,6 +211,49 @@
 		224F5C4929865EE9005E8E47 /* level_14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_14.txt; sourceTree = "<group>"; };
 		224F5C4A29865EE9005E8E47 /* level_16.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_16.txt; sourceTree = "<group>"; };
 		2250A7202921846100E42F7E /* AnimatedParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedParticles.swift; sourceTree = "<group>"; };
+		2257545029FD97AF000C9A96 /* Particle-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-5.png"; sourceTree = "<group>"; };
+		2257545129FD97AF000C9A96 /* Particle-5.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-5.dae"; sourceTree = "<group>"; };
+		2257545329FD97AF000C9A96 /* Particle-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-4.png"; sourceTree = "<group>"; };
+		2257545429FD97AF000C9A96 /* Particle-4.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-4.dae"; sourceTree = "<group>"; };
+		2257545629FD97AF000C9A96 /* Particle-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-3.png"; sourceTree = "<group>"; };
+		2257545729FD97AF000C9A96 /* Particle-3.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-3.dae"; sourceTree = "<group>"; };
+		2257545929FD97AF000C9A96 /* Particle-11.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-11.dae"; sourceTree = "<group>"; };
+		2257545A29FD97AF000C9A96 /* Particle-11Core.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-11Core.png"; sourceTree = "<group>"; };
+		2257545B29FD97AF000C9A96 /* Particle-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-11.png"; sourceTree = "<group>"; };
+		2257545D29FD97AF000C9A96 /* Particle-12.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-12.dae"; sourceTree = "<group>"; };
+		2257545E29FD97AF000C9A96 /* Particle-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-12.png"; sourceTree = "<group>"; };
+		2257546029FD97AF000C9A96 /* Particle-6.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-6.dae"; sourceTree = "<group>"; };
+		2257546229FD97AF000C9A96 /* Particle-9.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-9.dae"; sourceTree = "<group>"; };
+		2257546329FD97AF000C9A96 /* Particle-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-9.png"; sourceTree = "<group>"; };
+		2257546529FD97AF000C9A96 /* Particle-8.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-8.dae"; sourceTree = "<group>"; };
+		2257546729FD97AF000C9A96 /* Particle-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-2.png"; sourceTree = "<group>"; };
+		2257546829FD97AF000C9A96 /* Particle-2.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-2.dae"; sourceTree = "<group>"; };
+		2257546A29FD97B0000C9A96 /* Particle-10.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-10.dae"; sourceTree = "<group>"; };
+		2257546B29FD97B0000C9A96 /* Particle-10Core.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-10Core.png"; sourceTree = "<group>"; };
+		2257546C29FD97B0000C9A96 /* Particle-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-10.png"; sourceTree = "<group>"; };
+		2257546E29FD97B0000C9A96 /* Particle-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-1.png"; sourceTree = "<group>"; };
+		2257546F29FD97B0000C9A96 /* Particle-1.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-1.dae"; sourceTree = "<group>"; };
+		2257547129FD97B0000C9A96 /* Particle-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-7.png"; sourceTree = "<group>"; };
+		2257547229FD97B0000C9A96 /* Particle-7.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-7.dae"; sourceTree = "<group>"; };
+		2257548B29FE3FCB000C9A96 /* Shop3DCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop3DCellData.swift; sourceTree = "<group>"; };
+		2257548E29FE462C000C9A96 /* Paddle-9Core.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Paddle-9Core.png"; sourceTree = "<group>"; };
+		2257548F29FE462C000C9A96 /* Paddle-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Paddle-9.png"; sourceTree = "<group>"; };
+		2257549029FE462C000C9A96 /* Paddle-9.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-9.dae"; sourceTree = "<group>"; };
+		2257549229FE462C000C9A96 /* Paddle-3.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-3.dae"; sourceTree = "<group>"; };
+		2257549429FE462C000C9A96 /* Paddle-7.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-7.dae"; sourceTree = "<group>"; };
+		2257549729FE462C000C9A96 /* Paddle-6.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-6.dae"; sourceTree = "<group>"; };
+		2257549929FE462C000C9A96 /* Paddle-5.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-5.dae"; sourceTree = "<group>"; };
+		2257549B29FE462C000C9A96 /* Paddle-8.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-8.dae"; sourceTree = "<group>"; };
+		2257549D29FE462C000C9A96 /* Paddle-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Paddle-10.png"; sourceTree = "<group>"; };
+		2257549E29FE462C000C9A96 /* Paddle-10.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-10.dae"; sourceTree = "<group>"; };
+		225754A029FE462C000C9A96 /* Paddle-2.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-2.dae"; sourceTree = "<group>"; };
+		225754A229FE462C000C9A96 /* Paddle-1.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-1.dae"; sourceTree = "<group>"; };
+		225754A429FE462D000C9A96 /* Paddle-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Paddle-12.png"; sourceTree = "<group>"; };
+		225754A529FE462D000C9A96 /* Paddle-12Core.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Paddle-12Core.png"; sourceTree = "<group>"; };
+		225754A629FE462D000C9A96 /* Paddle-12.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-12.dae"; sourceTree = "<group>"; };
+		225754A829FE462D000C9A96 /* Paddle-4.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-4.dae"; sourceTree = "<group>"; };
+		225754BA29FE94B3000C9A96 /* Paddle-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Paddle-11.png"; sourceTree = "<group>"; };
+		225754BD29FEC677000C9A96 /* Paddle-11.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Paddle-11.dae"; sourceTree = "<group>"; };
 		226573EB29A61F070096A6D8 /* ShopPaddleTexturesViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPaddleTexturesViewController2D.swift; sourceTree = "<group>"; };
 		226FF8B4292DD397001478E3 /* WinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinViewController.swift; sourceTree = "<group>"; };
 		2275FA23288ACDCC0075AFD6 /* Breakout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Breakout.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -210,9 +300,9 @@
 		22B516CB29239465006B1B6F /* ARMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMenuScene.swift; sourceTree = "<group>"; };
 		22B76AE7296BD99A00588E83 /* ShopBallTexturesViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBallTexturesViewController2D.swift; sourceTree = "<group>"; };
 		22B76AE9296BDA5000588E83 /* ShopParticlesViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParticlesViewController2D.swift; sourceTree = "<group>"; };
-		22B8FF8E297419A000F923DC /* ShopCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCollectionViewCell.swift; sourceTree = "<group>"; };
-		22B8FF8F297419A000F923DC /* ShopCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopCollectionViewCell.xib; sourceTree = "<group>"; };
-		22B8FF9229741A3C00F923DC /* ShopCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCellData.swift; sourceTree = "<group>"; };
+		22B8FF8E297419A000F923DC /* Shop2DCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop2DCollectionViewCell.swift; sourceTree = "<group>"; };
+		22B8FF8F297419A000F923DC /* Shop2DCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Shop2DCollectionViewCell.xib; sourceTree = "<group>"; };
+		22B8FF9229741A3C00F923DC /* Shop2DCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop2DCellData.swift; sourceTree = "<group>"; };
 		22BE9A2E2893FD0700FB99D2 /* PauseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseScene.swift; sourceTree = "<group>"; };
 		22BE9A31289597FC00FB99D2 /* LoseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoseViewController.swift; sourceTree = "<group>"; };
 		22BE9A34289665A200FB99D2 /* EndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameScene.swift; sourceTree = "<group>"; };
@@ -242,8 +332,8 @@
 		22F36F77296034D900059579 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController3D.swift; sourceTree = "<group>"; };
 		22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBallTexturesViewController3D.swift; sourceTree = "<group>"; };
-		22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParticleTexturesViewController.swift; sourceTree = "<group>"; };
-		22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPaddleTexturesViewController.swift; sourceTree = "<group>"; };
+		22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParticleTexturesViewController3D.swift; sourceTree = "<group>"; };
+		22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPaddleTexturesViewController3D.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,8 +398,9 @@
 			children = (
 				22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */,
 				22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */,
-				22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController.swift */,
-				22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController.swift */,
+				22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */,
+				22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift */,
+				222B18C429FADED400F982D0 /* 3DShopCollectionViewCell */,
 			);
 			path = 3D;
 			sourceTree = "<group>";
@@ -334,6 +425,18 @@
 		2219CEAA29F5B05A004B0402 /* Paddle */ = {
 			isa = PBXGroup;
 			children = (
+				225754A129FE462C000C9A96 /* 1 */,
+				2257549F29FE462C000C9A96 /* 2 */,
+				2257549129FE462C000C9A96 /* 3 */,
+				225754A729FE462D000C9A96 /* 4 */,
+				2257549829FE462C000C9A96 /* 5 */,
+				2257549629FE462C000C9A96 /* 6 */,
+				2257549329FE462C000C9A96 /* 7 */,
+				2257549A29FE462C000C9A96 /* 8 */,
+				2257548D29FE462C000C9A96 /* 9 */,
+				2257549C29FE462C000C9A96 /* 10 */,
+				2257549529FE462C000C9A96 /* 11 */,
+				225754A329FE462D000C9A96 /* 12 */,
 			);
 			path = Paddle;
 			sourceTree = "<group>";
@@ -341,8 +444,30 @@
 		2219CEAB29F5B062004B0402 /* Particles */ = {
 			isa = PBXGroup;
 			children = (
+				2257546D29FD97B0000C9A96 /* 1 */,
+				2257546629FD97AF000C9A96 /* 2 */,
+				2257545529FD97AF000C9A96 /* 3 */,
+				2257545229FD97AF000C9A96 /* 4 */,
+				2257544F29FD97AF000C9A96 /* 5 */,
+				2257545F29FD97AF000C9A96 /* 6 */,
+				2257547029FD97B0000C9A96 /* 7 */,
+				2257546429FD97AF000C9A96 /* 8 */,
+				2257546129FD97AF000C9A96 /* 9 */,
+				2257546929FD97B0000C9A96 /* 10 */,
+				2257545829FD97AF000C9A96 /* 11 */,
+				2257545C29FD97AF000C9A96 /* 12 */,
 			);
 			path = Particles;
+			sourceTree = "<group>";
+		};
+		222B18C429FADED400F982D0 /* 3DShopCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				2257548B29FE3FCB000C9A96 /* Shop3DCellData.swift */,
+				222B18C529FADF0900F982D0 /* Shop3DCollectionViewCell.swift */,
+				222B18C629FADF0900F982D0 /* Shop3DCollectionViewCell.xib */,
+			);
+			path = 3DShopCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		222D1B3E29240D1C009100C8 /* Pause */ = {
@@ -360,6 +485,216 @@
 				22D38B7729E58CE200BF1E1E /* test.dae */,
 			);
 			path = GameAssets;
+			sourceTree = "<group>";
+		};
+		2257544F29FD97AF000C9A96 /* 5 */ = {
+			isa = PBXGroup;
+			children = (
+				2257545029FD97AF000C9A96 /* Particle-5.png */,
+				2257545129FD97AF000C9A96 /* Particle-5.dae */,
+			);
+			path = 5;
+			sourceTree = "<group>";
+		};
+		2257545229FD97AF000C9A96 /* 4 */ = {
+			isa = PBXGroup;
+			children = (
+				2257545329FD97AF000C9A96 /* Particle-4.png */,
+				2257545429FD97AF000C9A96 /* Particle-4.dae */,
+			);
+			path = 4;
+			sourceTree = "<group>";
+		};
+		2257545529FD97AF000C9A96 /* 3 */ = {
+			isa = PBXGroup;
+			children = (
+				2257545629FD97AF000C9A96 /* Particle-3.png */,
+				2257545729FD97AF000C9A96 /* Particle-3.dae */,
+			);
+			path = 3;
+			sourceTree = "<group>";
+		};
+		2257545829FD97AF000C9A96 /* 11 */ = {
+			isa = PBXGroup;
+			children = (
+				2257545929FD97AF000C9A96 /* Particle-11.dae */,
+				2257545A29FD97AF000C9A96 /* Particle-11Core.png */,
+				2257545B29FD97AF000C9A96 /* Particle-11.png */,
+			);
+			path = 11;
+			sourceTree = "<group>";
+		};
+		2257545C29FD97AF000C9A96 /* 12 */ = {
+			isa = PBXGroup;
+			children = (
+				2257545D29FD97AF000C9A96 /* Particle-12.dae */,
+				2257545E29FD97AF000C9A96 /* Particle-12.png */,
+			);
+			path = 12;
+			sourceTree = "<group>";
+		};
+		2257545F29FD97AF000C9A96 /* 6 */ = {
+			isa = PBXGroup;
+			children = (
+				2257546029FD97AF000C9A96 /* Particle-6.dae */,
+			);
+			path = 6;
+			sourceTree = "<group>";
+		};
+		2257546129FD97AF000C9A96 /* 9 */ = {
+			isa = PBXGroup;
+			children = (
+				2257546229FD97AF000C9A96 /* Particle-9.dae */,
+				2257546329FD97AF000C9A96 /* Particle-9.png */,
+			);
+			path = 9;
+			sourceTree = "<group>";
+		};
+		2257546429FD97AF000C9A96 /* 8 */ = {
+			isa = PBXGroup;
+			children = (
+				2257546529FD97AF000C9A96 /* Particle-8.dae */,
+			);
+			path = 8;
+			sourceTree = "<group>";
+		};
+		2257546629FD97AF000C9A96 /* 2 */ = {
+			isa = PBXGroup;
+			children = (
+				2257546729FD97AF000C9A96 /* Particle-2.png */,
+				2257546829FD97AF000C9A96 /* Particle-2.dae */,
+			);
+			path = 2;
+			sourceTree = "<group>";
+		};
+		2257546929FD97B0000C9A96 /* 10 */ = {
+			isa = PBXGroup;
+			children = (
+				2257546A29FD97B0000C9A96 /* Particle-10.dae */,
+				2257546B29FD97B0000C9A96 /* Particle-10Core.png */,
+				2257546C29FD97B0000C9A96 /* Particle-10.png */,
+			);
+			path = 10;
+			sourceTree = "<group>";
+		};
+		2257546D29FD97B0000C9A96 /* 1 */ = {
+			isa = PBXGroup;
+			children = (
+				2257546E29FD97B0000C9A96 /* Particle-1.png */,
+				2257546F29FD97B0000C9A96 /* Particle-1.dae */,
+			);
+			path = 1;
+			sourceTree = "<group>";
+		};
+		2257547029FD97B0000C9A96 /* 7 */ = {
+			isa = PBXGroup;
+			children = (
+				2257547129FD97B0000C9A96 /* Particle-7.png */,
+				2257547229FD97B0000C9A96 /* Particle-7.dae */,
+			);
+			path = 7;
+			sourceTree = "<group>";
+		};
+		2257548D29FE462C000C9A96 /* 9 */ = {
+			isa = PBXGroup;
+			children = (
+				2257548E29FE462C000C9A96 /* Paddle-9Core.png */,
+				2257548F29FE462C000C9A96 /* Paddle-9.png */,
+				2257549029FE462C000C9A96 /* Paddle-9.dae */,
+			);
+			path = 9;
+			sourceTree = "<group>";
+		};
+		2257549129FE462C000C9A96 /* 3 */ = {
+			isa = PBXGroup;
+			children = (
+				2257549229FE462C000C9A96 /* Paddle-3.dae */,
+			);
+			path = 3;
+			sourceTree = "<group>";
+		};
+		2257549329FE462C000C9A96 /* 7 */ = {
+			isa = PBXGroup;
+			children = (
+				2257549429FE462C000C9A96 /* Paddle-7.dae */,
+			);
+			path = 7;
+			sourceTree = "<group>";
+		};
+		2257549529FE462C000C9A96 /* 11 */ = {
+			isa = PBXGroup;
+			children = (
+				225754BA29FE94B3000C9A96 /* Paddle-11.png */,
+				225754BD29FEC677000C9A96 /* Paddle-11.dae */,
+			);
+			path = 11;
+			sourceTree = "<group>";
+		};
+		2257549629FE462C000C9A96 /* 6 */ = {
+			isa = PBXGroup;
+			children = (
+				2257549729FE462C000C9A96 /* Paddle-6.dae */,
+			);
+			path = 6;
+			sourceTree = "<group>";
+		};
+		2257549829FE462C000C9A96 /* 5 */ = {
+			isa = PBXGroup;
+			children = (
+				2257549929FE462C000C9A96 /* Paddle-5.dae */,
+			);
+			path = 5;
+			sourceTree = "<group>";
+		};
+		2257549A29FE462C000C9A96 /* 8 */ = {
+			isa = PBXGroup;
+			children = (
+				2257549B29FE462C000C9A96 /* Paddle-8.dae */,
+			);
+			path = 8;
+			sourceTree = "<group>";
+		};
+		2257549C29FE462C000C9A96 /* 10 */ = {
+			isa = PBXGroup;
+			children = (
+				2257549D29FE462C000C9A96 /* Paddle-10.png */,
+				2257549E29FE462C000C9A96 /* Paddle-10.dae */,
+			);
+			path = 10;
+			sourceTree = "<group>";
+		};
+		2257549F29FE462C000C9A96 /* 2 */ = {
+			isa = PBXGroup;
+			children = (
+				225754A029FE462C000C9A96 /* Paddle-2.dae */,
+			);
+			path = 2;
+			sourceTree = "<group>";
+		};
+		225754A129FE462C000C9A96 /* 1 */ = {
+			isa = PBXGroup;
+			children = (
+				225754A229FE462C000C9A96 /* Paddle-1.dae */,
+			);
+			path = 1;
+			sourceTree = "<group>";
+		};
+		225754A329FE462D000C9A96 /* 12 */ = {
+			isa = PBXGroup;
+			children = (
+				225754A429FE462D000C9A96 /* Paddle-12.png */,
+				225754A529FE462D000C9A96 /* Paddle-12Core.png */,
+				225754A629FE462D000C9A96 /* Paddle-12.dae */,
+			);
+			path = 12;
+			sourceTree = "<group>";
+		};
+		225754A729FE462D000C9A96 /* 4 */ = {
+			isa = PBXGroup;
+			children = (
+				225754A829FE462D000C9A96 /* Paddle-4.dae */,
+			);
+			path = 4;
 			sourceTree = "<group>";
 		};
 		2275FA1A288ACDCC0075AFD6 = {
@@ -551,9 +886,9 @@
 		22B8FF8D2974198400F923DC /* ShopCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				22B8FF9229741A3C00F923DC /* ShopCellData.swift */,
-				22B8FF8E297419A000F923DC /* ShopCollectionViewCell.swift */,
-				22B8FF8F297419A000F923DC /* ShopCollectionViewCell.xib */,
+				22B8FF9229741A3C00F923DC /* Shop2DCellData.swift */,
+				22B8FF8E297419A000F923DC /* Shop2DCollectionViewCell.swift */,
+				22B8FF8F297419A000F923DC /* Shop2DCollectionViewCell.xib */,
 			);
 			path = ShopCollectionViewCell;
 			sourceTree = "<group>";
@@ -762,49 +1097,92 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2257548129FD97B0000C9A96 /* Particle-8.dae in Resources */,
 				22D38B7829E58CE200BF1E1E /* test.dae in Resources */,
+				2257548A29FD97B0000C9A96 /* Particle-7.dae in Resources */,
 				224F5C4529865EE2005E8E47 /* level_12.txt in Resources */,
 				2275FA66288ACF370075AFD6 /* Actions.sks in Resources */,
+				2257548629FD97B0000C9A96 /* Particle-10.png in Resources */,
 				22F20C0828BE045E00415CE5 /* level_1.txt in Resources */,
+				2257547429FD97B0000C9A96 /* Particle-5.dae in Resources */,
+				225754B729FE462D000C9A96 /* Paddle-12.dae in Resources */,
 				22096B532986EC0B0072F4C6 /* level_27.txt in Resources */,
 				22096B422986E0AA0072F4C6 /* ARLevelsMenuCollectionViewCell.xib in Resources */,
 				22406F7629D47C1B00D3313F /* background.riv in Resources */,
 				22096B502986EC0B0072F4C6 /* level_30.txt in Resources */,
 				22F20C0728BE045E00415CE5 /* level_5.txt in Resources */,
+				222B18C829FADF0900F982D0 /* Shop3DCollectionViewCell.xib in Resources */,
+				2257547929FD97B0000C9A96 /* Particle-11.dae in Resources */,
+				2257547629FD97B0000C9A96 /* Particle-4.dae in Resources */,
+				225754B129FE462D000C9A96 /* Paddle-10.png in Resources */,
+				225754B629FE462D000C9A96 /* Paddle-12Core.png in Resources */,
 				22F20C0A28BE045E00415CE5 /* level_3.txt in Resources */,
+				2257548529FD97B0000C9A96 /* Particle-10Core.png in Resources */,
 				22096B522986EC0B0072F4C6 /* level_20.txt in Resources */,
+				225754B529FE462D000C9A96 /* Paddle-12.png in Resources */,
+				225754B829FE462D000C9A96 /* Paddle-4.dae in Resources */,
+				2257547B29FD97B0000C9A96 /* Particle-11.png in Resources */,
+				2257548929FD97B0000C9A96 /* Particle-7.png in Resources */,
 				22096B512986EC0B0072F4C6 /* level_18.txt in Resources */,
+				2257548829FD97B0000C9A96 /* Particle-1.dae in Resources */,
 				22D38B7A29E58DB000BF1E1E /* arbackground.riv in Resources */,
 				22F200FD29DB2FAD000C6843 /* pausemenu.riv in Resources */,
 				224F5C4C29865EE9005E8E47 /* level_17.txt in Resources */,
 				22F20C0E28BE045E00415CE5 /* level_4.txt in Resources */,
+				225754BE29FEC677000C9A96 /* Paddle-11.dae in Resources */,
 				224F5C4D29865EE9005E8E47 /* level_14.txt in Resources */,
 				2275FA32288ACDCC0075AFD6 /* Main.storyboard in Resources */,
 				224F5C4B29865EE9005E8E47 /* level_15.txt in Resources */,
 				22096B552986EC0B0072F4C6 /* level_19.txt in Resources */,
+				2257547729FD97B0000C9A96 /* Particle-3.png in Resources */,
+				2257547329FD97B0000C9A96 /* Particle-5.png in Resources */,
 				2275FA34288ACDCD0075AFD6 /* Assets.xcassets in Resources */,
+				2257548729FD97B0000C9A96 /* Particle-1.png in Resources */,
+				2257547829FD97B0000C9A96 /* Particle-3.dae in Resources */,
 				224F5C4429865EE2005E8E47 /* level_11.txt in Resources */,
 				22AB8CCE2985A5E8009A50F1 /* LevelsMenuCollectionViewCell.xib in Resources */,
+				2257547A29FD97B0000C9A96 /* Particle-11Core.png in Resources */,
 				22096B5C2986EC0B0072F4C6 /* level_26.txt in Resources */,
 				22F20C0F28BE045E00415CE5 /* level_7.txt in Resources */,
 				2214055529A3E6CA0086DEC7 /* button.riv in Resources */,
+				2257548229FD97B0000C9A96 /* Particle-2.png in Resources */,
+				225754B429FE462D000C9A96 /* Paddle-1.dae in Resources */,
+				2257548429FD97B0000C9A96 /* Particle-10.dae in Resources */,
 				2275FA37288ACDCD0075AFD6 /* LaunchScreen.storyboard in Resources */,
+				225754A929FE462D000C9A96 /* Paddle-9Core.png in Resources */,
 				22F20C0D28BE045E00415CE5 /* level_10.txt in Resources */,
+				225754AD29FE462D000C9A96 /* Paddle-7.dae in Resources */,
+				225754BC29FE94B3000C9A96 /* Paddle-11.png in Resources */,
 				224F5C4E29865EE9005E8E47 /* level_16.txt in Resources */,
 				224F5C4629865EE2005E8E47 /* level_13.txt in Resources */,
+				2257547F29FD97B0000C9A96 /* Particle-9.dae in Resources */,
 				22F20C1028BE045E00415CE5 /* level_8.txt in Resources */,
+				225754AA29FE462D000C9A96 /* Paddle-9.png in Resources */,
 				22096B5A2986EC0B0072F4C6 /* level_22.txt in Resources */,
+				2257547D29FD97B0000C9A96 /* Particle-12.png in Resources */,
 				22F20C0C28BE045E00415CE5 /* level_9.txt in Resources */,
-				22B8FF91297419A000F923DC /* ShopCollectionViewCell.xib in Resources */,
+				22B8FF91297419A000F923DC /* Shop2DCollectionViewCell.xib in Resources */,
 				22096B562986EC0B0072F4C6 /* level_28.txt in Resources */,
+				225754B229FE462D000C9A96 /* Paddle-10.dae in Resources */,
+				2257547E29FD97B0000C9A96 /* Particle-6.dae in Resources */,
+				225754AB29FE462D000C9A96 /* Paddle-9.dae in Resources */,
+				2257548329FD97B0000C9A96 /* Particle-2.dae in Resources */,
 				22E4719F29A2079E00C41084 /* Bungee-Regular.ttf in Resources */,
 				22096B5B2986EC0B0072F4C6 /* level_23.txt in Resources */,
+				225754AC29FE462D000C9A96 /* Paddle-3.dae in Resources */,
 				22096B582986EC0B0072F4C6 /* level_21.txt in Resources */,
 				22096B572986EC0B0072F4C6 /* level_25.txt in Resources */,
 				22F20C0B28BE045E00415CE5 /* level_6.txt in Resources */,
+				225754AE29FE462D000C9A96 /* Paddle-6.dae in Resources */,
+				2257547529FD97B0000C9A96 /* Particle-4.png in Resources */,
 				22096B542986EC0B0072F4C6 /* level_29.txt in Resources */,
+				225754B329FE462D000C9A96 /* Paddle-2.dae in Resources */,
 				22096B592986EC0B0072F4C6 /* level_24.txt in Resources */,
 				22F20C0928BE045E00415CE5 /* level_2.txt in Resources */,
+				2257547C29FD97B0000C9A96 /* Particle-12.dae in Resources */,
+				2257548029FD97B0000C9A96 /* Particle-9.png in Resources */,
+				225754AF29FE462D000C9A96 /* Paddle-5.dae in Resources */,
+				225754B029FE462D000C9A96 /* Paddle-8.dae in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,8 +1223,8 @@
 				2293A9F4296248A30066279B /* UserCustomization.swift in Sources */,
 				22B516BB29238AB7006B1B6F /* Level3D.swift in Sources */,
 				22784E6A28BBF85E001C3E61 /* Level2D.swift in Sources */,
-				22B8FF9329741A3C00F923DC /* ShopCellData.swift in Sources */,
-				22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController.swift in Sources */,
+				22B8FF9329741A3C00F923DC /* Shop2DCellData.swift in Sources */,
+				22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift in Sources */,
 				22784E6828BBF4A2001C3E61 /* Particle2D.swift in Sources */,
 				22B516C229238AB7006B1B6F /* Paddle3D.swift in Sources */,
 				22D38B7D29E821DC00BF1E1E /* ExtendedCellMenuScene.swift in Sources */,
@@ -865,15 +1243,16 @@
 				2275FA64288ACEE60075AFD6 /* MenuScene.swift in Sources */,
 				2275FA60288ACEC80075AFD6 /* GameScene.swift in Sources */,
 				22B76AE8296BD99A00588E83 /* ShopBallTexturesViewController2D.swift in Sources */,
+				222B18C729FADF0900F982D0 /* Shop3DCollectionViewCell.swift in Sources */,
 				22B76AEA296BDA5000588E83 /* ShopParticlesViewController2D.swift in Sources */,
-				22B8FF90297419A000F923DC /* ShopCollectionViewCell.swift in Sources */,
+				22B8FF90297419A000F923DC /* Shop2DCollectionViewCell.swift in Sources */,
 				22F36F78296034D900059579 /* SettingsViewController.swift in Sources */,
 				22B516C129238AB7006B1B6F /* Ball3D.swift in Sources */,
 				223BDB1529AB565C001CE63D /* Plane.swift in Sources */,
 				22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */,
 				22D38B7629E56B1B00BF1E1E /* BackgroundBallsAnimation.swift in Sources */,
 				2293A9EE29610DE50066279B /* HapticManager.swift in Sources */,
-				22FBA9A329F9AA87008C6838 /* ShopPaddleTexturesViewController.swift in Sources */,
+				22FBA9A329F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift in Sources */,
 				22096B412986E0AA0072F4C6 /* ARLevelsMenuCollectionViewCell.swift in Sources */,
 				22B516C029238AB7006B1B6F /* Brick3D.swift in Sources */,
 				22CF24FF28BBB0FA00306926 /* Paddle2D.swift in Sources */,
@@ -886,6 +1265,7 @@
 				2275FA5C288ACE320075AFD6 /* Brick2D.swift in Sources */,
 				22A6607229E2A8DB00871FB2 /* CellMenuViewController.swift in Sources */,
 				226FF8B5292DD397001478E3 /* WinViewController.swift in Sources */,
+				2257548C29FE3FCB000C9A96 /* Shop3DCellData.swift in Sources */,
 				22AB8CC22983ED8C009A50F1 /* GradientImage.swift in Sources */,
 				22BE9A32289597FC00FB99D2 /* LoseViewController.swift in Sources */,
 				22B516C729238AB7006B1B6F /* ARGameViewController.swift in Sources */,

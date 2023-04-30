@@ -124,6 +124,9 @@ class MenuViewController: UIViewController {
         Ball2D.initializeBallSkins()
         Particle2D.initializeParticleSkins()
         Paddle2D.initializePaddleSkins()
+        
+        Paddle3D.initializePaddleSkins()
+        Particle3D.initializeParticleSkins()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
