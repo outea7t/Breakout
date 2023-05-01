@@ -33,7 +33,7 @@ struct UserCustomization {
     /// количество существующих в игре скинов для частичек 3D
     public static var _3DmaxParticleSkinIndex: Int = 12
     /// количество существующих в игре скинов для мячей 3D
-    public static var _3DmaxBallSkinIndex: Int = 0
+    public static var _3DmaxBallSkinIndex: Int = 12
     /// количество существующих в игре скинов для ракеток 3D
     public static var _3DmaxPaddleSkinIndex: Int = 12
     

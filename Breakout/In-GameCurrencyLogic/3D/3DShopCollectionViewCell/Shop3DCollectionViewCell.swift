@@ -33,7 +33,6 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
     var borderWidth: CGFloat = 0.0
     private weak var model: SCNNode?
     
-    
     func setup(with data: Shop3DCellData) {
         self.price = data.price
         self.id = data.id
@@ -52,17 +51,30 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
 //         считаем размер рамки (появляется, когда мы выбираем скин)
         self.borderWidth = CGFloat(self.bounds.width/12.5)
         
-        
-        self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.175)
-        self.model?.eulerAngles = SCNVector3(Float.pi/2, 0, 0)
+        if data.textureType == .particles {
+            self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.175)
+        } else if data.textureType == .paddle {
+            self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.3)
+        } else if data.textureType == .ball {
+            self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.05)
+        }
+        if data.textureType != .ball {
+            self.model?.eulerAngles = SCNVector3(Float.pi/2, 0, 0)
+        }
 
         guard let model = self.model else {
             return
         }
         if !model.hasActions {
-            let rotateAction = SCNAction.rotate(by: .pi/2, around: SCNVector3(0, 1, 0), duration: 2.0)
-            let cycleRotating = SCNAction.repeatForever(rotateAction)
-            model.runAction(cycleRotating)
+            if data.textureType == .particles || data.textureType == .ball {
+                let rotateAction = SCNAction.rotate(by: .pi/2, around: SCNVector3(0, 1, 0), duration: 2.0)
+                let cycleRotating = SCNAction.repeatForever(rotateAction)
+                model.runAction(cycleRotating)
+            } else {
+                let rotateAction = SCNAction.rotate(by: .pi/2, around: SCNVector3(1, 0, 0), duration: 2.0)
+                let cycleRotating = SCNAction.repeatForever(rotateAction)
+                model.runAction(cycleRotating)
+            }
         }
         self.scnView.scene?.rootNode.addChildNode(data.model)
         

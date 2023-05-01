@@ -1234,7 +1234,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="backButtonPressed:" destination="PXT-2B-A8m" eventType="touchUpInside" id="Tht-Ca-mqM"/>
+                                            <action selector="backButtonPressed:" destination="PXT-2B-A8m" eventType="touchUpInside" id="d7w-cH-kYw"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czz-eG-qR0" userLabel="UserMoney">
@@ -1303,6 +1303,12 @@
                     <tabBarItem key="tabBarItem" title="" image="BallUnselected" selectedImage="BallSelected" id="Mlu-dX-7dT">
                         <inset key="imageInsets" minX="0.0" minY="12" maxX="0.0" maxY="-10"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="backButton" destination="ijs-3S-f63" id="2tQ-iB-4PP"/>
+                        <outlet property="collectionView" destination="me5-23-Nkk" id="q9G-bu-Sdg"/>
+                        <outlet property="headerTopView" destination="uZc-ag-9pn" id="aGd-Yq-uHQ"/>
+                        <outlet property="userMoneyLabel" destination="czz-eG-qR0" id="SHX-O4-RhH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9y-M9-Ozm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1893,7 +1899,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="backButtonPressed:" destination="eqj-P0-daD" eventType="touchUpInside" id="Umz-Wa-d6v"/>
+                                            <action selector="backButtonPressed:" destination="eqj-P0-daD" eventType="touchUpInside" id="cSG-ws-es2"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gs-q3-xNF" userLabel="UserMoney">
@@ -1962,6 +1968,12 @@
                     <tabBarItem key="tabBarItem" title="" image="PaddleUnselected" selectedImage="PaddleSelected" id="TIU-M9-3WJ">
                         <inset key="imageInsets" minX="0.0" minY="14" maxX="0.0" maxY="-10"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="backButton" destination="FYI-F5-cVf" id="dWF-mH-evs"/>
+                        <outlet property="collectionView" destination="Wpp-21-mzW" id="0O4-Uf-LFf"/>
+                        <outlet property="headerTopView" destination="sOM-kh-9ir" id="uPf-3r-fja"/>
+                        <outlet property="userMoneyLabel" destination="4gs-q3-xNF" id="IT2-ja-IIy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jsU-ur-t05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
