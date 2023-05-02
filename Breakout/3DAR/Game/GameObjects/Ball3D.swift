@@ -20,7 +20,6 @@ struct Ball3D {
     private let plateBitmask:       Int = 0x1 << 6 // 64
     private let bonusBitMask:       Int = 0x1 << 7 // 128
     
-    
     /// константа, которая используется для нормального уменьшения длины вектора скорости во время изменения размера сцены
     let constantOfBallLengthVelocity: Float = 0.5
     /// константа, на которую умножается скорость мяча, чтобы она оставалась постоянной
@@ -37,6 +36,7 @@ struct Ball3D {
     
     var isAttachedToPaddle = true
     
+    private static var ballSkins = [SCNNode]()
     init(radius: Float) {
         // настройка мяча
         // делаем размер мяча зависимым от размера экрана
@@ -71,7 +71,7 @@ struct Ball3D {
     }
     
     // обновляем позицию и скорость мяча
-    mutating func update(paddle: Paddle3D) {
+    mutating func update(paddle: Paddle3D, frame: Frame3D) {
         // скорость мяча по оси ординат всегда должна быть равна 0 (иначе есть шанс, что он улетит в небо)
         let x = ball.presentation.position.x.isNaN
         let y = ball.presentation.position.y.isNaN
@@ -92,8 +92,12 @@ struct Ball3D {
                                                 self.ballRadius*1.5,
                                                 paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius)*1.2)
             }
-            
         } else {
+            if self.ball.position.y != 1.5*self.ballRadius {
+                self.ball.position.y = 1.5 * self.ballRadius
+            }
+            print(self.ball.physicsBody?.velocity)
+//            print(self.ball.presentation.position)
             
             // поправляем работу sceneKit и если мяч сильно замедляется или сильно ускоряется, то данный алгоритм нормализует скорость мяча
             if let currentBallVelocity = self.ball.physicsBody?.velocity {
@@ -133,6 +137,31 @@ struct Ball3D {
         self.lengthOfBallVelocityConstant = self.constantOfBallLengthVelocity*scaleFactor
     }
     
+    func setBallSkin() {
+        if !UserCustomization._3DbuyedBallSkinIndexes.isEmpty && UserCustomization._3DballSkinIndex < Ball3D.ballSkins.count {
+            let material = SCNMaterial()
+            if let skinToDelete = self.ball.childNode(withName: "Ball", recursively: true) {
+                skinToDelete.removeFromParentNode()
+            }
+            self.ball.geometry?.materials.first?.diffuse.contents = UIColor.clear
+//            self.ball.geometry?.materials.first?.diffuse = UIColor.clear
+            let choosedSkinIndex = UserCustomization._3DballSkinIndex
+            let choosedModel = Ball3D.ballSkins[choosedSkinIndex]
+            choosedModel.position = SCNVector3()
+            self.ball.addChildNode(choosedModel)
+        }
+    }
+    static func initializeBallSkins() {
+        for i in 1...UserCustomization._3DmaxBallSkinIndex {
+            guard let scene = SCNScene(named: "Ball-\(i).dae") else {
+                return
+            }
+            guard let model = scene.rootNode.childNode(withName: "Ball", recursively: true) else {
+                return
+            }
+            Ball3D.ballSkins.append(model)
+        }
+    }
     
 }
 

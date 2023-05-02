@@ -14,7 +14,6 @@ class MenuViewController: UIViewController {
     // сцена с меню
     var menuScene: MenuScene?
     
-    
     // кнопки из меню (чтобы их изменять немного)
     @IBOutlet weak var levelsButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
@@ -34,7 +33,6 @@ class MenuViewController: UIViewController {
         self.backgroundViewModel.setView(self.backgroundView)
         self.backgroundViewModel.play(animationName: "backAnimation", loop: .loop)
         
-        
         self.backgroundViewModel.alignment = .center
         self.backgroundViewModel.fit = .fill
         self.view.addSubview(self.backgroundView)
@@ -42,21 +40,6 @@ class MenuViewController: UIViewController {
         
         self.backgroundView.frame = self.view.bounds
         self.backgroundView.center = self.view.center
-        
-        
-        
-//        let image = UIImage(named: "Main.png")!
-//        let imageView = UIImageView(frame: self.view.bounds)
-//
-//        imageView.image = image
-//        imageView.frame.size = CGSize(width: imageView.frame.width * 1.05,
-//                                      height: imageView.frame.height * 1.05)
-//        imageView.contentMode = .scaleAspectFit
-//        imageView.center = self.view.center
-        
-        
-//        self.view.addSubview(imageView)
-//        self.view.sendSubviewToBack(imageView)
         
         if let view = self.view.viewWithTag(1) as? SKView {
             view.backgroundColor = .clear
@@ -75,22 +58,6 @@ class MenuViewController: UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
         }
-        
-        
-        // настраиваем кнопки (чтобы были красивее, однако я все равно хочу их в райве потом еще более красивыми сделать, так что ххз зачем я этим сейчас занимаюсь)
-        
-//        let buttonRiveView = RiveView()
-//        let buttonRiveViewModel = RiveViewModel(fileName: "button")
-//
-//        buttonRiveViewModel.setView(buttonRiveView)
-//        buttonRiveViewModel.play(loop: .loop)
-//
-//        self.levelsButton.addSubview(buttonRiveView)
-//        self.levelsButton.sendSubviewToBack(buttonRiveView)
-//        buttonRiveView.frame = self.levelsButton.bounds
-//        buttonRiveView.center = self.levelsButton.center
-//
-//        self.levelsButton.contentMode = .scaleToFill
         
         self.levelsButton.layer.shadowOpacity = 1.0
         self.levelsButton.layer.shadowColor = #colorLiteral(red: 0.03684008494, green: 0.002703937935, blue: 0.0810591206, alpha: 1)
@@ -127,6 +94,7 @@ class MenuViewController: UIViewController {
         
         Paddle3D.initializePaddleSkins()
         Particle3D.initializeParticleSkins()
+        Ball3D.initializeBallSkins()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

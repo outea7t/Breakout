@@ -124,9 +124,12 @@ struct Paddle3D {
     
     func setPaddleSkin() {
         if !UserCustomization._3DbuyedPaddleSkinIndexes.isEmpty && UserCustomization._3DpaddleSkinIndex < Paddle3D.paddleSkins.count {
-            let currentPaddleSkin = Paddle3D.paddleSkins[UserCustomization._3DpaddleSkinIndex]
+            if let skinToDelete = self.paddle.childNode(withName: "Paddle", recursively: true) {
+                skinToDelete.removeFromParentNode()
+            }
             let choosedSkinIndex = UserCustomization._3DpaddleSkinIndex
             let choosedModel = Paddle3D.paddleSkins[choosedSkinIndex]
+            choosedModel.position = SCNVector3()
             self.paddle.addChildNode(choosedModel)
         }
     }
@@ -138,6 +141,7 @@ struct Paddle3D {
             guard let model = scene.rootNode.childNode(withName: "Paddle", recursively: true) else {
                 return
             }
+            model.transform = SCNMatrix4Scale(model.transform, 0.4, 0.5, 0.5)
             Paddle3D.paddleSkins.append(model)
         }
     }

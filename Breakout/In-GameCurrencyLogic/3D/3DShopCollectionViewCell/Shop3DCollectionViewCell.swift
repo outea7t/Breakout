@@ -188,7 +188,7 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
         omniLight.color = UIColor.white
         omniLight.intensity = 1000
         omniLightNode.light = omniLight
-        omniLightNode.position = SCNVector3(0.0, 0.5, -0.5)
+        omniLightNode.position = SCNVector3(0.0, 0.15, 0.0)
         self.scnView.scene?.rootNode.addChildNode(omniLightNode)
         
         let ambientLightNode = SCNNode()

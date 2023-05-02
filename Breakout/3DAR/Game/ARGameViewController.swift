@@ -276,6 +276,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
 //                                                  destinationPlatePosition.z - 0.4)
         
         frame.plate.runAction(moveAction)
+//        self.ball?.ball.position.y = destinationPlatePosition.y
 //        let lightMoveAction = SCNAction.move(to: destinationLightPosition, duration: 0.0001)
 //        self.light.runAction(lightMoveAction)
     }
@@ -413,7 +414,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             return
         }
             
-        self.ball?.update(paddle: paddle)
+        self.ball?.update(paddle: paddle, frame: frame)
         paddle.update(frame: frame, isBallAttachedToPaddle: ball.isAttachedToPaddle)
         
         
@@ -925,6 +926,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         self.paddle?.setPaddleSkin()
         self.particle?.setParticlesSkin()
+        self.ball?.setBallSkin()
     }
     /// ставит игру на паузу
     func pauseGame() {
@@ -941,6 +943,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         self.paddle?.setPaddleSkin()
         self.particle?.setParticlesSkin()
+        self.ball?.setBallSkin()
     }
     /// перезагружаем уровень (например, когда мы закончили проходить уровень)
     func resetObjects() {

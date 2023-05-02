@@ -101,9 +101,9 @@ struct Particle3D {
         frame.plate.addChildNode(particle)
         
         let fadeOut = SCNAction.fadeOut(duration: 1.0)
-//        let rotation = SCNAction.rotate(by: 1.0,
-//                                        around: SCNVector3(0.0, 1.0, 0.0),
-//                                        duration: 2.0)
+        let rotation = SCNAction.rotate(by: .pi,
+                                        around: SCNVector3(0.0, 1.0, 0.0),
+                                        duration: 2.0)
         
         var moveAction = SCNAction.wait(duration: 2.0)
         if let v = ball.physicsBody?.velocity {
@@ -114,7 +114,7 @@ struct Particle3D {
         }
         particle.runAction(SCNAction.group([
             fadeOut,
-//            rotation,
+            rotation,
             moveAction
         ]))
         
@@ -122,7 +122,9 @@ struct Particle3D {
     
     mutating func setParticlesSkin() {
         if !UserCustomization._3DbuyedParticlesSkinIndexes.isEmpty && UserCustomization._3DparticleSkinIndex < Particle3D.particleSkins.count {
-            
+            if let skinToDelete = self.particle.childNode(withName: "Particle", recursively: true) {
+                skinToDelete.removeFromParentNode()
+            }
             self.particle.childNode(withName: "Particle", recursively: true)?.removeFromParentNode()
             let choosedSkinIndex = UserCustomization._3DparticleSkinIndex
             let choosedModel = Particle3D.particleSkins[choosedSkinIndex]

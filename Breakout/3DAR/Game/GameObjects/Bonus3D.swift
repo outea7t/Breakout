@@ -43,7 +43,7 @@ struct Bonus3D {
         frame: Frame3D,
         position: SCNVector3
     ) {
-
+        
         self.position = position
         self.color = .white
 
@@ -64,18 +64,53 @@ struct Bonus3D {
         } else {
             self.type = .addLive
         }
+        let ballSpeedBonusScene = SCNScene(named: "Bonus-BallSpeed.dae")!
+        let ballSpeedBonusModel = ballSpeedBonusScene.rootNode.childNode(withName: "Bonus", recursively: true)!
+        ballSpeedBonusModel.position = SCNVector3()
+        ballSpeedBonusModel.transform = SCNMatrix4Scale(ballSpeedBonusModel.transform,
+                                                        0.35,
+                                                        0.35,
+                                                        0.35)
+        
+        let liveBonusScene = SCNScene(named: "Bonus-Live.dae")!
+        let liveBonusModel = liveBonusScene.rootNode.childNode(withName: "Bonus", recursively: true)!
+        liveBonusModel.position = SCNVector3()
+        liveBonusModel.transform = SCNMatrix4Scale(liveBonusModel.transform,
+                                                   0.35,
+                                                   0.35,
+                                                   0.35)
+        
+        let paddleSlowedBonusScene = SCNScene(named: "Bonus-PaddleSlowed.dae")!
+        let paddleSlowedBonusModel = paddleSlowedBonusScene.rootNode.childNode(withName: "Bonus", recursively: true)!
+        paddleSlowedBonusModel.position = SCNVector3()
+        paddleSlowedBonusModel.transform = SCNMatrix4Scale(paddleSlowedBonusModel.transform,
+                                                           0.35,
+                                                           0.35,
+                                                           0.35)
+        
+        let rotateBonusScene = SCNScene(named: "Bonus-Rotate.dae")!
+        let rotateBonusModel = rotateBonusScene.rootNode.childNode(withName: "Bonus", recursively: true)!
+        rotateBonusModel.position = SCNVector3()
+        rotateBonusModel.transform = SCNMatrix4Scale(rotateBonusModel.transform,
+                                                     0.35,
+                                                     0.35,
+                                                     0.35)
         
         switch self.type {
-            case .addLive:
-                self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-            case .increaseBallSpeed:
-                self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
-            case .decreaseSpeedOfPaddle:
-                self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
-            case .rotate:
-                self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.green
-            default:
-                self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.white
+        case .addLive:
+            self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.clear
+            self.bonus.addChildNode(liveBonusModel)
+        case .increaseBallSpeed:
+            self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.clear
+            self.bonus.addChildNode(ballSpeedBonusModel)
+        case .decreaseSpeedOfPaddle:
+            self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.clear
+            self.bonus.addChildNode(paddleSlowedBonusModel)
+        case .rotate:
+            self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.clear
+            self.bonus.addChildNode(rotateBonusModel)
+        default:
+            self.bonus.geometry?.firstMaterial?.diffuse.contents = UIColor.clear
         }
         
         let bonusShape = SCNPhysicsShape(geometry: bonusGeometry)
