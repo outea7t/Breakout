@@ -492,7 +492,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zOe-hr-ZWx">
                                 <rect key="frame" x="214" y="265" width="153.33333333333337" height="77.666666666666686"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-6" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="33" translatesAutoresizingMaskIntoConstraints="NO" id="2Zn-Wm-q78" customClass="CountingLabel" customModule="Breakout" customModuleProvider="target">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="33" translatesAutoresizingMaskIntoConstraints="NO" id="2Zn-Wm-q78" customClass="CountingLabel" customModule="Breakout" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="72.666666666666671" height="77.666666666666671"/>
                                         <color key="tintColor" red="0.6470588235294118" green="1" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="65"/>
@@ -545,9 +545,10 @@
                         <outlet property="blurView" destination="DFs-Zg-Jju" id="a5T-wU-txb"/>
                         <outlet property="endGameView" destination="5iC-Ds-k0J" id="UYl-k2-Gn8"/>
                         <outlet property="homeButton" destination="oy2-5T-6VV" id="zno-Jc-tmT"/>
-                        <outlet property="losedMoneyLabel" destination="yK2-yG-ej7" id="mS3-na-bOW"/>
+                        <outlet property="losedMoneyCountingLabel" destination="2Zn-Wm-q78" id="BsS-bB-AuY"/>
                         <outlet property="restartButton" destination="lNY-Zf-pkN" id="Zjh-Yb-CXO"/>
                         <outlet property="settingsButton" destination="s8q-ua-9to" id="LG3-ES-iUQ"/>
+                        <outlet property="userMoney" destination="yK2-yG-ej7" id="fSl-vr-yat"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gJp-yg-bZe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -672,7 +673,7 @@
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5L-Pl-lQ1">
                                 <rect key="frame" x="25" y="254.33333333333334" width="179" height="90.333333333333343"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="CmK-Jy-7oV"/>
@@ -1108,8 +1109,8 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8VF-mL-YMd">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </arscnView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-bM-DRn">
-                                <rect key="frame" x="15" y="0.0" width="133" height="133"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-bM-DRn">
+                                <rect key="frame" x="16" y="47" width="133" height="133"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="502-bM-DRn" secondAttribute="height" multiplier="1:1" id="GZi-Gf-eLN"/>
                                 </constraints>
@@ -2273,7 +2274,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="yGa-Sh-8Tf"/>
-        <segue reference="RIZ-H4-BAL"/>
+        <segue reference="rui-cb-CKg"/>
         <segue reference="GYc-AO-Jkk"/>
     </inferredMetricsTieBreakers>
     <resources>

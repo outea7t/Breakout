@@ -21,6 +21,10 @@ class CountingLabel: UILabel {
         case int
         case float
     }
+    enum CounterSign {
+        case plus
+        case minus
+    }
     var startNumber: Float = 0.0
     var endNumber: Float = 0.0
     
@@ -33,7 +37,7 @@ class CountingLabel: UILabel {
     
     var counterType: CounterType!
     var counterAnimationType: CounterAnimationType!
-    
+    var counterSign: CounterSign!
     var currentCounterValue: Float {
         if self.progress >= self.duration {
             return self.endNumber
@@ -49,11 +53,14 @@ class CountingLabel: UILabel {
                to toValue: Float,
                withDuration duration: TimeInterval,
                animationType: CounterAnimationType,
-               counterType: CounterType) {
+               counterType: CounterType,
+               counterSign: CounterSign
+    ) {
         self.startNumber = fromValue
         self.endNumber = toValue
         self.counterType = counterType
         self.counterAnimationType = animationType
+        self.counterSign = counterSign
         self.progress = 0
         self.duration = duration
         self.lastUpdate = Date.timeIntervalSinceReferenceDate
@@ -74,18 +81,28 @@ class CountingLabel: UILabel {
         self.progress = progress + (now - self.lastUpdate)
         self.lastUpdate = now
         
-        if progress >= duration {
-            progress = duration
+        if self.progress >= self.duration {
+            self.progress = self.duration
         }
         
         self.updateText(value: self.currentCounterValue)
     }
     func updateText(value: Float) {
+        var computedText = ""
         switch counterType {
         case .int:
-            self.text = "\(Int(value))"
+            computedText = "\(Int(value))"
         case .float:
-            self.text = String(format: "%.2f", value)
+            computedText = String(format: "%.2f", value)
+        case .none:
+            break
+        }
+        
+        switch counterSign {
+        case .plus:
+            self.text = "+" + computedText
+        case .minus:
+            self.text = "-" + computedText
         case .none:
             break
         }
@@ -103,7 +120,7 @@ class CountingLabel: UILabel {
         }
     }
     func invalidateTimer() {
-        timer?.invalidate()
-        timer = nil
+        self.timer?.invalidate()
+        self.timer = nil
     }
 }

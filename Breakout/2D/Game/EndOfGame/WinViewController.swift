@@ -10,7 +10,11 @@ import SpriteKit
 import RiveRuntime
 
 class WinViewController: UIViewController {
-
+    enum StarAnimationsName: String {
+        case _3 = "3StarAnimation"
+        case _2 = "2StarAnimation"
+        case _1 = "1StarAnimation"
+    }
     
     @IBOutlet weak var scoredMoneyLabel: CountingLabel!
     @IBOutlet weak var starView: UIView!
@@ -29,6 +33,8 @@ class WinViewController: UIViewController {
     private let backgroundView = RiveView()
     private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
     
+    private let starRiveView = RiveView()
+    private let starRiveViewModel = RiveViewModel(fileName: "stars")
     /// Полученное количество денег
     var gameScore: Int = 0
     var currentLevelIndex: Int = 0
@@ -68,18 +74,36 @@ class WinViewController: UIViewController {
                                                          height: self.nextLevelButton.frame.height/10.0)
         
         let scoredMoney = self.countUserMoney()
+        self.scoredMoneyLabel.count(fromValue: 0,
+                                    to: Float(scoredMoney),
+                                    withDuration: 1.0,
+                                    animationType: .easeOut,
+                                    counterType: .int,
+                                    counterSign: .plus
+        )
         
-//        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
-//        GameCurrency.userMoney += scoredMoney
+        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+        GameCurrency.userMoney += scoredMoney
         UserProgress._2DmaxAvailableLevelID = self.currentLevelIndex + 1
         UserProgress._2DlevelsStars[self.currentLevelIndex-1] = 3
-//        UserProgress.
-//        self.setShadow(for: self.homeButton)
-//        self.setShadow(for: self.restartButton)
-//        self.setShadow(for: self.settingsButton)
-        // Do any additional setup after loading the view.
+        
+        
+        self.starRiveViewModel.setView(self.starRiveView)
+        self.starRiveViewModel.play(animationName: "3StarAnimation")
+        
+        self.starView.addSubview(self.starRiveView)
+        self.starRiveView.center = self.starView.center
+        self.starRiveView.frame = self.starView.bounds
+        self.starRiveViewModel.fit = .fill
+        
+        self.endGameScene?.isWin = true
+        self.endGameScene?.setText()
+        self.endGameScene?.setAnimatedParticles()
+        
         self.setConfetti()
     }
+    
+    
     private func countUserMoney() -> Int {
         var scoredMoney = Double(self.gameScore)
         if self.losedLives == 0 {
@@ -106,10 +130,7 @@ class WinViewController: UIViewController {
     }
     
     func setConfetti() {
-        self.endGameScene?.isWin = true
         self.endGameScene?.addConfetti()
-        self.endGameScene?.setText()
-        self.endGameScene?.setAnimatedParticles()
     }
     @IBAction func mainMenuButtonPressed(_ sender: UIButton) {
         self.endGameScene = nil

@@ -20,8 +20,8 @@ class LoseViewController: UIViewController {
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
-    @IBOutlet weak var losedMoneyLabel: UILabel!
-    
+    @IBOutlet weak var userMoney: UILabel!
+    @IBOutlet weak var losedMoneyCountingLabel: CountingLabel!
     
     private let backgroundView = RiveView()
     private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
@@ -65,13 +65,17 @@ class LoseViewController: UIViewController {
         self.restartButton.layer.shadowOffset = CGSize(width: self.restartButton.frame.width/30.0,
                                                        height: self.restartButton.frame.height/10.0)
         
-        self.losedMoneyLabel.text = "-\(self.losedMoney)"
         if GameCurrency.userMoney > 50 {
             GameCurrency.userMoney -= self.losedMoney
+            self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+            
+            self.losedMoneyCountingLabel.count(fromValue: 0.0,
+                                               to: Float(self.losedMoney),
+                                               withDuration: 1.0,
+                                               animationType: .easeOut,
+                                               counterType: .int,
+                                               counterSign: .minus)
         }
-        
-//        self.setShadow(for: self.homeButton)
-//        self.setShadow(for: self.settingsButton)
         
     }
     
