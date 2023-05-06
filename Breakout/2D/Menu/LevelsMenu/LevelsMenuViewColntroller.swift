@@ -42,11 +42,25 @@ class LevelsMenuViewColntroller: UIViewController {
         
         self.collectionView.collectionViewLayout = layout
         
-        let color = #colorLiteral(red: 0.3578048348, green: 0, blue: 0.881958127, alpha: 1)
+        let availableColor = #colorLiteral(red: 0.3578048348, green: 0, blue: 0.881958127, alpha: 1)
+        let unavailableColor = #colorLiteral(red: 0.2112675011, green: 0.08965469152, blue: 0.4645008445, alpha: 1)
         let shadowColor = #colorLiteral(red: 0.1314683557, green: 0.01993882656, blue: 0.3431168795, alpha: 1)
         
         for i in 1...30 {
-            self.levelsCellsData.append(LevelsMenuCellData(backgroundColor: color, shadowColor: shadowColor, levelNumber: i))
+            let stars = UserProgress._2DlevelsStars[i-1]
+            var level = LevelsMenuCellData(backgroundColor: availableColor,
+                                           shadowColor: shadowColor,
+                                           levelNumber: i,
+                                           starsCount: stars,
+                                           isAvailable: false)
+            if i <= UserProgress._2DmaxAvailableLevelID {
+                level.isAvailable = true
+            } else {
+                level.isAvailable = false
+                level.backgroundColor = unavailableColor
+            }
+            
+            self.levelsCellsData.append(level)
         }
         
         // настраиваем тени и прочую косметику
@@ -157,13 +171,17 @@ extension LevelsMenuViewColntroller: UICollectionViewDelegate {
     // активируется, когда мы выбираем какой-то уже купленный скин
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? LevelsMenuCollectionViewCell {
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? LevelsMenuCollectionViewCell else {
+            return
+        }
+        if cell.levelIndex <= UserProgress._2DmaxAvailableLevelID {
             self.levelChoosed = cell.levelIndex
             // небольшая вибрация, уведомляющая пользователя о начале игры
             HapticManager.collisionVibrate(with: .rigid, 1.0)
             self.performSegue(withIdentifier: "FromLevelsMenuToGame", sender: self)
+        } else {
+            HapticManager.notificationVibrate(for: .error)
         }
-        
 
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

@@ -266,9 +266,12 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
         
         var destinationPlatePosition = frame.plate.position
+        let oldPlatePosition = frame.plate.presentation.position
         destinationPlatePosition.y = detectedNodePosition.y + frame.plateVolume.y*2
-//        self.ball?.ball.position.y =
+        let newPlatePosition = destinationPlatePosition
         
+//        self.ball?.moveBall(oldPositionOfFrame: oldPlatePosition, newPositionOfFrame: newPlatePosition)
+        print(self.ball?.ball.physicsBody?.velocity)
         let moveAction = SCNAction.move(to: destinationPlatePosition, duration: 0.0001)
         
 //        var destinationLightPosition = SCNVector3(destinationPlatePosition.x,

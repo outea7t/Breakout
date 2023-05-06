@@ -70,6 +70,11 @@ struct Ball3D {
         self.ball.physicsBody?.contactTestBitMask = collision
     }
     
+    func moveBall(oldPositionOfFrame: SCNVector3, newPositionOfFrame: SCNVector3) {
+        let oldBallPosition = ball.presentation.position
+        let newBallPositionY = oldBallPosition.y + (newPositionOfFrame.y - oldBallPosition.y)
+        self.ball.position = SCNVector3(x: oldBallPosition.x, y: oldBallPosition.y + newBallPositionY, z: oldBallPosition.z)
+    }
     // обновляем позицию и скорость мяча
     mutating func update(paddle: Paddle3D, frame: Frame3D) {
         // скорость мяча по оси ординат всегда должна быть равна 0 (иначе есть шанс, что он улетит в небо)
@@ -84,6 +89,8 @@ struct Ball3D {
         }
         
         self.ball.physicsBody?.velocity.y = 0.0
+        
+        
         // если мяч привязан к ракетке, то он должен находиться прямо на ней (высчитываем его позицию)
         if self.isAttachedToPaddle {
             self.ball.physicsBody?.clearAllForces()
@@ -93,12 +100,6 @@ struct Ball3D {
                                                 paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius)*1.2)
             }
         } else {
-            if self.ball.position.y != 1.5*self.ballRadius {
-                self.ball.position.y = 1.5 * self.ballRadius
-            }
-            print(self.ball.physicsBody?.velocity)
-//            print(self.ball.presentation.position)
-            
             // поправляем работу sceneKit и если мяч сильно замедляется или сильно ускоряется, то данный алгоритм нормализует скорость мяча
             if let currentBallVelocity = self.ball.physicsBody?.velocity {
                 let simdVelocity = simd_float2(Float(currentBallVelocity.x),
@@ -111,6 +112,17 @@ struct Ball3D {
                     0.0,
                     normalizedVelocity.y * self.lengthOfBallVelocityConstant * 0.9)
                 self.ball.physicsBody?.velocity = newBallVelocity
+            }
+        }
+        guard let physicsBody = self.ball.physicsBody else {
+            return
+        }
+        if physicsBody.velocity.z <= 0.005 && physicsBody.velocity.z != 0 {
+            switch physicsBody.velocity.z.sign {
+            case .plus:
+                self.ball.physicsBody?.velocity.z -= 0.005
+            case .minus:
+                self.ball.physicsBody?.velocity.z += 0.005
             }
         }
     }

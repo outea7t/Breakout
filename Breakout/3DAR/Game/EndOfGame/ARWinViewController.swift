@@ -27,7 +27,7 @@ class ARWinViewController: UIViewController {
     private var endGameScene: EndGameScene?
     
     private let backgroundView = RiveView()
-    private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
+    private let backgroundViewModel = RiveViewModel(fileName: "arpausemenu")
     
     override func viewDidLoad() {
         super.viewDidLoad()

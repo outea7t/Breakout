@@ -12,10 +12,10 @@ struct LevelsMenuCellData {
     var backgroundColor: UIColor
     var shadowColor: UIColor
     var levelNumber: Int
+    var starsCount: Int
+    var isAvailable: Bool
+    
 }
-// var starsCount
-// var score
-// var isAvailable?
 // var threeStarTime: TimeInterval
 // var twoStarTime: TimeInterval
 // var oneStarTime: TimeInterval

@@ -46,7 +46,12 @@ class ARLevelsMenuViewController: UIViewController {
         let shadowColor = #colorLiteral(red: 0, green: 0.007334548049, blue: 0.310534358, alpha: 1)
         
         for i in 1...30 {
-            self.levelsCellsData.append(LevelsMenuCellData(backgroundColor: color, shadowColor: shadowColor, levelNumber: i))
+            self.levelsCellsData.append(LevelsMenuCellData(backgroundColor: color,
+                                                           shadowColor: shadowColor,
+                                                           levelNumber: i,
+                                                           starsCount: 0,
+                                                           isAvailable: true
+                                                          ))
         }
         
         // настраиваем тени и прочую косметику

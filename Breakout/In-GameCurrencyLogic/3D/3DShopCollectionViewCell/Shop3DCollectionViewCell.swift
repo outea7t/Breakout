@@ -94,12 +94,21 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
     // некоторые косметические параметры для избежания багов
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         self.selectionViewPropertyAnimator = nil
         self.viewPropertyAnimator = nil
+        
+        self.backgroundColor = self.unselectedColor
         self.layer.borderColor = UIColor.clear.cgColor
         self.layer.borderWidth = 0.0
         self.layer.shadowOpacity = 0.0
+        
+        guard let rootNode = scnView.scene?.rootNode else {
+            return
+        }
+        
+        for childNode in rootNode.childNodes {
+            childNode.removeFromParentNode()
+        }
     }
     func select() {
         self.layer.borderColor = self.borderColor.cgColor

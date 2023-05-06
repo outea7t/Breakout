@@ -12,6 +12,8 @@ import RiveRuntime
 class WinViewController: UIViewController {
 
     
+    @IBOutlet weak var scoredMoneyLabel: CountingLabel!
+    @IBOutlet weak var starView: UIView!
     var endGameScene: EndGameScene?
     @IBOutlet weak var blurView: UIVisualEffectView!
     
@@ -21,15 +23,16 @@ class WinViewController: UIViewController {
     @IBOutlet weak var homeButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
-    @IBOutlet weak var earnedMoneyLabel: UILabel!
+    @IBOutlet weak var userMoney: UILabel!
     
     
     private let backgroundView = RiveView()
     private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
     
     /// Полученное количество денег
-    var scoredMoney: Int = 0
-    
+    var gameScore: Int = 0
+    var currentLevelIndex: Int = 0
+    var losedLives: Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,14 +67,33 @@ class WinViewController: UIViewController {
         self.nextLevelButton.layer.shadowOffset = CGSize(width: self.nextLevelButton.frame.width/30,
                                                          height: self.nextLevelButton.frame.height/10.0)
         
-        self.earnedMoneyLabel.text = "\(self.scoredMoney)"
-        GameCurrency.userMoney += self.scoredMoney
+        let scoredMoney = self.countUserMoney()
         
+//        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+//        GameCurrency.userMoney += scoredMoney
+        UserProgress._2DmaxAvailableLevelID = self.currentLevelIndex + 1
+        UserProgress._2DlevelsStars[self.currentLevelIndex-1] = 3
+//        UserProgress.
 //        self.setShadow(for: self.homeButton)
 //        self.setShadow(for: self.restartButton)
 //        self.setShadow(for: self.settingsButton)
         // Do any additional setup after loading the view.
         self.setConfetti()
+    }
+    private func countUserMoney() -> Int {
+        var scoredMoney = Double(self.gameScore)
+        if self.losedLives == 0 {
+            
+        } else if self.losedLives == 1 {
+            scoredMoney *= 0.9
+        } else if self.losedLives == 2 {
+            scoredMoney *= 0.8
+        } else if self.losedLives == 3 {
+            scoredMoney *= 0.75
+        } else if self.losedLives > 3 {
+            scoredMoney *= 0.65
+        }
+        return Int(scoredMoney/3)
     }
     override var prefersStatusBarHidden: Bool {
         return false

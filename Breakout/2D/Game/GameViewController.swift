@@ -10,7 +10,7 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     // сцена с игрой
-    var gameScene: GameScene?
+    weak var gameScene: GameScene?
     var levelChoosed = 1 {
         willSet {
             self.gameScene?.currentLevel?.removeAllBricksBeforeSettingLevel()
@@ -132,20 +132,10 @@ extension GameViewController: EndOfGameHandler {
             return
         }
         if let winViewController = segue.destination as? WinViewController {
-            var scoredMoney = gameScene.score
-            if gameScene.losedLives == 0 {
-                
-            } else if gameScene.losedLives == 1 {
-                scoredMoney = scoredMoney*0.9
-            } else if gameScene.losedLives == 2 {
-                scoredMoney = scoredMoney*0.8
-            } else if gameScene.losedLives == 3 {
-                scoredMoney = scoredMoney*0.75
-            } else if gameScene.losedLives > 3 {
-                scoredMoney = scoredMoney*0.65
-            }
             
-            winViewController.scoredMoney = Int(scoredMoney/3)
+            winViewController.gameScore = Int(gameScene.score)
+            winViewController.currentLevelIndex = self.levelChoosed
+            winViewController.losedLives = gameScene.losedLives
         }
         if let loseViewController = segue.destination as? LoseViewController {
             var losedMoney = 10 - gameScene.score/4

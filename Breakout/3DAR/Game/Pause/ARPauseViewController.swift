@@ -30,7 +30,7 @@ class ARPauseViewController: UIViewController {
     
     
     private let backgroundView = RiveView()
-    private let backgroundViewModel = RiveViewModel(fileName: "pausemenu")
+    private let backgroundViewModel = RiveViewModel(fileName: "arpausemenu")
     
     override func viewDidLoad() {
         super.viewDidLoad()
