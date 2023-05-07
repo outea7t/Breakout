@@ -2179,42 +2179,11 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="98D-8w-iNu">
-                                <rect key="frame" x="48" y="143" width="279" height="412"/>
+                                <rect key="frame" x="48" y="190" width="294" height="412"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="none" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJj-gH-hJs">
-                                        <rect key="frame" x="10" y="243" width="261" height="54"/>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0SR-Y6-7cX">
+                                        <rect key="frame" x="22" y="346" width="249" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="C6Q-ay-mcy">
-                                        <rect key="frame" x="64.666666666666686" y="24" width="150" height="211"/>
-                                        <subviews>
-                                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d05-Qj-Tpr">
-                                                <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="5W8-uh-B2I"/>
-                                                    <constraint firstAttribute="width" constant="150" id="nvC-v1-ppf"/>
-                                                    <constraint firstAttribute="width" secondItem="d05-Qj-Tpr" secondAttribute="height" multiplier="1:1" id="ubt-Pw-NtZ"/>
-                                                </constraints>
-                                            </sceneKitView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yw-As-u20">
-                                                <rect key="frame" x="54.333333333333329" y="158" width="41.333333333333329" height="20"/>
-                                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="20"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Effects:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wik-nn-gnh">
-                                                <rect key="frame" x="14.000000000000007" y="186" width="121.66666666666669" height="25"/>
-                                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="25"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0SR-Y6-7cX">
-                                        <rect key="frame" x="9" y="346" width="261" height="42"/>
                                         <color key="backgroundColor" red="0.21701800269999999" green="0.9655298591" blue="0.45262083609999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="30"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -2225,15 +2194,33 @@
                                             <action selector="buyButtonPressed:" destination="hZl-iy-4Gg" eventType="touchUpInside" id="Wlz-km-bWh"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yw-As-u20">
+                                        <rect key="frame" x="126" y="185" width="41.333333333333258" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d05-Qj-Tpr">
+                                        <rect key="frame" x="71" y="16" width="150" height="150"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </sceneKitView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Effects:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wik-nn-gnh">
+                                        <rect key="frame" x="86" y="213" width="121.66666666666674" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="none" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJj-gH-hJs">
+                                        <rect key="frame" x="22" y="261" width="261" height="54"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.06080023205" green="0.1112385095" blue="0.312173319" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="C6Q-ay-mcy" firstAttribute="top" secondItem="98D-8w-iNu" secondAttribute="top" constant="24" id="8eJ-U1-3Ui"/>
-                                    <constraint firstItem="C6Q-ay-mcy" firstAttribute="centerX" secondItem="98D-8w-iNu" secondAttribute="centerX" id="HQd-oc-PfW"/>
-                                    <constraint firstAttribute="bottom" secondItem="0SR-Y6-7cX" secondAttribute="bottom" constant="24" id="eaF-vb-Vfb"/>
-                                    <constraint firstItem="0SR-Y6-7cX" firstAttribute="leading" secondItem="98D-8w-iNu" secondAttribute="leading" constant="9" id="jxo-RZ-SJF"/>
-                                    <constraint firstAttribute="trailing" secondItem="0SR-Y6-7cX" secondAttribute="trailing" constant="9" id="oE1-sj-L2z"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="eiu-LG-BuB"/>
@@ -2241,13 +2228,13 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="sWf-la-m14" secondAttribute="trailing" id="563-Cm-XiY"/>
                             <constraint firstItem="sWf-la-m14" firstAttribute="leading" secondItem="wI7-Ac-0pH" secondAttribute="leading" id="E07-eF-VhI"/>
-                            <constraint firstItem="98D-8w-iNu" firstAttribute="centerX" secondItem="eiu-LG-BuB" secondAttribute="centerX" id="Xck-ub-dP2"/>
+                            <constraint firstItem="98D-8w-iNu" firstAttribute="centerX" secondItem="eiu-LG-BuB" secondAttribute="centerX" constant="7.5" id="Xck-ub-dP2"/>
                             <constraint firstItem="sWf-la-m14" firstAttribute="top" secondItem="wI7-Ac-0pH" secondAttribute="top" id="aip-a3-y19"/>
                             <constraint firstAttribute="bottom" secondItem="sWf-la-m14" secondAttribute="bottom" id="eyh-6K-hBf"/>
-                            <constraint firstItem="eiu-LG-BuB" firstAttribute="trailing" secondItem="98D-8w-iNu" secondAttribute="trailing" constant="48" id="fqa-4z-iby"/>
+                            <constraint firstItem="eiu-LG-BuB" firstAttribute="trailing" secondItem="98D-8w-iNu" secondAttribute="trailing" constant="33" id="fqa-4z-iby"/>
                             <constraint firstItem="98D-8w-iNu" firstAttribute="leading" secondItem="eiu-LG-BuB" secondAttribute="leading" constant="48" id="txa-B2-BQM"/>
-                            <constraint firstItem="98D-8w-iNu" firstAttribute="top" secondItem="eiu-LG-BuB" secondAttribute="top" constant="143" id="vbw-GH-30D"/>
-                            <constraint firstItem="eiu-LG-BuB" firstAttribute="bottom" secondItem="98D-8w-iNu" secondAttribute="bottom" constant="257" id="yiQ-Vi-fPF"/>
+                            <constraint firstItem="98D-8w-iNu" firstAttribute="top" secondItem="eiu-LG-BuB" secondAttribute="top" constant="190" id="vbw-GH-30D"/>
+                            <constraint firstItem="eiu-LG-BuB" firstAttribute="bottom" secondItem="98D-8w-iNu" secondAttribute="bottom" constant="210" id="yiQ-Vi-fPF"/>
                         </constraints>
                     </view>
                     <connections>

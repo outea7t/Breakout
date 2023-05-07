@@ -9,7 +9,13 @@ import Foundation
 import UIKit
 import SpriteKit
 
-class CellMenuViewController: UIViewController {
+class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
+    var skinView: UIView {
+        get {
+            return self.skinImageView
+        }
+    }
+    
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var cellInformationView: UIView!
     
@@ -143,7 +149,7 @@ class CellMenuViewController: UIViewController {
             return
         }
         for controller in childControllers {
-            if let currentShopController = controller as? Textures2DShopController {
+            if let currentShopController = controller as? TexturesShopController {
                 if self.typeOfCurrentShopController == currentShopController.type {
                     let indexPath = IndexPath(item: self.cellID, section: 0)
                     currentShopController.selectedCellIndexPath = indexPath

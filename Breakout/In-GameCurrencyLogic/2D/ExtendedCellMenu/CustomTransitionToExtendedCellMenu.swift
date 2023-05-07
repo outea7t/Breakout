@@ -6,6 +6,18 @@
 //
 
 import UIKit
+protocol ExtendedInfoCellViewController: AnyObject {
+    var view: UIView! {get}
+    var blurView: UIVisualEffectView! {get}
+    var buyButton: UIButton! {get}
+    var cellInformationView: UIView! {get}
+    var skinView: UIView {get}
+    var moneyLabel: UILabel! {get}
+    var priceLabel: UILabel! {get}
+    var effectsLabel: UILabel! {get}
+    var effectsInformationLabel: UILabel! {get}
+    var isBuyed: Bool {get set}
+}
 
 class CustomTransitionToExtendedCellMenu: NSObject {
     private let animationDuration: TimeInterval
@@ -22,9 +34,11 @@ class CustomTransitionToExtendedCellMenu: NSObject {
 }
 
 extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransitioning {
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return self.animationDuration
     }
+    
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let toViewController = transitionContext.viewController(forKey: .to),
               let _ = transitionContext.viewController(forKey: .from) else {
@@ -39,18 +53,19 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             self.dismissAnimation(with: transitionContext)
         }
     }
+    
     private func dismissAnimation(with transitionContext: UIViewControllerContextTransitioning) {
-        guard let shopViewController = transitionContext.viewController(forKey: .to) as? ShopViewController2D else{
+        guard let shopViewController = transitionContext.viewController(forKey: .to) as? ShopViewController else{
             transitionContext.completeTransition(false)
             return
         }
-        guard let extendedCellMenuViewController = transitionContext.viewController(forKey: .from) as? CellMenuViewController else {
+        guard let extendedCellMenuViewController = transitionContext.viewController(forKey: .from) as? ExtendedInfoCellViewController else {
             transitionContext.completeTransition(false)
             return
         }
-        var _controller: Textures2DShopController?
+        var _controller: TexturesShopController?
         if let selectedViewController = shopViewController.selectedViewController {
-            if let controller = selectedViewController as? Textures2DShopController {
+            if let controller = selectedViewController as? TexturesShopController {
                 _controller = controller
             }
         }
@@ -70,7 +85,7 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
         let toBorderWidth = selectedCellInfo.borderWidth
         let toCornerRadius = selectedCellInfo.cornerRadius
         let toBackgroundColor = selectedCellInfo.backgroundColor
-        let toImageViewFrame = selectedCellInfo.imageFrame
+        let toImageViewFrame = selectedCellInfo.skinViewFrame
          
         blurView?.alpha = 1.0
         UIView.animate(withDuration: 1.5,
@@ -91,10 +106,10 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
                        options: .curveEaseInOut,
                        animations: {
             extendedCellMenuViewController.buyButton.transform = CGAffineTransform(scaleX: 0.001, y: 1.0)
-//            extendedCellMenuViewController.buyButton.alpha = 0.0
+
         }) { _ in
             extendedCellMenuViewController.cellInformationView.alpha = 0.0
-            extendedCellMenuViewController.skinImageView.alpha = 0.0
+            extendedCellMenuViewController.skinView.alpha = 0.0
         }
         
         UIView.animate(withDuration: 0.35,
@@ -134,15 +149,10 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             selectedCell?.layer.borderWidth = cellView.layer.borderWidth
             selectedCell?.backgroundColor = cellView.backgroundColor
             selectedCell?.alpha = 1.0
-//            cellView.alpha = 0.0
         }
-        let selectedCellImageView = firstViewController.selectedCell?.imageView
-        if let extendedImageView = extendedCellMenuViewController.skinImageView {
-            selectedCellImageView?.image = extendedImageView.image
-            selectedCellImageView?.frame = extendedImageView.frame
-            selectedCellImageView?.alpha = 1.0
-//            extendedImageView.alpha = 0.0
-        }
+        let selectedCellImageView = firstViewController.selectedCell?.skinView
+        selectedCellImageView?.frame = extendedCellMenuViewController.skinView.frame
+        selectedCellImageView?.alpha = 1.0
         
         UIView.animate(withDuration: 1.1,
                        delay: 0.5,
@@ -190,26 +200,25 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
     ///
     /// Сначала блюрится задний фон, а ячейка из выбранной расширяется, перемещается в центр экрана, у нее закругляются углы, меняется цвет заднего фона, и затем появляется кнопка купить(она расширяется по оси х) и постепенно становятся видимыми label's c различной информацией
     private func presentAnimation(with transitionContext: UIViewControllerContextTransitioning) {
-        guard let shopViewController = transitionContext.viewController(forKey: .from) as? ShopViewController2D else{
+        guard let shopViewController = transitionContext.viewController(forKey: .from) as? ShopViewController else{
             transitionContext.completeTransition(false)
             return
         }
-        guard let extendedCellMenuViewController = transitionContext.viewController(forKey: .to) as? CellMenuViewController else {
+        guard let extendedCellMenuViewController = transitionContext.viewController(forKey: .to) as? ExtendedInfoCellViewController else {
             transitionContext.completeTransition(false)
             return
         }
         // важно, презентует контроллер не магазина с текстурами, а ShopViewController2D (тот, который UITabbarViewCOntroller)
         // поэтому мы таким образом получаем к нему доступ
         // потом планируется сделать протокол, описывающий все свойства, которые нужны для анимации и подписать под него все магазинные контроллеры со скинами
-        var _controller: Textures2DShopController?
+        var _controller: TexturesShopController?
         if let selectedViewController = shopViewController.selectedViewController {
             
-            if let controller = selectedViewController as? Textures2DShopController {
+            if let controller = selectedViewController as? TexturesShopController {
                 _controller = controller
             }
             
         }
-        
         guard let firstViewController = _controller else {
             transitionContext.completeTransition(false)
             return
@@ -222,7 +231,7 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
         let toCornerRadius = extendedCellMenuViewController.cellInformationView.layer.cornerRadius
         let toBackgroundColor = extendedCellMenuViewController.cellInformationView.backgroundColor
         
-        let toImageViewFrame = extendedCellMenuViewController.skinImageView.frame
+        let toImageViewFrame = extendedCellMenuViewController.skinView.frame
         
         blurView?.alpha = 0.0
         UIView.animate(withDuration: 1.5,
@@ -245,15 +254,14 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             extendedCellView?.alpha = 1.0
             cellView.alpha = 0.0
         }
-        let extendedCellImageView = extendedCellMenuViewController.skinImageView
-        if let firstImageView = firstViewController.selectedCell?.imageView {
-            extendedCellImageView?.image = firstImageView.image
-            extendedCellImageView?.frame = firstImageView.frame
-            extendedCellImageView?.alpha = 1.0
+        let extendedCellImageView = extendedCellMenuViewController.skinView
+        if let firstImageView = firstViewController.selectedCell?.skinView {
+            extendedCellImageView.frame = firstImageView.frame
+            extendedCellImageView.center = firstImageView.center
+            extendedCellImageView.alpha = 1.0
             firstImageView.alpha = 0.0
         }
         // сначала наше меню слишком маленькое, и поэтому тень кажется слишком большой, поэтому мы делаем так, чтобы она появлялась постепенно
-        
         UIView.animate(withDuration: 1.1,
                        delay: 0.0,
                        usingSpringWithDamping: 0.8,
@@ -265,7 +273,7 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             extendedCellView?.layer.borderWidth = toBorderWidth
             extendedCellView?.layer.cornerRadius = toCornerRadius
             extendedCellView?.backgroundColor = toBackgroundColor
-            extendedCellImageView?.frame = toImageViewFrame
+            extendedCellImageView.frame = toImageViewFrame
         })
         
         extendedCellView?.layer.shadowOpacity = 0.0

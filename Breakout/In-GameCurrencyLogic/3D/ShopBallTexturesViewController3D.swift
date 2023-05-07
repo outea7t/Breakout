@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SceneKit
 
-class ShopBallTexturesViewController3D: UIViewController, Textures3DShopController {
+class ShopBallTexturesViewController3D: UIViewController, TexturesShopController {
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
@@ -36,8 +36,8 @@ class ShopBallTexturesViewController3D: UIViewController, Textures3DShopControll
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
     
-    var selectedCellInfo: CellInfo3D?
-    var selectedCell: Shop3DCollectionViewCell?
+    var selectedCellInfo: CellInfo?
+    var selectedCell: ShopCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
@@ -258,12 +258,15 @@ extension ShopBallTexturesViewController3D: UICollectionViewDelegate {
                 print(actualPosition, cell.frame.origin)
                 self.actualPositionOfSelectedCell = actualPosition
                 self.selectedCell?.layer.zPosition = 100
+                print(cell.scnView.frame)
                 if let borderColor = cell.layer.borderColor, let backgroundColor = cell.backgroundColor {
-                    self.selectedCellInfo = CellInfo3D(frame: cell.frame,
+                    self.selectedCellInfo = CellInfo(frame: cell.frame,
                                                      borderWidth: cell.layer.borderWidth,
                                                      borderColor: borderColor,
                                                      cornerRadius: cell.layer.cornerRadius,
-                                                     backgroundColor: backgroundColor)
+                                                     backgroundColor: backgroundColor,
+                                                     skinViewFrame: cell.scnView.frame
+                    )
                 }
             }
             self.performSegue(withIdentifier: "FromBall3DToCellMenu3D", sender: self)

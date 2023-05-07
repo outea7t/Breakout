@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ShopBallTexturesViewController: UIViewController, Textures2DShopController {
+class ShopBallTexturesViewController: UIViewController, TexturesShopController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -34,7 +34,7 @@ class ShopBallTexturesViewController: UIViewController, Textures2DShopController
     
     
     var selectedCellInfo: CellInfo?
-    var selectedCell: Shop2DCollectionViewCell?
+    var selectedCell: ShopCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
@@ -279,7 +279,7 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
                                                      borderColor: borderColor,
                                                      cornerRadius: cell.layer.cornerRadius,
                                                      backgroundColor: backgroundColor,
-                                                     imageFrame: cell.imageView.frame)
+                                                     skinViewFrame: cell.imageView.frame)
                 }
             }
             self.performSegue(withIdentifier: "FromBallTexturesToCellMenu", sender: self)

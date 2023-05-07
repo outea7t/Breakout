@@ -7,7 +7,14 @@
 
 import UIKit
 
-class Shop2DCollectionViewCell: UICollectionViewCell {
+class Shop2DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
+    
+    var skinView: UIView! {
+        get {
+            return self.imageView
+        }
+    }
+    
     /// картинка с текстурой
     @IBOutlet weak var imageView: UIImageView!
     /// лэйбл с ценой текстуры

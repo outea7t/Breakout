@@ -8,7 +8,11 @@
 import UIKit
 import SceneKit
 
-class Shop3DCollectionViewCell: UICollectionViewCell {
+class Shop3DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
+    var skinView: UIView! {
+        return self.scnView
+    }
+    
 
     @IBOutlet weak var scnView: SCNView!
     @IBOutlet weak var priceLabel: UILabel!

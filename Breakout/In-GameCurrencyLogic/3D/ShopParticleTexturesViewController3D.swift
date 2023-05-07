@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import SceneKit
 
-class ShopParticlesTexturesViewController3D: UIViewController {
+class ShopParticlesTexturesViewController3D: UIViewController, TexturesShopController {
     
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
@@ -37,8 +37,8 @@ class ShopParticlesTexturesViewController3D: UIViewController {
     private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
     
-    var selectedCellInfo: CellInfo3D?
-    var selectedCell: Shop3DCollectionViewCell?
+    var selectedCellInfo: CellInfo?
+    var selectedCell: ShopCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
@@ -256,27 +256,33 @@ extension ShopParticlesTexturesViewController3D: UICollectionViewDelegate {
 
                 var actualPosition = cell.convert(cell.bounds, to: self.collectionView.superview).origin
                 actualPosition = CGPoint(x: cell.frame.origin.x, y: actualPosition.y)
-                print(actualPosition, cell.frame.origin)
+                
                 self.actualPositionOfSelectedCell = actualPosition
                 self.selectedCell?.layer.zPosition = 100
                 if let borderColor = cell.layer.borderColor, let backgroundColor = cell.backgroundColor {
-                    self.selectedCellInfo = CellInfo3D(frame: cell.frame,
+                    self.selectedCellInfo = CellInfo(frame: cell.frame,
                                                      borderWidth: cell.layer.borderWidth,
                                                      borderColor: borderColor,
                                                      cornerRadius: cell.layer.cornerRadius,
-                                                     backgroundColor: backgroundColor)
+                                                     backgroundColor: backgroundColor,
+                                                     skinViewFrame: cell.scnView.frame
+                    )
                 }
             }
             self.performSegue(withIdentifier: "FromParticles3DToCellMenu3D", sender: self)
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("entered-1")
         guard let cellMenu = segue.destination as? CellMenuViewController3D else {
+            print("entered-2")
             return
         }
         guard let cellMenuCellData = self.cellMenuCellData else {
+            print("entered-3")
             return
         }
+        print("entered-4")
         cellMenu.model = cellMenuCellData.model.clone()
         cellMenu.price = (cellMenuCellData.price)
         cellMenu.cellID = cellMenuCellData.id

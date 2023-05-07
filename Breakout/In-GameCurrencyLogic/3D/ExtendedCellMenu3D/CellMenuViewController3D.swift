@@ -9,7 +9,13 @@ import UIKit
 import SpriteKit
 import SceneKit
 
-class CellMenuViewController3D: UIViewController {
+class CellMenuViewController3D: UIViewController, ExtendedInfoCellViewController {
+    var skinView: UIView {
+        get {
+            return self.skinModelView
+        }
+    }
+    
     
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var cellInformationView: UIView!
@@ -33,7 +39,6 @@ class CellMenuViewController3D: UIViewController {
     private var backgroundAnimationScene: ExtendedCellMenuScene?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.setupSceneView()
         self.priceLabel.text = "\(self.price)"
@@ -98,7 +103,7 @@ class CellMenuViewController3D: UIViewController {
             spriteKitView.showsFPS = true
             spriteKitView.showsNodeCount = true
         }
-//        self.transitioningDelegate = self
+        self.transitioningDelegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -123,12 +128,15 @@ class CellMenuViewController3D: UIViewController {
             GameCurrency.userMoney -= self.price
             self.isBuyed = true
             if self.typeOfCurrentShopController == .ball {
+                print("Ball")
                 UserCustomization._3DbuyedBallSkinIndexes += [self.cellID]
                 UserCustomization._3DballSkinIndex = self.cellID
             } else if self.typeOfCurrentShopController == .paddle {
+                print("Paddle")
                 UserCustomization._3DbuyedPaddleSkinIndexes += [self.cellID]
                 UserCustomization._3DpaddleSkinIndex = self.cellID
             } else if self.typeOfCurrentShopController == .particles {
+                print("Particle")
                 UserCustomization._3DbuyedParticlesSkinIndexes += [self.cellID]
                 UserCustomization._3DparticleSkinIndex = self.cellID
             }
@@ -147,9 +155,10 @@ class CellMenuViewController3D: UIViewController {
             return
         }
         for controller in childControllers {
-            if let currentShopController = controller as? Textures3DShopController {
+            if let currentShopController = controller as? TexturesShopController {
                 if self.typeOfCurrentShopController == currentShopController.type {
                     let indexPath = IndexPath(item: self.cellID, section: 0)
+                    print()
                     currentShopController.selectedCellIndexPath = indexPath
                     currentShopController.updateInfo()
                 }
@@ -189,9 +198,28 @@ class CellMenuViewController3D: UIViewController {
         self.skinModelView.backgroundColor = UIColor.clear
         
         self.skinModelView.scene?.rootNode.addChildNode(self.model)
-        self.model.position = SCNVector3(x: 0.0, y: 0.0, z: -0.05)
+        
+        
+        if self.typeOfCurrentShopController == .particles {
+            self.model.position = SCNVector3(x: 0.0, y: 0.0, z: -0.175)
+        } else if self.typeOfCurrentShopController == .paddle {
+            self.model.position = SCNVector3(x: 0.0, y: 0.0, z: -0.3)
+        } else if self.typeOfCurrentShopController == .ball {
+            self.model.position = SCNVector3(x: 0.0, y: 0.0, z: -0.05)
+        }
+        
         let rotateAction = SCNAction.rotate(by: .pi/2, around: SCNVector3(0, 1, 0), duration: 2.0)
         let cycleRotating = SCNAction.repeatForever(rotateAction)
-        model.runAction(cycleRotating)
+//        model.runAction(cycleRotating)
+        self.skinModelView.isUserInteractionEnabled = true
     }
+}
+extension CellMenuViewController3D: UIViewControllerTransitioningDelegate {
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomTransitionToExtendedCellMenu(animationDuration: 1.5, animationType: .present)
+    }
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return CustomTransitionToExtendedCellMenu(animationDuration: 1.5, animationType: .dismiss)
+    }
+    
 }

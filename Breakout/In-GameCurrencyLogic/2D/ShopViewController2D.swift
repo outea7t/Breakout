@@ -10,9 +10,6 @@ enum TypeOfShopController {
     case ball
     case paddle
     case particles
-//    case ball3D
-//    case paddle3D
-//    case particles3D
 }
 struct CellInfo {
     var frame: CGRect
@@ -20,19 +17,30 @@ struct CellInfo {
     var borderColor: CGColor
     var cornerRadius: CGFloat
     var backgroundColor: UIColor
-    var imageFrame: CGRect
+    var skinViewFrame: CGRect
 }
-protocol Textures2DShopController: AnyObject {
+protocol ShopCollectionViewCell: AnyObject, UIView {
+    var id: Int {get}
+    var priceLabel: UILabel! {get}
+    var skinView: UIView! {get}
+    var borderColor: UIColor {get}
+    var borderWidth: CGFloat {get}
+    var selectedColor: UIColor {get}
+}
+protocol TexturesShopController: AnyObject {
     var type: TypeOfShopController {get}
     var selectedCellIndexPath: IndexPath {get set}
     var selectedCellInfo: CellInfo? {get}
-    var selectedCell: Shop2DCollectionViewCell? {get set}
+    var selectedCell: ShopCollectionViewCell? {get set}
     var actualPositionOfSelectedCell: CGPoint {get}
     var collectionView: UICollectionView! {get}
     var view: UIView! {get}
     func updateInfo()
 }
-class ShopViewController2D: UITabBarController, UITabBarControllerDelegate {
+protocol ShopViewController: AnyObject, UITabBarController {
+    
+}
+class ShopViewController2D: UITabBarController, UITabBarControllerDelegate, ShopViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,8 +7,7 @@
 
 import UIKit
 
-class ShopPaddleTexturesViewController: UIViewController, Textures2DShopController {
-    
+class ShopPaddleTexturesViewController: UIViewController, TexturesShopController {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var headerTopView: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -32,7 +31,7 @@ class ShopPaddleTexturesViewController: UIViewController, Textures2DShopControll
     private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
     
     var selectedCellInfo: CellInfo?
-    var selectedCell: Shop2DCollectionViewCell?
+    var selectedCell: ShopCollectionViewCell?
     var actualPositionOfSelectedCell = CGPoint()
     
     override func viewDidLoad() {
@@ -272,7 +271,7 @@ extension ShopPaddleTexturesViewController: UICollectionViewDelegate {
                                                      borderColor: borderColor,
                                                      cornerRadius: cell.layer.cornerRadius,
                                                      backgroundColor: backgroundColor,
-                                                     imageFrame: cell.imageView.frame)
+                                                     skinViewFrame: cell.imageView.frame)
                 }
             }
             self.performSegue(withIdentifier: "FromPaddleTexturesToCellMenu", sender: self)
