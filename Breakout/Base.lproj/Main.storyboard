@@ -17,6 +17,30 @@
         </array>
     </customFonts>
     <scenes>
+        <!--Statistics View Controller-->
+        <scene sceneID="nLc-ei-cIf">
+            <objects>
+                <viewController id="pU3-GD-NMT" customClass="StatisticsViewController" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lVR-yG-Avy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="stats:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGM-dN-FV0">
+                                <rect key="frame" x="60" y="67" width="255" height="94"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="70"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="dZa-Ta-Pxl"/>
+                        <color key="backgroundColor" red="0.023529411764705882" green="0.047058823529411764" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mc7-Ea-9yb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-540" y="-650.2463054187192"/>
+        </scene>
         <!--Menu View Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
@@ -2256,7 +2280,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="eeK-tL-DEB"/>
         <segue reference="zr8-MN-Mqj"/>
-        <segue reference="jBZ-7G-5Mf"/>
+        <segue reference="Y2f-0h-mfv"/>
         <segue reference="GYc-AO-Jkk"/>
     </inferredMetricsTieBreakers>
     <resources>
