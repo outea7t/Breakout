@@ -214,8 +214,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="47"/>
                                         </state>
                                         <connections>
-                                            <action selector="backToMenuButtonPress:" destination="QYO-O6-mWq" eventType="touchUpInside" id="IJx-ze-Jom"/>
-                                            <segue destination="rLH-jp-9nD" kind="unwind" unwindAction="unwindToMenu:" id="M5j-uR-590"/>
+                                            <action selector="backButtonPressed:" destination="QYO-O6-mWq" eventType="touchUpInside" id="g4p-xN-vXf"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LEVELS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="25" translatesAutoresizingMaskIntoConstraints="NO" id="yir-7F-rFx">
@@ -280,7 +279,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAB-9Z-FUR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="rLH-jp-9nD" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1057" y="65"/>
         </scene>
@@ -2274,7 +2272,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="yGa-Sh-8Tf"/>
-        <segue reference="rui-cb-CKg"/>
+        <segue reference="jBZ-7G-5Mf"/>
         <segue reference="GYc-AO-Jkk"/>
     </inferredMetricsTieBreakers>
     <resources>

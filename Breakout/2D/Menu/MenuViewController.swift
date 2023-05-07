@@ -123,7 +123,7 @@ class MenuViewController: UIViewController {
         // ставим на паузу сцену(для производительности)
 //        self.menuScene?.pauseMenu()
         // переходим к игровому контроллеру
-        self.performSegue(withIdentifier: "FromMenuToLevelsMenu", sender: self)
+//        self.performSegue(withIdentifier: "FromMenuToLevelsMenu", sender: self)
     }
     
     @IBAction func settingsButtonPressed(_ sender: UIButton) {

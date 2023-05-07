@@ -10,6 +10,9 @@ enum TypeOfShopController {
     case ball
     case paddle
     case particles
+//    case ball3D
+//    case paddle3D
+//    case particles3D
 }
 struct CellInfo {
     var frame: CGRect
@@ -30,49 +33,6 @@ protocol Textures2DShopController: AnyObject {
     func updateInfo()
     
 }
-//extension Textures2DShopController {
-//
-//     @objc func longPressGesture(_ gesture: UILongPressGestureRecognizer) {
-//         let gestureLocation = gesture.location(in: self.collectionView)
-//         guard let targetIndexPath = self.collectionView.indexPathForItem(at: gestureLocation) else {
-//             return
-//         }
-//         switch gesture.state {
-//         case .began:
-//             // находим нажатую ячейку
-//             if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell {
-//
-//                 if !self.doesBuyedItemsContains(item: targetIndexPath) &&
-//                     GameCurrency.userMoney >= cell.price {
-//                     self.selectedCellIndexPath = targetIndexPath
-//                     cell.priceLabel.text = ""
-//
-//                     UserCustomization._2DbuyedBallSkinIndexes += [targetIndexPath.item]
-//                     UserCustomization._2DballSkinIndex = self.selectedCellIndexPath.item
-//                     GameCurrency.userMoney -= cell.price
-//                     self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
-//                     HapticManager.notificationVibrate(for: .success)
-//                 } else if GameCurrency.userMoney < cell.price {
-//                     HapticManager.notificationVibrate(for: .error)
-//                 }
-//                 cell.resizeToIdentity()
-//             }
-// //        case .changed:
-//         case .ended:
-//             if targetIndexPath == self.selectedCellIndexPath {
-//                 let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
-//                 cell?.resizeToIdentity()
-//             }
-//         case .cancelled:
-//
-//             let cell = self.collectionView.cellForItem(at: targetIndexPath) as? ShopCollectionViewCell
-//             cell?.resizeToIdentity()
-//         default:
-//             break
-//         }
-//     }
-//
-//}
 class ShopViewController2D: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {

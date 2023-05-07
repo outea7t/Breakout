@@ -95,8 +95,8 @@ class LevelsMenuViewColntroller: UIViewController {
         }
     }
    
-    // нажата кнопка выхода в меню
-    @IBAction func backToMenuButtonPress(_ sender: Any) {
+    @IBAction func backButtonPressed(_ sender: UIButton) {
+        self.dismiss(animated: true)
     }
     /// анимация измнения размера кнопок, когда мы листаем
     /// чем ближе кнопка к центру видимого экрана, тем больше ее размер

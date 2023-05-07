@@ -18,7 +18,7 @@ class WinViewController: UIViewController {
     
     @IBOutlet weak var scoredMoneyLabel: CountingLabel!
     @IBOutlet weak var starView: UIView!
-    var endGameScene: EndGameScene?
+    weak var endGameScene: EndGameScene!
     @IBOutlet weak var blurView: UIVisualEffectView!
     
     @IBOutlet weak var endGameView: SKView!
@@ -128,7 +128,10 @@ class WinViewController: UIViewController {
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
         return [.bottom]
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.scoredMoneyLabel.invalidateTimer()
+    }
     func setConfetti() {
         self.endGameScene?.addConfetti()
     }
@@ -166,12 +169,5 @@ class WinViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    private func setShadow(for button: UIButton) {
-        let shadowColor = #colorLiteral(red: 0.01421812456, green: 0.2760511935, blue: 0.02150881477, alpha: 1)
-        button.layer.shadowColor = shadowColor.cgColor
-        button.layer.shadowOpacity = 1.0
-        button.layer.shadowRadius = 0
-        button.layer.shadowOffset = CGSize(width: button.frame.width/10,
-                                           height: button.frame.height/10)
-    }
+    
 }

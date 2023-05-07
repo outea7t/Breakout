@@ -11,7 +11,7 @@ import UIKit
 class CountingLabel: UILabel {
     
     // экспонента для скорости
-    let counterVelocity: Float = 3.0
+    private let counterVelocity: Float = 3.0
     enum CounterAnimationType {
         case linear // f(x) = x
         case easeIn // f(x) = x^3
@@ -25,20 +25,20 @@ class CountingLabel: UILabel {
         case plus
         case minus
     }
-    var startNumber: Float = 0.0
-    var endNumber: Float = 0.0
+    private var startNumber: Float = 0.0
+    private var endNumber: Float = 0.0
     
-    var progress: TimeInterval!
-    var duration: TimeInterval!
+    private var progress: TimeInterval!
+    private var duration: TimeInterval!
     /// когда анимация закончена
-    var lastUpdate: TimeInterval!
+    private var lastUpdate: TimeInterval!
     
-    var timer: Timer?
+    private weak var timer: Timer!
     
-    var counterType: CounterType!
-    var counterAnimationType: CounterAnimationType!
-    var counterSign: CounterSign!
-    var currentCounterValue: Float {
+    private var counterType: CounterType!
+    private var counterAnimationType: CounterAnimationType!
+    private var counterSign: CounterSign!
+    private var currentCounterValue: Float {
         if self.progress >= self.duration {
             return self.endNumber
         }
@@ -76,7 +76,7 @@ class CountingLabel: UILabel {
                                           repeats: true)
     }
     
-    @objc func updateValue() {
+    @objc private func updateValue() {
         let now = Date.timeIntervalSinceReferenceDate
         self.progress = progress + (now - self.lastUpdate)
         self.lastUpdate = now
@@ -87,7 +87,7 @@ class CountingLabel: UILabel {
         
         self.updateText(value: self.currentCounterValue)
     }
-    func updateText(value: Float) {
+    private func updateText(value: Float) {
         var computedText = ""
         switch counterType {
         case .int:
@@ -107,7 +107,7 @@ class CountingLabel: UILabel {
             break
         }
     }
-    func updateCounter(counterValue: Float) -> Float {
+    private func updateCounter(counterValue: Float) -> Float {
         switch self.counterAnimationType {
         case .linear:
             return counterValue

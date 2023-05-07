@@ -26,6 +26,7 @@ class CellMenuViewController: UIViewController {
     var image = UIImage()
     var typeOfCurrentShopController = TypeOfShopController.ball
     var isBuyed = false
+    var shouldShowBuyButton: Bool = true
     
     private var backgroundAnimationScene: ExtendedCellMenuScene?
     override func viewDidLoad() {
@@ -43,13 +44,17 @@ class CellMenuViewController: UIViewController {
             self.effectsInformationLabel.attributedText = attributedText
         }
         
-        self.buyButton.layer.cornerRadius = self.buyButton.frame.height/3
-        self.buyButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.buyButton.layer.shadowOffset = CGSize(width: 0,
-                                                   height: self.buyButton.frame.height/10.0)
-        self.buyButton.layer.shadowOpacity = 0.5
-        self.buyButton.layer.shadowRadius = self.buyButton.frame.height/10.0
-        
+        if self.shouldShowBuyButton {
+            self.buyButton.isHidden = false
+            self.buyButton.layer.cornerRadius = self.buyButton.frame.height/3
+            self.buyButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.buyButton.layer.shadowOffset = CGSize(width: 0,
+                                                       height: self.buyButton.frame.height/10.0)
+            self.buyButton.layer.shadowOpacity = 0.5
+            self.buyButton.layer.shadowRadius = self.buyButton.frame.height/10.0
+        } else {
+            self.buyButton.isHidden = true
+        }
         self.cellInformationView.layer.borderWidth = 10
         self.cellInformationView.layer.borderColor = UIColor.white.cgColor
         self.cellInformationView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -158,5 +163,3 @@ extension CellMenuViewController: UIViewControllerTransitioningDelegate {
     }
     
 }
-
-

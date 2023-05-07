@@ -293,6 +293,13 @@ extension ShopBallTexturesViewController: UICollectionViewDelegate {
         guard let cellMenuCellData = self.cellMenuCellData else {
             return
         }
+        // для того, чтобы можно было просмотреть расширенную информацию о купленном скине
+        guard let selectedCell = self.selectedCell else {
+            return
+        }
+        if UserCustomization._2DbuyedBallSkinIndexes.contains(selectedCell.id) {
+            cellMenu.shouldShowBuyButton = false
+        }
         cellMenu.image = cellMenuCellData.image
         cellMenu.price = (cellMenuCellData.price)
         cellMenu.cellID = cellMenuCellData.id

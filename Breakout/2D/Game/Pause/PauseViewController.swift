@@ -56,10 +56,6 @@ class PauseViewController: UIViewController {
             view.showsPhysics = true
         }
         
-//        self.setShadow(for: self.homeButton)
-//        self.setShadow(for: self.settingsButton)
-//        self.setShadow(for: self.restartButton)
-        
         self.resumeButton.layer.cornerRadius = self.restartButton.frame.height/4.0
         
         let resumeButtonShadowColor = #colorLiteral(red: 0.4924743176, green: 0.1744754016, blue: 0.0226278659, alpha: 1)
@@ -80,7 +76,6 @@ class PauseViewController: UIViewController {
         return [.bottom]
     }
 
-    
     @IBAction func quitButtonPressed(_ sender: UIButton) {
         // unwind к меню из сториборда
         self.pauseScene = nil
@@ -97,7 +92,6 @@ class PauseViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    
     @IBAction func restartButtonPressed(_ sender: UIButton) {
         self.pauseScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
@@ -108,14 +102,5 @@ class PauseViewController: UIViewController {
 //            gameViewController.gameScene?.setParticlesSkin()
         }
         self.dismiss(animated: true)
-    }
-    
-    private func setShadow(for button: UIButton) {
-        let shadowColor = #colorLiteral(red: 0.01247970853, green: 0, blue: 0.4472637177, alpha: 1)
-        button.layer.shadowColor = shadowColor.cgColor
-        button.layer.shadowOpacity = 1.0
-        button.layer.shadowRadius = 0
-        button.layer.shadowOffset = CGSize(width: button.frame.width/10,
-                                           height: button.frame.height/10)
     }
 }
