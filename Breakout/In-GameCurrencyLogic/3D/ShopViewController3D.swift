@@ -7,7 +7,24 @@
 
 import Foundation
 import UIKit
-
+protocol Textures3DShopController: AnyObject {
+    var type: TypeOfShopController {get}
+    var selectedCellIndexPath: IndexPath {get set}
+    var selectedCellInfo: CellInfo3D? {get}
+    var selectedCell: Shop3DCollectionViewCell? {get set}
+    var actualPositionOfSelectedCell: CGPoint {get}
+    var collectionView: UICollectionView! {get}
+    var view: UIView! {get}
+    func updateInfo()
+}
+struct CellInfo3D {
+    var frame: CGRect
+    var borderWidth: CGFloat
+    var borderColor: CGColor
+    var cornerRadius: CGFloat
+    var backgroundColor: UIColor
+//    var imageFrame: CGRect
+}
 class ShopViewController3D: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         // чтобы цвет элементов не менялся в зависимости от темной или светлой темы телефона

@@ -31,7 +31,6 @@ protocol Textures2DShopController: AnyObject {
     var collectionView: UICollectionView! {get}
     var view: UIView! {get}
     func updateInfo()
-    
 }
 class ShopViewController2D: UITabBarController, UITabBarControllerDelegate {
 

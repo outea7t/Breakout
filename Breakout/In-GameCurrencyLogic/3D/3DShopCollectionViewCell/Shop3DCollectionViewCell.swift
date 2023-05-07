@@ -225,8 +225,6 @@ class Shop3DCollectionViewCell: UICollectionViewCell {
                                 width: shadowSize.width,
                                 height: shadowSize.height)
         
-        
-        
         self.layer.shadowPath = UIBezierPath(rect: shadowRect).cgPath
         self.layer.shadowRadius = self.bounds.width/8
         self.layer.shadowOffset = .zero
