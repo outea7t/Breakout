@@ -18,8 +18,9 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var levelsButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var shopButton: UIButton!
-    
+    @IBOutlet weak var statisticButton: UIButton!
     @IBOutlet weak var arButton: UIButton!
+    
     // количество денег игрока
     @IBOutlet weak var userMoney: UILabel!
     // задний фон из райва

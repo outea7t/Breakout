@@ -98,6 +98,16 @@ class UserProgress {
         }
     }
     
+    public static var _2DbuyedSkins: Int {
+        get {
+            return UserCustomization._2DbuyedBallSkinIndexes.count + UserCustomization._2DbuyedPaddleSkinIndexes.count + UserCustomization._2DbuyedParticlesSkinIndexes.count
+        }
+    }
+    public static var _3DbuyedSkins: Int {
+        get {
+            return UserCustomization._3DbuyedBallSkinIndexes.count + UserCustomization._3DbuyedPaddleSkinIndexes.count + UserCustomization._3DbuyedParticlesSkinIndexes.count
+        }
+    }
     private init() {
         
     }
