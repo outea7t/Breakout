@@ -35,7 +35,7 @@ class StatisticsViewController: UIViewController {
         self.maxStreak.text = "max streak: 0"
         self.maxAvailableLevel.text = "max available level: \(UserProgress._2DmaxAvailableLevelID)"
         
-        self.timeSpent.text = "time spent: 1h"
+        self.timeSpent.text = "time spent: \(UserProgress.timeSpentString)"
         
         self.buyed2DSkins.text = "buyed 2d skins: \(UserProgress._2DbuyedSkins)"
         self.buyed3DSkins.text = "buyed 3d skins: \(UserProgress._3DbuyedSkins)"
