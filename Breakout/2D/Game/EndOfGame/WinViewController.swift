@@ -86,7 +86,7 @@ class WinViewController: UIViewController {
         GameCurrency.userMoney += scoredMoney
         UserProgress._2DmaxAvailableLevelID = self.currentLevelIndex + 1
         UserProgress._2DlevelsStars[self.currentLevelIndex-1] = 3
-        
+        UserProgress.totalScore += self.gameScore
         
         self.starRiveViewModel.setView(self.starRiveView)
         self.starRiveViewModel.play(animationName: "3StarAnimation")

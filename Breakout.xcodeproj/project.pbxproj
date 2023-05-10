@@ -179,6 +179,7 @@
 		22F20C2C28BF630500415CE5 /* AnimatedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F20C2B28BF630500415CE5 /* AnimatedText.swift */; };
 		22F36F76296034CE00059579 /* ShopViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F36F75296034CE00059579 /* ShopViewController2D.swift */; };
 		22F36F78296034D900059579 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F36F77296034D900059579 /* SettingsViewController.swift */; };
+		22F6FAA02A0B6B0200DA3988 /* Stars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6FA9F2A0B6B0200DA3988 /* Stars.swift */; };
 		22F9D96D293BCD0500A5D776 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 22F9D96C293BCD0500A5D776 /* RiveRuntime */; };
 		22FBA99D29F99CDF008C6838 /* ShopViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */; };
 		22FBA99F29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */; };
@@ -380,6 +381,7 @@
 		22F20C2B28BF630500415CE5 /* AnimatedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedText.swift; sourceTree = "<group>"; };
 		22F36F75296034CE00059579 /* ShopViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController2D.swift; sourceTree = "<group>"; };
 		22F36F77296034D900059579 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		22F6FA9F2A0B6B0200DA3988 /* Stars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stars.swift; sourceTree = "<group>"; };
 		22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController3D.swift; sourceTree = "<group>"; };
 		22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBallTexturesViewController3D.swift; sourceTree = "<group>"; };
 		22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParticleTexturesViewController3D.swift; sourceTree = "<group>"; };
@@ -994,6 +996,7 @@
 				2279362229438E3C002C519F /* TrajectoryLine2D.swift */,
 				2275FA5B288ACE320075AFD6 /* Brick2D.swift */,
 				22784E6928BBF85E001C3E61 /* Level2D.swift */,
+				22F6FA9F2A0B6B0200DA3988 /* Stars.swift */,
 			);
 			path = GameObjects;
 			sourceTree = "<group>";
@@ -1457,6 +1460,7 @@
 				22784E6A28BBF85E001C3E61 /* Level2D.swift in Sources */,
 				22B8FF9329741A3C00F923DC /* Shop2DCellData.swift in Sources */,
 				22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift in Sources */,
+				22F6FAA02A0B6B0200DA3988 /* Stars.swift in Sources */,
 				22784E6828BBF4A2001C3E61 /* Particle2D.swift in Sources */,
 				22B516C229238AB7006B1B6F /* Paddle3D.swift in Sources */,
 				22D38B7D29E821DC00BF1E1E /* ExtendedCellMenuScene.swift in Sources */,

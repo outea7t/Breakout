@@ -36,10 +36,7 @@ class UserProgress {
     /// общее количество звезд, которое пользователь получил во время прохождения уровней в 2д и 3д режимах игры
     public static var totalStars: Int {
         get {
-            return UserDefaults.standard.integer(forKey: UserProgressKey.totalStars.rawValue)
-        } set {
-            let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: UserProgressKey.totalStars.rawValue)
+            return UserProgress._2DlevelsStars.reduce(0, +) + UserProgress._3DlevelsStars.reduce(0, +)
         }
     }
     /// общее количество очков, которое пользователь получил во время игры в 2д и 3д режимах игры
@@ -103,6 +100,7 @@ class UserProgress {
             defaults.set(newValue, forKey: UserProgressKey._2DlevelsStars.rawValue)
         }
     }
+
     /// количество скинов в режиме 2д, которое купил пользователь
     public static var _2DbuyedSkins: Int {
         get {
