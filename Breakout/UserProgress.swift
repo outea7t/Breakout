@@ -10,7 +10,7 @@ import Foundation
 class UserProgress {
     
     private enum UserProgressKey: String {
-        case isFirstTime
+        case wasAppAlreadyLaunched
         case totalStars
         case totalScore
         case timeSpent
@@ -25,12 +25,12 @@ class UserProgress {
     }
 //    public static var stars: Int {}
     /// означает, что пользователь впервые заходит в приложение
-    public static var isFirstTime: Bool {
+    public static var wasAppAlreadyLaunched: Bool {
         get {
-            return UserDefaults.standard.bool(forKey: UserProgressKey.isFirstTime.rawValue)
+            return UserDefaults.standard.bool(forKey: UserProgressKey.wasAppAlreadyLaunched.rawValue)
         } set {
             let defaults = UserDefaults.standard
-            defaults.set(newValue, forKey: UserProgressKey.isFirstTime.rawValue)
+            defaults.set(newValue, forKey: UserProgressKey.wasAppAlreadyLaunched.rawValue)
         }
     }
     /// общее количество звезд, которое пользователь получил во время прохождения уровней в 2д и 3д режимах игры
@@ -140,7 +140,6 @@ class UserProgress {
             return UserCustomization._3DbuyedBallSkinIndexes.count + UserCustomization._3DbuyedPaddleSkinIndexes.count + UserCustomization._3DbuyedParticlesSkinIndexes.count
         }
     }
-    
     private init() {
         
     }

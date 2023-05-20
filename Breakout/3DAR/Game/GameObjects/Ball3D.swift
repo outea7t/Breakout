@@ -117,12 +117,12 @@ struct Ball3D {
         guard let physicsBody = self.ball.physicsBody else {
             return
         }
-        if physicsBody.velocity.z <= 0.01 && physicsBody.velocity.z != 0 {
+        if abs(physicsBody.velocity.z) <= 0.0001 && physicsBody.velocity.z != 0 {
             switch physicsBody.velocity.z.sign {
             case .plus:
-                self.ball.physicsBody?.velocity.z -= 0.01
+                self.ball.physicsBody?.velocity.z += 0.05
             case .minus:
-                self.ball.physicsBody?.velocity.z += 0.01
+                self.ball.physicsBody?.velocity.z -= 0.05
             }
         }
     }

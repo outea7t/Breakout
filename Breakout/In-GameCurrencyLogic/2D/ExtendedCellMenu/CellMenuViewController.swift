@@ -66,7 +66,7 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
         self.cellInformationView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         let shadowPath = UIBezierPath(rect:
                                         CGRect(x: cellInformationView.bounds.origin.x-10,
-                                               y: cellInformationView.bounds.origin.x,
+                                               y: cellInformationView.bounds.origin.y,
                                                width: cellInformationView.bounds.width+20,
                                                height: cellInformationView.bounds.height))
         self.cellInformationView.layer.shadowPath = shadowPath.cgPath

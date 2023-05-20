@@ -44,7 +44,7 @@ class MenuViewController: UIViewController {
         
         if let view = self.view.viewWithTag(1) as? SKView {
             view.backgroundColor = .clear
-            let scene = MenuScene(size: view.bounds.size)
+            let scene = MenuScene(size: self.view.bounds.size)
             scene.backgroundColor = .clear
             scene.scaleMode = .aspectFill // чтобы идеально подошли размеры сцены под view
             
@@ -71,7 +71,7 @@ class MenuViewController: UIViewController {
         self.settingsButton.layer.shadowRadius = 0.0
         self.settingsButton.layer.shadowOffset = CGSize(width: self.settingsButton.frame.width/30.0,
                                                       height: self.settingsButton.frame.height/10.0)
-
+        
         self.arButton.layer.shadowOpacity = 1.0
         self.arButton.layer.shadowColor = #colorLiteral(red: 0.05542261899, green: 0.004148194566, blue: 0.1240254864, alpha: 1)
         self.arButton.layer.shadowRadius = 0.0
@@ -86,6 +86,17 @@ class MenuViewController: UIViewController {
             width: self.shopButton.frame.width/15,
             height: self.shopButton.frame.height/15)
         
+        self.statisticButton.layer.shadowOpacity = 1.0
+        self.statisticButton.layer.shadowColor = #colorLiteral(red: 0.05542261899, green: 0.004148194566, blue: 0.1240254864, alpha: 1)
+        self.statisticButton.layer.shadowRadius = 0.0
+        self.statisticButton.layer.shadowOffset = CGSize(
+            width: self.statisticButton.frame.width/15,
+            height: self.statisticButton.frame.height/15)
+        
+        if !UserProgress.wasAppAlreadyLaunched {
+            GameCurrency.userMoney = 10_000
+            UserProgress.wasAppAlreadyLaunched = true
+        }
         // подгатавливаем, чтобы можно было проигрывать кастомные "тактильные ощущения"
         HapticManager.prepare()
         // подгадавливаем скины для игровых объектов 2д части (чтобы потом много раз не загружать их)

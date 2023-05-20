@@ -266,22 +266,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
         
         var destinationPlatePosition = frame.plate.position
-        let oldPlatePosition = frame.plate.presentation.position
         destinationPlatePosition.y = detectedNodePosition.y + frame.plateVolume.y*2
-        let newPlatePosition = destinationPlatePosition
         
-//        self.ball?.moveBall(oldPositionOfFrame: oldPlatePosition, newPositionOfFrame: newPlatePosition)
-        print(self.ball?.ball.physicsBody?.velocity)
         let moveAction = SCNAction.move(to: destinationPlatePosition, duration: 0.0001)
         
-//        var destinationLightPosition = SCNVector3(destinationPlatePosition.x,
-//                                                  destinationPlatePosition.y + 1.0,
-//                                                  destinationPlatePosition.z - 0.4)
-        
         frame.plate.runAction(moveAction)
-//        self.ball?.ball.position.y = destinationPlatePosition.y
-//        let lightMoveAction = SCNAction.move(to: destinationLightPosition, duration: 0.0001)
-//        self.light.runAction(lightMoveAction)
     }
     private func scaleScene(scaleFactor: CGFloat) {
         guard let frame = self.frame else {
@@ -364,12 +353,10 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     /// функция, которая обновляет плоскость
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        
         guard let planeAnchor = anchor as? ARPlaneAnchor else {
             return
         }
 
-        
         let planeNode = self.detectedPlaneNode
         
         guard let plane = planeNode?.geometry as? SCNPlane else {return}
@@ -383,7 +370,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         let y = CGFloat(planeAnchor.center.y)
         let z = CGFloat(planeAnchor.center.z)
         
-        planeNode!.position = SCNVector3(x, y, z)
+        
+//        planeNode!.position = SCNVector3(x, y, z)
         
         //  для обновления позиции коробки (если мы добавляем ее не к обнаруженной плоскости, а к rootNode)
         if let planeNodePosition = self.detectedPlaneNode?.worldPosition {
@@ -393,7 +381,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 self.wantSetPosition = false
             }
             print("The Scene was moved")
-            self.moveScene(detectedNodePosition: planeNodePosition)
+//            self.moveScene(detectedNodePosition: planeNodePosition)
         }
         
         if !self.planeAnchors.contains(planeAnchor) {
@@ -438,6 +426,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     /// обновляем игровые объекты
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        print(self.gameSceneView.pointOfView?.presentation.position)
         if !self.isPaused {
             self.update(time)
             self.paddle?.updateNode()
@@ -904,11 +893,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         // настраиваем материал
         let livesTextNodeMaterial = SCNMaterial()
-//        livesTextNodeMaterial.lightingModel = .physicallyBased
         livesTextNodeMaterial.diffuse.contents = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
         livesTextNodeMaterial.specular.contents = #colorLiteral(red: 1, green: 0, blue: 0.8277662396, alpha: 1)
-//        livesTextNodeMaterial.metalness.contents = 1.0
-//        livesTextNodeMaterial.roughness.contents = 1.0
         
         livesTextNodeGeometry.materials = [livesTextNodeMaterial]
         // с горем пополам настраиваем позицию текста так, чтобы она была сверху слева от передней стенки

@@ -64,7 +64,7 @@ class ShopViewController2D: UITabBarController, UITabBarControllerDelegate, Shop
             self.tabBar.tintColor = imageTintColor
          }
         self.tabBar.isTranslucent = true
-        self.tabBar.layer.cornerRadius = self.view.bounds.width/10
+        self.tabBar.layer.cornerRadius = self.tabBar.frame.height/4
         
         self.tabBar.layer.masksToBounds = true
         self.tabBar.shadowImage = UIImage()

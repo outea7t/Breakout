@@ -567,7 +567,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     private func paddleUpdate(_ currentTime: TimeInterval) {
         self.paddle?.paddleUpdate(frame: self.frame)
-        
     }
     /// переходим в WinViewController
     private func setWin() {

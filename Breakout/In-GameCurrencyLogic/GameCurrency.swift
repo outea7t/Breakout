@@ -18,8 +18,19 @@ import UIKit
 // возможно еще на ракетку(но с этим у меня пока что мало идей)
 
 struct GameCurrency {
+    private enum GameCurrencyKeys: String {
+        case userMoney
+    }
     /// текущее количество денег, которое есть у пользователя
-    public static var userMoney: Int = 10000
+    public static var userMoney: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: GameCurrencyKeys.userMoney.rawValue)
+        } set {
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: GameCurrencyKeys.userMoney.rawValue)
+        }
+        
+    }
     /// функция, которое возвращает строковое количество денег пользователя
     /// если их больше 1000 то она убирает 0 и приписывает к в конце
     public static func updateUserMoneyLabel() -> String {

@@ -31,6 +31,8 @@ class ARLoseViewController: UIViewController {
         
         self.backgroundViewModel.setView(self.backgroundView)
         self.backgroundViewModel.play(animationName: "AmbientAnimation", loop: .loop)
+        self.backgroundViewModel.alignment = .center
+        self.backgroundViewModel.fit = .fill
         
         self.view.addSubview(self.backgroundView)
         
@@ -43,7 +45,7 @@ class ARLoseViewController: UIViewController {
         
         if let skView = self.view.viewWithTag(1) as? SKView {
             skView.backgroundColor = .clear
-            self.endGameScene = EndGameScene(size: skView.bounds.size)
+            self.endGameScene = EndGameScene(size: self.view.bounds.size)
             self.endGameScene?.backgroundColor = .clear
             
             if let endGameScene = self.endGameScene {

@@ -34,6 +34,7 @@ class LoseViewController: UIViewController {
         
         self.backgroundViewModel.setView(self.backgroundView)
         self.backgroundViewModel.play(animationName: "AmbientAnimation", loop: .loop)
+        self.backgroundViewModel.fit = .fill
         
         self.view.addSubview(self.backgroundView)
         
@@ -47,7 +48,7 @@ class LoseViewController: UIViewController {
         if let view = self.view.viewWithTag(1) as? SKView {
 //            view.backgroundColor = #colorLiteral(red: 0.6630792942, green: 0, blue: 0, alpha: 0.2)
             view.backgroundColor = .clear
-            let scene = EndGameScene(size: view.bounds.size)
+            let scene = EndGameScene(size: self.view.bounds.size)
             scene.scaleMode = .aspectFill
             scene.size = view.bounds.size
             

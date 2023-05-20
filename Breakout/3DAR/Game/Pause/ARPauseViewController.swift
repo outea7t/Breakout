@@ -39,7 +39,7 @@ class ARPauseViewController: UIViewController {
         self.backgroundViewModel.setView(self.backgroundView)
         self.backgroundViewModel.play(loop: .loop)
         
-        self.backgroundViewModel.alignment = .topLeft
+        self.backgroundViewModel.alignment = .center
         self.backgroundViewModel.fit = .fill
         self.view.addSubview(self.backgroundView)
         
@@ -53,7 +53,7 @@ class ARPauseViewController: UIViewController {
         if let skView = self.view.viewWithTag(1) as? SKView {
             skView.backgroundColor = .clear
             
-            let scene = ARPauseScene(size: skView.bounds.size)
+            let scene = ARPauseScene(size: self.view.bounds.size)
             scene.backgroundColor = .clear
 
             self.pauseScene = scene

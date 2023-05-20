@@ -44,9 +44,9 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         self.backgroundViewModel.setView(self.backgroundView)
         self.backgroundViewModel.play(animationName: "AmbientAnimation", loop: .loop)
         
-        
-        self.backgroundViewModel.alignment = .topLeft
+        self.backgroundViewModel.alignment = .center
         self.backgroundViewModel.fit = .fill
+        
         self.view.addSubview(self.backgroundView)
         self.view.sendSubviewToBack(self.backgroundView)
         self.view.sendSubviewToBack(self.blurView)
@@ -57,7 +57,7 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
         
         if let view = self.view.viewWithTag(1) as? SKView {
             view.backgroundColor = .clear
-            let scene = ARMenuScene(size: view.bounds.size)
+            let scene = ARMenuScene(size: self.view.bounds.size)
             self.arMenuScene = scene
             self.arMenuScene?.scaleMode = .aspectFill
             if let arMenuScene = self.arMenuScene {

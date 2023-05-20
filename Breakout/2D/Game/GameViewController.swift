@@ -28,15 +28,13 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         if let view = self.view.viewWithTag(1) as? SKView {
-            let scene = GameScene(size: view.bounds.size)
-            
+            let scene = GameScene(size: self.view.bounds.size)
             scene.scaleMode = .aspectFill
             self.loadAllLevelsInfo()
             scene.currentLevel = self.levels[Int(self.levelChoosed)-1]
             view.presentScene(scene)
             // сцена с игрой
             self.gameScene = scene
-            self.gameScene?.scaleMode = .aspectFill
             // подписываемся на делегат игры (для перехода на экран конца игры)
             self.gameScene?.gameVCDelegate = self
             

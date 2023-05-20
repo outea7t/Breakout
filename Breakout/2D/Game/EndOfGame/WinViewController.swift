@@ -44,6 +44,7 @@ class WinViewController: UIViewController {
         
         self.backgroundViewModel.setView(self.backgroundView)
         self.backgroundViewModel.play(animationName: "AmbientAnimation", loop: .loop)
+        self.backgroundViewModel.fit = .fill
         
         self.view.addSubview(self.backgroundView)
         
@@ -56,9 +57,8 @@ class WinViewController: UIViewController {
         
         if let view = self.view.viewWithTag(1) as? SKView {
             view.backgroundColor = .clear
-            let scene = EndGameScene()
+            let scene = EndGameScene(size: self.view.bounds.size)
             scene.scaleMode = .aspectFill
-            scene.size = view.bounds.size
             self.endGameScene = scene
             view.presentScene(scene)
             
