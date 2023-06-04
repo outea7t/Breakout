@@ -39,7 +39,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     // для логики паузы - объект, к которому мы будем добавлять все остальное, чтобы одновременно все останавливать
         
-    // игровые объекта
+    // игровые объекты
     private var ball: Ball3D?
     private var brick: Brick3D?
     private var frame: Frame3D?
@@ -81,6 +81,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     // для логики обнаружения плоскости
     /// нужно ли обнаруживать плоскость
     var wantDetectPlane = true
+    /// закреплена ли позиция рамки с игрой на плоскости
+    var isFramePositionPinned = false
     /// нужно ли создавать на ней сцену
     var wantSetPosition = true
     /// обнаруженные точки поверхности
@@ -132,7 +134,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем debug опции
-        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showPhysicsShapes]
+        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showPhysicsShapes, .showWorldOrigin]
         
         // устанавливаем делегат для AR
         self.gameSceneView.delegate = self
@@ -266,9 +268,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
 //        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration)
 //        frame.plate.runAction(rotateAction)
 
-        
-        frame.plate.transform = SCNMatrix4Rotate(frame.plate.transform, Float(angle), 0, 1, 0)
-        frame.plate.physicsBody?.resetTransform()
+        frame.plate.orientation = SCNQuaternion(0, angle, 0, angle)
+//        frame.plate.transform = SCNMatrix4Rotate(frame.plate.transform, Float(angle), 0, 1, 0)
+//        frame.plate.physicsBody?.resetTransform()
         
     }
     
@@ -314,6 +316,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         configuration.planeDetection = .horizontal
         configuration.environmentTexturing = .automatic
         configuration.isLightEstimationEnabled = true
+        
 //        configuration.worldAlignment = .camera
         // телефон должен иметь конфигурацию отслеживания мира
         self.gameSceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
@@ -343,7 +346,13 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             
             let plane = SCNPlane(width: width, height: height)
             let planeMaterial = SCNMaterial()
-            planeMaterial.lightingModel = .shadowOnly
+            let texture = SKTexture(imageNamed: "ARPlaneTexture.png")
+            planeMaterial.diffuse.contents = texture
+            planeMaterial.diffuse.contentsTransform = SCNMatrix4MakeScale(5, -5, 0)
+            planeMaterial.diffuse.wrapS = .repeat
+            planeMaterial.diffuse.wrapT = .repeat
+            
+//            planeMaterial.lightingModel = .shadowOnly
             plane.materials = [planeMaterial]
             
             let planeNode = SCNNode(geometry: plane)
@@ -383,7 +392,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
 //        let y = CGFloat(planeAnchor.center.y)
 //        let z = CGFloat(planeAnchor.center.z)
         
-        
 //        planeNode!.position = SCNVector3(x, y, z)
         
         //  для обновления позиции коробки (если мы добавляем ее не к обнаруженной плоскости, а к rootNode)
@@ -398,6 +406,32 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         if !self.planeAnchors.contains(planeAnchor) {
             self.planeAnchors.append(planeAnchor)
+        }
+        
+        if !self.isFramePositionPinned {
+            // Perform a continuous hit-test using the current frame
+            DispatchQueue.main.async { [weak self] in
+                guard let sceneView = self?.gameSceneView else {
+                    return
+                }
+                
+                let raycast = sceneView.raycastQuery(from: sceneView.center, allowing: .existingPlaneGeometry, alignment: .horizontal)
+                guard let raycast = raycast, let plateVolume = self?.frame?.plateVolume, let angle = sceneView.pointOfView?.eulerAngles.y  else {
+                    return
+                }
+                
+                let results = sceneView.session.raycast(raycast)
+                if let result = results.first {
+                    let hitPosition = result.worldTransform.columns.3
+                    
+                    let desirablePosition = SCNVector3(hitPosition.x, hitPosition.y + plateVolume.y , hitPosition.z)
+                    let moveAction = SCNAction.move(to: desirablePosition, duration: 0.25)
+                    self?.frame?.plate.runAction(moveAction)
+                    
+//                    let rotateAction = SCNAction.rotateTo(x: 0, y: CGFloat(angle), z: 0, duration: 0.15)
+//                    self?.frame?.plate.runAction(rotateAction)
+                }
+            }
         }
     }
     /// показывает сообщение об ошибке пользователю
@@ -438,18 +472,20 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     /// обновляем игровые объекты
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        if !self.isPaused {
-            self.update(time)
-            self.paddle?.updateNode()
-            // обновляем траекторию для мяча
-            if let ball = self.ball, let frame = self.frame {
-                self.trajectoryLine?.update(ball.isAttachedToPaddle, time, node: frame.plate)
-            }
-            // уменьшаем интенсивность света, если "вокруг" игрока темно
-            if let estimate = self.gameSceneView.session.currentFrame?.lightEstimate {
-                self.light.light?.intensity = estimate.ambientIntensity
-            }
+        guard !self.isPaused else {
+            return
         }
+        self.update(time)
+        self.paddle?.updateNode()
+        // обновляем траекторию для мяча
+        if let ball = self.ball, let frame = self.frame {
+            self.trajectoryLine?.update(ball.isAttachedToPaddle, time, node: frame.plate)
+        }
+        // уменьшаем интенсивность света, если "вокруг" игрока темно
+        if let estimate = self.gameSceneView.session.currentFrame?.lightEstimate {
+            self.light.light?.intensity = estimate.ambientIntensity
+        }
+        
     }
     /// полльзователь коснулся экрана
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -457,7 +493,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         guard !self.isPaused && touches.count == 1 else {
             return
         }
-        
+        guard self.isFramePositionPinned else {
+            return
+        }
         for touch in touches {
             let location = touch.location(in: self.gameSceneView)
             self.startTouchPosition = location
@@ -501,6 +539,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             return
         }
         guard touches.count == 1 else {
+            return
+        }
+        guard self.isFramePositionPinned else {
             return
         }
         for touch in touches {
@@ -551,6 +592,12 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             return
         }
         guard touches.count == 1 else {
+            return
+        }
+        
+        if !self.wantDetectPlane && !self.isFramePositionPinned {
+            self.isFramePositionPinned = true
+            HapticManager.collisionVibrate(with: .medium, 1.0)
             return
         }
         let isAttachedToPaddle = self.ball?.isAttachedToPaddle ?? false
@@ -623,9 +670,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 if abs(percentage) > 0.5 {
                     percentage = 0.5 * (abs(percentage)/percentage)
                 }
-                let percentageBefore = percentage
-                percentage -= 2*Float(self.sceneRotationAngle/(CGFloat.pi * 1.0))
-                print(percentageBefore, percentage)
+//                let percentageBefore = percentage
+//                percentage -= 2*Float(self.sceneRotationAngle/(CGFloat.pi * 1.0))
+//                print(percentageBefore, percentage)
                 if let oldVelocity = ball.ball.physicsBody?.velocity {
                     // используем магическое число 0.065 (для нормального отталкивания мяча от ракетки)
                     let ballImpulse = 0.065*4
@@ -880,7 +927,13 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 self.frame?.add(to: gameScene, in: framePosition)
             }
         }
-    
+//        let constraint = SCNBillboardConstraint()
+//        constraint.freeAxes = .Y
+        
+//        constraint.localFront = SCNVector3(0, 0, 1)
+        
+//        self.frame?.plate.constraints = [constraint]
+        
         if let frame = self.frame {
             // создание ракетки
             self.paddle = Paddle3D(frame: frame)

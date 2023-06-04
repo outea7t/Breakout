@@ -158,7 +158,6 @@ extension ARLevelsMenuViewController: UICollectionViewDelegateFlowLayout {
         
         let size = CGSize(width: self.view.frame.width/2.5,
                           height: self.view.frame.width/2.5)
-        print(size)
         return size
     }
 }

@@ -95,9 +95,14 @@ struct Ball3D {
         if self.isAttachedToPaddle {
             self.ball.physicsBody?.clearAllForces()
             if !x && !y && !z {
-                self.ball.position = SCNVector3(paddle.paddle.position.x,
+                print(paddle.paddle.presentation.worldPosition)
+                let worldPaddlePosition = paddle.paddle.presentation.worldPosition
+                let localPaddlePosition = frame.plate.convertPosition(worldPaddlePosition, from: nil)
+                
+                
+                self.ball.position = SCNVector3(localPaddlePosition.x,
                                                 self.ballRadius*1.5,
-                                                paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius)*1.2)
+                                                localPaddlePosition.z - paddle.paddleVolume.z/2.0 - (self.ballRadius)*1.2)
             }
         } else {
             // поправляем работу sceneKit и если мяч сильно замедляется или сильно ускоряется, то данный алгоритм нормализует скорость мяча

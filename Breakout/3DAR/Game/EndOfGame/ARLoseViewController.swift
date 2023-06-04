@@ -119,6 +119,7 @@ class ARLoseViewController: UIViewController {
             gameViewController.removeAllChildren()
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true
+            gameViewController.isFramePositionPinned = false
         }
         self.dismiss(animated: true)
     }

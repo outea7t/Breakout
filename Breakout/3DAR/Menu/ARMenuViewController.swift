@@ -161,17 +161,13 @@ class ARMenuViewController: UIViewController, ARSCNViewDelegate {
     }
     // спрашиваем доступ к камере телефона
     private func checkCameraPermission() {
-        print("CHECKING STATUS")
         switch AVCaptureDevice.authorizationStatus(for: .video) {
             case .notDetermined:
-            print("NOT DETERMIND")
                 self.requestAccess()
             case .denied, .restricted:
-            print("DENIED OR RESTRICTED")
                 showCameraRestrictedAlert()
                 showCameraRestrictedAlert()
             case .authorized:
-            print("AUTHORIZED")
                 self.setUpCamera()
             @unknown default:
                 break
