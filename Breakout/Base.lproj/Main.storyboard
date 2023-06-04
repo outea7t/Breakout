@@ -573,6 +573,9 @@
                                             <imageReference key="image" image="SettingsButtonPauseMenu"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="55"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="Bjx-Bu-0wI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="acN-nC-SeH"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntH-ib-MTj" userLabel="Restart">
                                         <rect key="frame" x="198.66666666666666" y="0.0" width="90.999999999999972" height="91.333333333333329"/>
@@ -695,6 +698,7 @@
                                         <state key="normal" image="SettingsButtonPauseMenu"/>
                                         <connections>
                                             <action selector="settingsButtonPressed:" destination="t8r-zK-EGk" eventType="touchUpInside" id="Oae-8T-qGG"/>
+                                            <segue destination="Bjx-Bu-0wI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="V88-9a-T6t"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N88-sq-9if">
@@ -850,6 +854,7 @@
                                         </state>
                                         <connections>
                                             <action selector="settingsButtonPressed:" destination="YzS-cn-L9e" eventType="touchUpInside" id="rAk-tL-1Fi"/>
+                                            <segue destination="Bjx-Bu-0wI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="bjH-C5-vhH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sJ-ae-rCh" userLabel="Restart">
@@ -1011,6 +1016,7 @@
                                         <state key="normal" image="SettingsButtonPauseMenu"/>
                                         <connections>
                                             <action selector="settingsButtonPressed:" destination="z40-AT-fRo" eventType="touchUpInside" id="RQa-9V-h4x"/>
+                                            <segue destination="Bjx-Bu-0wI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="QBD-wl-rfe"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Vb-EJ-DBj" userLabel="Shop">
@@ -1117,6 +1123,7 @@
                                         <state key="normal" image="SettingsButtonPauseMenu"/>
                                         <connections>
                                             <action selector="settingsButtonPressed:" destination="hRn-z7-05o" eventType="touchUpInside" id="TPC-zF-Pqz"/>
+                                            <segue destination="Bjx-Bu-0wI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="TNY-bf-mVZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyg-oX-nXq" userLabel="Restart">
@@ -1246,6 +1253,7 @@
                                 </state>
                                 <connections>
                                     <action selector="settingsButtonPressed:" destination="6iE-Oo-vvq" eventType="touchUpInside" id="BUq-X8-dew"/>
+                                    <segue destination="Bjx-Bu-0wI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="fZM-Bb-60z"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCB-pG-pHl">
@@ -1453,6 +1461,7 @@
                                         <state key="normal" image="SettingsButtonPauseMenu"/>
                                         <connections>
                                             <action selector="settingsButtonPressed:" destination="ead-SJ-Qyd" eventType="touchUpInside" id="2Ag-0e-pVN"/>
+                                            <segue destination="Bjx-Bu-0wI" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="2Mf-2H-XMZ"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KN3-1b-Row" userLabel="Restart">
@@ -2504,8 +2513,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="bmF-z4-AkC"/>
         <segue reference="zr8-MN-Mqj"/>
-        <segue reference="Y2f-0h-mfv"/>
-        <segue reference="GYc-AO-Jkk"/>
+        <segue reference="jBZ-7G-5Mf"/>
+        <segue reference="kPu-Br-XRZ"/>
+        <segue reference="2Mf-2H-XMZ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0Star" width="672" height="274"/>

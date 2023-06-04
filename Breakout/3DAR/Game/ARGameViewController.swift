@@ -428,6 +428,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                     let moveAction = SCNAction.move(to: desirablePosition, duration: 0.25)
                     self?.frame?.plate.runAction(moveAction)
                     
+//                    guard let pivot = self?.frame?.plate.pivot else {
+//                        return
+//                    }
 //                    let rotateAction = SCNAction.rotateTo(x: 0, y: CGFloat(angle), z: 0, duration: 0.15)
 //                    self?.frame?.plate.runAction(rotateAction)
                 }

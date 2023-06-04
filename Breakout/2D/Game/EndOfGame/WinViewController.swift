@@ -84,8 +84,9 @@ class WinViewController: UIViewController {
         
         self.userMoney.text = GameCurrency.updateUserMoneyLabel()
         GameCurrency.userMoney += scoredMoney
-        UserProgress._2DmaxAvailableLevelID = self.currentLevelIndex + 1
-        UserProgress._2DlevelsStars[self.currentLevelIndex-1] = 3
+        
+        UserProgress._2DmaxAvailableLevelID = max(self.currentLevelIndex + 1, UserProgress._2DmaxAvailableLevelID)
+        UserProgress._2DlevelsStars[self.currentLevelIndex-1] = max(3, UserProgress._2DlevelsStars[self.currentLevelIndex-1])
         UserProgress.totalScore += self.gameScore
         
         self.starRiveViewModel.setView(self.starRiveView)
