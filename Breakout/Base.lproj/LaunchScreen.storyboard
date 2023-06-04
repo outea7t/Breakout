@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,22 +16,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breakout" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="80" translatesAutoresizingMaskIntoConstraints="NO" id="bMF-58-6uq">
-                                <rect key="frame" x="0.0" y="398" width="414" height="114"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-HeavyItalic" family="Avenir Next" pointSize="84"/>
-                                <color key="textColor" red="0.039215687659999998" green="0.0" blue="0.109803915" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                                <color key="shadowColor" red="0.12321922715692499" green="0.96078431610000004" blue="0.58971595648926944" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <size key="shadowOffset" width="6" height="6"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="breakoutLauch" translatesAutoresizingMaskIntoConstraints="NO" id="lUg-jJ-QgD">
+                                <rect key="frame" x="0.0" y="-50" width="414" height="1010"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" red="0.039458000531359436" green="0.0027836100626085214" blue="0.11193970959595956" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.039215686274509803" green="0.0039215686274509803" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="bMF-58-6uq" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Cg1-FQ-VR9"/>
-                            <constraint firstAttribute="bottom" secondItem="bMF-58-6uq" secondAttribute="bottom" constant="384" id="bFX-ZO-ORq"/>
-                            <constraint firstAttribute="trailing" secondItem="bMF-58-6uq" secondAttribute="trailing" id="iuy-fT-hRz"/>
-                            <constraint firstItem="bMF-58-6uq" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="398" id="jp6-Ns-RYe"/>
+                            <constraint firstItem="lUg-jJ-QgD" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="7Hd-m8-FXI"/>
+                            <constraint firstItem="lUg-jJ-QgD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QHR-GL-bvf"/>
+                            <constraint firstItem="lUg-jJ-QgD" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="jKZ-gr-o1Q"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,4 +34,7 @@
             <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="breakoutLauch" width="1798" height="1010"/>
+    </resources>
 </document>

@@ -209,11 +209,11 @@ extension ShopBallTexturesViewController3D: UICollectionViewDataSource {
         
         if self.doesBuyedItemsContains(item: indexPath) {
             cell.priceLabel.text = ""
+            cell.moveModelBackWhenBuyed()
             cell.backgroundColor = self.buyedColor
         }
         if self.selectedCellIndexPath == indexPath {
             cell.select()
-            
         }
         let cornerRadius = 30.0
         cell.layer.cornerRadius = cornerRadius

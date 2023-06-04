@@ -92,12 +92,6 @@ struct TrajectoryLine3D {
                 lastTouchPosition = currentPosition
             }
             
-//            if self.isFirstTouch {
-//                self.tappedScreen(touchLocation, ball)
-//                lastTouchPosition = currentPosition
-//                self.isFirstTouch = false
-//            }
-            
         }
     }
     
@@ -176,6 +170,7 @@ struct TrajectoryLine3D {
         self.prepareForTrajectory(tappedPoint: touchLocation, ball: ball)
         self.lastTime = self.currentTime
     }
+    
     private mutating func updateTrajectoryBall() {
         self.trajectoryBall.physicsBody?.velocity.y = 0.0
         if let v = self.trajectoryBall.physicsBody?.velocity {

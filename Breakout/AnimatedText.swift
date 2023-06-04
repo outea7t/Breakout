@@ -406,9 +406,9 @@ struct AnimatedText {
     private func initLetter(_ symbol: String, frame: CGRect) -> SKLabelNode {
         let s = SKLabelNode(text: symbol)
         s.position = CGPoint()
-        let sizeConstant = self.sizeConstant/844.0
+        let sizeConstant = self.sizeConstant/390.0
     
-        let perfectFitSize = frame.height*sizeConstant
+        let perfectFitSize = frame.width*sizeConstant
         s.fontSize = perfectFitSize
         s.fontName = "Bungee"
         s.color = self.originalColor

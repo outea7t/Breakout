@@ -85,8 +85,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     var wantSetPosition = true
     /// обнаруженные точки поверхности
     var planeAnchors = [ARPlaneAnchor]()
-//    var planeAnchors = [UUID: ARAnchor]()
-//    var planes = [UUID: Plane]
     /// текущая обнаруженная поверхность
     private var detectedPlaneNode: SCNNode?
     /// текущая позиция обнаруженной поверхности в мировых координатах
@@ -101,6 +99,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     private var levels = [Level3D]()
     let maxLevelIndex = 30
+    
+    /// угол, на который повернута сцена
+    private var sceneRotationAngle: CGFloat = 0
     
     deinit {
         print("ARGameViewController Deinitialization")
@@ -131,7 +132,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем debug опции
-        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents]
+        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showPhysicsShapes]
         
         // устанавливаем делегат для AR
         self.gameSceneView.delegate = self
@@ -253,8 +254,20 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             return
         }
         
-        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration)
-        frame.plate.runAction(rotateAction)
+        self.sceneRotationAngle += angle
+        if abs(self.sceneRotationAngle)/CGFloat.pi * 180 > 360 {
+            var sign: CGFloat = 1.0
+            if self.sceneRotationAngle.sign == .minus {
+                sign = -1.0
+            }
+            self.sceneRotationAngle -= sign*2*CGFloat.pi
+        }
+        
+//        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration)
+//        frame.plate.runAction(rotateAction)
+
+        
+        frame.plate.transform = SCNMatrix4Rotate(frame.plate.transform, Float(angle), 0, 1, 0)
         frame.plate.physicsBody?.resetTransform()
         
     }
@@ -366,9 +379,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         plane.width = width
         plane.height = height
         
-        let x = CGFloat(planeAnchor.center.x)
-        let y = CGFloat(planeAnchor.center.y)
-        let z = CGFloat(planeAnchor.center.z)
+//        let x = CGFloat(planeAnchor.center.x)
+//        let y = CGFloat(planeAnchor.center.y)
+//        let z = CGFloat(planeAnchor.center.z)
         
         
 //        planeNode!.position = SCNVector3(x, y, z)
@@ -380,7 +393,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 self.createScene()
                 self.wantSetPosition = false
             }
-            print("The Scene was moved")
 //            self.moveScene(detectedNodePosition: planeNodePosition)
         }
         
@@ -426,7 +438,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     /// обновляем игровые объекты
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        print(self.gameSceneView.pointOfView?.presentation.position)
         if !self.isPaused {
             self.update(time)
             self.paddle?.updateNode()
@@ -612,6 +623,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 if abs(percentage) > 0.5 {
                     percentage = 0.5 * (abs(percentage)/percentage)
                 }
+                let percentageBefore = percentage
+                percentage -= 2*Float(self.sceneRotationAngle/(CGFloat.pi * 1.0))
+                print(percentageBefore, percentage)
                 if let oldVelocity = ball.ball.physicsBody?.velocity {
                     // используем магическое число 0.065 (для нормального отталкивания мяча от ракетки)
                     let ballImpulse = 0.065*4

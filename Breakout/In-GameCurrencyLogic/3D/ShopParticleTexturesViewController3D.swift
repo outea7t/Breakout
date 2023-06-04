@@ -210,6 +210,7 @@ extension ShopParticlesTexturesViewController3D: UICollectionViewDataSource {
         
         if self.doesBuyedItemsContains(item: indexPath) {
             cell.priceLabel.text = ""
+            cell.moveModelBackWhenBuyed()
             cell.backgroundColor = self.buyedColor
         }
         if self.selectedCellIndexPath == indexPath {

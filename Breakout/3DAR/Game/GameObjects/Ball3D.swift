@@ -120,9 +120,9 @@ struct Ball3D {
         if abs(physicsBody.velocity.z) <= 0.0001 && physicsBody.velocity.z != 0 {
             switch physicsBody.velocity.z.sign {
             case .plus:
-                self.ball.physicsBody?.velocity.z += 0.05
+                self.ball.physicsBody?.velocity.z += 0.1
             case .minus:
-                self.ball.physicsBody?.velocity.z -= 0.05
+                self.ball.physicsBody?.velocity.z -= 0.1
             }
         }
     }

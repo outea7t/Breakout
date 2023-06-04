@@ -12,7 +12,6 @@ class Shop3DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
     var skinView: UIView! {
         return self.scnView
     }
-    
 
     @IBOutlet weak var scnView: SCNView!
     @IBOutlet weak var priceLabel: UILabel!
@@ -59,6 +58,7 @@ class Shop3DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
             self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.175)
         } else if data.textureType == .paddle {
             self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.3)
+            
         } else if data.textureType == .ball {
             self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.05)
         }
@@ -93,6 +93,20 @@ class Shop3DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
             let animator = UIViewPropertyAnimator(duration: 0.2, curve: .easeInOut)
             return animator
         }()
+    }
+    func moveModelBackWhenBuyed() {
+        guard let data = self.data else {
+            return
+        }
+        
+        switch data.textureType {
+        case .ball:
+            self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.065)
+        case .paddle:
+            self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.35)
+        case .particles:
+            self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.185)
+        }
     }
     // так как мы используем reusable cells то мы должны обнулять
     // некоторые косметические параметры для избежания багов

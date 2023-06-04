@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RiveRuntime
 /// меню со статистикой пользователя в игре
 /// также планируется сделать соединение с gameCenter для создания leaderboard в игре
 class StatisticsViewController: UIViewController {
@@ -26,8 +27,22 @@ class StatisticsViewController: UIViewController {
     @IBOutlet weak var buyed2DSkins: UILabel!
     @IBOutlet weak var buyed3DSkins: UILabel!
     
+    let riveView = RiveView()
+    let riveViewModel = RiveViewModel(fileName: "backgroundstars")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        riveViewModel.setView(riveView)
+        riveViewModel.play(loop: .loop)
+        
+        riveViewModel.alignment = .center
+        riveViewModel.fit = .fill
+        self.view.addSubview(riveView)
+        self.view.sendSubviewToBack(riveView)
+        
+        riveView.frame = self.view.bounds
+        riveView.center = self.view.center
         
         self.totalStars.text = "total stars: \(UserProgress.totalStars)"
         self.totalScore.text = "total score: \(UserProgress.totalScore)"
