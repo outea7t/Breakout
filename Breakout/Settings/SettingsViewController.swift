@@ -40,9 +40,10 @@ class SettingsViewController: UIViewController {
     
     
     @IBAction func musicSliderValueChanged(_ sender: CosmicSlider) {
-        
+        UserSettings.musicVolumeValue = sender.value
     }
     @IBAction func soundsSliderValueChanged(_ sender: CosmicSlider) {
+        UserSettings.soundsVolumeValue = sender.value
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {

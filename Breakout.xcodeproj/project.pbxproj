@@ -40,6 +40,7 @@
 		224F5C4C29865EE9005E8E47 /* level_17.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4829865EE9005E8E47 /* level_17.txt */; };
 		224F5C4D29865EE9005E8E47 /* level_14.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4929865EE9005E8E47 /* level_14.txt */; };
 		224F5C4E29865EE9005E8E47 /* level_16.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4A29865EE9005E8E47 /* level_16.txt */; };
+		225003252A2DCE4400E57645 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225003242A2DCE4400E57645 /* UserSettings.swift */; };
 		2250A7212921846100E42F7E /* AnimatedParticles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2250A7202921846100E42F7E /* AnimatedParticles.swift */; };
 		2257547329FD97B0000C9A96 /* Particle-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 2257545029FD97AF000C9A96 /* Particle-5.png */; };
 		2257547429FD97B0000C9A96 /* Particle-5.dae in Resources */ = {isa = PBXBuildFile; fileRef = 2257545129FD97AF000C9A96 /* Particle-5.dae */; };
@@ -181,7 +182,7 @@
 		22F20C2C28BF630500415CE5 /* AnimatedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F20C2B28BF630500415CE5 /* AnimatedText.swift */; };
 		22F36F76296034CE00059579 /* ShopViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F36F75296034CE00059579 /* ShopViewController2D.swift */; };
 		22F36F78296034D900059579 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F36F77296034D900059579 /* SettingsViewController.swift */; };
-		22F6FAA02A0B6B0200DA3988 /* Stars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6FA9F2A0B6B0200DA3988 /* Stars.swift */; };
+		22F6FAA02A0B6B0200DA3988 /* Stars2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6FA9F2A0B6B0200DA3988 /* Stars2D.swift */; };
 		22F9D96D293BCD0500A5D776 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 22F9D96C293BCD0500A5D776 /* RiveRuntime */; };
 		22FBA99D29F99CDF008C6838 /* ShopViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */; };
 		22FBA99F29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */; };
@@ -240,6 +241,7 @@
 		224F5C4829865EE9005E8E47 /* level_17.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_17.txt; sourceTree = "<group>"; };
 		224F5C4929865EE9005E8E47 /* level_14.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_14.txt; sourceTree = "<group>"; };
 		224F5C4A29865EE9005E8E47 /* level_16.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_16.txt; sourceTree = "<group>"; };
+		225003242A2DCE4400E57645 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		2250A7202921846100E42F7E /* AnimatedParticles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedParticles.swift; sourceTree = "<group>"; };
 		2257545029FD97AF000C9A96 /* Particle-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Particle-5.png"; sourceTree = "<group>"; };
 		2257545129FD97AF000C9A96 /* Particle-5.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = "Particle-5.dae"; sourceTree = "<group>"; };
@@ -385,7 +387,7 @@
 		22F20C2B28BF630500415CE5 /* AnimatedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedText.swift; sourceTree = "<group>"; };
 		22F36F75296034CE00059579 /* ShopViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController2D.swift; sourceTree = "<group>"; };
 		22F36F77296034D900059579 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		22F6FA9F2A0B6B0200DA3988 /* Stars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stars.swift; sourceTree = "<group>"; };
+		22F6FA9F2A0B6B0200DA3988 /* Stars2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stars2D.swift; sourceTree = "<group>"; };
 		22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewController3D.swift; sourceTree = "<group>"; };
 		22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBallTexturesViewController3D.swift; sourceTree = "<group>"; };
 		22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParticleTexturesViewController3D.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 			children = (
 				22F36F77296034D900059579 /* SettingsViewController.swift */,
 				22368B6E2A2B92EB006B4569 /* CosmicSlider.swift */,
+				225003242A2DCE4400E57645 /* UserSettings.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1017,7 +1020,7 @@
 				2279362229438E3C002C519F /* TrajectoryLine2D.swift */,
 				2275FA5B288ACE320075AFD6 /* Brick2D.swift */,
 				22784E6928BBF85E001C3E61 /* Level2D.swift */,
-				22F6FA9F2A0B6B0200DA3988 /* Stars.swift */,
+				22F6FA9F2A0B6B0200DA3988 /* Stars2D.swift */,
 			);
 			path = GameObjects;
 			sourceTree = "<group>";
@@ -1484,7 +1487,7 @@
 				22368B6F2A2B92EB006B4569 /* CosmicSlider.swift in Sources */,
 				22B8FF9329741A3C00F923DC /* Shop2DCellData.swift in Sources */,
 				22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift in Sources */,
-				22F6FAA02A0B6B0200DA3988 /* Stars.swift in Sources */,
+				22F6FAA02A0B6B0200DA3988 /* Stars2D.swift in Sources */,
 				22784E6828BBF4A2001C3E61 /* Particle2D.swift in Sources */,
 				22B516C229238AB7006B1B6F /* Paddle3D.swift in Sources */,
 				22D38B7D29E821DC00BF1E1E /* ExtendedCellMenuScene.swift in Sources */,
@@ -1526,6 +1529,7 @@
 				2279362329438E3C002C519F /* TrajectoryLine2D.swift in Sources */,
 				22B516CA29238AB7006B1B6F /* ARPauseViewController.swift in Sources */,
 				22AB8CC92985A594009A50F1 /* LevelsMenuCellData.swift in Sources */,
+				225003252A2DCE4400E57645 /* UserSettings.swift in Sources */,
 				2275FA5C288ACE320075AFD6 /* Brick2D.swift in Sources */,
 				22A6607229E2A8DB00871FB2 /* CellMenuViewController.swift in Sources */,
 				226FF8B5292DD397001478E3 /* WinViewController.swift in Sources */,

@@ -74,11 +74,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let gameNode = SKSpriteNode(color: .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0), size: CGSize())
     /// логическую переменную для остановки процессов обновления
     private var isOnPause = false
-    
+    /// отображение звезд, которые игрок получил за уровень
+    private var stars: Stars2D?
     /// количество очков, которое заработал пользователь
     var score: CGFloat = 0
     /// количество потерянных жизней
     var losedLives: Int = 0
+    /// количество звезд
+    var numberOfStars: Int {
+        get {
+            if let stars = self.stars?.numberOfStars {
+                return stars
+            }
+            return 3
+        }
+    }
+    /// В первый ли раз за прохождение уровня запущен мяч
+    /// нужна для того, чтобы в правильный момент начать отсчитывать звезды
+    private var isFirstBallLaunch = true
     // настраиваем все члены
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.07905098051, green: 0.1308179498, blue: 0.1934371293, alpha: 1)
@@ -147,7 +160,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameNode.position = CGPoint(x: 0.0, y: 0.0)
         self.addChild(self.gameNode)
         
-
+        let timings = TimeForStars(_1StarTime: 50, _2StarTime: 50, _3StarTime: 50)
+        self.stars = Stars2D(timings: timings, frameSize: view.frame.size)
+        if let ball = self.ball {
+            let ballPosition = CGPoint(x: ball.ball.position.x, y: ball.ball.position.y + ball.ballRadius)
+            self.stars?.add(to: self.gameNode, scene: self, positionOfBallAttachedToPaddle: ballPosition)
+        }
+        
         self.setParticlesSkin()
         self.setBallSkin()
         self.setPaddleSkin()
@@ -418,7 +437,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // снимаем мир с паузы
         self.isOnPause = false
         self.gameNode.isPaused = false
+        self.isFirstBallLaunch = true
         self.physicsWorld.speed = 1.0
+        self.stars?.clearActions()
     }
     func resetAfterWin() {
         self.ball?.reset()
@@ -436,6 +457,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         self.view?.transform = CGAffineTransform.identity.rotated(by: 0)
         
+        self.isFirstBallLaunch = true
+        self.stars?.clearActions()
         self.lives+=1
         self.losedLives = 0
         self.score = 0
@@ -491,20 +514,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         // отвязываем мяч от ракетки
-        if !self.isOnPause {
-            if let isAttachedToPaddle = self.ball?.isAttachedToPaddle, let isTrajectoryCreated = self.trajectoryLine?.isTrajectoryCreated {
-                if isAttachedToPaddle && isTrajectoryCreated {
-                    self.trajectoryLine?.isTrajectoryCreated = false
-                    self.ball?.isAttachedToPaddle = false
+        guard !self.isOnPause else {
+            return
+        }
+        if let isAttachedToPaddle = self.ball?.isAttachedToPaddle, let isTrajectoryCreated = self.trajectoryLine?.isTrajectoryCreated {
+            if isAttachedToPaddle && isTrajectoryCreated {
+                self.trajectoryLine?.isTrajectoryCreated = false
+                self.ball?.isAttachedToPaddle = false
+                if self.isFirstBallLaunch {
+                    self.stars?.startActions()
+                }
+                self.isFirstBallLaunch = false
+                for touch in touches {
+                    self.touchUp(touch: touch)
                     
-                    for touch in touches {
-                        self.touchUp(touch: touch)
-                        
-                    }
                 }
             }
-            
         }
+            
     }
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         // отвязываем мяч от ракетки

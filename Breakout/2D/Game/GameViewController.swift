@@ -130,10 +130,10 @@ extension GameViewController: EndOfGameHandler {
             return
         }
         if let winViewController = segue.destination as? WinViewController {
-            
             winViewController.gameScore = Int(gameScene.score)
             winViewController.currentLevelIndex = self.levelChoosed
             winViewController.losedLives = gameScene.losedLives
+            winViewController.numberOfStars = gameScene.numberOfStars
         }
         if let loseViewController = segue.destination as? LoseViewController {
             var losedMoney = 10 - gameScene.score/4

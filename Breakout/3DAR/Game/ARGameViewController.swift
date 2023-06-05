@@ -398,7 +398,11 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         if let planeNodePosition = self.detectedPlaneNode?.worldPosition {
             if self.wantSetPosition && !self.wantDetectPlane {
                 self.planeNodePosition = planeNodePosition
-                self.createScene()
+                let waitAction = SCNAction.wait(duration: 3.0)
+                self.gameScene?.rootNode.runAction(waitAction) {
+                    self.createScene()
+                }
+//                self.createScene()
                 self.wantSetPosition = false
             }
 //            self.moveScene(detectedNodePosition: planeNodePosition)
@@ -600,6 +604,10 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         if !self.wantDetectPlane && !self.isFramePositionPinned {
             self.isFramePositionPinned = true
+            let newPlaneMaterial = SCNMaterial()
+            newPlaneMaterial.lightingModel = .shadowOnly
+            self.detectedPlaneNode?.geometry?.materials = [newPlaneMaterial]
+            
             HapticManager.collisionVibrate(with: .medium, 1.0)
             return
         }

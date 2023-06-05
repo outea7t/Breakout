@@ -39,6 +39,7 @@ class WinViewController: UIViewController {
     var gameScore: Int = 0
     var currentLevelIndex: Int = 0
     var losedLives: Int = 0
+    var numberOfStars: Int = 3
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,11 +87,17 @@ class WinViewController: UIViewController {
         GameCurrency.userMoney += scoredMoney
         
         UserProgress._2DmaxAvailableLevelID = max(self.currentLevelIndex + 1, UserProgress._2DmaxAvailableLevelID)
-        UserProgress._2DlevelsStars[self.currentLevelIndex-1] = max(3, UserProgress._2DlevelsStars[self.currentLevelIndex-1])
+        UserProgress._2DlevelsStars[self.currentLevelIndex-1] = max(self.numberOfStars, UserProgress._2DlevelsStars[self.currentLevelIndex-1])
         UserProgress.totalScore += self.gameScore
         
         self.starRiveViewModel.setView(self.starRiveView)
-        self.starRiveViewModel.play(animationName: "3StarAnimation")
+        if self.numberOfStars == 3 {
+            self.starRiveViewModel.play(animationName: StarAnimationsName._3.rawValue)
+        } else if self.numberOfStars == 2 {
+            self.starRiveViewModel.play(animationName: StarAnimationsName._2.rawValue)
+        } else {
+            self.starRiveViewModel.play(animationName: StarAnimationsName._1.rawValue)
+        }
         
         self.starView.addSubview(self.starRiveView)
         self.starRiveView.center = self.starView.center
