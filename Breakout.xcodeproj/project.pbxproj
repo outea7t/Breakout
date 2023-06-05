@@ -28,7 +28,7 @@
 		222B18C729FADF0900F982D0 /* Shop3DCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B18C529FADF0900F982D0 /* Shop3DCollectionViewCell.swift */; };
 		222B18C829FADF0900F982D0 /* Shop3DCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 222B18C629FADF0900F982D0 /* Shop3DCollectionViewCell.xib */; };
 		22368B6D2A2B8996006B4569 /* backgroundstars.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22368B6C2A2B8996006B4569 /* backgroundstars.riv */; };
-		22368B6F2A2B92EB006B4569 /* CosmicStyleSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22368B6E2A2B92EB006B4569 /* CosmicStyleSlider.swift */; };
+		22368B6F2A2B92EB006B4569 /* CosmicSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22368B6E2A2B92EB006B4569 /* CosmicSlider.swift */; };
 		223BDB0F29AABE0F001CE63D /* AREndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */; };
 		223BDB1329AB4D07001CE63D /* ARPauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1229AB4D07001CE63D /* ARPauseScene.swift */; };
 		223BDB1529AB565C001CE63D /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1429AB565C001CE63D /* Plane.swift */; };
@@ -228,7 +228,7 @@
 		222B18C529FADF0900F982D0 /* Shop3DCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop3DCollectionViewCell.swift; sourceTree = "<group>"; };
 		222B18C629FADF0900F982D0 /* Shop3DCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Shop3DCollectionViewCell.xib; sourceTree = "<group>"; };
 		22368B6C2A2B8996006B4569 /* backgroundstars.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = backgroundstars.riv; sourceTree = "<group>"; };
-		22368B6E2A2B92EB006B4569 /* CosmicStyleSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicStyleSlider.swift; sourceTree = "<group>"; };
+		22368B6E2A2B92EB006B4569 /* CosmicSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmicSlider.swift; sourceTree = "<group>"; };
 		223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREndGameScene.swift; sourceTree = "<group>"; };
 		223BDB1229AB4D07001CE63D /* ARPauseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPauseScene.swift; sourceTree = "<group>"; };
 		223BDB1429AB565C001CE63D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -560,7 +560,7 @@
 			isa = PBXGroup;
 			children = (
 				22F36F77296034D900059579 /* SettingsViewController.swift */,
-				22368B6E2A2B92EB006B4569 /* CosmicStyleSlider.swift */,
+				22368B6E2A2B92EB006B4569 /* CosmicSlider.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1481,7 +1481,7 @@
 				2293A9F4296248A30066279B /* UserCustomization.swift in Sources */,
 				22B516BB29238AB7006B1B6F /* Level3D.swift in Sources */,
 				22784E6A28BBF85E001C3E61 /* Level2D.swift in Sources */,
-				22368B6F2A2B92EB006B4569 /* CosmicStyleSlider.swift in Sources */,
+				22368B6F2A2B92EB006B4569 /* CosmicSlider.swift in Sources */,
 				22B8FF9329741A3C00F923DC /* Shop2DCellData.swift in Sources */,
 				22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift in Sources */,
 				22F6FAA02A0B6B0200DA3988 /* Stars.swift in Sources */,

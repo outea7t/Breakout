@@ -134,7 +134,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем debug опции
-        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showPhysicsShapes, .showWorldOrigin]
+        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showWorldOrigin]
         
         // устанавливаем делегат для AR
         self.gameSceneView.delegate = self

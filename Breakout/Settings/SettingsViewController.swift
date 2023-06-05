@@ -15,8 +15,8 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var soundsLabel: UILabel!
     
     
-    @IBOutlet weak var musicSlider: CosmicStyleSlider!
-    @IBOutlet weak var soundsSlider: UISlider!
+    @IBOutlet weak var musicSlider: CosmicSlider!
+    @IBOutlet weak var soundsSlider: CosmicSlider!
     
     private let riveView = RiveView()
     private let riveViewModel = RiveViewModel(fileName: "backgroundstars")
@@ -33,17 +33,16 @@ class SettingsViewController: UIViewController {
         
         self.riveView.frame = self.view.bounds
         self.riveView.center = self.view.center
-        
-        
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
-//    @IBAction func musicSliderValueChanged(_ sender: UISlider) {
-//    }
     
-    @IBAction func soundsSliderValueChanged(_ sender: Any) {
+    @IBAction func musicSliderValueChanged(_ sender: CosmicSlider) {
+        
+    }
+    @IBAction func soundsSliderValueChanged(_ sender: CosmicSlider) {
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {

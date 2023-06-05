@@ -185,60 +185,35 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RyY-sq-QiT" customClass="CosmicStyleSlider" customModule="Breakout" customModuleProvider="target">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RyY-sq-QiT" customClass="CosmicSlider" customModule="Breakout" customModuleProvider="target">
                                 <rect key="frame" x="23" y="332" width="349" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <imageReference key="minimumValueImage" image="speaker.slash.fill" catalog="system" symbolScale="default" renderingMode="hierarchical">
-                                    <hierarchicalColors>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </hierarchicalColors>
-                                </imageReference>
-                                <imageReference key="maximumValueImage" image="speaker.wave.2.fill" catalog="system" renderingMode="hierarchical">
-                                    <hierarchicalColors>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </hierarchicalColors>
-                                </imageReference>
-                                <color key="minimumTrackTintColor" red="0.52549019607843139" green="0.96862745098039216" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <color key="thumbTintColor" red="0.52549019607843139" green="0.96862745098039216" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cUY-GX-ESh">
-                                <rect key="frame" x="21" y="468" width="349" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <imageReference key="minimumValueImage" image="speaker.slash.fill" catalog="system" renderingMode="hierarchical">
-                                    <hierarchicalColors>
-                                        <color red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <color red="0.80392158030000005" green="0.80392158030000005" blue="0.80392158030000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <color red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </hierarchicalColors>
-                                </imageReference>
-                                <imageReference key="maximumValueImage" image="speaker.wave.2.fill" catalog="system" renderingMode="hierarchical">
-                                    <hierarchicalColors>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                    </hierarchicalColors>
-                                </imageReference>
                                 <color key="minimumTrackTintColor" red="0.52549019607843139" green="0.96862745098039216" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <color key="thumbTintColor" red="0.52549019607843139" green="0.96862745098039216" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <connections>
-                                    <action selector="soundsSliderValueChanged:" destination="Bjx-Bu-0wI" eventType="valueChanged" id="W0w-xN-lbQ"/>
+                                    <action selector="musicSliderValueChanged:" destination="Bjx-Bu-0wI" eventType="valueChanged" id="bsI-Jr-cVq"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="cUY-GX-ESh" customClass="CosmicSlider" customModule="Breakout" customModuleProvider="target">
+                                <rect key="frame" x="21" y="468" width="349" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="minimumTrackTintColor" red="0.52549019607843139" green="0.96862745098039216" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="thumbTintColor" red="0.52549019607843139" green="0.96862745098039216" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="soundsSliderValueChanged:" destination="Bjx-Bu-0wI" eventType="valueChanged" id="dGG-1g-u9T"/>
                                 </connections>
                             </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ThG-Zw-WFR"/>
-                        <color key="backgroundColor" red="0.02745098248" green="0.054901964960000001" blue="0.13333332540000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.027450980392156862" green="0.054901960784313725" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="ZdS-vd-2by" id="3jW-cg-Q7x"/>
                         <outlet property="musicLabel" destination="fla-3t-owA" id="uC5-9j-eAz"/>
-                        <outlet property="musicSlider" destination="RyY-sq-QiT" id="8ou-lV-axK"/>
+                        <outlet property="musicSlider" destination="RyY-sq-QiT" id="99g-QX-SyV"/>
                         <outlet property="settingsLabel" destination="v2v-8D-D5X" id="xFB-sv-sXV"/>
                         <outlet property="soundsLabel" destination="Gc4-cx-Lki" id="Tvg-rM-fmp"/>
-                        <outlet property="soundsSlider" destination="cUY-GX-ESh" id="AWO-9u-fAo"/>
+                        <outlet property="soundsSlider" destination="cUY-GX-ESh" id="LVb-Q8-k3I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6S-SD-DW2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2548,8 +2523,6 @@
         <image name="pause.circle.fill" catalog="system" width="128" height="123"/>
         <image name="rhombus.fill" catalog="system" width="110" height="128"/>
         <image name="skins" width="300" height="232"/>
-        <image name="speaker.slash.fill" catalog="system" width="118" height="128"/>
-        <image name="speaker.wave.2.fill" catalog="system" width="128" height="88"/>
         <image name="stars" width="304" height="178"/>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
