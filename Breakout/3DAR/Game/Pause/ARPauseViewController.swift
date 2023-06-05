@@ -22,7 +22,7 @@ class ARPauseViewController: UIViewController {
     @IBOutlet weak var blurView: UIVisualEffectView!
     
     @IBOutlet weak var pauseView: SKView!
-    private var pauseScene: ARPauseScene?
+    private var pauseScene: PauseScene?
     
     deinit {
         print("ARPauseViewController Deinitialization")
@@ -53,7 +53,7 @@ class ARPauseViewController: UIViewController {
         if let skView = self.view.viewWithTag(1) as? SKView {
             skView.backgroundColor = .clear
             
-            let scene = ARPauseScene(size: self.view.bounds.size)
+            let scene = PauseScene(size: self.view.bounds.size)
             scene.backgroundColor = .clear
 
             self.pauseScene = scene

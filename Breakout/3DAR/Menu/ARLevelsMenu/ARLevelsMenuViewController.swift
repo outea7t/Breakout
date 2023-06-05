@@ -42,16 +42,25 @@ class ARLevelsMenuViewController: UIViewController {
         
         self.collectionView.collectionViewLayout = layout
         
-        let color = #colorLiteral(red: 0, green: 0.02745098039, blue: 0.8980392157, alpha: 1)
+        let availableColor = #colorLiteral(red: 0, green: 0.02745098039, blue: 0.8980392157, alpha: 1)
+        let unavailableColor = #colorLiteral(red: 0.05490196078, green: 0.003921568627, blue: 0.3921568627, alpha: 1)
         let shadowColor = #colorLiteral(red: 0, green: 0.007334548049, blue: 0.310534358, alpha: 1)
         
         for i in 1...30 {
-            self.levelsCellsData.append(LevelsMenuCellData(backgroundColor: color,
-                                                           shadowColor: shadowColor,
-                                                           levelNumber: i,
-                                                           starsCount: 0,
-                                                           isAvailable: true
-                                                          ))
+            let stars = UserProgress._3DlevelsStars[i-1]
+            var level = LevelsMenuCellData(backgroundColor: availableColor,
+                                           shadowColor: shadowColor,
+                                           levelNumber: i,
+                                           starsCount: stars,
+                                           isAvailable: false)
+            if i <= UserProgress._3DmaxAvailableLevelID {
+                level.isAvailable = true
+            } else {
+                level.isAvailable = false
+                level.backgroundColor = unavailableColor
+            }
+            
+            self.levelsCellsData.append(level)
         }
         
         // настраиваем тени и прочую косметику
@@ -163,17 +172,21 @@ extension ARLevelsMenuViewController: UICollectionViewDelegateFlowLayout {
 }
 // обработка нажатий
 extension ARLevelsMenuViewController: UICollectionViewDelegate {
-    // активируется, когда мы выбираем какой-то уже купленный скин
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? ARLevelsMenuCollectionViewCell {
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? ARLevelsMenuCollectionViewCell else {
+            return
+        }
+        
+        if cell.levelIndex <= UserProgress._3DmaxAvailableLevelID {
             self.levelChoosed = cell.levelIndex
             // небольшая вибрация, уведомляющая пользователя о начале игры
             HapticManager.collisionVibrate(with: .rigid, 1.0)
             self.performSegue(withIdentifier: "FromLevelsARMenuToARGameMenu", sender: self)
+        } else {
+            HapticManager.notificationVibrate(for: .error)
         }
-        
-
     }
     
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {

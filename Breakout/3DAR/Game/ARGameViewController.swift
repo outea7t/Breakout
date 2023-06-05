@@ -92,6 +92,24 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// текущая позиция обнаруженной поверхности в мировых координатах
     private var planeNodePosition: SCNVector3?
     
+    /// отображение звезд, которые игрок получил за уровень
+    private var stars: Stars2D?
+    /// количество очков, которое заработал пользователь
+    var score: CGFloat = 0
+    /// количество потерянных жизней
+    var losedLives: Int = 0
+    /// количество звезд
+    var numberOfStars: Int {
+        get {
+            if let stars = self.stars?.numberOfStars {
+                return stars
+            }
+            return 3
+        }
+    }
+    /// В первый ли раз за прохождение уровня запущен мяч
+    /// нужна для того, чтобы в правильный момент начать отсчитывать звезды
+    private var isFirstBallLaunch = true
     var levelChoosed: Int = 1 {
         willSet {
             self.currentLevel?.removeAllBricksBeforeSettingLevel()
@@ -144,10 +162,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.gameSceneView.allowsCameraControl = false
         self.gameSceneView.autoenablesDefaultLighting = true
         
-//        self.gameSceneView.renderingAPI
-//        self.gameSceneView.pointOfView?.camera?.wantsHDR = true
-//        self.gameSceneView.pointOfView?.camera?.minimumExposure = -1
-//        self.gameSceneView.pointOfView?.camera?.maximumExposure = -1
         // создаем новую сцену
         let scene = SCNScene()
         self.gameScene = scene

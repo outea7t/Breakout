@@ -9,7 +9,6 @@ import Foundation
 import SpriteKit
 
 struct TimeForStars {
-    let _1StarTime: TimeInterval
     let _2StarTime: TimeInterval
     let _3StarTime: TimeInterval
 }
@@ -85,8 +84,6 @@ class Stars2D {
                                                duration: self.timings._3StarTime)
         let _2StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
                                                duration: self.timings._2StarTime)
-        let _1StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
-                                               duration: self.timings._1StarTime)
         
         self._3StarRectangle.run(_3StarFadingAction) { [weak self] in
             self?.numberOfStars = 2
@@ -94,6 +91,9 @@ class Stars2D {
                 self?.numberOfStars = 1
             }
         }
+    }
+    func add(to view: UIView, at position: CGPoint) {
+        
     }
     func clearActions() {
         self._1StarRectangle.removeAllActions()
@@ -110,8 +110,6 @@ class Stars2D {
                                                duration: self.timings._3StarTime)
         let _2StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
                                                duration: self.timings._2StarTime)
-        let _1StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
-                                               duration: self.timings._1StarTime)
         
         self._3StarRectangle.run(_3StarFadingAction) { [weak self] in
             self?.numberOfStars = 2

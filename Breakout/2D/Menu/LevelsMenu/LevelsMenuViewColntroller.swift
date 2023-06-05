@@ -136,7 +136,6 @@ extension LevelsMenuViewColntroller: UIScrollViewDelegate {
 extension LevelsMenuViewColntroller: UICollectionViewDataSource {
     // сколько ячеек создавать
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
         return self.levelsCellsData.count
     }
     // количество элементов в section
@@ -146,13 +145,8 @@ extension LevelsMenuViewColntroller: UICollectionViewDataSource {
     
     // какие ячейки создавать
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! LevelsMenuCollectionViewCell
-        
-        
         cell.setup(with: self.levelsCellsData[indexPath.item])
-            
-        
         return cell
         
     }

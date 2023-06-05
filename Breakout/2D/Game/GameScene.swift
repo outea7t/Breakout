@@ -160,7 +160,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameNode.position = CGPoint(x: 0.0, y: 0.0)
         self.addChild(self.gameNode)
         
-        let timings = TimeForStars(_1StarTime: 50, _2StarTime: 50, _3StarTime: 50)
+        let timings = TimeForStars(_2StarTime: 50, _3StarTime: 50)
         self.stars = Stars2D(timings: timings, frameSize: view.frame.size)
         if let ball = self.ball {
             let ballPosition = CGPoint(x: ball.ball.position.x, y: ball.ball.position.y + ball.ballRadius)
