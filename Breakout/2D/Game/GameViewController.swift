@@ -137,7 +137,6 @@ extension GameViewController: EndOfGameHandler {
         }
         if let loseViewController = segue.destination as? LoseViewController {
             var losedMoney = 10 - gameScene.score/4
-            
             if losedMoney < 2 {
                 losedMoney = 2
             } else if losedMoney > 10 {

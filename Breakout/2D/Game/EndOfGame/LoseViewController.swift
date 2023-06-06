@@ -46,7 +46,6 @@ class LoseViewController: UIViewController {
         self.backgroundView.center = self.view.center
         
         if let view = self.view.viewWithTag(1) as? SKView {
-//            view.backgroundColor = #colorLiteral(red: 0.6630792942, green: 0, blue: 0, alpha: 0.2)
             view.backgroundColor = .clear
             let scene = EndGameScene(size: self.view.bounds.size)
             scene.scaleMode = .aspectFill
@@ -59,12 +58,6 @@ class LoseViewController: UIViewController {
             view.showsNodeCount = true
         }
         self.setConfetti()
-        self.restartButton.layer.cornerRadius = 30
-        self.restartButton.layer.shadowOpacity = 0.0
-        self.restartButton.layer.shadowRadius = 0.0
-        self.restartButton.layer.shadowColor = #colorLiteral(red: 0.4212525189, green: 0.03159917518, blue: 0.02470676601, alpha: 1)
-        self.restartButton.layer.shadowOffset = CGSize(width: self.restartButton.frame.width/30.0,
-                                                       height: self.restartButton.frame.height/10.0)
         
         if GameCurrency.userMoney > 50 {
             GameCurrency.userMoney -= self.losedMoney

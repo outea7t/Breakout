@@ -11,15 +11,22 @@ import ARKit
 import RiveRuntime
 
 class ARWinViewController: UIViewController {
-
+    private enum StarAnimationsName: String {
+        case _3 = "3StarAnimation"
+        case _2 = "2StarAnimation"
+        case _1 = "1StarAnimation"
+    }
     @IBOutlet weak var menuButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     @IBOutlet weak var nextLevelButton: UIButton!
     
     
+    @IBOutlet weak var starView: UIView!
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var endGameView: SKView!
+    @IBOutlet weak var scoredMoneyLabel: CountingLabel!
+    @IBOutlet weak var userMoney: UILabel!
     
     deinit {
         print("ARWinViewController Deinitialization")
@@ -29,6 +36,13 @@ class ARWinViewController: UIViewController {
     private let backgroundView = RiveView()
     private let backgroundViewModel = RiveViewModel(fileName: "arpausemenu")
     
+    private let starRiveView = RiveView()
+    private let starRiveViewModel = RiveViewModel(fileName: "stars")
+    
+    var gameScore: Int = 0
+    var currentLevelIndex: Int = 0
+    var losedLives: Int = 0
+    var numberOfStars: Int = 3
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,42 +70,57 @@ class ARWinViewController: UIViewController {
                 skView.presentScene(endGameScene)
             }
         }
-        // настройка тени для кнопок (следующий уровень)
-        self.nextLevelButton.layer.cornerRadius = 30
-        self.nextLevelButton.layer.shadowColor = #colorLiteral(red: 0.03893337026, green: 0.1971413791, blue: 0.04509567469, alpha: 1)
-        self.nextLevelButton.layer.shadowOffset = CGSize(width: nextLevelButton.frame.width*0.05,
-                                                         height: nextLevelButton.frame.height*0.12)
-        self.nextLevelButton.layer.shadowRadius = 0
-        self.nextLevelButton.layer.shadowOpacity = 0.0
-        self.nextLevelButton.layer.masksToBounds = false
         
+        let scoredMoney = self.countUserMoney()
+        self.scoredMoneyLabel.count(fromValue: 0,
+                                    to: Float(scoredMoney),
+                                    withDuration: 1.0,
+                                    animationType: .easeOut,
+                                    counterType: .int,
+                                    counterSign: .plus
+        )
         
-        // кнопка меню
-        self.menuButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.menuButton.layer.shadowOffset = CGSize(width: menuButton.frame.width*0.06,
-                                                   height: menuButton.frame.height*0.06)
-        self.menuButton.layer.shadowRadius = 0
-        self.menuButton.layer.shadowOpacity = 0.0
-        self.menuButton.layer.masksToBounds = false
+        GameCurrency.userMoney += scoredMoney
+        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
         
-        // кнопка перезапуска
-        self.restartButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.restartButton.layer.shadowOffset = CGSize(width: restartButton.frame.width*0.04,
-                                                         height: restartButton.frame.height*0.06)
-        self.restartButton.layer.shadowRadius = 0
-        self.restartButton.layer.shadowOpacity = 0.0
-        self.restartButton.layer.masksToBounds = false
+        UserProgress._3DmaxAvailableLevelID = max(self.currentLevelIndex + 1, UserProgress._3DmaxAvailableLevelID)
+        UserProgress._3DlevelsStars[self.currentLevelIndex-1] = max(self.numberOfStars, UserProgress._3DlevelsStars[self.currentLevelIndex-1])
+        UserProgress.totalScore += self.gameScore
         
-        // кнопка настроек
-        self.settingsButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        self.settingsButton.layer.shadowOffset = CGSize(width: settingsButton.frame.width*0.06,
-                                                         height: settingsButton.frame.height*0.06)
-        self.settingsButton.layer.shadowRadius = 0
-        self.settingsButton.layer.shadowOpacity = 0.0
-        self.settingsButton.layer.masksToBounds = false
+        self.starRiveViewModel.setView(self.starRiveView)
+        if self.numberOfStars == 3 {
+            self.starRiveViewModel.play(animationName: StarAnimationsName._3.rawValue)
+        } else if self.numberOfStars == 2 {
+            self.starRiveViewModel.play(animationName: StarAnimationsName._2.rawValue)
+        } else {
+            self.starRiveViewModel.play(animationName: StarAnimationsName._1.rawValue)
+        }
         
+        self.starView.addSubview(self.starRiveView)
+        self.starRiveView.center = self.starView.center
+        self.starRiveView.frame = self.starView.bounds
+        self.starRiveViewModel.fit = .fill
+        
+        self.endGameScene?.isWin = true
+        self.endGameScene?.setText()
+        self.endGameScene?.setAnimatedParticles()
         // устанавливаем конфетти при выигрыше, настраиваем сцену
         self.setConfetti()
+    }
+    private func countUserMoney() -> Int {
+        var scoredMoney = Double(self.gameScore)
+        if self.losedLives == 0 {
+            
+        } else if self.losedLives == 1 {
+            scoredMoney *= 0.95
+        } else if self.losedLives == 2 {
+            scoredMoney *= 0.9
+        } else if self.losedLives == 3 {
+            scoredMoney *= 0.8
+        } else if self.losedLives > 3 {
+            scoredMoney *= 0.75
+        }
+        return Int(scoredMoney/2.2)
     }
     override var prefersStatusBarHidden: Bool {
         return false
@@ -131,7 +160,10 @@ class ARWinViewController: UIViewController {
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true
             gameViewController.isFramePositionPinned = false
-            
+            gameViewController.score = 0
+            gameViewController.losedLives = 0
+            gameViewController.isFirstBallLaunch = true
+            gameViewController.starSpriteKitScene?.stars?.clearActions()
         }
         self.dismiss(animated: true)
     }
@@ -143,7 +175,7 @@ class ARWinViewController: UIViewController {
     @IBAction func nextLevelButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
             self.endGameScene = nil
-            if gameViewController.maxLevelIndex >= gameViewController.levelChoosed+1 {
+            if UserProgress._3DmaxLevelIndex >= gameViewController.levelChoosed+1 {
                 gameViewController.levelChoosed += 1
             } else {
                 gameViewController.levelChoosed = 1
@@ -151,11 +183,16 @@ class ARWinViewController: UIViewController {
             
             gameViewController.unpauseGame()
             gameViewController.lives += 1
+            
             gameViewController.updateConfiguration()
             gameViewController.removeAllChildren()
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true
             gameViewController.isFramePositionPinned = false
+            gameViewController.score = 0
+            gameViewController.losedLives = 0
+            gameViewController.isFirstBallLaunch = true
+            gameViewController.starSpriteKitScene?.stars?.clearActions()
         }
         self.dismiss(animated: true)
     }

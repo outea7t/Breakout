@@ -85,15 +85,42 @@ class Stars2D {
         let _2StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
                                                duration: self.timings._2StarTime)
         
-        self._3StarRectangle.run(_3StarFadingAction) { [weak self] in
-            self?.numberOfStars = 2
-            self?._2StarRectangle.run(_2StarFadingAction) { [weak self] in
-                self?.numberOfStars = 1
-            }
-        }
+//        self._3StarRectangle.run(_3StarFadingAction) { [weak self] in
+//            self?.numberOfStars = 2
+//            self?._2StarRectangle.run(_2StarFadingAction) { [weak self] in
+//                self?.numberOfStars = 1
+//            }
+//        }
     }
-    func add(to view: UIView, at position: CGPoint) {
+    func add(to scene: SKScene, at position: CGPoint) {
+        // сначала рассчитываем позицию 2-ой звезды (она посередине экрана) а затем считаем позицию остальных звезд относительно нее
+        let _2StarPosition = CGPoint(x: scene.frame.midX,
+                                     y: scene.frame.midY - self.sizeOfStar.height * 0.15)
+        self._2StarCropNode.position = _2StarPosition
         
+        let _1StarPosition = CGPoint(x: scene.frame.midX - self.sizeOfStar.width,
+                                     y: _2StarPosition.y + self.sizeOfStar.height * 0.15)
+        self._1StarCropNode.position = _1StarPosition
+        
+        let _3StarPosition = CGPoint(x: scene.frame.midX + self.sizeOfStar.width,
+                                     y: _1StarPosition.y)
+        self._3StarCropNode.position = _3StarPosition
+        
+        scene.addChild(_1StarCropNode)
+        scene.addChild(_2StarCropNode)
+        scene.addChild(_3StarCropNode)
+        
+        let _3StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
+                                               duration: self.timings._3StarTime)
+        let _2StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
+                                               duration: self.timings._2StarTime)
+        
+//        self._3StarRectangle.run(_3StarFadingAction) { [weak self] in
+//            self?.numberOfStars = 2
+//            self?._2StarRectangle.run(_2StarFadingAction) { [weak self] in
+//                self?.numberOfStars = 1
+//            }
+//        }
     }
     func clearActions() {
         self._1StarRectangle.removeAllActions()

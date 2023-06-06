@@ -279,6 +279,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 HapticManager.collisionVibrate(with: .light, 0.7)
             }
             else if collision == self.bonusMask | self.paddleMask {
+                self.score += 1
                 if let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node {
                     if contact.bodyA.categoryBitMask == self.bonusMask {
                         for (i,bonus) in self.bonuses.enumerated() {
@@ -354,6 +355,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.increaseBallSpeed()
             }
         case .addLive:
+            
             self.addLive()
         case .maxValue:
             break
@@ -392,6 +394,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     private func addLive() {
+        // восстанавливаем потерянную жизнь
+        self.losedLives = max(0, losedLives-1)
         self.lives += 1
     }
     // взаимодействие с игрой из контроллера

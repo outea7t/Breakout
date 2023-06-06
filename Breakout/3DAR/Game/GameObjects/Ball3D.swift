@@ -95,7 +95,6 @@ struct Ball3D {
         if self.isAttachedToPaddle {
             self.ball.physicsBody?.clearAllForces()
             if !x && !y && !z {
-                print(paddle.paddle.presentation.worldPosition)
                 let worldPaddlePosition = paddle.paddle.presentation.worldPosition
                 let localPaddlePosition = frame.plate.convertPosition(worldPaddlePosition, from: nil)
                 

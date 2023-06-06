@@ -8,10 +8,12 @@
 import UIKit
 import SceneKit
 import ARKit
+import SpriteKit
 
 class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsContactDelegate {
     
     @IBOutlet weak var gameSceneView: ARSCNView!
+    @IBOutlet weak var starSpriteKitView: SKView!
     weak var gameScene: SCNScene?
     
     // игровая логика
@@ -92,8 +94,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// текущая позиция обнаруженной поверхности в мировых координатах
     private var planeNodePosition: SCNVector3?
     
-    /// отображение звезд, которые игрок получил за уровень
-    private var stars: Stars2D?
+    weak var starSpriteKitScene: StarScene?
     /// количество очков, которое заработал пользователь
     var score: CGFloat = 0
     /// количество потерянных жизней
@@ -101,7 +102,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// количество звезд
     var numberOfStars: Int {
         get {
-            if let stars = self.stars?.numberOfStars {
+            if let stars = self.starSpriteKitScene?.stars?.numberOfStars {
                 return stars
             }
             return 3
@@ -109,7 +110,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     /// В первый ли раз за прохождение уровня запущен мяч
     /// нужна для того, чтобы в правильный момент начать отсчитывать звезды
-    private var isFirstBallLaunch = true
+    var isFirstBallLaunch = true
     var levelChoosed: Int = 1 {
         willSet {
             self.currentLevel?.removeAllBricksBeforeSettingLevel()
@@ -118,7 +119,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
     }
     private var levels = [Level3D]()
-    let maxLevelIndex = 30
     
     /// угол, на который повернута сцена
     private var sceneRotationAngle: CGFloat = 0
@@ -190,6 +190,16 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.view.addGestureRecognizer(rotationGestureRecognizer)
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
+        
+        self.starSpriteKitView.backgroundColor = .clear
+        
+        let starSpriteKitScene = StarScene(size: self.starSpriteKitView.bounds.size)
+        self.starSpriteKitView.presentScene(starSpriteKitScene)
+        
+        starSpriteKitScene.scaleMode = .fill
+        
+        starSpriteKitScene.anchorPoint = CGPoint()
+        self.starSpriteKitScene = starSpriteKitScene
         
 //        pinchGestureRecognizer.delaysTouchesBegan = true
         
@@ -629,6 +639,10 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         if isAttachedToPaddle {
             if let direction = self.trajectoryLine?.currentDirection, let isTrajectoryCreated = self.trajectoryLine?.isTrajectoryCreated {
                 if isTrajectoryCreated {
+                    if self.isFirstBallLaunch {
+                        self.isFirstBallLaunch = false
+                        self.starSpriteKitScene?.stars?.startActions()
+                    }
                     self.ball?.removedFromPaddle(with: direction)
                     self.trajectoryLine?.isTrajectoryCreated = false
                 }
@@ -649,6 +663,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         let result = nodeB | nodeA
         
         if result == self.brickBitmask | self.ballBitmask {
+            self.score += 1.5
             if nodeA == self.brickBitmask {
                 self.currentLevel?.collisionHappened(brickNode: contact.nodeA)
                 let brickNode = contact.nodeA
@@ -741,7 +756,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             // столкнулись с нижней стенкой - уменьшаем жизни
             self.ball?.reset()
             self.paddle?.reset()
-            
+            self.losedLives += 1
             self.lives -= 1
             // если жизней меньше нуля - мы проиграли
             if lives <= 0 {
@@ -760,6 +775,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             }
         }
         else if result == self.bonusBitMask | self.paddleBitmask {
+            self.score += 1.5
             if nodeA == bonusBitMask {
                 let bonusNode = contact.nodeA
                 for (i,bonus) in self.bonuses.enumerated() {
@@ -884,6 +900,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
     }
     private func addLive() {
+        self.losedLives = max(0, self.losedLives - 1)
         self.lives += 1
     }
     
@@ -894,7 +911,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     // загружаем все уровни
     func loadAllLevelsInfo() {
-        for i in 1...self.maxLevelIndex {
+        
+        for i in 1...UserProgress._3DmaxLevelIndex {
             if let path = Bundle.main.path(forResource: "level_\(i)", ofType: "txt") {
                 if let text = try? String(contentsOfFile: path) {
                     var rows: UInt = 0, cols: UInt = 0
@@ -1012,6 +1030,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// ставит игру на паузу
     func pauseGame() {
         self.isPaused = true
+        self.starSpriteKitScene?.isPaused = true
         self.gameScene?.rootNode.isPaused = true
         self.gameScene?.physicsWorld.speed = 0
         
@@ -1019,6 +1038,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// убирает игру с паузы
     func unpauseGame() {
         self.isPaused = false
+        self.starSpriteKitScene?.isPaused = false
         self.gameScene?.rootNode.isPaused = false
         self.gameScene?.physicsWorld.speed = 1
         
@@ -1082,7 +1102,26 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
     }
 }
-
+extension ARGameViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let winViewController = segue.destination as? ARWinViewController {
+            winViewController.gameScore = Int(score)
+            winViewController.currentLevelIndex = self.levelChoosed
+            winViewController.losedLives = self.losedLives
+            winViewController.numberOfStars = self.numberOfStars
+        }
+        if let loseViewController = segue.destination as? ARLoseViewController {
+            var losedMoney = 7 - self.score/4
+            if losedMoney < 2 {
+                losedMoney = 2
+            } else if losedMoney > 10 {
+                losedMoney = 10
+            }
+            loseViewController.losedMoney = Int(losedMoney)
+        }
+        
+    }
+}
 // let hitlist = self.gameSceneView.hitTest(location, options: nil)
 //for result in hitlist {
 //    let resultNode = result.node

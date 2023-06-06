@@ -10,7 +10,7 @@ import SpriteKit
 import RiveRuntime
 
 class WinViewController: UIViewController {
-    enum StarAnimationsName: String {
+    private enum StarAnimationsName: String {
         case _3 = "3StarAnimation"
         case _2 = "2StarAnimation"
         case _1 = "1StarAnimation"
@@ -83,8 +83,8 @@ class WinViewController: UIViewController {
                                     counterSign: .plus
         )
         
-        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
         GameCurrency.userMoney += scoredMoney
+        self.userMoney.text = GameCurrency.updateUserMoneyLabel()
         
         UserProgress._2DmaxAvailableLevelID = max(self.currentLevelIndex + 1, UserProgress._2DmaxAvailableLevelID)
         UserProgress._2DlevelsStars[self.currentLevelIndex-1] = max(self.numberOfStars, UserProgress._2DlevelsStars[self.currentLevelIndex-1])
@@ -110,7 +110,6 @@ class WinViewController: UIViewController {
         
         self.setConfetti()
     }
-    
     
     private func countUserMoney() -> Int {
         var scoredMoney = Double(self.gameScore)
@@ -176,6 +175,4 @@ class WinViewController: UIViewController {
         }
         self.dismiss(animated: true)
     }
-    
-    
 }

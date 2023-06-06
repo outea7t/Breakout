@@ -17,6 +17,11 @@ class ARLoseViewController: UIViewController {
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var endGameView: SKView!
     
+    
+    @IBOutlet weak var losedMoneyCountingLabel: CountingLabel!
+    @IBOutlet weak var userMoney: UILabel!
+    
+    
     var endGameScene: EndGameScene?
     
     deinit {
@@ -25,6 +30,9 @@ class ARLoseViewController: UIViewController {
     
     private let backgroundView = RiveView()
     private let backgroundViewModel = RiveViewModel(fileName: "arpausemenu")
+    
+    /// количество потерянных денег
+    var losedMoney = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +84,18 @@ class ARLoseViewController: UIViewController {
         self.settingsButton.layer.shadowOpacity = 0.0
         self.settingsButton.layer.masksToBounds = false
         
+        if GameCurrency.userMoney > 50 {
+            GameCurrency.userMoney -= self.losedMoney
+            self.userMoney.text = GameCurrency.updateUserMoneyLabel()
+            
+            self.losedMoneyCountingLabel.count(fromValue: 0.0,
+                                               to: Float(self.losedMoney),
+                                               withDuration: 1.0,
+                                               animationType: .easeOut,
+                                               counterType: .int,
+                                               counterSign: .minus)
+        }
+        
         self.setConfetti()
         // Do any additional setup after loading the view.
     }
@@ -120,6 +140,10 @@ class ARLoseViewController: UIViewController {
             gameViewController.wantDetectPlane = true
             gameViewController.wantSetPosition = true
             gameViewController.isFramePositionPinned = false
+            gameViewController.score = 0
+            gameViewController.losedLives = 0
+            gameViewController.isFirstBallLaunch = true
+            gameViewController.starSpriteKitScene?.stars?.clearActions()
         }
         self.dismiss(animated: true)
     }
