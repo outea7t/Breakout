@@ -20,6 +20,7 @@ struct UserSettings {
         } set {
             let defaults = UserDefaults.standard
             defaults.set(newValue, forKey: UserSettingsKeys.musicVolumeValue.rawValue)
+            SoundManager.musicVolume = newValue
         }
     }
     /// значение громкости для звуков
@@ -29,6 +30,7 @@ struct UserSettings {
         } set {
             let defaults = UserDefaults.standard
             defaults.set(newValue, forKey: UserSettingsKeys.soundsVolumeValue.rawValue)
+            SoundManager.soundsVolume = newValue
         }
     }
     private init() {

@@ -95,10 +95,14 @@ class MenuViewController: UIViewController {
         
         if !UserProgress.wasAppAlreadyLaunched {
             GameCurrency.userMoney = 10_000
+            UserSettings.musicVolumeValue = 1.0
+            UserSettings.musicVolumeValue = 1.0
             UserProgress.wasAppAlreadyLaunched = true
         }
         // подгатавливаем, чтобы можно было проигрывать кастомные "тактильные ощущения"
         HapticManager.prepare()
+        // чтобы можно было проигрывать звуки и музыку в игре
+//        SoundManager.setup()
         // подгадавливаем скины для игровых объектов 2д части (чтобы потом много раз не загружать их)
         Ball2D.initializeBallSkins()
         Particle2D.initializeParticleSkins()
@@ -107,6 +111,9 @@ class MenuViewController: UIViewController {
         Paddle3D.initializePaddleSkins()
         Particle3D.initializeParticleSkins()
         Ball3D.initializeBallSkins()
+        
+        SoundManager.playMenuAmbientMusic()
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)

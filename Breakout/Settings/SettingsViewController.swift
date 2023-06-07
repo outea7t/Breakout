@@ -33,6 +33,9 @@ class SettingsViewController: UIViewController {
         
         self.riveView.frame = self.view.bounds
         self.riveView.center = self.view.center
+        
+        self.musicSlider.value = UserSettings.musicVolumeValue
+        self.soundsSlider.value = UserSettings.soundsVolumeValue
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

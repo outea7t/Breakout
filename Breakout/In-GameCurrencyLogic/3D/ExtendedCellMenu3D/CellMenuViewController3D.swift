@@ -68,17 +68,6 @@ class CellMenuViewController3D: UIViewController, ExtendedInfoCellViewController
         self.cellInformationView.layer.borderColor = UIColor.white.cgColor
         self.cellInformationView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
-        let offsetX: CGFloat = 10
-        let offsetY: CGFloat = 40
-        let shadowPath = UIBezierPath(rect:
-                                        CGRect(x: cellInformationView.bounds.origin.x - offsetX,
-                                               y: cellInformationView.bounds.origin.y,
-                                               width: cellInformationView.bounds.width + offsetX*4,
-                                               height: cellInformationView.bounds.height + offsetY))
-        self.cellInformationView.layer.shadowPath = shadowPath.cgPath
-        self.cellInformationView.layer.shadowOffset = CGSize(width: 0.0, height: 20)
-        self.cellInformationView.layer.shadowOpacity = 0.5
-        self.cellInformationView.layer.shadowRadius = 10
         
         self.cellInformationView.layer.cornerRadius = self.cellInformationView.frame.height/18
         
@@ -124,6 +113,20 @@ class CellMenuViewController3D: UIViewController, ExtendedInfoCellViewController
                 self.dismiss(animated: true)
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let offsetX: CGFloat = 10
+        let shadowPath = UIBezierPath(rect:
+                                        CGRect(x: cellInformationView.bounds.origin.x - offsetX,
+                                               y: cellInformationView.bounds.origin.y,
+                                               width: cellInformationView.bounds.width + 2*offsetX,
+                                               height: cellInformationView.bounds.height))
+        self.cellInformationView.layer.shadowPath = shadowPath.cgPath
+        self.cellInformationView.layer.shadowOffset = CGSize(width: 0.0, height: 20)
+        self.cellInformationView.layer.shadowOpacity = 0.5
+        self.cellInformationView.layer.shadowRadius = 10
     }
     
     @IBAction func buyButtonPressed(_ sender: UIButton) {

@@ -165,6 +165,14 @@
 		22DD3F512893EE3D0026E98C /* PauseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DD3F502893EE3D0026E98C /* PauseViewController.swift */; };
 		22E4719F29A2079E00C41084 /* Bungee-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */; };
 		22E6AFDD2A2F7E2900D2C4DA /* StarScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6AFDC2A2F7E2900D2C4DA /* StarScene.swift */; };
+		22E6AFDF2A2FA68A00D2C4DA /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E6AFDE2A2FA68A00D2C4DA /* SoundManager.swift */; };
+		22E6AFE12A2FB09800D2C4DA /* breakoutmain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 22E6AFE02A2FB09800D2C4DA /* breakoutmain.mp3 */; };
+		22E6AFE82A304D9900D2C4DA /* gameAmbient.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E6AFE22A304D9900D2C4DA /* gameAmbient.wav */; };
+		22E6AFE92A304D9900D2C4DA /* loseResult.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E6AFE32A304D9900D2C4DA /* loseResult.wav */; };
+		22E6AFEA2A304D9900D2C4DA /* brickEverythingBump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E6AFE42A304D9900D2C4DA /* brickEverythingBump.wav */; };
+		22E6AFEB2A304D9900D2C4DA /* bonusActivation.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E6AFE52A304D9900D2C4DA /* bonusActivation.wav */; };
+		22E6AFEC2A304D9900D2C4DA /* BONUS_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E6AFE62A304D9900D2C4DA /* BONUS_2.wav */; };
+		22E6AFED2A304D9900D2C4DA /* ballPaddleBump.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E6AFE72A304D9900D2C4DA /* ballPaddleBump.wav */; };
 		22F0BF3E2A05489200F68FAB /* stars.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22F0BF3D2A05489200F68FAB /* stars.riv */; };
 		22F0BF422A0620D900F68FAB /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0BF412A0620D900F68FAB /* CountingLabel.swift */; };
 		22F0BF452A07C50A00F68FAB /* CellMenuViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F0BF442A07C50A00F68FAB /* CellMenuViewController3D.swift */; };
@@ -371,6 +379,14 @@
 		22E4719E29A2079E00C41084 /* Bungee-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Bungee-Regular.ttf"; sourceTree = "<group>"; };
 		22E471A029A207B900C41084 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		22E6AFDC2A2F7E2900D2C4DA /* StarScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarScene.swift; sourceTree = "<group>"; };
+		22E6AFDE2A2FA68A00D2C4DA /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		22E6AFE02A2FB09800D2C4DA /* breakoutmain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = breakoutmain.mp3; sourceTree = "<group>"; };
+		22E6AFE22A304D9900D2C4DA /* gameAmbient.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameAmbient.wav; sourceTree = "<group>"; };
+		22E6AFE32A304D9900D2C4DA /* loseResult.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = loseResult.wav; sourceTree = "<group>"; };
+		22E6AFE42A304D9900D2C4DA /* brickEverythingBump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = brickEverythingBump.wav; sourceTree = "<group>"; };
+		22E6AFE52A304D9900D2C4DA /* bonusActivation.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bonusActivation.wav; sourceTree = "<group>"; };
+		22E6AFE62A304D9900D2C4DA /* BONUS_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = BONUS_2.wav; sourceTree = "<group>"; };
+		22E6AFE72A304D9900D2C4DA /* ballPaddleBump.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ballPaddleBump.wav; sourceTree = "<group>"; };
 		22F0BF3D2A05489200F68FAB /* stars.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = stars.riv; sourceTree = "<group>"; };
 		22F0BF412A0620D900F68FAB /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
 		22F0BF442A07C50A00F68FAB /* CellMenuViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellMenuViewController3D.swift; sourceTree = "<group>"; };
@@ -553,11 +569,18 @@
 			path = Pause;
 			sourceTree = "<group>";
 		};
-		22368B692A2B7A7F006B4569 /* Music */ = {
+		22368B692A2B7A7F006B4569 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				22E6AFE72A304D9900D2C4DA /* ballPaddleBump.wav */,
+				22E6AFE62A304D9900D2C4DA /* BONUS_2.wav */,
+				22E6AFE52A304D9900D2C4DA /* bonusActivation.wav */,
+				22E6AFE42A304D9900D2C4DA /* brickEverythingBump.wav */,
+				22E6AFE22A304D9900D2C4DA /* gameAmbient.wav */,
+				22E6AFE32A304D9900D2C4DA /* loseResult.wav */,
+				22E6AFE02A2FB09800D2C4DA /* breakoutmain.mp3 */,
 			);
-			path = Music;
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		22368B702A2BAEF2006B4569 /* Settings */ = {
@@ -566,6 +589,7 @@
 				22F36F77296034D900059579 /* SettingsViewController.swift */,
 				22368B6E2A2B92EB006B4569 /* CosmicSlider.swift */,
 				225003242A2DCE4400E57645 /* UserSettings.swift */,
+				22E6AFDE2A2FA68A00D2C4DA /* SoundManager.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -965,7 +989,7 @@
 				2219CEA829F5AE3A004B0402 /* 3DAssets */,
 				22E4719D29A206CD00C41084 /* Fonts */,
 				22F9D96E293BCD2200A5D776 /* RiveAssets */,
-				22368B692A2B7A7F006B4569 /* Music */,
+				22368B692A2B7A7F006B4569 /* Sounds */,
 				2275FA30288ACDCC0075AFD6 /* Main.storyboard */,
 				2275FA35288ACDCD0075AFD6 /* LaunchScreen.storyboard */,
 			);
@@ -1378,6 +1402,7 @@
 				224F5C4C29865EE9005E8E47 /* level_17.txt in Resources */,
 				22F20C0E28BE045E00415CE5 /* level_4.txt in Resources */,
 				225754BE29FEC677000C9A96 /* Paddle-11.dae in Resources */,
+				22E6AFEA2A304D9900D2C4DA /* brickEverythingBump.wav in Resources */,
 				225754F829FFD484000C9A96 /* Ball-12.png in Resources */,
 				224F5C4D29865EE9005E8E47 /* level_14.txt in Resources */,
 				2275FA32288ACDCC0075AFD6 /* Main.storyboard in Resources */,
@@ -1393,6 +1418,7 @@
 				224F5C4429865EE2005E8E47 /* level_11.txt in Resources */,
 				22AB8CCE2985A5E8009A50F1 /* LevelsMenuCollectionViewCell.xib in Resources */,
 				2257547A29FD97B0000C9A96 /* Particle-11Core.png in Resources */,
+				22E6AFEB2A304D9900D2C4DA /* bonusActivation.wav in Resources */,
 				225754F129FFD484000C9A96 /* Ball-5.dae in Resources */,
 				22096B5C2986EC0B0072F4C6 /* level_26.txt in Resources */,
 				22F20C0F28BE045E00415CE5 /* level_7.txt in Resources */,
@@ -1402,9 +1428,12 @@
 				225754F229FFD484000C9A96 /* Ball-3.dae in Resources */,
 				2257548429FD97B0000C9A96 /* Particle-10.dae in Resources */,
 				2275FA37288ACDCD0075AFD6 /* LaunchScreen.storyboard in Resources */,
+				22E6AFEC2A304D9900D2C4DA /* BONUS_2.wav in Resources */,
 				225754A929FE462D000C9A96 /* Paddle-9Core.png in Resources */,
 				22F20C0D28BE045E00415CE5 /* level_10.txt in Resources */,
+				22E6AFE82A304D9900D2C4DA /* gameAmbient.wav in Resources */,
 				225754F629FFD484000C9A96 /* Ball-10.png in Resources */,
+				22E6AFE12A2FB09800D2C4DA /* breakoutmain.mp3 in Resources */,
 				225754AD29FE462D000C9A96 /* Paddle-7.dae in Resources */,
 				225754EE29FFD484000C9A96 /* Ball-2.dae in Resources */,
 				225754C929FFAE37000C9A96 /* Bonus-Rotate.dae in Resources */,
@@ -1427,6 +1456,7 @@
 				2257548329FD97B0000C9A96 /* Particle-2.dae in Resources */,
 				225754F729FFD484000C9A96 /* Ball-12.dae in Resources */,
 				22E4719F29A2079E00C41084 /* Bungee-Regular.ttf in Resources */,
+				22E6AFED2A304D9900D2C4DA /* ballPaddleBump.wav in Resources */,
 				225754EC29FFD484000C9A96 /* Ball-11.png in Resources */,
 				22096B5B2986EC0B0072F4C6 /* level_23.txt in Resources */,
 				225754AC29FE462D000C9A96 /* Paddle-3.dae in Resources */,
@@ -1435,6 +1465,7 @@
 				22096B572986EC0B0072F4C6 /* level_25.txt in Resources */,
 				22F20C0B28BE045E00415CE5 /* level_6.txt in Resources */,
 				225754AE29FE462D000C9A96 /* Paddle-6.dae in Resources */,
+				22E6AFE92A304D9900D2C4DA /* loseResult.wav in Resources */,
 				2257547529FD97B0000C9A96 /* Particle-4.png in Resources */,
 				22096B542986EC0B0072F4C6 /* level_29.txt in Resources */,
 				225754CB29FFAE37000C9A96 /* Bonus-BallSpeed.dae in Resources */,
@@ -1517,6 +1548,7 @@
 				22B76AEA296BDA5000588E83 /* ShopParticlesViewController2D.swift in Sources */,
 				22B8FF90297419A000F923DC /* Shop2DCollectionViewCell.swift in Sources */,
 				22F36F78296034D900059579 /* SettingsViewController.swift in Sources */,
+				22E6AFDF2A2FA68A00D2C4DA /* SoundManager.swift in Sources */,
 				22B516C129238AB7006B1B6F /* Ball3D.swift in Sources */,
 				223BDB1529AB565C001CE63D /* Plane.swift in Sources */,
 				22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */,
