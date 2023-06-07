@@ -32,6 +32,7 @@
 		223BDB0F29AABE0F001CE63D /* AREndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */; };
 		223BDB1329AB4D07001CE63D /* ARPauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1229AB4D07001CE63D /* ARPauseScene.swift */; };
 		223BDB1529AB565C001CE63D /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1429AB565C001CE63D /* Plane.swift */; };
+		223C55472A30D901009907F1 /* SettingsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223C55462A30D901009907F1 /* SettingsScene.swift */; };
 		22406F7629D47C1B00D3313F /* background.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22406F7529D47C1B00D3313F /* background.riv */; };
 		224F5C4429865EE2005E8E47 /* level_11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4129865EE2005E8E47 /* level_11.txt */; };
 		224F5C4529865EE2005E8E47 /* level_12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4229865EE2005E8E47 /* level_12.txt */; };
@@ -242,6 +243,7 @@
 		223BDB0E29AABE0F001CE63D /* AREndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AREndGameScene.swift; sourceTree = "<group>"; };
 		223BDB1229AB4D07001CE63D /* ARPauseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARPauseScene.swift; sourceTree = "<group>"; };
 		223BDB1429AB565C001CE63D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		223C55462A30D901009907F1 /* SettingsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScene.swift; sourceTree = "<group>"; };
 		22406F7529D47C1B00D3313F /* background.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.riv; sourceTree = "<group>"; };
 		224F5C4129865EE2005E8E47 /* level_11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_11.txt; sourceTree = "<group>"; };
 		224F5C4229865EE2005E8E47 /* level_12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_12.txt; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 			isa = PBXGroup;
 			children = (
 				22F36F77296034D900059579 /* SettingsViewController.swift */,
+				223C55462A30D901009907F1 /* SettingsScene.swift */,
 				22368B6E2A2B92EB006B4569 /* CosmicSlider.swift */,
 				225003242A2DCE4400E57645 /* UserSettings.swift */,
 				22E6AFDE2A2FA68A00D2C4DA /* SoundManager.swift */,
@@ -1571,6 +1574,7 @@
 				226FF8B5292DD397001478E3 /* WinViewController.swift in Sources */,
 				2257548C29FE3FCB000C9A96 /* Shop3DCellData.swift in Sources */,
 				22AB8CC22983ED8C009A50F1 /* GradientImage.swift in Sources */,
+				223C55472A30D901009907F1 /* SettingsScene.swift in Sources */,
 				22BE9A32289597FC00FB99D2 /* LoseViewController.swift in Sources */,
 				22B516C729238AB7006B1B6F /* ARGameViewController.swift in Sources */,
 			);

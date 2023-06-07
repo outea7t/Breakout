@@ -7,8 +7,8 @@
 
 import UIKit
 import ARKit
+import SceneKit
 
-
-class Plane {
+struct Plane {
     
 }

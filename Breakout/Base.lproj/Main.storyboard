@@ -152,7 +152,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2v-8D-D5X">
+                            <skView tag="1" contentMode="scaleToFill" sceneName="SettingsScene" translatesAutoresizingMaskIntoConstraints="NO" id="aIK-VT-eK1">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            </skView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2v-8D-D5X">
                                 <rect key="frame" x="23" y="127" width="347" height="65"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="65"/>
@@ -171,14 +174,14 @@
                                     <action selector="backButtonPressed:" destination="Bjx-Bu-0wI" eventType="touchUpInside" id="RZf-9H-CCR"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Music" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fla-3t-owA">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Music" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fla-3t-owA">
                                 <rect key="frame" x="23" y="252" width="174" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="50"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sounds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gc4-cx-Lki">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Sounds" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gc4-cx-Lki">
                                 <rect key="frame" x="23" y="388" width="215" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Bungee-Regular" family="Bungee" pointSize="50"/>
@@ -206,6 +209,12 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ThG-Zw-WFR"/>
                         <color key="backgroundColor" red="0.027450980392156862" green="0.054901960784313725" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="aIK-VT-eK1" firstAttribute="leading" secondItem="ThG-Zw-WFR" secondAttribute="leading" id="41h-cy-NOB"/>
+                            <constraint firstItem="aIK-VT-eK1" firstAttribute="top" secondItem="ukx-vS-25f" secondAttribute="top" id="O4A-rh-fl1"/>
+                            <constraint firstItem="aIK-VT-eK1" firstAttribute="trailing" secondItem="ThG-Zw-WFR" secondAttribute="trailing" id="Obe-f0-UIL"/>
+                            <constraint firstItem="aIK-VT-eK1" firstAttribute="bottom" secondItem="ukx-vS-25f" secondAttribute="bottom" id="o9M-wS-cRX"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="ZdS-vd-2by" id="3jW-cg-Q7x"/>
@@ -270,7 +279,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" preferredBehavioralStyle="pad" translatesAutoresizingMaskIntoConstraints="NO" id="gxq-6X-q5d" userLabel="Settings">
-                                <rect key="frame" x="57.666666666666657" y="477" width="278" height="81"/>
+                                <rect key="frame" x="57.666666666666657" y="487" width="278" height="81"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gxq-6X-q5d" secondAttribute="height" multiplier="55:16" id="q2H-eL-0QO"/>
@@ -285,7 +294,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eml-9I-zh7" userLabel="Levels">
-                                <rect key="frame" x="57.666666666666657" y="361.66666666666669" width="278" height="85.333333333333314"/>
+                                <rect key="frame" x="57.666666666666657" y="371.66666666666669" width="278" height="85.333333333333314"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Eml-9I-zh7" secondAttribute="height" multiplier="13:4" id="eYm-4m-Yjm"/>
@@ -333,7 +342,7 @@
                             <constraint firstItem="cuj-hU-Y6H" firstAttribute="leading" secondItem="Ldv-ZQ-WN0" secondAttribute="trailing" id="Ukv-Dc-0kt"/>
                             <constraint firstItem="fOh-YZ-gNo" firstAttribute="trailing" secondItem="4qk-I5-YsI" secondAttribute="trailing" id="W7E-WP-mXJ"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="gxq-6X-q5d" secondAttribute="trailing" constant="57.5" id="X9K-In-giN"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="gxq-6X-q5d" secondAttribute="bottom" constant="260" id="XcH-WQ-IpJ"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="gxq-6X-q5d" secondAttribute="bottom" constant="250" id="XcH-WQ-IpJ"/>
                             <constraint firstAttribute="bottom" secondItem="J1x-mj-oX5" secondAttribute="bottom" constant="30" id="YWz-9w-zWh"/>
                             <constraint firstItem="4qk-I5-YsI" firstAttribute="trailing" secondItem="cuj-hU-Y6H" secondAttribute="trailing" constant="10" id="c7n-52-gum"/>
                             <constraint firstItem="H7A-bD-Nh7" firstAttribute="top" secondItem="Ldv-ZQ-WN0" secondAttribute="bottom" constant="10" id="dfc-56-zNY"/>
@@ -2567,9 +2576,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="bmF-z4-AkC"/>
         <segue reference="zr8-MN-Mqj"/>
-        <segue reference="rui-cb-CKg"/>
+        <segue reference="Y2f-0h-mfv"/>
         <segue reference="Var-Ej-7tH"/>
-        <segue reference="TNY-bf-mVZ"/>
+        <segue reference="QLA-C6-spX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0Star" width="672" height="274"/>

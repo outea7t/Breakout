@@ -10,8 +10,6 @@ import CoreAudioTypes
 
 
 class MenuScene: SKScene {
-    // для интерактивности - спиннеры
-    private var animatedParticles: AnimatedParticles?
     
     private let particle = SKShapeNode(circleOfRadius: 2.0)
     private var lastTime = TimeInterval(0)
@@ -29,10 +27,7 @@ class MenuScene: SKScene {
         self.backgroundColor = .clear
         
         self.physicsWorld.gravity = CGVector()
-        // размер частичек будет особенным для каждого устройства
-        let pointSize = self.frame.height/10
         
-        self.animatedParticles = AnimatedParticles(text: "Breakout", pointSize: pointSize, colors: [#colorLiteral(red: 0.5082114339, green: 0, blue: 1, alpha: 1)], enable3D: true)
         // настраиваем частички на заднем фоне
         self.particle.strokeColor = .white
         self.particle.fillColor = .white
@@ -82,6 +77,7 @@ class MenuScene: SKScene {
         }
         
     }
+    
     func pauseMenu() {
         guard !self.isPaused else {
             return
@@ -105,7 +101,6 @@ class MenuScene: SKScene {
         guard !self.isPaused else {
             return
         }
-        self.animatedParticles?.update(currentTime)
         self.breakAnimatedLabel?.ambientAnimating(
             colorToChange: self.colorOfLabelWhileAnimated,
             currentTime: currentTime)
@@ -123,11 +118,6 @@ class MenuScene: SKScene {
         }
         for touch in touches {
             self.touchDownOnLetter(touch)
-            if touch.location(in: self).y < self.frame.height*0.6 {
-                
-                HapticManager.collisionVibrate(with: .soft, 0.75)
-                self.animatedParticles?.animate(touch, scene: self)
-            }
         }
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -136,10 +126,6 @@ class MenuScene: SKScene {
         }
         for touch in touches {
             self.touchProcessOnLetter(touch)
-            // когда мы двигаем пальцем по экрану, то создается буква особого цвета
-            if touch.location(in: self).y < self.frame.height*0.6 {
-                self.animatedParticles?.animate(touch, scene: self)
-            }
         }
     }
     

@@ -15,7 +15,7 @@ protocol EndOfGameHandler {
 
 // мы подписываем нашу сцену под протокол SKPhysicsContactDelegate
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    
+
     // делегат для обращения к контроллеру из игровой сцены
     var gameVCDelegate: EndOfGameHandler?
     var currentLevel: Level2D?

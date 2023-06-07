@@ -7,6 +7,8 @@
 
 import UIKit
 import RiveRuntime
+import SpriteKit
+
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var backButton: UIButton!
@@ -23,6 +25,17 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        if let view = self.view.viewWithTag(1) as? SKView {
+            view.backgroundColor = .clear
+            
+            let scene = SettingsScene(size: view.bounds.size)
+            scene.musicLabelPosition = self.musicLabel.frame.origin
+            scene.soundsLabelPosition = self.soundsLabel.frame.origin
+            scene.scaleMode = .fill
+            view.presentScene(scene)
+            
+        }
         self.riveViewModel.setView(riveView)
         self.riveViewModel.play(loop: .loop)
         self.riveViewModel.alignment = .center

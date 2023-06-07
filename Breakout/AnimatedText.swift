@@ -296,7 +296,7 @@ struct AnimatedText {
     /// размещаем анимированный текст в любом месте
     /// Anchor Point строки будет находиться в ее центре
     mutating func calculatePosition(for frameSize: CGSize, in position: CGPoint) {
-        let offsetX = (position.x - self.width/2.0)
+        let offsetX = (position.x)
         let offsetY = position.y
         self.calculatePosition(with: offsetX, offsetY: offsetY)
     }
@@ -390,7 +390,7 @@ struct AnimatedText {
         let widthToHeightConstant = image.size.width/image.size.height
         let texture = SKTexture(image: image)
         // подстраиваем размер для каждого размера экрана
-        let sizeConstant: CGFloat = self.sizeConstant/844 * frame.height
+        let sizeConstant: CGFloat = self.sizeConstant/390 * frame.width
         let height = sizeConstant*1.2
         let width = height*widthToHeightConstant
         // из-за особенности шрифта Bungee высота всегда больше ширины в 1.2 раза
