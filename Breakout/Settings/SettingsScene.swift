@@ -21,6 +21,7 @@ class SettingsScene: SKScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        self.anchorPoint = CGPoint(x: 0, y: 0)
         self.backgroundColor = .clear
         
         let pointSize = self.frame.height/10
@@ -39,18 +40,18 @@ class SettingsScene: SKScene {
         
         if let settingsAnimatedLabel = self.settingsAnimatedLabel {
             for letter in settingsAnimatedLabel.label {
-                self.addChild(letter)
+//                self.addChild(letter)
             }
         }
         
         if let musicLabelPosition = self.musicLabelPosition {
             let actualPosition = CGPoint(x: musicLabelPosition.x,
                                          y: self.frame.height - musicLabelPosition.y - musicAnimatedLabel!.height)
-            self.musicAnimatedLabel?.calculatePosition(for: self.frame.size, in: actualPosition)
+            self.musicAnimatedLabel?.calculatePosition(for: self.frame.size, in: musicLabelPosition)
             
             if let musicAnimatedLabel = self.musicAnimatedLabel {
                 for letter in musicAnimatedLabel.label {
-                    self.addChild(letter)
+//                    self.addChild(letter)
                 }
             }
         }
@@ -58,11 +59,11 @@ class SettingsScene: SKScene {
         if let soundsLabelPosition = self.soundsLabelPosition {
             let actualPosition = CGPoint(x: soundsLabelPosition.x,
                                          y: self.frame.height - soundsLabelPosition.y - soundsAnimatedLabel!.height)
-            self.soundsAnimatedLabel?.calculatePosition(for: self.frame.size, in: actualPosition)
+            self.soundsAnimatedLabel?.calculatePosition(for: self.frame.size, in: soundsLabelPosition)
             
             if let soundsAnimatedLabel = self.soundsAnimatedLabel {
                 for letter in soundsAnimatedLabel.label {
-                    self.addChild(letter)
+//                    self.addChild(letter)
                 }
             }
         }
