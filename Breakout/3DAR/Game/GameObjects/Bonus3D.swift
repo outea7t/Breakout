@@ -38,7 +38,7 @@ struct Bonus3D {
 
     /// позиция, где бонус появился
     private var position: SCNVector3
-
+    private var bonusActivationSoundSource: SCNAudioSource?
     init(
         frame: Frame3D,
         position: SCNVector3
@@ -120,6 +120,30 @@ struct Bonus3D {
         self.bonus.physicsBody?.collisionBitMask = self.paddleBitmask | self.bottomBitMask
         self.bonus.physicsBody?.contactTestBitMask = self.paddleBitmask | self.bottomBitMask
         
+        self.setBonusActivationSound()
+    }
+    private mutating func setBonusActivationSound() {
+        guard let url = Bundle.main.url(forResource: SoundNames.bonusActivation.rawValue, withExtension: "wav") else {
+            return
+        }
+        guard let audioSource = SCNAudioSource(url: url) else {
+            return
+        }
+        audioSource.isPositional = true
+        audioSource.volume = UserSettings.soundsVolumeValue
+        audioSource.loops = false
+        audioSource.shouldStream = true
+        audioSource.load()
+        
+        self.bonusActivationSoundSource = audioSource
+    }
+    func playBonusActivationSound() {
+        guard let bonusActivationSoundSource = self.bonusActivationSoundSource else {
+            return
+        }
+        bonusActivationSoundSource.volume = UserSettings.soundsVolumeValue
+        let playAction = SCNAction.playAudio(bonusActivationSoundSource, waitForCompletion: false)
+        self.bonus.runAction(playAction)
     }
     /// с определенным шансом спавним бонус
     /// возвращает true, если бонус появился

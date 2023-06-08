@@ -122,6 +122,10 @@ class ARWinViewController: UIViewController {
         }
         return Int(scoredMoney/2.2)
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.scoredMoneyLabel.invalidateTimer()
+    }
     override var prefersStatusBarHidden: Bool {
         return false
     }

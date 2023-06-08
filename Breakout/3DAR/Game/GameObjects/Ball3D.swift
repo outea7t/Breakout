@@ -32,10 +32,12 @@ struct Ball3D {
     let ball: SCNNode
     let ballRadius: Float
     // переменная, которая контролирует скорость мяча
-    var ballImpulse = SCNVector3(x: 0.065 * 4, y: 0.0, z: 0.065 * 4)
+//    var ballImpulse = SCNVector3(x: 0.065 * 4, y: 0.0, z: 0.065 * 4)
     
     var isAttachedToPaddle = true
-    
+    private var ballBrickBumpSource: SCNAudioSource?
+    private var ballPaddleBumpSource: SCNAudioSource?
+    private var currentImpulse = SCNVector3()
     private static var ballSkins = [SCNNode]()
     init(radius: Float) {
         // настройка мяча
@@ -68,8 +70,45 @@ struct Ball3D {
         
         self.ball.physicsBody?.collisionBitMask = collision
         self.ball.physicsBody?.contactTestBitMask = collision
+        // настраиваем звуковые проигрыватели
+        if let ballBrickBumpSource = self.createAudioSourceCode(forResource: SoundNames.brickEverythingBump.rawValue, withExtension: "wav") {
+            self.ballBrickBumpSource = ballBrickBumpSource
+        }
+        if let ballPaddleBumpSource = self.createAudioSourceCode(forResource: SoundNames.ballPaddleBump.rawValue, withExtension: "wav") {
+            self.ballPaddleBumpSource = ballPaddleBumpSource
+        }
+        
     }
-    
+    private func createAudioSourceCode(forResource: String, withExtension: String) -> SCNAudioSource? {
+        guard let urlForBrickCollisionSound = Bundle.main.url(forResource: forResource, withExtension: withExtension) else {
+            return nil
+        }
+        guard let audioSource = SCNAudioSource(url: urlForBrickCollisionSound) else {
+            return nil
+        }
+        audioSource.isPositional = true
+        audioSource.volume = UserSettings.soundsVolumeValue
+        audioSource.loops = false
+        audioSource.shouldStream = true
+        audioSource.load()
+        return audioSource
+    }
+    func playCollisionToBrickSound() {
+        guard let bumpSource = self.ballBrickBumpSource else {
+            return
+        }
+        bumpSource.volume = UserSettings.soundsVolumeValue
+        let playAction = SCNAction.playAudio(bumpSource, waitForCompletion: false)
+        self.ball.runAction(playAction)
+    }
+    func playCollisionToPaddleSound() {
+        guard let bumpSource = self.ballPaddleBumpSource else {
+            return
+        }
+        bumpSource.volume = UserSettings.soundsVolumeValue
+        let playAction = SCNAction.playAudio(bumpSource, waitForCompletion: false)
+        self.ball.runAction(playAction)
+    }
     func moveBall(oldPositionOfFrame: SCNVector3, newPositionOfFrame: SCNVector3) {
         let oldBallPosition = ball.presentation.position
         let newBallPositionY = oldBallPosition.y + (newPositionOfFrame.y - oldBallPosition.y)
@@ -82,10 +121,10 @@ struct Ball3D {
         let y = ball.presentation.position.y.isNaN
         let z = ball.presentation.position.z.isNaN
         if x || y || z {
-            self.isAttachedToPaddle = true
             self.ball.position = SCNVector3(paddle.paddle.position.x,
                                             self.ballRadius*1.5,
                                             paddle.paddle.position.z - paddle.paddleVolume.z/2.0 - (self.ballRadius)*1.2)
+            self.ball.physicsBody?.applyForce(self.currentImpulse, asImpulse: true)
         }
         
         self.ball.physicsBody?.velocity.y = 0.0
@@ -134,14 +173,13 @@ struct Ball3D {
     func add(to node: SCNNode, in position: SCNVector3) {
         node.addChildNode(self.ball)
         self.ball.position = position
-        self.ball.physicsBody?.applyForce(self.ballImpulse, asImpulse: true)
+//        self.ball.physicsBody?.applyForce(self.ballImpulse, asImpulse: true)
     }
     mutating func removedFromPaddle(with impulse: SCNVector3) {
         self.isAttachedToPaddle = false
         self.ball.physicsBody?.velocity = SCNVector3()
-        self.ballImpulse = SCNVector3(abs(impulse.x),
-                                      abs(impulse.y),
-                                      abs(impulse.z))
+        
+        self.currentImpulse = impulse
         
         self.ball.physicsBody?.applyForce(impulse, asImpulse: true)
     }

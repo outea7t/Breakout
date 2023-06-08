@@ -99,7 +99,10 @@ class ARLoseViewController: UIViewController {
         self.setConfetti()
         // Do any additional setup after loading the view.
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.losedMoneyCountingLabel.invalidateTimer()
+    }
     override var prefersStatusBarHidden: Bool {
         return false
     }

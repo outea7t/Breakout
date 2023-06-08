@@ -187,7 +187,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
         
-        self.view.addGestureRecognizer(rotationGestureRecognizer)
+//        self.view.addGestureRecognizer(rotationGestureRecognizer)
         
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchGesture))
         
@@ -200,8 +200,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         starSpriteKitScene.anchorPoint = CGPoint()
         self.starSpriteKitScene = starSpriteKitScene
-        
-//        pinchGestureRecognizer.delaysTouchesBegan = true
         
         // пока не добавляю, так как много багов(((((
         self.view.addGestureRecognizer(pinchGestureRecognizer)
@@ -663,8 +661,9 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         let result = nodeB | nodeA
         
         if result == self.brickBitmask | self.ballBitmask {
-            self.score += 1.5
+            self.ball?.playCollisionToBrickSound()
             if nodeA == self.brickBitmask {
+                self.score += 1.5
                 self.currentLevel?.collisionHappened(brickNode: contact.nodeA)
                 let brickNode = contact.nodeA
                 
@@ -678,6 +677,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                     }
                 }
             } else {
+                self.score += 1.5
                 self.currentLevel?.collisionHappened(brickNode: contact.nodeB)
                 let brickNode = contact.nodeB
                 
@@ -695,6 +695,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             HapticManager.collisionVibrate(with: .light, 0.5)
         }
         else if result == self.paddleBitmask | self.ballBitmask {
+            self.ball?.playCollisionToPaddleSound()
             HapticManager.collisionVibrate(with: .light, 0.9)
             // логика высчитывания угла наклона при столкновении с ракеткой
             if let paddle = self.paddle, let ball = self.ball {
@@ -739,7 +740,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                             normalizedVelocity.y * lengthOfOldVelocity * 0.9)
                         
                         self.ball?.ball.physicsBody?.velocity = newBallVelocity
-                        self.ball?.ballImpulse = newBallVelocity
                     }
                     
                 }
@@ -775,12 +775,13 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             }
         }
         else if result == self.bonusBitMask | self.paddleBitmask {
-            self.score += 1.5
+            
             if nodeA == bonusBitMask {
                 let bonusNode = contact.nodeA
                 for (i,bonus) in self.bonuses.enumerated() {
                     if bonus.bonus === bonusNode {
                         // логика взаимодействия с бонусом ...
+                        bonus.playBonusActivationSound()
                         self.applyBonusEffectOnGame(type: bonus.type)
                         bonus.remove()
                         self.bonuses.remove(at: i)
@@ -791,6 +792,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 for (i,bonus) in self.bonuses.enumerated() {
                     if bonus.bonus === bonusNode {
                         // логика взаимодействия с бонусом ...
+                        bonus.playBonusActivationSound()
                         self.applyBonusEffectOnGame(type: bonus.type)
                         bonus.remove()
                         self.bonuses.remove(at: i)
@@ -836,6 +838,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     }
     
     private func applyBonusEffectOnGame(type: BonusType3D) {
+        self.score += 1.5
         switch type {
         case .rotate:
             if !self.isRotated {
