@@ -36,6 +36,7 @@ struct Frame3D {
     var rightSideWall: SCNNode
     let rightSideWallVolume: SCNVector3
     
+    
     init(plateVolume: SCNVector3, frontWallVolume: SCNVector3, leftSideWallVolume: SCNVector3, bottomWallVolume: SCNVector3, rightSideWallVolume: SCNVector3) {
         
         self.plate = SCNNode()
@@ -64,6 +65,33 @@ struct Frame3D {
         self.leftSideWall = initWall(volume: leftSideWallVolume)
         self.bottomWall = initWall(volume: bottomWallVolume, true)
         self.rightSideWall = initWall(volume: rightSideWallVolume)
+        
+        guard let frontWallScene = SCNScene(named: "frontWall.dae"),
+              let bottomWallScene = SCNScene(named: "bottomWall.dae"),
+              let rightSideWallScene = SCNScene(named: "rightSideWall.dae"),
+              let leftSideWallScene = SCNScene(named: "leftSideWall.dae"),
+              let plateScene = SCNScene(named: "plate.dae")
+        else {
+              return
+              }
+        guard let frontWallModel = frontWallScene.rootNode.childNode(withName: "wall", recursively: true),
+              let bottomWallModel = bottomWallScene.rootNode.childNode(withName: "wall", recursively: true),
+              let rightSideWallModel = rightSideWallScene.rootNode.childNode(withName: "wall", recursively: true),
+              let leftSideWallModel = leftSideWallScene.rootNode.childNode(withName: "wall", recursively: true),
+              let plateModel = plateScene.rootNode.childNode(withName: "plate", recursively: true) else {
+            return
+        }
+        // захардкоженные значения, чтобы модельки стен отображались нормально
+        bottomWallModel.position.z = 0.0125
+        leftSideWallModel.position.x = -0.03
+        rightSideWallModel.position.x = 0.03
+        frontWallModel.position.z = -0.0125
+        
+        self.frontWall.addChildNode(frontWallModel)
+        self.bottomWall.addChildNode(bottomWallModel)
+        self.rightSideWall.addChildNode(rightSideWallModel)
+        self.leftSideWall.addChildNode(leftSideWallModel)
+        self.plate.addChildNode(plateModel)
     }
     private func initPlate() -> SCNNode {
         let plate = SCNNode()
@@ -78,12 +106,13 @@ struct Frame3D {
         // настраиваем материал таким образом, чтобы он чуть-чуть отражал поверхность
         let material = SCNMaterial()
 //        material.lightingModel = .physicallyBased
-        material.diffuse.contents = #colorLiteral(red: 0.3755680323, green: 0.3933776915, blue: 0.7154480219, alpha: 1)
+//        material.diffuse.contents = #colorLiteral(red: 0.3755680323, green: 0.3933776915, blue: 0.7154480219, alpha: 1).withAlphaComponent(0)
         // цвет,который объект отражает  (аккуратно - цвет отражения смешивается с цветом объекта)
-        material.specular.contents = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
+//        material.specular.contents = #colorLiteral(red: 1, green: 0, blue: 0, alpha: 1)
 //        material.roughness.contents = 0.5
 //        material.metalness.contents = 0.85
-        material.emission.contents = UIColor.black
+//        material.emission.contents = UIColor.black
+        material.diffuse.contents = UIColor.clear
         plate.geometry?.materials = [material]
 
         if let plateGeometry = plate.geometry {
@@ -116,13 +145,13 @@ struct Frame3D {
         let material = SCNMaterial()
 //        material.lightingModel = .physicallyBased
         
-        material.diffuse.contents = #colorLiteral(red: 0.5671008229, green: 1, blue: 0.7511768937, alpha: 1)
-        material.specular.contents = #colorLiteral(red: 0, green: 0.1004967913, blue: 1, alpha: 1)
+//        material.diffuse.contents = #colorLiteral(red: 0.5671008229, green: 1, blue: 0.7511768937, alpha: 1)
+//        material.specular.contents = #colorLiteral(red: 0, green: 0.1004967913, blue: 1, alpha: 1)
 //        material.roughness.contents = 0.5
 //        material.metalness.contents = 0.85
-        material.emission.contents = UIColor.black
+//        material.emission.contents = UIColor.black
         
-        
+        material.diffuse.contents = UIColor.clear
         wall.geometry?.materials = [material]
         if let geometry = wall.geometry {
             let shapeOfWall = SCNPhysicsShape(geometry: geometry, options: nil)

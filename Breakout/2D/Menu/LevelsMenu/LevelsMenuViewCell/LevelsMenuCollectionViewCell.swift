@@ -19,7 +19,7 @@ class LevelsMenuCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func setup(with data: LevelsMenuCellData) {
+    func setup(with data: LevelsMenuCellData, cellFrameWidth: CGFloat) {
 //        self.backgroundColor = data.backgroundColor
         self.levelIndex = data.levelNumber
         self.levelNumber.text = "\(data.levelNumber)"
@@ -31,11 +31,11 @@ class LevelsMenuCollectionViewCell: UICollectionViewCell {
                                          height: self.bounds.height/10)
         
         self.layer.borderColor = data.backgroundColor.cgColor
-        self.layer.borderWidth = self.frame.width/12.5
+        self.layer.borderWidth = cellFrameWidth/12.5
         self.backgroundColor = #colorLiteral(red: 0.1058823529, green: 0.007843137255, blue: 0.2039215686, alpha: 1)
         
         
-        self.layer.cornerRadius = self.frame.width / 6.5
+        self.layer.cornerRadius = cellFrameWidth / 6.5
         self.clipsToBounds = false
         
         guard let _3StarImage = UIImage(named: "3Star.png"),

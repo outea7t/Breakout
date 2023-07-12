@@ -17,7 +17,6 @@ class ARLoseViewController: UIViewController {
     @IBOutlet weak var blurView: UIVisualEffectView!
     @IBOutlet weak var endGameView: SKView!
     
-    
     @IBOutlet weak var losedMoneyCountingLabel: CountingLabel!
     @IBOutlet weak var userMoney: UILabel!
     
@@ -150,5 +149,4 @@ class ARLoseViewController: UIViewController {
         }
         self.dismiss(animated: true)
     }
-    
 }

@@ -23,6 +23,7 @@ class ARLevelsMenuViewController: UIViewController {
     /// все массив информации с уровнями
     private var levelsCellsData = [LevelsMenuCellData]()
     private let cellIdentifier = "ARLevelsMenuCollectionViewCell"
+    private var cellFrameWidth = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
         // находим класс, который будем использовать для ячеек
@@ -151,11 +152,7 @@ extension ARLevelsMenuViewController: UICollectionViewDataSource {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! ARLevelsMenuCollectionViewCell
         
         
-        cell.setup(with: self.levelsCellsData[indexPath.item])
-        
-        let cornerRadius = cell.bounds.height / 10
-        cell.layer.cornerRadius = cornerRadius
-            
+        cell.setup(with: self.levelsCellsData[indexPath.item], cellFrameWidth: self.cellFrameWidth)
         
         return cell
         
@@ -167,6 +164,7 @@ extension ARLevelsMenuViewController: UICollectionViewDelegateFlowLayout {
         
         let size = CGSize(width: self.view.frame.width/2.5,
                           height: self.view.frame.width/2.5)
+        self.cellFrameWidth = size.width
         return size
     }
 }

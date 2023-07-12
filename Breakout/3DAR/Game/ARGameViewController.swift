@@ -967,7 +967,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                             rightSideWallVolume: SCNVector3(x: 0.025, y: 0.05, z: plateVolume.z))
         if let planeNodePosition = self.planeNodePosition {
             let framePosition = SCNVector3(x: planeNodePosition.x,
-                                        y: planeNodePosition.y + plateVolume.y,
+                                        y: planeNodePosition.y + 3*plateVolume.y,
                                         z: planeNodePosition.z)
             if let gameScene = self.gameScene {
                 self.frame?.add(to: gameScene, in: framePosition)
@@ -1067,32 +1067,67 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         // создаем свет
         let lightObject = SCNLight()
         // тип света
+        
         lightObject.type = .omni
+        lightObject.drawsArea = true
+
         lightObject.shadowMode = SCNShadowMode.forward
         lightObject.castsShadow = true
         lightObject.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.85)
-        lightObject.color = UIColor.white
+        
+        lightObject.color = #colorLiteral(red: 0.9762758613, green: 0.9804332852, blue: 0.5333245397, alpha: 1)
         
         lightObject.shadowRadius = 12
         lightObject.shadowBias = 40
         
         lightObject.shadowMapSize = CGSize(width: 2048, height: 2048)
         lightObject.shadowSampleCount = 128
-        lightObject.intensity = 1000
+        lightObject.intensity = 5000
         
         self.light.light = lightObject
-        if let planeNodePosition = self.planeNodePosition {
-            let lighPosition = SCNVector3(x: planeNodePosition.x,
-                                          y: planeNodePosition.y + 1.0,
-                                          z: planeNodePosition.z - 0.4)
-            self.light.position = lighPosition
-        }
+//        if let planeNodePosition = self.planeNodePosition {
+//            let lighPosition = SCNVector3(x: planeNodePosition.x,
+//                                          y: planeNodePosition.y + 1.0,
+//                                          z: planeNodePosition.z - 0.4)
+//            self.light.position = lighPosition
+//        }
         self.light.position = SCNVector3(x: 0.0, y: 1.0, z: -0.4)
         self.light.name = "Light"
         if let gameScene = self.gameScene {
             gameScene.rootNode.addChildNode(self.light)
         }
         
+        if let purpleLightObject = lightObject.copy() as? SCNLight {
+            let lightNode = SCNNode()
+            
+            purpleLightObject.color = #colorLiteral(red: 0.5727581978, green: 0.6191810966, blue: 0.9958898425, alpha: 1)
+            lightNode.light = purpleLightObject
+            lightNode.position = SCNVector3(x: 0, y: 0.1, z: 0.5)
+            
+//            self.gameScene?.rootNode.addChildNode(lightNode)
+        }
+        
+        let ambientLightNode = SCNNode()
+        
+        let ambientLight = SCNLight()
+        
+        ambientLightNode.position = SCNVector3(0.0, 0.25, -0.15)
+        ambientLight.type = .ambient
+        lightObject.shadowMode = SCNShadowMode.forward
+        lightObject.castsShadow = true
+        lightObject.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.85)
+        
+        lightObject.color = #colorLiteral(red: 0.5518461466, green: 0.566819787, blue: 1, alpha: 1)
+        
+        lightObject.shadowRadius = 12
+        lightObject.shadowBias = 40
+        
+        lightObject.shadowMapSize = CGSize(width: 2048, height: 2048)
+        lightObject.shadowSampleCount = 128
+        lightObject.intensity = 500
+        
+        ambientLightNode.light = ambientLight
+//        self.gameScene?.rootNode.addChildNode(ambientLightNode)
     }
     
     private func updatePhysicsBodyScale(node: SCNNode, scale: SCNVector3) {

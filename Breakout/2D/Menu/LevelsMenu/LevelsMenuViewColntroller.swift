@@ -23,6 +23,7 @@ class LevelsMenuViewColntroller: UIViewController {
     /// все массив информации с уровнями
     private var levelsCellsData = [LevelsMenuCellData]()
     private let cellIdentifier = "LevelsMenuCollectionViewCell"
+    private var cellFrameWidth = CGFloat()
     override func viewDidLoad() {
         super.viewDidLoad()
         // находим класс, который будем использовать для ячеек
@@ -146,7 +147,8 @@ extension LevelsMenuViewColntroller: UICollectionViewDataSource {
     // какие ячейки создавать
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! LevelsMenuCollectionViewCell
-        cell.setup(with: self.levelsCellsData[indexPath.item])
+        
+        cell.setup(with: self.levelsCellsData[indexPath.item], cellFrameWidth: self.cellFrameWidth)
         return cell
         
     }
@@ -157,6 +159,7 @@ extension LevelsMenuViewColntroller: UICollectionViewDelegateFlowLayout {
         
         let size = CGSize(width: self.view.frame.width/2.5,
                           height: self.view.frame.width/2.5)
+        self.cellFrameWidth = size.width
         return size
     }
 }
