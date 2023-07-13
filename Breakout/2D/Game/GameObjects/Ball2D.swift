@@ -93,15 +93,20 @@ class Ball2D {
     func setBallSkin() {
         if !UserCustomization._2DbuyedBallSkinIndexes.isEmpty && UserCustomization._2DballSkinIndex < Ball2D.ballSkins.count {
             self.setSkinCode(skinIndex: UserCustomization._2DballSkinIndex)
+        } else {
+            print("error in set certain skin")
         }
     }
     func setCertainBallSkin(skinIndex: Int) {
         if skinIndex < Ball2D.ballSkins.count {
             setSkinCode(skinIndex: skinIndex)
+        } else {
+            print("error in set certain skin")
         }
     }
     
     static func initializeBallSkins() {
+        print(UserCustomization._2DmaxBallSkinIndex)
         for i in 0..<(UserCustomization._2DmaxBallSkinIndex) {
             let textureImage = UIImage(named: "Ball-\(i+1)")
             if let textureImage = textureImage {

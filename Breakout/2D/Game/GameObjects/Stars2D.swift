@@ -65,7 +65,7 @@ class Stars2D {
     func add(to node: SKNode, scene: SKScene, positionOfBallAttachedToPaddle: CGPoint) {
         // сначала рассчитываем позицию 2-ой звезды (она посередине экрана) а затем считаем позицию остальных звезд относительно нее
         let _2StarPosition = CGPoint(x: scene.frame.midX,
-                                     y: positionOfBallAttachedToPaddle.y + self.sizeOfStar.width/2.0)
+                                     y: positionOfBallAttachedToPaddle.y + self.sizeOfStar.width/2.5)
         self._2StarCropNode.position = _2StarPosition
         
         let _1StarPosition = CGPoint(x: scene.frame.midX - self.sizeOfStar.width,
@@ -95,7 +95,7 @@ class Stars2D {
     func add(to scene: SKScene, at position: CGPoint) {
         // сначала рассчитываем позицию 2-ой звезды (она посередине экрана) а затем считаем позицию остальных звезд относительно нее
         let _2StarPosition = CGPoint(x: scene.frame.midX,
-                                     y: scene.frame.midY - self.sizeOfStar.height * 0.15)
+                                     y: scene.frame.midY - 100)
         self._2StarCropNode.position = _2StarPosition
         
         let _1StarPosition = CGPoint(x: scene.frame.midX - self.sizeOfStar.width,

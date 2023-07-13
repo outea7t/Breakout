@@ -66,36 +66,42 @@ class ShopBallTexturesViewController: UIViewController, TexturesShopController {
         
         // force-unwrapping, потому что я точно знаю, что эти картинки существуют в assets
         // настраиваем информацию о ячейках
-        let image1 = UIImage(named: "Ball-1")!
-        let image2 = UIImage(named: "Ball-2")!
-        let image3 = UIImage(named: "Ball-3")!
-        let image4 = UIImage(named: "Ball-4")!
-        let image5 = UIImage(named: "Ball-5")!
-        let image6 = UIImage(named: "Ball-6")!
-        let image7 = UIImage(named: "Ball-7")!
-        let image8 = UIImage(named: "Ball-8")!
-        let image9 = UIImage(named: "Ball-9")!
-        let image10 = UIImage(named: "Ball-10")!
-        let image11 = UIImage(named: "Ball-11")!
-        let image12 = UIImage(named: "Ball-12")!
+//        let image1 = UIImage(named: "Ball-1")!
+//        let image2 = UIImage(named: "Ball-2")!
+//        let image3 = UIImage(named: "Ball-3")!
+//        let image4 = UIImage(named: "Ball-4")!
+//        let image5 = UIImage(named: "Ball-5")!
+//        let image6 = UIImage(named: "Ball-6")!
+//        let image7 = UIImage(named: "Ball-7")!
+//        let image8 = UIImage(named: "Ball-8")!
+//        let image9 = UIImage(named: "Ball-9")!
+//        let image10 = UIImage(named: "Ball-10")!
+//        let image11 = UIImage(named: "Ball-11")!
+//        let image12 = UIImage(named: "Ball-12")!
         
         let color = self.unselectedColor
-        self.ballCellData = [
-            Shop2DCellData(image: image1, price: 10, color: color, id: 0, type: .ball),
-            Shop2DCellData(image: image2, price: 20, color: color, id: 1, type: .ball),
-            Shop2DCellData(image: image3, price: 30, color: color, id: 2, type: .ball),
-            Shop2DCellData(image: image4, price: 40, color: color, id: 3, type: .ball),
-            Shop2DCellData(image: image5, price: 50, color: color, id: 4, type: .ball),
-            Shop2DCellData(image: image6, price: 60, color: color, id: 5, type: .ball),
-            Shop2DCellData(image: image7, price: 70, color: color, id: 6, type: .ball),
-            Shop2DCellData(image: image8, price: 80, color: color, id: 7, type: .ball),
-            Shop2DCellData(image: image9, price: 90, color: color, id: 8, type: .ball),
-            Shop2DCellData(image: image10, price: 100, color: color, id: 9, type: .ball),
-            Shop2DCellData(image: image11, price: 110, color: color, id: 10, type: .ball),
-            Shop2DCellData(image: image12, price: 120, color: color, id: 11, type: .ball),
-        ]
+        for i in 1...UserCustomization._2DmaxBallSkinIndex {
+            let image = UIImage(named: "Ball-\(i)")!
+            let tempData = Shop2DCellData(image: image, price: 10, color: color, id: i-1, type: .ball)
+            self.ballCellData.append(tempData)
+        }
         
-        UserCustomization._2DmaxBallSkinIndex = ballCellData.count
+//        self.ballCellData = [
+//            Shop2DCellData(image: image1, price: 10, color: color, id: 0, type: .ball),
+//            Shop2DCellData(image: image2, price: 20, color: color, id: 1, type: .ball),
+//            Shop2DCellData(image: image3, price: 30, color: color, id: 2, type: .ball),
+//            Shop2DCellData(image: image4, price: 40, color: color, id: 3, type: .ball),
+//            Shop2DCellData(image: image5, price: 50, color: color, id: 4, type: .ball),
+//            Shop2DCellData(image: image6, price: 60, color: color, id: 5, type: .ball),
+//            Shop2DCellData(image: image7, price: 70, color: color, id: 6, type: .ball),
+//            Shop2DCellData(image: image8, price: 80, color: color, id: 7, type: .ball),
+//            Shop2DCellData(image: image9, price: 90, color: color, id: 8, type: .ball),
+//            Shop2DCellData(image: image10, price: 100, color: color, id: 9, type: .ball),
+//            Shop2DCellData(image: image11, price: 110, color: color, id: 10, type: .ball),
+//            Shop2DCellData(image: image12, price: 120, color: color, id: 11, type: .ball),
+//        ]
+        
+//        UserCustomization._2DmaxBallSkinIndex = ballCellData.count
 
         self.collectionView.isPrefetchingEnabled = false
         // добавляем GR для распознавания жеста покупки ячейки

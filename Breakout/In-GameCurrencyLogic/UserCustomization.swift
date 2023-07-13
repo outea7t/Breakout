@@ -39,11 +39,11 @@ struct UserCustomization {
            
     }
     /// количество существующих в игре скинов для частичек 2D
-    public static var _2DmaxParticleSkinIndex: Int = 12
+    public static var _2DmaxParticleSkinIndex: Int = 33
     /// количество существующих в игре скинов для мячей 2D
-    public static var _2DmaxBallSkinIndex: Int = 12
+    public static var _2DmaxBallSkinIndex: Int = 33
     /// количество существующих в игре скинов для ракеток 2D
-    public static var _2DmaxPaddleSkinIndex: Int = 12
+    public static var _2DmaxPaddleSkinIndex: Int = 33
     
     /// текущий, выбранный игроком скин для частички 2D
     public static var _2DparticleSkinIndex: Int {

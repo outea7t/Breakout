@@ -40,7 +40,7 @@ struct Paddle2D {
         let paddleSize = CGSize(width: paddleHeight*widthToHeightConstant,
                                 height: paddleHeight)
         let paddleCornerRadius = (paddleSize.width + paddleSize.height)/2.0 * 0.1818
-        self.paddle = SKShapeNode(rectOf: paddleSize, cornerRadius: paddleCornerRadius)
+        self.paddle = SKShapeNode(rectOf: paddleSize)
         self.paddle.position = CGPoint(x: frame.midX, y: 20.0)
         self.paddle.fillColor = #colorLiteral(red: 0.06666666667, green: 0.05490196078, blue: 0.7607843137, alpha: 1)
         //        self.paddle.lineWidth = 4
