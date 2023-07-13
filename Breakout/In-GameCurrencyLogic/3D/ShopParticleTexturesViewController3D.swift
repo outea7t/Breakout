@@ -122,7 +122,7 @@ class ShopParticlesTexturesViewController3D: UIViewController, TexturesShopContr
     
     func updateInfo() {
         self.userMoneyLabel.text = (GameCurrency.updateUserMoneyLabel())
-        self.collectionView.reloadData()
+        
     }
     @objc func longPressGesture(_ gesture: UILongPressGestureRecognizer) {
         

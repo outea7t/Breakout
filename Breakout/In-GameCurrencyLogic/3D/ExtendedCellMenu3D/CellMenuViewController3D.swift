@@ -164,7 +164,6 @@ class CellMenuViewController3D: UIViewController, ExtendedInfoCellViewController
             if let currentShopController = controller as? TexturesShopController {
                 if self.typeOfCurrentShopController == currentShopController.type {
                     let indexPath = IndexPath(item: self.cellID, section: 0)
-                    print()
                     currentShopController.selectedCellIndexPath = indexPath
                     currentShopController.updateInfo()
                 }

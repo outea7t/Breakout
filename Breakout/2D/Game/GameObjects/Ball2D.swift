@@ -45,10 +45,12 @@ class Ball2D {
         
         let ballRadius = 0.0513 * frame.width
         if frame.width > 700 && frame.height > 1000 {
-            self.ball = SKShapeNode(circleOfRadius: ballRadius * 0.8)
+            self.ball = SKShapeNode(rectOf: CGSize(width: ballRadius * 2 * 0.8, height: ballRadius * 2 * 0.8), cornerRadius: 0)
             self.ballRadius = ballRadius * 0.8
         } else {
-            self.ball = SKShapeNode(circleOfRadius: ballRadius)
+            
+            self.ball = SKShapeNode(rectOf: CGSize(width: ballRadius*2, height: ballRadius*2), cornerRadius: 0)
+            //SKShapeNode(circleOfRadius: ballRadius)
             self.ballRadius = ballRadius
         }
         self.particle = Particle2D(ballRadius: ballRadius)
