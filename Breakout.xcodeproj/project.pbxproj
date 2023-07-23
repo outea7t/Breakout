@@ -690,8 +690,8 @@
 				22F36F75296034CE00059579 /* ShopViewController2D.swift */,
 				22B906132A6D81B30097733D /* ShopParentViewController2D.swift */,
 				22B76AE7296BD99A00588E83 /* ShopBallTexturesViewController2D.swift */,
-				22B76AE9296BDA5000588E83 /* ShopParticlesViewController2D.swift */,
 				226573EB29A61F070096A6D8 /* ShopPaddleTexturesViewController2D.swift */,
+				22B76AE9296BDA5000588E83 /* ShopParticlesViewController2D.swift */,
 				22D38B7B29E821AD00BF1E1E /* ExtendedCellMenu */,
 				22B8FF8D2974198400F923DC /* ShopCollectionViewCell */,
 			);

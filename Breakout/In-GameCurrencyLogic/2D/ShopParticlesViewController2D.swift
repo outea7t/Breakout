@@ -55,21 +55,6 @@ class ShopParticlesTextureViewController: UIViewController, TexturesShopControll
         
         self.collectionView.collectionViewLayout = layout
         
-        // заполняем массив с текстурами
-        // настраиваем информацию о ячейках
-//        let image1 = UIImage(named: "Particle-1")!
-//        let image2 = UIImage(named: "Particle-2")!
-//        let image3 = UIImage(named: "Particle-3")!
-//        let image4 = UIImage(named: "Particle-4")!
-//        let image5 = UIImage(named: "Particle-5")!
-//        let image6 = UIImage(named: "Particle-6")!
-//        let image7 = UIImage(named: "Particle-7")!
-//        let image8 = UIImage(named: "Particle-8")!
-//        let image9 = UIImage(named: "Particle-9")!
-//        let image10 = UIImage(named: "Particle-10")!
-//        let image11 = UIImage(named: "Particle-11")!
-//        let image12 = UIImage(named: "Particle-12")!
-        
         let color = self.unselectedColor
         
         for i in 1...UserCustomization._2DmaxParticleSkinIndex {
@@ -77,21 +62,6 @@ class ShopParticlesTextureViewController: UIViewController, TexturesShopControll
             let tempData = Shop2DCellData(image: image, price: 10, color: color, id: i-1, type: .ball)
             self.particlesCellData.append(tempData)
         }
-//        self.particlesCellData = [
-//            Shop2DCellData(image: image1, price: 10, color: color, id: 0, type: .particles),
-//              Shop2DCellData(image: image2, price: 20, color: color, id: 1, type: .particles),
-//              Shop2DCellData(image: image3, price: 30, color: color, id: 2, type: .particles),
-//              Shop2DCellData(image: image4, price: 40, color: color, id: 3, type: .particles),
-//              Shop2DCellData(image: image5, price: 50, color: color, id: 4, type: .particles),
-//              Shop2DCellData(image: image6, price: 60, color: color, id: 5, type: .particles),
-//              Shop2DCellData(image: image7, price: 70, color: color, id: 6, type: .particles),
-//              Shop2DCellData(image: image8, price: 80, color: color, id: 7, type: .particles),
-//              Shop2DCellData(image: image9, price: 90, color: color, id: 8, type: .particles),
-//              Shop2DCellData(image: image10, price: 100, color: color, id: 9, type: .particles),
-//              Shop2DCellData(image: image11, price: 110, color: color, id: 10, type: .particles),
-//              Shop2DCellData(image: image12, price: 120, color: color, id: 11, type: .particles),
-//        ]
-//        UserCustomization._2DmaxParticleSkinIndex = particlesCellData.count
         
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
