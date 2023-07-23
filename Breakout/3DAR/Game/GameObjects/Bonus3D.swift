@@ -150,7 +150,9 @@ struct Bonus3D {
     /// false - если нет
     func tryToAdd(to frame: Frame3D) -> Bool {
         if random(border: 5) {
-            frame.plate.addChildNode(bonus)
+            if self.type != .rotate {
+                frame.plate.addChildNode(bonus)
+            }
             // скорость бонуса
             let bonusVelocity: Float = 0.1
             // расчитываем время относительно их расстояния до низа экрана, чтобы их скорость была одинаковой

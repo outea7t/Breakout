@@ -50,14 +50,14 @@ class MenuViewController: UIViewController {
             
             
             view.presentScene(scene)
-            view.showsPhysics = true
+//            view.showsPhysics = true
             // сцена меню, чтобы можно было ей управлять
             self.menuScene = scene
         
             // настраиваем некоторые дебаг опции
             view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
+//            view.showsFPS = true
+//            view.showsNodeCount = true
         }
         
         self.levelsButton.layer.shadowOpacity = 1.0
@@ -101,8 +101,6 @@ class MenuViewController: UIViewController {
         }
         // подгатавливаем, чтобы можно было проигрывать кастомные "тактильные ощущения"
         HapticManager.prepare()
-        // чтобы можно было проигрывать звуки и музыку в игре
-//        SoundManager.setup()
         // подгадавливаем скины для игровых объектов 2д части (чтобы потом много раз не загружать их)
         Ball2D.initializeBallSkins()
         Particle2D.initializeParticleSkins()

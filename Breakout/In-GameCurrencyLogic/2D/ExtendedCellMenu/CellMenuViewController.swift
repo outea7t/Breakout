@@ -97,8 +97,8 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
             
             self.backgroundAnimationScene = scene
             
-            spriteKitView.showsFPS = true
-            spriteKitView.showsNodeCount = true
+//            spriteKitView.showsFPS = true
+//            spriteKitView.showsNodeCount = true
         }
         self.transitioningDelegate = self
         
@@ -124,6 +124,7 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
         if GameCurrency.userMoney >= self.price {
             GameCurrency.userMoney -= self.price
             self.isBuyed = true
+            
             if self.typeOfCurrentShopController == .ball {
                 UserCustomization._2DbuyedBallSkinIndexes += [self.cellID]
                 UserCustomization._2DballSkinIndex = self.cellID
@@ -153,7 +154,10 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
                 if self.typeOfCurrentShopController == currentShopController.type {
                     let indexPath = IndexPath(item: self.cellID, section: 0)
                     currentShopController.selectedCellIndexPath = indexPath
-                    currentShopController.updateInfo()
+                    if let buyedShopCollectionViewCell = currentShopController.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+                        buyedShopCollectionViewCell.isBuyed = true
+                    }
+//                    currentShopController.updateInfo()
                 }
             }
         }

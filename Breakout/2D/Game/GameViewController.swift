@@ -10,6 +10,9 @@ import SpriteKit
 
 class GameViewController: UIViewController {
     // сцена с игрой
+    
+    @IBOutlet weak var pauseButton: UIButton!
+    
     weak var gameScene: GameScene?
     var levelChoosed = 1 {
         willSet {
@@ -39,8 +42,8 @@ class GameViewController: UIViewController {
             self.gameScene?.gameVCDelegate = self
             
             view.ignoresSiblingOrder = true
-            view.showsNodeCount = true
-            view.showsFPS = true
+//            view.showsNodeCount = true
+//            view.showsFPS = true
         }
         self.gameScene?.currentLevel?.removeAllBricksBeforeSettingLevel()
         self.gameScene?.currentLevel = self.levels[self.levelChoosed-1]
@@ -49,6 +52,12 @@ class GameViewController: UIViewController {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(appMovedForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.pauseButton.frame.origin.y = self.view.frame.midY + self.pauseButton.frame.size.height/4
         
     }
     @objc func appMovedBackground() {
@@ -83,28 +92,34 @@ class GameViewController: UIViewController {
                     var rows: UInt = 0, cols: UInt = 0
                     var descriptionOfLevel = [UInt]()
                     
+                    var _3StarTime = TimeInterval()
+                    var _2StarTime = TimeInterval()
+                    
                     let stringsArray = text.components(separatedBy: "\n")
                     rows = UInt(stringsArray.count)
                     
                     if !stringsArray.isEmpty {
                         cols = UInt(stringsArray[0].components(separatedBy: " ").count)
                     }
+                    
                     for string in stringsArray {
                         let healthArray = string.components(separatedBy: " ")
                         if healthArray.count == 1 && healthArray[0] == "" {
                             rows-=1
                         } else {
                             for health in healthArray {
+                                
                                 if let health = UInt(health) {
+                                    _3StarTime += 2.75 * TimeInterval(health)
+                                    _2StarTime += 3.5 * TimeInterval(health)
                                     descriptionOfLevel.append(health)
                                 }
                             }
                         }
                         
                     }
-                    let level = Level2D(rows: rows, cols: cols, bricksDescription: descriptionOfLevel)
+                    let level = Level2D(rows: rows, cols: cols, bricksDescription: descriptionOfLevel, _3StarTime: _3StarTime, _2StarTime: _2StarTime)
                     self.levels.append(level)
-                    
                 }
             }
         }

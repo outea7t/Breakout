@@ -106,6 +106,8 @@ class ARPauseViewController: UIViewController {
         // из storyboard анвайндимся до ар меню
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
             self.pauseScene = nil
+            SoundManager.stopGameAmbientMusic()
+            SoundManager.playMenuAmbientMusic()
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
             gameViewController.gameScene = nil

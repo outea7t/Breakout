@@ -18,7 +18,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     // делегат для обращения к контроллеру из игровой сцены
     var gameVCDelegate: EndOfGameHandler?
-    var currentLevel: Level2D?
+    var currentLevel: Level2D? {
+        willSet {
+            if let _2StarTime = newValue?._2StarTime, let _3StarTime = newValue?._3StarTime  {
+                let timings = TimeForStars(_2StarTime: _2StarTime, _3StarTime: _3StarTime)
+                self.stars?.timings = timings
+            } else {
+                let timings = TimeForStars(_2StarTime: 50, _3StarTime: 50)
+                self.stars?.timings = timings
+            }
+        }
+    }
     
     // игровые объекты
     private var ball: Ball2D?
@@ -97,7 +107,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let ballBrickBumpAudioNode = SKAudioNode(fileNamed: SoundNames.brickEverythingBump.rawValue)
     private let ballPaddleBumpAudioNode = SKAudioNode(fileNamed: SoundNames.ballPaddleBump.rawValue)
     private let bonusActivationAudioNode = SKAudioNode(fileNamed: SoundNames.bonusActivation.rawValue)
-    private let loseGameResultAudioNode = SKAudioNode(fileNamed: SoundNames.loseResult.rawValue)
+//    private let loseGameResultAudioNode = SKAudioNode(fileNamed: SoundNames.loseResult.rawValue)
     // настраиваем все члены
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.07905098051, green: 0.1308179498, blue: 0.1934371293, alpha: 1)
@@ -166,22 +176,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.gameNode.position = CGPoint(x: 0.0, y: 0.0)
         self.addChild(self.gameNode)
         
-        let timings = TimeForStars(_2StarTime: 50, _3StarTime: 50)
-        self.stars = Stars2D(timings: timings, frameSize: view.frame.size)
+        if let _2StarTime = currentLevel?._2StarTime, let _3StarTime = currentLevel?._3StarTime  {
+            let timings = TimeForStars(_2StarTime: _2StarTime, _3StarTime: _3StarTime)
+            self.stars = Stars2D(timings: timings, frameSize: view.frame.size)
+        } else {
+            let timings = TimeForStars(_2StarTime: 50, _3StarTime: 50)
+            self.stars = Stars2D(timings: timings, frameSize: view.frame.size)
+        }
+            
         if let ball = self.ball {
             let ballPosition = CGPoint(x: ball.ball.position.x, y: ball.ball.position.y + ball.ballRadius)
-            self.stars?.add(to: self.gameNode, scene: self, positionOfBallAttachedToPaddle: ballPosition)
+            self.stars?.add(to: self.gameNode, scene: self, positionOfBallAttachedToPaddle: self.livesLable.position)
         }
         
         self.ballBrickBumpAudioNode.autoplayLooped = false
         self.ballPaddleBumpAudioNode.autoplayLooped = false
         self.bonusActivationAudioNode.autoplayLooped = false
-        self.loseGameResultAudioNode.autoplayLooped = false
+//        self.loseGameResultAudioNode.autoplayLooped = false
         
         self.addChild(self.ballBrickBumpAudioNode)
         self.addChild(self.ballPaddleBumpAudioNode)
         self.addChild(self.bonusActivationAudioNode)
-        self.addChild(self.loseGameResultAudioNode)
+//        self.addChild(self.loseGameResultAudioNode)
         
         self.setParticlesSkin()
         self.setBallSkin()
@@ -217,7 +233,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     firstAction,
                     SKAction.play()
                 ])
+                self.ballBrickBumpAudioNode.removeAllActions()
                 self.ballBrickBumpAudioNode.run(a)
+                
+                
                 
                 HapticManager.collisionVibrate(with: .light, 0.5)
                 // если тело А - мяч, работаем с телом В
@@ -266,6 +285,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     volumeChangeAction,
                     SKAction.play()
                 ])
+                self.ballPaddleBumpAudioNode.removeAllActions()
                 self.ballPaddleBumpAudioNode.run(sequence)
                 // логика высчитывания угла наклона при столкновении с ракеткой
                 if let paddle = self.paddle, let ball = self.ball {
@@ -312,7 +332,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     volumeChangeAction,
                     SKAction.play()
                 ])
-                self.bonusActivationAudioNode.run(sequence)
+                DispatchQueue.main.async {
+                    self.bonusActivationAudioNode.removeAllActions()
+                    self.bonusActivationAudioNode.run(sequence)
+                }
                 HapticManager.collisionVibrate(with: .soft, 1.0)
                 if let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node {
                     if contact.bodyA.categoryBitMask == self.bonusMask {
@@ -619,7 +642,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 volumeChangeAction,
                 SKAction.play()
             ])
-            self.loseGameResultAudioNode.run(sequence)
+//            self.loseGameResultAudioNode.removeAllActions()
+//            self.loseGameResultAudioNode.run(sequence)
             DispatchQueue.main.async {
                 self.setLose()
             }

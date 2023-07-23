@@ -181,6 +181,10 @@ extension ARLevelsMenuViewController: UICollectionViewDelegate {
             self.levelChoosed = cell.levelIndex
             // небольшая вибрация, уведомляющая пользователя о начале игры
             HapticManager.collisionVibrate(with: .rigid, 1.0)
+            
+            SoundManager.stopMenuAmbientMusic()
+            SoundManager.playGameAmbientMusic()
+            
             self.performSegue(withIdentifier: "FromLevelsARMenuToARGameMenu", sender: self)
         } else {
             HapticManager.notificationVibrate(for: .error)

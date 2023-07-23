@@ -121,6 +121,8 @@ class ARLoseViewController: UIViewController {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
             print("yeeeees")
             self.endGameScene = nil
+            SoundManager.stopGameAmbientMusic()
+            SoundManager.playMenuAmbientMusic()
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
             gameViewController.gameScene = nil

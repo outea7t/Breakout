@@ -180,12 +180,14 @@ extension CustomTransitionToExtendedCellMenu: UIViewControllerAnimatedTransition
             }
         })
         selectedCell?.priceLabel.alpha = 0.0
+        
         UIView.animate(withDuration: 0.2,
                        delay: 1.4,
                        usingSpringWithDamping: 1.0,
                        initialSpringVelocity: 0.5,
                        options: .curveLinear,
                        animations: {
+                    
             selectedCell?.priceLabel.alpha = 1.0
         }) { _ in
             if extendedCellMenuViewController.isBuyed {

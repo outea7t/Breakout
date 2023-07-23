@@ -145,7 +145,8 @@ class ARWinViewController: UIViewController {
     @IBAction func homeButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
             self.endGameScene = nil
-            print("tried to clean")
+            SoundManager.stopGameAmbientMusic()
+            SoundManager.playMenuAmbientMusic()
             gameViewController.gameScene?.physicsWorld.contactDelegate = nil
             gameViewController.gameSceneView.delegate = nil
             gameViewController.gameScene = nil

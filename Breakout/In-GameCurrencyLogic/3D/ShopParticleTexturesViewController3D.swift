@@ -61,34 +61,39 @@ class ShopParticlesTexturesViewController3D: UIViewController, TexturesShopContr
         
         // заполняем массив с текстурами
         // настраиваем информацию о ячейках
-        let model1 = SCNScene(named: "Particle-1")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model2 = SCNScene(named: "Particle-2")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model3 = SCNScene(named: "Particle-3")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model4 = SCNScene(named: "Particle-4")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model5 = SCNScene(named: "Particle-5")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model6 = SCNScene(named: "Particle-6")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model7 = SCNScene(named: "Particle-7")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model8 = SCNScene(named: "Particle-8")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model9 = SCNScene(named: "Particle-9")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model10 = SCNScene(named: "Particle-10")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model11 = SCNScene(named: "Particle-11")!.rootNode.childNode(withName: "Particle", recursively: true)!
-        let model12 = SCNScene(named: "Particle-12")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model1 = SCNScene(named: "Particle-1")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model2 = SCNScene(named: "Particle-2")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model3 = SCNScene(named: "Particle-3")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model4 = SCNScene(named: "Particle-4")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model5 = SCNScene(named: "Particle-5")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model6 = SCNScene(named: "Particle-6")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model7 = SCNScene(named: "Particle-7")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model8 = SCNScene(named: "Particle-8")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model9 = SCNScene(named: "Particle-9")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model10 = SCNScene(named: "Particle-10")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model11 = SCNScene(named: "Particle-11")!.rootNode.childNode(withName: "Particle", recursively: true)!
+//        let model12 = SCNScene(named: "Particle-12")!.rootNode.childNode(withName: "Particle", recursively: true)!
         
         let color = self.unselectedColor
-        self.particlesCellData = [
-            Shop3DCellData(model: model1, backgroundColor: color, price: 10, id: 0, textureType: .particles),
-            Shop3DCellData(model: model2, backgroundColor: color, price: 20, id: 1, textureType: .particles),
-            Shop3DCellData(model: model3, backgroundColor: color, price: 30, id: 2, textureType: .particles),
-            Shop3DCellData(model: model4, backgroundColor: color, price: 40, id: 3, textureType: .particles),
-            Shop3DCellData(model: model5, backgroundColor: color, price: 50, id: 4, textureType: .particles),
-            Shop3DCellData(model: model6, backgroundColor: color, price: 60, id: 5, textureType: .particles),
-            Shop3DCellData(model: model7, backgroundColor: color, price: 70, id: 6, textureType: .particles),
-            Shop3DCellData(model: model8, backgroundColor: color, price: 80, id: 7, textureType: .particles),
-            Shop3DCellData(model: model9, backgroundColor: color, price: 90, id: 8, textureType: .particles),
-            Shop3DCellData(model: model10, backgroundColor: color, price: 100, id: 9, textureType: .particles),
-            Shop3DCellData(model: model11, backgroundColor: color, price: 110, id: 10, textureType: .particles),
-            Shop3DCellData(model: model12, backgroundColor: color, price: 120, id: 11, textureType: .particles),
-        ]
+        for i in 1...UserCustomization._2DmaxParticleSkinIndex {
+            let model = SCNScene(named: "Particle-\(i)")!.rootNode.childNode(withName: "Particle", recursively: true)!
+            let tempData = Shop3DCellData(model: model, backgroundColor: color, price: 10, id: i-1, textureType: .particles)
+            self.particlesCellData.append(tempData)
+        }
+//        self.particlesCellData = [
+//            Shop3DCellData(model: model1, backgroundColor: color, price: 10, id: 0, textureType: .particles),
+//            Shop3DCellData(model: model2, backgroundColor: color, price: 20, id: 1, textureType: .particles),
+//            Shop3DCellData(model: model3, backgroundColor: color, price: 30, id: 2, textureType: .particles),
+//            Shop3DCellData(model: model4, backgroundColor: color, price: 40, id: 3, textureType: .particles),
+//            Shop3DCellData(model: model5, backgroundColor: color, price: 50, id: 4, textureType: .particles),
+//            Shop3DCellData(model: model6, backgroundColor: color, price: 60, id: 5, textureType: .particles),
+//            Shop3DCellData(model: model7, backgroundColor: color, price: 70, id: 6, textureType: .particles),
+//            Shop3DCellData(model: model8, backgroundColor: color, price: 80, id: 7, textureType: .particles),
+//            Shop3DCellData(model: model9, backgroundColor: color, price: 90, id: 8, textureType: .particles),
+//            Shop3DCellData(model: model10, backgroundColor: color, price: 100, id: 9, textureType: .particles),
+//            Shop3DCellData(model: model11, backgroundColor: color, price: 110, id: 10, textureType: .particles),
+//            Shop3DCellData(model: model12, backgroundColor: color, price: 120, id: 11, textureType: .particles),
+//        ]
         
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))

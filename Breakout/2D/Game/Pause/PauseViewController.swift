@@ -51,9 +51,9 @@ class PauseViewController: UIViewController {
             self.pauseScene = scene
         
             view.ignoresSiblingOrder = true
-            view.showsNodeCount = true
-            view.showsFPS = true
-            view.showsPhysics = true
+//            view.showsNodeCount = true
+//            view.showsFPS = true
+//            view.showsPhysics = true
         }
         
         self.resumeButton.layer.cornerRadius = self.restartButton.frame.height/4.0
@@ -80,6 +80,8 @@ class PauseViewController: UIViewController {
         // unwind к меню из сториборда
         self.pauseScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
+            SoundManager.stopGameAmbientMusic()
+            SoundManager.playMenuAmbientMusic()
             gameViewController.gameScene?.gameVCDelegate = nil
             gameViewController.gameScene = nil
         }

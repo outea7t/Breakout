@@ -14,7 +14,6 @@ struct LevelsMenuCellData {
     var levelNumber: Int
     var starsCount: Int
     var isAvailable: Bool
-    
 }
 // var threeStarTime: TimeInterval
 // var twoStarTime: TimeInterval

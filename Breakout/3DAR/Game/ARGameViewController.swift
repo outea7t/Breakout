@@ -51,7 +51,17 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     private var trajectoryLine: TrajectoryLine3D?
     
     // текущий уровень
-    var currentLevel: Level3D?
+    var currentLevel: Level3D? {
+        willSet {
+            if let _3StarTime = newValue?._3StarTime, let _2StarTime = newValue?._2StarTime {
+                let timings = TimeForStars(_2StarTime: _2StarTime, _3StarTime: _3StarTime)
+                self.starSpriteKitScene?.setStarTimings(timings: timings)
+            } else {
+                let timings = TimeForStars(_2StarTime: 50, _3StarTime: 50)
+                self.starSpriteKitScene?.setStarTimings(timings: timings)
+            }
+        }
+    }
     var isPaused = false
     
     // логика движения ракетки
@@ -152,13 +162,13 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     override func viewDidLoad() {
         super.viewDidLoad()
         // настраиваем debug опции
-        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showWorldOrigin]
+//        self.gameSceneView.debugOptions = [.showFeaturePoints, .showLightExtents, .showWorldOrigin]
         
         // устанавливаем делегат для AR
         self.gameSceneView.delegate = self
         
         // показывать статистику (ФПС И КОЛ-ВО nodes)
-        self.gameSceneView.showsStatistics = true
+//        self.gameSceneView.showsStatistics = true
         self.gameSceneView.allowsCameraControl = false
         self.gameSceneView.autoenablesDefaultLighting = true
         
@@ -185,7 +195,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.currentLevel?.removeAllBricksBeforeSettingLevel()
         self.currentLevel = self.levels[self.levelChoosed-1]
         
-        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
+//        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
         
 //        self.view.addGestureRecognizer(rotationGestureRecognizer)
         
@@ -194,13 +204,20 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.starSpriteKitView.backgroundColor = .clear
         
         let starSpriteKitScene = StarScene(size: self.starSpriteKitView.bounds.size)
-        self.starSpriteKitView.presentScene(starSpriteKitScene)
         
+        self.starSpriteKitView.presentScene(starSpriteKitScene)
         starSpriteKitScene.scaleMode = .fill
         
         starSpriteKitScene.anchorPoint = CGPoint()
         self.starSpriteKitScene = starSpriteKitScene
         
+        if let _3StarTime = self.currentLevel?._3StarTime, let _2StarTime = self.currentLevel?._2StarTime {
+            let timings = TimeForStars(_2StarTime: _2StarTime, _3StarTime: _3StarTime)
+            self.starSpriteKitScene?.updateStarTimings(timings: timings)
+        } else {
+            let timings = TimeForStars(_2StarTime: 50, _3StarTime: 50)
+            self.starSpriteKitScene?.updateStarTimings(timings: timings)
+        }
         // пока не добавляю, так как много багов(((((
         self.view.addGestureRecognizer(pinchGestureRecognizer)
     }
@@ -286,13 +303,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             }
             self.sceneRotationAngle -= sign*2*CGFloat.pi
         }
-        
-//        let rotateAction = SCNAction.rotate(by: angle, around: SCNVector3(x: 0, y: 1, z: 0), duration: duration)
-//        frame.plate.runAction(rotateAction)
-
         frame.plate.orientation = SCNQuaternion(0, angle, 0, angle)
-//        frame.plate.transform = SCNMatrix4Rotate(frame.plate.transform, Float(angle), 0, 1, 0)
-//        frame.plate.physicsBody?.resetTransform()
         
     }
     
@@ -317,6 +328,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         let scale = SCNVector3(scaleFactor, scaleFactor, scaleFactor)
         frame.plate.scale = scale
         
+        self.trajectoryLine?.frameScale = scaleFactor
         self.ball?.updateBallVelocityLength(scaleFactor: Float(scaleFactor))
         self.updatePhysicsBodyScale(node: frame.plate, scale: scale)
         for child in frame.plate.childNodes {
@@ -640,6 +652,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                     if self.isFirstBallLaunch {
                         self.isFirstBallLaunch = false
                         self.starSpriteKitScene?.stars?.startActions()
+                        self.starSpriteKitScene?.stars?.startActions()
                     }
                     self.ball?.removedFromPaddle(with: direction)
                     self.trajectoryLine?.isTrajectoryCreated = false
@@ -842,8 +855,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         switch type {
         case .rotate:
             if !self.isRotated {
-                self.isRotated = true
                 self.rotateFrame()
+                self.isRotated = true
             }
         case .decreaseSpeedOfPaddle:
             if !self.isPaddleSlowed {
@@ -921,12 +934,16 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                     var rows: UInt = 0, cols: UInt = 0
                     var descriptionOfLevel = [UInt]()
                     
+                    var _3StarTime = TimeInterval()
+                    var _2StarTime = TimeInterval()
+                    
                     let stringsArray = text.components(separatedBy: "\n")
                     rows = UInt(stringsArray.count)
                     
                     if !stringsArray.isEmpty {
                         cols = UInt(stringsArray[0].components(separatedBy: " ").count)
                     }
+                    
                     for string in stringsArray {
                         let healthArray = string.components(separatedBy: " ")
                         if healthArray.count == 1 && healthArray[0] == "" {
@@ -934,6 +951,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                         } else {
                             for health in healthArray {
                                 if let health = UInt(health) {
+                                    _3StarTime += 3.5 * TimeInterval(health)
+                                    _2StarTime += 4 * TimeInterval(health)
                                     descriptionOfLevel.append(health)
                                 }
                             }
@@ -947,7 +966,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                         reversedDescriptionOfLevel.append(descriptionOfLevel[i])
                         i-=1
                     }
-                    let level = Level3D(rows: rows, cols: cols, bricksDescription: reversedDescriptionOfLevel)
+                    let level = Level3D(rows: rows, cols: cols, bricksDescription: reversedDescriptionOfLevel, _3StarTime: _3StarTime, _2StarTime: _2StarTime)
                     self.levels.append(level)
                 }
             }
@@ -1075,14 +1094,14 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         lightObject.castsShadow = true
         lightObject.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.85)
         
-        lightObject.color = #colorLiteral(red: 0.9762758613, green: 0.9804332852, blue: 0.5333245397, alpha: 1)
+        lightObject.color = #colorLiteral(red: 0.9999999404, green: 1, blue: 1, alpha: 1)
         
         lightObject.shadowRadius = 12
         lightObject.shadowBias = 40
         
         lightObject.shadowMapSize = CGSize(width: 2048, height: 2048)
         lightObject.shadowSampleCount = 128
-        lightObject.intensity = 5000
+        lightObject.intensity = 2000
         
         self.light.light = lightObject
 //        if let planeNodePosition = self.planeNodePosition {
@@ -1100,7 +1119,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         if let purpleLightObject = lightObject.copy() as? SCNLight {
             let lightNode = SCNNode()
             
-            purpleLightObject.color = #colorLiteral(red: 0.5727581978, green: 0.6191810966, blue: 0.9958898425, alpha: 1)
+            purpleLightObject.color = #colorLiteral(red: 0.9999999404, green: 1, blue: 1, alpha: 1)
             lightNode.light = purpleLightObject
             lightNode.position = SCNVector3(x: 0, y: 0.1, z: 0.5)
             
@@ -1117,7 +1136,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         lightObject.castsShadow = true
         lightObject.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.85)
         
-        lightObject.color = #colorLiteral(red: 0.5518461466, green: 0.566819787, blue: 1, alpha: 1)
+        lightObject.color = #colorLiteral(red: 0.9999999404, green: 1, blue: 1, alpha: 1)
         
         lightObject.shadowRadius = 12
         lightObject.shadowBias = 40

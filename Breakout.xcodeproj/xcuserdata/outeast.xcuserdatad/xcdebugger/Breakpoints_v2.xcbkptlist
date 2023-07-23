@@ -3,4 +3,54 @@
    uuid = "6C34A061-82D7-4E01-81F6-2A8C9CA75CD8"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0166C4F5-6CCC-4B7D-9557-CDA85DB3D111"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Breakout/In-GameCurrencyLogic/2D/ExtendedCellMenu/CustomTransitionToExtendedCellMenu.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "dismissAnimation(with:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0166C4F5-6CCC-4B7D-9557-CDA85DB3D111 - 56c82edad1cebb2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #7 () -&gt; () in Breakout.CustomTransitionToExtendedCellMenu.dismissAnimation(with: __C.UIViewControllerContextTransitioning) -&gt; ()"
+                  moduleName = "Breakout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/outeast/Desktop/Graduation%20Game%20Project/Breakout/Breakout/In-GameCurrencyLogic/2D/ExtendedCellMenu/CustomTransitionToExtendedCellMenu.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "0166C4F5-6CCC-4B7D-9557-CDA85DB3D111 - 56c82edad1cebb2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #7 () -&gt; () in Breakout.CustomTransitionToExtendedCellMenu.dismissAnimation(with: __C.UIViewControllerContextTransitioning) -&gt; ()"
+                  moduleName = "Breakout"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/outeast/Desktop/Graduation%20Game%20Project/Breakout/Breakout/In-GameCurrencyLogic/2D/ExtendedCellMenu/CustomTransitionToExtendedCellMenu.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "191"
+                  endingLineNumber = "191"
+                  offsetFromSymbolStart = "128">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

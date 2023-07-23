@@ -14,7 +14,6 @@ class Shop2DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
             return self.imageView
         }
     }
-    
     /// картинка с текстурой
     @IBOutlet weak var imageView: UIImageView!
     /// лэйбл с ценой текстуры
@@ -38,7 +37,7 @@ class Shop2DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
     let borderColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
     /// размер рамки, которая появляется, когда мы выбираем рамку
     var borderWidth: CGFloat = 0.0
-    
+    var isBuyed = false
     /// замена инициализатору
     func setup(with data: Shop2DCellData) {
         self.data = data

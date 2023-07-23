@@ -24,7 +24,7 @@ class Stars2D {
     private let _2StarRectangle: SKSpriteNode
     private let _3StarRectangle: SKSpriteNode
     
-    private let timings: TimeForStars
+    var timings: TimeForStars
     private var sizeOfStar = CGSize()
     
     init(timings: TimeForStars, frameSize: CGSize) {
@@ -34,7 +34,9 @@ class Stars2D {
         self.timings = timings
         self.numberOfStars = 3
         
+        
         let starSize = frameSize.width * 0.2209
+        print(starSize)
         self.sizeOfStar = CGSize(width: starSize, height: starSize)
         let yellowStarColor = #colorLiteral(red: 1, green: 0.7215686275, blue: 0, alpha: 1)
         
@@ -65,7 +67,7 @@ class Stars2D {
     func add(to node: SKNode, scene: SKScene, positionOfBallAttachedToPaddle: CGPoint) {
         // сначала рассчитываем позицию 2-ой звезды (она посередине экрана) а затем считаем позицию остальных звезд относительно нее
         let _2StarPosition = CGPoint(x: scene.frame.midX,
-                                     y: positionOfBallAttachedToPaddle.y + self.sizeOfStar.width/2.5)
+                                     y: positionOfBallAttachedToPaddle.y - self.sizeOfStar.width/1.2)
         self._2StarCropNode.position = _2StarPosition
         
         let _1StarPosition = CGPoint(x: scene.frame.midX - self.sizeOfStar.width,
@@ -80,22 +82,11 @@ class Stars2D {
         node.addChild(_2StarCropNode)
         node.addChild(_3StarCropNode)
         
-        let _3StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
-                                               duration: self.timings._3StarTime)
-        let _2StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
-                                               duration: self.timings._2StarTime)
-        
-//        self._3StarRectangle.run(_3StarFadingAction) { [weak self] in
-//            self?.numberOfStars = 2
-//            self?._2StarRectangle.run(_2StarFadingAction) { [weak self] in
-//                self?.numberOfStars = 1
-//            }
-//        }
     }
     func add(to scene: SKScene, at position: CGPoint) {
         // сначала рассчитываем позицию 2-ой звезды (она посередине экрана) а затем считаем позицию остальных звезд относительно нее
         let _2StarPosition = CGPoint(x: scene.frame.midX,
-                                     y: scene.frame.midY - 100)
+                                     y: scene.frame.midY)
         self._2StarCropNode.position = _2StarPosition
         
         let _1StarPosition = CGPoint(x: scene.frame.midX - self.sizeOfStar.width,
@@ -110,10 +101,10 @@ class Stars2D {
         scene.addChild(_2StarCropNode)
         scene.addChild(_3StarCropNode)
         
-        let _3StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
-                                               duration: self.timings._3StarTime)
-        let _2StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
-                                               duration: self.timings._2StarTime)
+//        let _3StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
+//                                               duration: self.timings._3StarTime)
+//        let _2StarFadingAction = SKAction.move(by: CGVector(dx: -self.sizeOfStar.width, dy: 0),
+//                                               duration: self.timings._2StarTime)
         
 //        self._3StarRectangle.run(_3StarFadingAction) { [weak self] in
 //            self?.numberOfStars = 2

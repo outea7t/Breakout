@@ -60,34 +60,40 @@ class ShopBallTexturesViewController3D: UIViewController, TexturesShopController
         
         // заполняем массив с текстурами
         // настраиваем информацию о ячейках
-        let model1 = SCNScene(named: "Ball-1")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model2 = SCNScene(named: "Ball-2")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model3 = SCNScene(named: "Ball-3")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model4 = SCNScene(named: "Ball-4")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model5 = SCNScene(named: "Ball-5")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model6 = SCNScene(named: "Ball-6")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model7 = SCNScene(named: "Ball-7")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model8 = SCNScene(named: "Ball-8")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model9 = SCNScene(named: "Ball-9")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model10 = SCNScene(named: "Ball-10")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model11 = SCNScene(named: "Ball-11")!.rootNode.childNode(withName: "Ball", recursively: true)!
-        let model12 = SCNScene(named: "Ball-12")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model1 = SCNScene(named: "Ball-1")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model2 = SCNScene(named: "Ball-2")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model3 = SCNScene(named: "Ball-3")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model4 = SCNScene(named: "Ball-4")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model5 = SCNScene(named: "Ball-5")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model6 = SCNScene(named: "Ball-6")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model7 = SCNScene(named: "Ball-7")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model8 = SCNScene(named: "Ball-8")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model9 = SCNScene(named: "Ball-9")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model10 = SCNScene(named: "Ball-10")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model11 = SCNScene(named: "Ball-11")!.rootNode.childNode(withName: "Ball", recursively: true)!
+//        let model12 = SCNScene(named: "Ball-12")!.rootNode.childNode(withName: "Ball", recursively: true)!
         
         let color = self.unselectedColor
-        self.ballCellData = [
-            Shop3DCellData(model: model1, backgroundColor: color, price: 10, id: 0, textureType: .ball),
-            Shop3DCellData(model: model2, backgroundColor: color, price: 20, id: 1, textureType: .ball),
-            Shop3DCellData(model: model3, backgroundColor: color, price: 30, id: 2, textureType: .ball),
-            Shop3DCellData(model: model4, backgroundColor: color, price: 40, id: 3, textureType: .ball),
-            Shop3DCellData(model: model5, backgroundColor: color, price: 50, id: 4, textureType: .ball),
-            Shop3DCellData(model: model6, backgroundColor: color, price: 60, id: 5, textureType: .ball),
-            Shop3DCellData(model: model7, backgroundColor: color, price: 70, id: 6, textureType: .ball),
-            Shop3DCellData(model: model8, backgroundColor: color, price: 80, id: 7, textureType: .ball),
-            Shop3DCellData(model: model9, backgroundColor: color, price: 90, id: 8, textureType: .ball),
-            Shop3DCellData(model: model10, backgroundColor: color, price: 100, id: 9, textureType: .ball),
-            Shop3DCellData(model: model11, backgroundColor: color, price: 110, id: 10, textureType: .ball),
-            Shop3DCellData(model: model12, backgroundColor: color, price: 120, id: 11, textureType: .ball),
-        ]
+        for i in 1...UserCustomization._2DmaxBallSkinIndex {
+            let model = SCNScene(named: "Ball-\(i)")!.rootNode.childNode(withName: "Ball", recursively: true)!
+            let tempData = Shop3DCellData(model: model, backgroundColor: color, price: 10, id: i-1, textureType: .ball)
+            self.ballCellData.append(tempData)
+        }
+//        let color = self.unselectedColor
+//        self.ballCellData = [
+//            Shop3DCellData(model: model1, backgroundColor: color, price: 10, id: 0, textureType: .ball),
+//            Shop3DCellData(model: model2, backgroundColor: color, price: 20, id: 1, textureType: .ball),
+//            Shop3DCellData(model: model3, backgroundColor: color, price: 30, id: 2, textureType: .ball),
+//            Shop3DCellData(model: model4, backgroundColor: color, price: 40, id: 3, textureType: .ball),
+//            Shop3DCellData(model: model5, backgroundColor: color, price: 50, id: 4, textureType: .ball),
+//            Shop3DCellData(model: model6, backgroundColor: color, price: 60, id: 5, textureType: .ball),
+//            Shop3DCellData(model: model7, backgroundColor: color, price: 70, id: 6, textureType: .ball),
+//            Shop3DCellData(model: model8, backgroundColor: color, price: 80, id: 7, textureType: .ball),
+//            Shop3DCellData(model: model9, backgroundColor: color, price: 90, id: 8, textureType: .ball),
+//            Shop3DCellData(model: model10, backgroundColor: color, price: 100, id: 9, textureType: .ball),
+//            Shop3DCellData(model: model11, backgroundColor: color, price: 110, id: 10, textureType: .ball),
+//            Shop3DCellData(model: model12, backgroundColor: color, price: 120, id: 11, textureType: .ball),
+//        ]
         
         // добавляем GR для распознавания жеста покупки ячейки
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))

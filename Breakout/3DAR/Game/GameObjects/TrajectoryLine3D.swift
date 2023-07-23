@@ -13,6 +13,8 @@ import ARKit
 struct TrajectoryLine3D {
     /// текущее направление траектории
     var currentDirection = SCNVector3()
+    /// для уменьшения или увеличения скорости мяча для просчета траектории
+    var frameScale: CGFloat = 1.0
     /// первый ли раз мы нажали на экран (для отслеживания траектории)
     /// чтобы рисовать траекторию каждый раз при нажатии, программа отслеживает позиции последнего касания и текущего
     /// она рисует траекторию только в том случае, если они значительно отличаются
@@ -130,9 +132,10 @@ struct TrajectoryLine3D {
                                           z: location.z - self.trajectoryBall.position.z))
         let direction = SCNVector3(t_direction.x, 0, t_direction.z)
         
-        let increasedDirection = SCNVector3(direction.x*1.3,
+        
+        let increasedDirection = SCNVector3(CGFloat(direction.x)*1.3 * self.frameScale,
                                             0.0,
-                                            direction.z*1.3)
+                                            CGFloat(direction.z)*1.3 * self.frameScale)
         let decreasedDirection = SCNVector3(direction.x * 0.4,
                                             0.0,
                                             direction.z * 0.4)

@@ -271,7 +271,8 @@ struct AnimatedText {
             
             let offsetX = (frameSize.width - lengthOfWord)/2.0
             
-            let realOffsetY = frameSize.height - heighOfWord*offsetY
+            let offsetConstant = frameSize.height/844
+            let realOffsetY = frameSize.height - heighOfWord*offsetY * offsetConstant
             
             
             self.calculatePosition(with: offsetX, offsetY: realOffsetY)

@@ -34,6 +34,7 @@ class Shop3DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
     let borderColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)
     /// размер рамки, которая появляется, когда мы выбираем рамку
     var borderWidth: CGFloat = 0.0
+    var isBuyed = false
     private weak var model: SCNNode?
     
     func setup(with data: Shop3DCellData) {

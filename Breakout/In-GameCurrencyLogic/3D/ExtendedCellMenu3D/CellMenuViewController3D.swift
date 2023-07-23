@@ -92,8 +92,8 @@ class CellMenuViewController3D: UIViewController, ExtendedInfoCellViewController
             
             self.backgroundAnimationScene = scene
             
-            spriteKitView.showsFPS = true
-            spriteKitView.showsNodeCount = true
+//            spriteKitView.showsFPS = true
+//            spriteKitView.showsNodeCount = true
         }
         self.transitioningDelegate = self
         
@@ -165,7 +165,9 @@ class CellMenuViewController3D: UIViewController, ExtendedInfoCellViewController
                 if self.typeOfCurrentShopController == currentShopController.type {
                     let indexPath = IndexPath(item: self.cellID, section: 0)
                     currentShopController.selectedCellIndexPath = indexPath
-                    currentShopController.updateInfo()
+                    if let buyedShopCollectionViewCell = currentShopController.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
+                        buyedShopCollectionViewCell.isBuyed = true
+                    }
                 }
             }
         }

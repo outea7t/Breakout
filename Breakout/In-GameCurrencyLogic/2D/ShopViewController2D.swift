@@ -26,6 +26,7 @@ protocol ShopCollectionViewCell: AnyObject, UIView {
     var borderColor: UIColor {get}
     var borderWidth: CGFloat {get}
     var selectedColor: UIColor {get}
+    var isBuyed: Bool {get set}
 }
 protocol TexturesShopController: AnyObject {
     var type: TypeOfShopController {get}
@@ -48,7 +49,7 @@ class ShopViewController2D: UITabBarController, UITabBarControllerDelegate, Shop
         self.overrideUserInterfaceStyle = .dark
         self.delegate = self
         self.selectedIndex = 0
-        self.tabBar.frame.size.height = self.view.bounds.height/10.0
+//        self.tabBar.frame.size.height = self.view.bounds.height/20.0
         
         let barTintColor = #colorLiteral(red: 0.2549019608, green: 0.2549019608, blue: 0.2549019608, alpha: 0.3)
         let imageTintColor = #colorLiteral(red: 0.2862745098, green: 0.9960784314, blue: 0.4862745098, alpha: 1)

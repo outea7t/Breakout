@@ -12,10 +12,18 @@ import UIKit
 
 /// 3Д уровень для раздела игры в дополненной реальности
 struct Level3D {
+    
+    var _3StarTime: TimeInterval?
+    var _2StarTime: TimeInterval?
+    
     var bricks = [Brick3D]()
     let rows: UInt, cols: UInt
     let bricksDescription: [UInt]
-    init(rows: UInt, cols: UInt, bricksDescription: [UInt]) {
+    init(rows: UInt, cols: UInt, bricksDescription: [UInt], _3StarTime: TimeInterval?, _2StarTime: TimeInterval?) {
+        
+        self._3StarTime = _3StarTime
+        self._2StarTime = _2StarTime
+        
         self.rows = rows
         self.cols = cols
         self.bricksDescription = bricksDescription

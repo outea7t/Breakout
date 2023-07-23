@@ -63,8 +63,8 @@ class WinViewController: UIViewController {
             self.endGameScene = scene
             view.presentScene(scene)
             
-            view.showsFPS = true
-            view.showsNodeCount = true
+//            view.showsFPS = true
+//            view.showsNodeCount = true
         }
         
         self.nextLevelButton.layer.cornerRadius = self.nextLevelButton.frame.height/4
@@ -145,6 +145,8 @@ class WinViewController: UIViewController {
     @IBAction func mainMenuButtonPressed(_ sender: UIButton) {
         self.endGameScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
+            SoundManager.stopGameAmbientMusic()
+            SoundManager.playMenuAmbientMusic()
             gameViewController.gameScene?.gameVCDelegate = nil
             gameViewController.gameScene = nil
         }
