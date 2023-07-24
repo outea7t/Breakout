@@ -252,12 +252,12 @@ extension ShopParentViewController2D: UICollectionViewDelegate {
                                                      skinViewFrame: cell.imageView.frame)
                 }
             }
-            print("yess")
-            guard let shopViewController = self.collectionView.delegate as? TexturesShopController else {
-                print("somethingWentWrong")
+            
+            guard let type = (self.collectionView.delegate as? TexturesShopController)?.type else {
+                
                 return
             }
-            switch shopViewController.type {
+            switch type {
             case .ball:
                 self.performSegue(withIdentifier: "FromBallTexturesToCellMenu", sender: self)
             case .paddle:
@@ -313,6 +313,6 @@ extension ShopParentViewController2D: UICollectionViewDelegate {
         cell.wasUnselected(isBuyed: isBuyed)
         cell.resizeToIdentity()
         
-        }
+    }
     
 }
