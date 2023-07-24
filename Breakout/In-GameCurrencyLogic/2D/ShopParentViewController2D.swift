@@ -25,9 +25,12 @@ class ShopParentViewController2D: UIViewController {
             guard newValue != selectedCellIndexPath else {
                 return
             }
+            guard let type = (self.collectionView.delegate as? TexturesShopController)?.type else {
+                return
+            }
             let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? Shop2DCollectionViewCell
             unselectedCell?.wasUnselected(isBuyed: true)
-            switch self.type {
+            switch type {
                 case .ball:
                     UserCustomization._2DballSkinIndex = newValue.item
                 case .paddle:
@@ -38,7 +41,6 @@ class ShopParentViewController2D: UIViewController {
         }
     }
     
-    public var type = TypeOfShopController.ball
     internal var cellMenuCellData: Shop2DCellData?
     
     public var selectedCellInfo: CellInfo?
@@ -67,15 +69,8 @@ class ShopParentViewController2D: UIViewController {
         // отступы от конкретных граней
         layout.sectionInset = UIEdgeInsets(top: 30, left: 30, bottom: 10, right: 30)
         
-        
         self.collectionView.collectionViewLayout = layout
         
-        let color = self.unselectedColor
-        for i in 1...UserCustomization._2DmaxBallSkinIndex {
-            let image = UIImage(named: "Ball-\(i)")!
-            let tempData = Shop2DCellData(image: image, price: 10, color: color, id: i-1, type: .ball)
-            self.cellData.append(tempData)
-        }
         
         self.collectionView.isPrefetchingEnabled = false
         // добавляем GR для распознавания жеста покупки ячейки
@@ -104,20 +99,6 @@ class ShopParentViewController2D: UIViewController {
         // для того, чтобы была видна тень
         self.view.sendSubviewToBack(self.collectionView)
         
-        switch self.type {
-        case .ball:
-            if !UserCustomization._2DbuyedBallSkinIndexes.isEmpty {
-                self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DballSkinIndex, section: 0)
-            }
-        case .paddle:
-            if !UserCustomization._2DbuyedPaddleSkinIndexes.isEmpty {
-                self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DpaddleSkinIndex, section: 0)
-            }
-        case .particles:
-            if !UserCustomization._2DbuyedParticlesSkinIndexes.isEmpty {
-                self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DparticleSkinIndex, section: 0)
-            }
-        }
     }
     
     public func updateInfo() {
@@ -130,6 +111,9 @@ class ShopParentViewController2D: UIViewController {
         guard let targetIndexPath = self.collectionView.indexPathForItem(at: gestureLocation) else {
             return
         }
+        guard let type = (self.collectionView.delegate as? TexturesShopController)?.type else {
+            return
+        }
         switch gesture.state {
         case .began:
             // находим нажатую ячейку
@@ -140,7 +124,7 @@ class ShopParentViewController2D: UIViewController {
                     self.selectedCellIndexPath = targetIndexPath
                     cell.priceLabel.text = ""
                     
-                    switch self.type {
+                    switch type {
                     case .ball:
                         UserCustomization._2DbuyedBallSkinIndexes += [targetIndexPath.item]
                         UserCustomization._2DballSkinIndex = self.selectedCellIndexPath.item
@@ -161,7 +145,6 @@ class ShopParentViewController2D: UIViewController {
                 }
                 cell.resizeToIdentity()
             }
-//        case .changed:
         case .ended:
             if targetIndexPath == self.selectedCellIndexPath {
                 let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
@@ -269,7 +252,12 @@ extension ShopParentViewController2D: UICollectionViewDelegate {
                                                      skinViewFrame: cell.imageView.frame)
                 }
             }
-            switch self.type {
+            print("yess")
+            guard let shopViewController = self.collectionView.delegate as? TexturesShopController else {
+                print("somethingWentWrong")
+                return
+            }
+            switch shopViewController.type {
             case .ball:
                 self.performSegue(withIdentifier: "FromBallTexturesToCellMenu", sender: self)
             case .paddle:
@@ -298,7 +286,11 @@ extension ShopParentViewController2D: UICollectionViewDelegate {
         cellMenu.image = cellMenuCellData.image
         cellMenu.price = (cellMenuCellData.price)
         cellMenu.cellID = cellMenuCellData.id
-        cellMenu.typeOfCurrentShopController = self.type
+        
+        guard let type = (self.collectionView.delegate as? TexturesShopController)?.type else {
+            return
+        }
+        cellMenu.typeOfCurrentShopController = type
     }
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {

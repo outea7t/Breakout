@@ -268,6 +268,7 @@
 		22B8FF91297419A000F923DC /* Shop2DCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B8FF8F297419A000F923DC /* Shop2DCollectionViewCell.xib */; };
 		22B8FF9329741A3C00F923DC /* Shop2DCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8FF9229741A3C00F923DC /* Shop2DCellData.swift */; };
 		22B906142A6D81B30097733D /* ShopParentViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B906132A6D81B30097733D /* ShopParentViewController2D.swift */; };
+		22B906162A6EA5BF0097733D /* ShopParentViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B906152A6EA5BF0097733D /* ShopParentViewController3D.swift */; };
 		22BE9A2F2893FD0700FB99D2 /* PauseScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE9A2E2893FD0700FB99D2 /* PauseScene.swift */; };
 		22BE9A32289597FC00FB99D2 /* LoseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE9A31289597FC00FB99D2 /* LoseViewController.swift */; };
 		22BE9A35289665A200FB99D2 /* EndGameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE9A34289665A200FB99D2 /* EndGameScene.swift */; };
@@ -595,6 +596,7 @@
 		22B8FF8F297419A000F923DC /* Shop2DCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Shop2DCollectionViewCell.xib; sourceTree = "<group>"; };
 		22B8FF9229741A3C00F923DC /* Shop2DCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shop2DCellData.swift; sourceTree = "<group>"; };
 		22B906132A6D81B30097733D /* ShopParentViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParentViewController2D.swift; sourceTree = "<group>"; };
+		22B906152A6EA5BF0097733D /* ShopParentViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParentViewController3D.swift; sourceTree = "<group>"; };
 		22BE9A2E2893FD0700FB99D2 /* PauseScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseScene.swift; sourceTree = "<group>"; };
 		22BE9A31289597FC00FB99D2 /* LoseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoseViewController.swift; sourceTree = "<group>"; };
 		22BE9A34289665A200FB99D2 /* EndGameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndGameScene.swift; sourceTree = "<group>"; };
@@ -702,6 +704,7 @@
 			isa = PBXGroup;
 			children = (
 				22FBA99C29F99CDF008C6838 /* ShopViewController3D.swift */,
+				22B906152A6EA5BF0097733D /* ShopParentViewController3D.swift */,
 				22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */,
 				22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */,
 				22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift */,
@@ -2502,6 +2505,7 @@
 				22DD3F512893EE3D0026E98C /* PauseViewController.swift in Sources */,
 				22AB8CCD2985A5E8009A50F1 /* LevelsMenuCollectionViewCell.swift in Sources */,
 				227936252943CABA002C519F /* TrajectoryLine3D.swift in Sources */,
+				22B906162A6EA5BF0097733D /* ShopParentViewController3D.swift in Sources */,
 				2219CEA629EE7C61004B0402 /* CustomTransitionToExtendedCellMenu.swift in Sources */,
 				22096B3D2986E05F0072F4C6 /* ARLevelsMenuViewController.swift in Sources */,
 				22FBA99F29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift in Sources */,

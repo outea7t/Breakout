@@ -7,279 +7,33 @@
 
 import UIKit
 
-class ShopParticlesTextureViewController: UIViewController, TexturesShopController {
+class ShopParticlesTextureViewController: ShopParentViewController2D, TexturesShopController {
     
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var headerTopView: UIView!
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var userMoneyLabel: UILabel!
-    
-    private var particlesCellData = [Shop2DCellData]()
-    private let cellIdentifier = "Shop2DCollectionViewCell"
-    var selectedCellIndexPath = IndexPath() {
-        willSet {
-            if newValue != selectedCellIndexPath {
-                let unselectedCell = self.collectionView.cellForItem(at: selectedCellIndexPath) as? Shop2DCollectionViewCell
-                unselectedCell?.wasUnselected(isBuyed: true)
-                UserCustomization._2DparticleSkinIndex = newValue.item
-            }
-        }
-    }
     var type = TypeOfShopController.particles
-    private var cellMenuCellData: Shop2DCellData?
-    private let unselectedColor = #colorLiteral(red: 0.05882352941, green: 0.01568627451, blue: 0.1176470588, alpha: 1)
-    private let buyedColor = #colorLiteral(red: 0.3411764706, green: 0.1490196078, blue: 0.5843137255, alpha: 0.8)
-    private let selectedColor = #colorLiteral(red: 0.2941176471, green: 0.09019607843, blue: 0.8823529412, alpha: 0.8)
-    
-    var selectedCellInfo: CellInfo?
-    var selectedCell: ShopCollectionViewCell?
-    var actualPositionOfSelectedCell = CGPoint()
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-        // находим класс ячеек и устанавливаем его в collectionView
-        let cellClass = UINib(nibName: self.cellIdentifier, bundle: nil)
-        self.collectionView.register(cellClass, forCellWithReuseIdentifier: self.cellIdentifier)
-        
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
-        
-        // настраиваем расположение ячеек в collectionView
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 12
-        layout.minimumInteritemSpacing = 12
-        // отступы от конкретных граней
-        layout.sectionInset = UIEdgeInsets(top: 30, left: 30, bottom: 10, right: 30)
-        
-        
-        self.collectionView.collectionViewLayout = layout
         
         let color = self.unselectedColor
-        
         for i in 1...UserCustomization._2DmaxParticleSkinIndex {
             let image = UIImage(named: "Particle-\(i)")!
             let tempData = Shop2DCellData(image: image, price: 10, color: color, id: i-1, type: .ball)
-            self.particlesCellData.append(tempData)
+            self.cellData.append(tempData)
         }
         
-        // добавляем GR для распознавания жеста покупки ячейки
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(longPressGesture))
-        longPressGesture.minimumPressDuration = 0.4
-        longPressGesture.numberOfTouchesRequired = 1
-        self.collectionView.addGestureRecognizer(longPressGesture)
-        
-        // настраиваем кнопку "назад"
-        self.backButton.layer.shadowOpacity = 1.0
-        self.backButton.layer.shadowColor = #colorLiteral(red: 0, green: 0.2737697661, blue: 0.1170392856, alpha: 1)
-        self.backButton.layer.shadowOffset = CGSize(width: self.backButton.frame.width/25,
-                                                    height: self.backButton.frame.height/15)
-        self.backButton.layer.shadowRadius = 0
-        
-        // настраиваем верхнее меню
-        self.headerTopView.layer.cornerRadius = 20.0
-        self.headerTopView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-        // настраиваем тень
-        self.headerTopView.layer.shadowOpacity = 1.0
-        self.headerTopView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        self.headerTopView.layer.shadowOffset = CGSize(width: 0.0,
-                                                       height: 15.0)
-        self.headerTopView.layer.shadowRadius = 8
-        
-        self.view.sendSubviewToBack(self.collectionView)
         
         if !UserCustomization._2DbuyedParticlesSkinIndexes.isEmpty {
             self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DparticleSkinIndex, section: 0)
         }
     }
-    func updateInfo() {
-        self.userMoneyLabel.text = (GameCurrency.updateUserMoneyLabel())
-        self.collectionView.reloadData()
-    }
-    @objc func longPressGesture(_ gesture: UILongPressGestureRecognizer) {
-        
-        let gestureLocation = gesture.location(in: self.collectionView)
-        guard let targetIndexPath = self.collectionView.indexPathForItem(at: gestureLocation) else {
-            return
-        }
-        
-        switch gesture.state {
-        case .began:
-            if let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell {
-                
-                
-                if !self.doesBuyedItemsContains(item: targetIndexPath) &&
-                    GameCurrency.userMoney >= cell.price {
-                    self.selectedCellIndexPath = targetIndexPath
-                    cell.priceLabel.text = ""
-                    
-                    UserCustomization._2DbuyedParticlesSkinIndexes += [targetIndexPath.item]
-                    UserCustomization._2DparticleSkinIndex = self.selectedCellIndexPath.item
-                    GameCurrency.userMoney -= cell.price
-                    self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
-                    HapticManager.notificationVibrate(for: .success)
-                } else if GameCurrency.userMoney < cell.price {
-                    HapticManager.notificationVibrate(for: .error)
-                }
-                cell.resizeToIdentity()
-            }
-        
-//        case .changed:
-            
-        case .ended:
-            if targetIndexPath == self.selectedCellIndexPath {
-                let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
-                cell?.resizeToIdentity()
-            }
-        case .cancelled:
-            
-            let cell = self.collectionView.cellForItem(at: targetIndexPath) as? Shop2DCollectionViewCell
-            cell?.resizeToIdentity()
-        default:
-            break
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
         
     }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-    }
-
     @IBAction func backButtonPressed(_ sender: UIButton) {
         DispatchQueue.main.async {
             self.dismiss(animated: true)
         }
     }
-    // содержит ли массив с индексами купленных элементов определенный индекс
-    private func doesBuyedItemsContains(item: IndexPath) -> Bool {
-        var doesContain = false
-        for index in UserCustomization._2DbuyedParticlesSkinIndexes {
-            if index == item.item {
-                doesContain = true
-            }
-        }
-        
-        return doesContain
-    }
-    
-}
-// сколько чего и как создавать
-extension ShopParticlesTextureViewController: UICollectionViewDataSource {
-    // сколько ячеек создавать
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.particlesCellData.count
-    }
-    // количество элементов в section
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    // какие ячейки создавать
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: self.cellIdentifier, for: indexPath) as! Shop2DCollectionViewCell
-        
-        cell.setup(with: self.particlesCellData[indexPath.item])
-        cell.layer.borderWidth = 0
-        
-        if self.doesBuyedItemsContains(item: indexPath) {
-            cell.priceLabel.text = ""
-            cell.backgroundColor = self.buyedColor
-        }
-        if self.selectedCellIndexPath == indexPath {
-            cell.select()
-            
-        }
-        let cornerRadius = 30.0
-        cell.layer.cornerRadius = cornerRadius
-        
-        return cell
-        
-    }
-}
-// как располагать ячейки в collection view
-extension ShopParticlesTextureViewController: UICollectionViewDelegateFlowLayout {
-    // по две в ряду
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let size = CGSize(width: self.view.frame.width/2.7,
-                          height: self.view.frame.width/2.7 * 1.3)
-        return size
-    }
-}
-// взаимодействия с ячейками
-extension ShopParticlesTextureViewController: UICollectionViewDelegate {
-    // активируется, когда мы выбираем какой-то уже купленный скин
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell else {
-            return
-        }
-        
-        if self.doesBuyedItemsContains(item: indexPath) && self.selectedCellIndexPath != indexPath {
-            self.selectedCellIndexPath = indexPath
-            cell.wasSelected()
-        }
-        
-        // В этом месте стоит вызывать функцию с переходом в расширенное меню со скином
-        // Так как это место активируется только тогда, когда мы не затригерели longPressGestureRecognizer
-        // Но когда нажали на ячейку
-        if !self.doesBuyedItemsContains(item: indexPath) {
-            if let cellData = cell.data {
-                self.cellMenuCellData = cellData
-                self.selectedCell = cell
-                
-                var actualPosition = cell.convert(cell.bounds, to: self.collectionView.superview).origin
-                actualPosition = CGPoint(x: cell.frame.origin.x, y: actualPosition.y)
-                self.actualPositionOfSelectedCell = actualPosition
-                self.selectedCell?.layer.zPosition = 100
-                if let borderColor = cell.layer.borderColor, let backgroundColor = cell.backgroundColor {
-                    self.selectedCellInfo = CellInfo(frame: cell.frame,
-                                                     borderWidth: cell.layer.borderWidth,
-                                                     borderColor: borderColor,
-                                                     cornerRadius: cell.layer.cornerRadius,
-                                                     backgroundColor: backgroundColor,
-                                                     skinViewFrame: cell.imageView.frame)
-                }
-            }
-            self.performSegue(withIdentifier: "FromParticleTexturesToCellMenu", sender: self)
-        }
-    }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let cellMenu = segue.destination as? CellMenuViewController else {
-            return
-        }
-        guard let cellMenuCellData = self.cellMenuCellData else {
-            return
-        }
-        cellMenu.image = cellMenuCellData.image
-        cellMenu.price = (cellMenuCellData.price)
-        cellMenu.cellID = cellMenuCellData.id
-        cellMenu.typeOfCurrentShopController = self.type
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
-            if !self.doesBuyedItemsContains(item: indexPath) {
-                cell.touchDown()
-            }
-        }
-
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        if let cell = self.collectionView.cellForItem(at: indexPath) as? Shop2DCollectionViewCell {
-            if self.selectedCellIndexPath != indexPath {
-                let isBuyed = self.doesBuyedItemsContains(item: indexPath)
-                cell.wasUnselected(isBuyed: isBuyed)
-                cell.resizeToIdentity()
-            }
-            
-        }
-    }
-    
 }
