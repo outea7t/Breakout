@@ -32,6 +32,8 @@ class ARPauseViewController: UIViewController {
     private let backgroundView = RiveView()
     private let backgroundViewModel = RiveViewModel(fileName: "arpausemenu")
     
+    var wasGameSessionInterrupted = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,6 +99,10 @@ class ARPauseViewController: UIViewController {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
             self.pauseScene = nil
             gameViewController.unpauseGame()
+            if self.wasGameSessionInterrupted {
+                self.wasGameSessionInterrupted = false
+                gameViewController.updateConfiguration()
+            }
         }
         self.dismiss(animated: true)
     }
@@ -116,20 +122,14 @@ class ARPauseViewController: UIViewController {
     // нажата кнопка меню настроек
     @IBAction func settingsButtonPressed(_ sender: UIButton) {
         
-    
     }
     
     // нажата кнопка перезапуска уровня
     @IBAction func restartLevelButtonPressed(_ sender: UIButton) {
         if let gameViewController = self.presentationController?.presentingViewController as? ARGameViewController {
             self.pauseScene = nil
-//            gameViewController.gameSceneView.session.pause()
             gameViewController.unpauseGame()
             gameViewController.restartGame()
-//            gameViewController.removeAllChildren()
-//            gameViewController.wantDetectPlane = true
-//            gameViewController.wantSetPosition = true
-            
         }
         self.dismiss(animated: true)
     }

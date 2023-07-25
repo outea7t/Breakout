@@ -150,8 +150,20 @@ class ShopParentViewController3D: UIViewController {
     
     // содержит ли массив с индексами купленных элементов определенный индекс
     internal func doesBuyedItemsContains(item: IndexPath) -> Bool {
+        guard let type = (self.collectionView.delegate as? TexturesShopController)?.type else {
+            return false
+        }
+        var currentArrayOfSkins = [Int]()
+        switch type {
+        case .ball:
+            currentArrayOfSkins = UserCustomization._3DbuyedBallSkinIndexes
+        case .paddle:
+            currentArrayOfSkins = UserCustomization._3DbuyedPaddleSkinIndexes
+        case .particles:
+            currentArrayOfSkins = UserCustomization._3DbuyedParticlesSkinIndexes
+        }
         var doesContain = false
-        for index in UserCustomization._3DbuyedBallSkinIndexes {
+        for index in currentArrayOfSkins {
             if index == item.item {
                 doesContain = true
             }

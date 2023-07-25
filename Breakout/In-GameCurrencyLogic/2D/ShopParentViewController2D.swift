@@ -160,8 +160,20 @@ class ShopParentViewController2D: UIViewController {
     
     // содержит ли массив с индексами купленных элементов определенный индекс
     internal func doesBuyedItemsContains(item: IndexPath) -> Bool {
+        guard let type = (self.collectionView.delegate as? TexturesShopController)?.type else {
+            return false
+        }
+        var currentArrayOfSkins = [Int]()
+        switch type {
+        case .ball:
+            currentArrayOfSkins = UserCustomization._2DbuyedBallSkinIndexes
+        case .paddle:
+            currentArrayOfSkins = UserCustomization._2DbuyedPaddleSkinIndexes
+        case .particles:
+            currentArrayOfSkins = UserCustomization._2DbuyedParticlesSkinIndexes
+        }
         var doesContain = false
-        for index in UserCustomization._2DbuyedBallSkinIndexes {
+        for index in currentArrayOfSkins {
             if index == item.item {
                 doesContain = true
             }
@@ -312,7 +324,6 @@ extension ShopParentViewController2D: UICollectionViewDelegate {
         let isBuyed = self.doesBuyedItemsContains(item: indexPath)
         cell.wasUnselected(isBuyed: isBuyed)
         cell.resizeToIdentity()
-        
     }
     
 }

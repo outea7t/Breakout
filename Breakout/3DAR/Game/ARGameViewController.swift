@@ -129,7 +129,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
     }
     private var levels = [Level3D]()
-    
+    /// сигнализирует о том, что пользователь вышел из игры и сессия прервалась
+    private var sessionWasInterrupted = false
     /// угол, на который повернута сцена
     private var sceneRotationAngle: CGFloat = 0
     
@@ -195,6 +196,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         self.currentLevel?.removeAllBricksBeforeSettingLevel()
         self.currentLevel = self.levels[self.levelChoosed-1]
         
+        
 //        let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotationGesture))
         
 //        self.view.addGestureRecognizer(rotationGestureRecognizer)
@@ -220,6 +222,22 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         }
         // пока не добавляю, так как много багов(((((
         self.view.addGestureRecognizer(pinchGestureRecognizer)
+        
+        let coachingOverlayView = ARCoachingOverlayView()
+
+        coachingOverlayView.session = self.gameSceneView.session
+        coachingOverlayView.delegate = self
+        coachingOverlayView.goal = .horizontalPlane
+
+        coachingOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(coachingOverlayView)
+        
+        NSLayoutConstraint.activate([
+            coachingOverlayView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            coachingOverlayView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            coachingOverlayView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            coachingOverlayView.heightAnchor.constraint(equalTo: self.view.heightAnchor)
+        ])
     }
     
     @objc func rotationGesture(_ gesture: UIRotationGestureRecognizer) {
@@ -504,11 +522,12 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     /// вызывается, когда сессия прерывается
     func sessionWasInterrupted(_ session: ARSession) {
         self.pauseGame()
-        self.performSegue(withIdentifier: "FromARGameToARPause", sender: self)
-    }
-    /// вызывается, когда сессия возобновляется
-    func sessionInterruptionEnded(_ session: ARSession) {
+        print("interrupted")
+        self.gameSceneView.session.pause()
         
+        
+        self.sessionWasInterrupted = true
+        self.performSegue(withIdentifier: "FromARGameToARPause", sender: self)
     }
     
     /// обновляем игровые объекты
@@ -651,7 +670,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
                 if isTrajectoryCreated {
                     if self.isFirstBallLaunch {
                         self.isFirstBallLaunch = false
-                        self.starSpriteKitScene?.stars?.startActions()
                         self.starSpriteKitScene?.stars?.startActions()
                     }
                     self.ball?.removedFromPaddle(with: direction)
@@ -1176,8 +1194,15 @@ extension ARGameViewController {
             }
             loseViewController.losedMoney = Int(losedMoney)
         }
+        if let pauseViewController = segue.destination as? ARPauseViewController {
+            pauseViewController.wasGameSessionInterrupted = self.sessionWasInterrupted
+            self.sessionWasInterrupted = false
+        }
         
     }
+}
+extension ARGameViewController: ARCoachingOverlayViewDelegate {
+
 }
 // let hitlist = self.gameSceneView.hitTest(location, options: nil)
 //for result in hitlist {

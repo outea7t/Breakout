@@ -382,7 +382,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <skView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cd2-RX-ZFw" userLabel="Game View">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="854"/>
                             </skView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qAX-V8-CAt" userLabel="Pause">
                                 <rect key="frame" x="0.0" y="427" width="130" height="130"/>
@@ -400,7 +400,7 @@
                         <viewLayoutGuide key="safeArea" id="WYz-j4-9kl"/>
                         <color key="backgroundColor" red="0.090196078431372548" green="0.12941176470588234" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="Cd2-RX-ZFw" secondAttribute="bottom" id="SPd-L1-cPO"/>
+                            <constraint firstAttribute="bottom" secondItem="Cd2-RX-ZFw" secondAttribute="bottom" constant="-2" id="SPd-L1-cPO"/>
                             <constraint firstAttribute="trailing" secondItem="Cd2-RX-ZFw" secondAttribute="trailing" id="ZTV-Rr-lSQ"/>
                             <constraint firstItem="Cd2-RX-ZFw" firstAttribute="firstBaseline" secondItem="6C9-H0-yPm" secondAttribute="top" id="wiS-ha-QE1"/>
                             <constraint firstItem="Cd2-RX-ZFw" firstAttribute="leading" secondItem="6C9-H0-yPm" secondAttribute="leading" id="zQb-YX-aAT"/>
@@ -2509,7 +2509,7 @@
                                 <blurEffect style="dark"/>
                             </visualEffectView>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98D-8w-iNu">
-                                <rect key="frame" x="49.666666666666664" y="190" width="294" height="412"/>
+                                <rect key="frame" x="49.666666666666657" y="190" width="294" height="412"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2yw-As-u20">
                                         <rect key="frame" x="126" y="185" width="41.333333333333258" height="20"/>
@@ -2586,11 +2586,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VQO-GG-h9L"/>
+        <segue reference="eeK-tL-DEB"/>
         <segue reference="zr8-MN-Mqj"/>
         <segue reference="RIZ-H4-BAL"/>
         <segue reference="Var-Ej-7tH"/>
-        <segue reference="TNY-bf-mVZ"/>
+        <segue reference="bjH-C5-vhH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0Star" width="672" height="274"/>
