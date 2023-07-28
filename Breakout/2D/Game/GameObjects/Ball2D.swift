@@ -108,7 +108,6 @@ class Ball2D {
     }
     
     static func initializeBallSkins() {
-        print(UserCustomization._2DmaxBallSkinIndex)
         for i in 0..<(UserCustomization._2DmaxBallSkinIndex) {
             let textureImage = UIImage(named: "Ball-\(i+1)")
             if let textureImage = textureImage {

@@ -10,6 +10,7 @@ enum TypeOfShopController {
     case ball
     case paddle
     case particles
+    case levelColorScheme
 }
 struct CellInfo {
     var frame: CGRect

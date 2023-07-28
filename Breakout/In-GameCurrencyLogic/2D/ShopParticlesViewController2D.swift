@@ -21,7 +21,6 @@ class ShopParticlesTextureViewController: ShopParentViewController2D, TexturesSh
             self.cellData.append(tempData)
         }
         
-        
         if !UserCustomization._2DbuyedParticlesSkinIndexes.isEmpty {
             self.selectedCellIndexPath = IndexPath(item: UserCustomization._2DparticleSkinIndex, section: 0)
         }
@@ -29,7 +28,6 @@ class ShopParticlesTextureViewController: ShopParentViewController2D, TexturesSh
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.userMoneyLabel.text = GameCurrency.updateUserMoneyLabel()
-        
     }
     @IBAction func backButtonPressed(_ sender: UIButton) {
         DispatchQueue.main.async {

@@ -105,6 +105,7 @@ class MenuViewController: UIViewController {
         Ball2D.initializeBallSkins()
         Particle2D.initializeParticleSkins()
         Paddle2D.initializePaddleSkins()
+        Brick2D.initializeLevelColorSchemes()
         
         Paddle3D.initializePaddleSkins()
         Particle3D.initializeParticleSkins()

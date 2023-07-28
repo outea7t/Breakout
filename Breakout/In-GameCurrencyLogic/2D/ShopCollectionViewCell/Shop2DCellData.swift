@@ -12,6 +12,7 @@ enum TextureType {
     case ball
     case paddle
     case particles
+    case level
 }
 enum TextureEffect2D {
     case doubleDamage

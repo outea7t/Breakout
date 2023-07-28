@@ -63,7 +63,11 @@ class Stars2D {
         self._3StarCropNode.maskNode = maskNode
         
     }
-    
+    func setColor(color: UIColor, texture: SKTexture?) {
+        self._1StarRectangle.color = color
+        self._2StarRectangle.color = color
+        self._3StarRectangle.color = color
+    }
     func add(to node: SKNode, scene: SKScene, positionOfBallAttachedToPaddle: CGPoint) {
         // сначала рассчитываем позицию 2-ой звезды (она посередине экрана) а затем считаем позицию остальных звезд относительно нее
         let _2StarPosition = CGPoint(x: scene.frame.midX,

@@ -16,14 +16,18 @@ struct UserCustomization {
         case _2DmaxParticleSkinIndex
         case _2DmaxBallSkinIndex
         case _2DmaxPaddleSkinIndex
+        case _2DmaxLevelColorSchemeIndex
         
         case _2DparticleSkinIndex
         case _2DballSkinIndex
         case _2DpaddleSkinIndex
+        case _2DlevelColorSchemeIndex
         
         case _2DbuyedParticlesSkinIndexes
         case _2DbuyedBallSkinIndexes
         case _2DbuyedPaddleSkinIndexes
+        case _2DbuyedLevelColorSchemeIndexes
+        
         // 3D
         case _3DmaxParticleSkinIndex
         case _3DmaxBallSkinIndex
@@ -44,6 +48,8 @@ struct UserCustomization {
     public static var _2DmaxBallSkinIndex: Int = 34
     /// количество существующих в игре скинов для ракеток 2D
     public static var _2DmaxPaddleSkinIndex: Int = 34
+    /// количество существующих в игре цветовых схем для уровней 2D
+    public static var _2DmaxLevelColorSchemeIndex: Int = 12
     
     /// текущий, выбранный игроком скин для частички 2D
     public static var _2DparticleSkinIndex: Int {
@@ -73,6 +79,15 @@ struct UserCustomization {
         set {
             let defaults = UserDefaults.standard
             defaults.set(newValue, forKey: UserCustomizationKeys._2DpaddleSkinIndex.rawValue)
+        }
+    }
+    /// текущая, выбранная игроком цветовая схема для уровней 2D
+    public static var _2DlevelColorSchemeIndex: Int {
+        get {
+            return UserDefaults.standard.integer(forKey: UserCustomizationKeys._2DlevelColorSchemeIndex.rawValue)
+        } set {
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: UserCustomizationKeys._2DlevelColorSchemeIndex.rawValue)
         }
     }
     
@@ -115,6 +130,21 @@ struct UserCustomization {
             defaults.set(newValue, forKey: UserCustomizationKeys._2DbuyedPaddleSkinIndexes.rawValue)
         }
     }
+    /// все купленные игроком цветовые схемы для уровней 2D
+    public static var _2DbuyedLevelColorSchemeIndexes: [Int] {
+        get {
+            guard let array = UserDefaults.standard.array(forKey: UserCustomizationKeys._2DbuyedLevelColorSchemeIndexes.rawValue) as? [Int] else {
+                return []
+            }
+            return array
+        }
+        set {
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: UserCustomizationKeys._2DbuyedLevelColorSchemeIndexes.rawValue)
+        }
+    }
+    
+    /// -----------------------------------------------------**3D**-----------------------------------------------------
     
     /// количество существующих в игре скинов для частичек 3D
     public static var _3DmaxParticleSkinIndex: Int = 34

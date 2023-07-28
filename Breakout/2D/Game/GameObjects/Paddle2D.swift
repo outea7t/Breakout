@@ -91,6 +91,12 @@ struct Paddle2D {
             self.paddle.lineWidth = currentPaddleSkin.lineWidth
             if let paddleFillTexture = currentPaddleSkin.fillTexture {
                 self.paddle.fillTexture = paddleFillTexture
+                
+//                if UserCustomization._2DpaddleSkinIndex == 4 {
+//                    self.paddle.fillTexture = nil
+//                    self.paddle.fillColor = .black
+//                    self.paddle.strokeColor = .black
+//                }
             }
         }
     }

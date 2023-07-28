@@ -34,6 +34,8 @@ class ShopParentViewController3D: UIViewController {
                     UserCustomization._3DpaddleSkinIndex = newValue.item
                 case .particles:
                     UserCustomization._3DparticleSkinIndex = newValue.item
+                default:
+                    break
             }
             
         }
@@ -125,6 +127,8 @@ class ShopParentViewController3D: UIViewController {
                     case .particles:
                         UserCustomization._3DbuyedParticlesSkinIndexes += [targetIndexPath.item]
                         UserCustomization._3DparticleSkinIndex = self.selectedCellIndexPath.item
+                    default:
+                        break
                     }
                     
                     GameCurrency.userMoney -= cell.price
@@ -161,6 +165,8 @@ class ShopParentViewController3D: UIViewController {
             currentArrayOfSkins = UserCustomization._3DbuyedPaddleSkinIndexes
         case .particles:
             currentArrayOfSkins = UserCustomization._3DbuyedParticlesSkinIndexes
+        default:
+            break
         }
         var doesContain = false
         for index in currentArrayOfSkins {
@@ -266,6 +272,8 @@ extension ShopParentViewController3D: UICollectionViewDelegate {
                 self.performSegue(withIdentifier: "FromPaddle3DToCellMenu3D", sender: self)
             case .particles:
                 self.performSegue(withIdentifier: "FromParticles3DToCellMenu3D", sender: self)
+            default:
+                break
             }
             
         }

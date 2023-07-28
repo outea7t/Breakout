@@ -37,6 +37,8 @@ class ShopParentViewController2D: UIViewController {
                     UserCustomization._2DpaddleSkinIndex = newValue.item
                 case .particles:
                     UserCustomization._2DparticleSkinIndex = newValue.item
+                case .levelColorScheme:
+                    UserCustomization._2DlevelColorSchemeIndex = newValue.item
             }
         }
     }
@@ -134,6 +136,9 @@ class ShopParentViewController2D: UIViewController {
                     case .particles:
                         UserCustomization._2DbuyedParticlesSkinIndexes += [targetIndexPath.item]
                         UserCustomization._2DparticleSkinIndex = self.selectedCellIndexPath.item
+                    case .levelColorScheme:
+                        UserCustomization._2DbuyedLevelColorSchemeIndexes += [targetIndexPath.item]
+                        UserCustomization._2DlevelColorSchemeIndex = self.selectedCellIndexPath.item
                     }
                     
                     
@@ -171,6 +176,8 @@ class ShopParentViewController2D: UIViewController {
             currentArrayOfSkins = UserCustomization._2DbuyedPaddleSkinIndexes
         case .particles:
             currentArrayOfSkins = UserCustomization._2DbuyedParticlesSkinIndexes
+        case .levelColorScheme:
+            currentArrayOfSkins = UserCustomization._2DbuyedLevelColorSchemeIndexes
         }
         var doesContain = false
         for index in currentArrayOfSkins {
@@ -276,6 +283,9 @@ extension ShopParentViewController2D: UICollectionViewDelegate {
                 self.performSegue(withIdentifier: "FromPaddleTexturesToCellMenu", sender: self)
             case .particles:
                 self.performSegue(withIdentifier: "FromParticleTexturesToCellMenu", sender: self)
+            case .levelColorScheme:
+                self.performSegue(withIdentifier: "FromLevelTexturesToCellMenu", sender: self)
+                
             }
             
         }

@@ -15,20 +15,38 @@
  */
 import Foundation
 import SpriteKit
+import UIKit
 
+struct LevelColorScheme {
+    var numberOfBrickRowsTexture: Int
+    
+    var bricksColorSchema: BrickColorScheme
+    var starFillColor: UIColor
+    var backgroundColor: UIColor
+    var livesLabelColor: UIColor
+    var pauseButtonColor: UIColor
+    var textColor: UIColor
+}
+/// * описывает кастомизацию кирпичика
+/// * strokeTextureForHealth и fillTextureForHealth - опционально, (текстуры для кирпичика)
+/// и обязательные свойства цвета и ширины рамки, и цвета самого кирпичика
+struct BrickColorScheme {
+    var fillTextureForHealth: [Int : SKTexture]?
+    var strokeTextureForHealth: [Int: SKTexture]?
+    var strokeColor: UIColor
+    var fillColor: UIColor
+    
+    var lineWidth: CGFloat
+}
 class Brick2D {
-    /// * описывает кастомизацию кирпичика
-    /// * strokeTextureForHealth и fillTextureForHealth - опционально, (текстуры для кирпичика)
-    /// и обязательные свойства цвета и ширины рамки, и цвета самого кирпичика
-    private struct BrickColorSchema {
-        var fillTextureForHealth: [Int : SKTexture]?
-        var strokeTextureForHealth: [Int: SKTexture]?
-        var strokeColor: UIColor
-        var fillColor: UIColor
-        
-        var lineWidth: CGFloat
+    
+    private static var levelColorSchemes = [LevelColorScheme]()
+    public static var currentLevelColorScheme: LevelColorScheme {
+        get {
+            return levelColorSchemes[UserCustomization._2DlevelColorSchemeIndex]
+        }
     }
-    private var brickSchemas = [BrickColorSchema]()
+    private var brickSchemes = [BrickColorScheme]()
     // битовые маски различных объектов
     private let ballMask: UInt32    = 0b1 << 0 // 1
     private let paddleMask: UInt32  = 0b1 << 1 // 2
@@ -60,7 +78,7 @@ class Brick2D {
          rows: UInt,
          cols: UInt,
          row: UInt
-         ) {
+    ) {
         
         // начало инициализатора
         self.health = health
@@ -75,13 +93,16 @@ class Brick2D {
         
         self.brick = SKShapeNode(rectOf: size, cornerRadius: 20)
         // настраиваем цветовые схемы кирпичиков
-        self.setBrickColorSchemas()
+        if UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+            self.setBrickColorSchemas()
+            self.setColorsForBrick()
+        }
         
         self.brick.name = "brick"
         self.brick.lineWidth = 5
         
-
-        self.setColorsForBrick()
+        
+        
         // физика (у всех одинакова)
         self.brick.physicsBody = SKPhysicsBody(rectangleOf: size)
         self.brick.physicsBody?.allowsRotation = false
@@ -105,7 +126,7 @@ class Brick2D {
     func setColorsForBrick() {
         // КАСТОМ
         // в дальнейшем можно будет легко внедрять новые
-        let schema = self.brickSchemas[0]
+        let schema = self.brickSchemes[0]
         
         self.brick.fillColor = schema.fillColor
         self.brick.strokeColor = schema.strokeColor
@@ -160,38 +181,110 @@ class Brick2D {
             
         }
     }
-      
+    
     private func setBrickColorSchemas() {
         let strokeColor = #colorLiteral(red: 0.03933082521, green: 0.03008767031, blue: 0.2666499615, alpha: 1)
         let fillColor = UIColor.white
         
         // 1
         var fillSchema = [Int: SKTexture]()
-        let i1 = UIImage(named: "Brick1-1")!
-        let texture1 = SKTexture(image: i1)
-        fillSchema[0] = texture1
-        // 2
-        let i2 = UIImage(named: "Brick2-1")!
-        let texture2 = SKTexture(image: i2)
-        fillSchema[1] = texture2
-        // 3
-        let i3 = UIImage(named: "Brick3-1")!
-        let texture3 = SKTexture(image: i3)
-        fillSchema[2] = texture3
-        // 4
-        let i4 = UIImage(named: "Brick4-1")!
-        let texture4 = SKTexture(image: i4)
-        fillSchema[3] = texture4
-        // 5
-        let i5 = UIImage(named: "Brick5-1")!
-        let texture5 = SKTexture(image: i5)
-        fillSchema[4] = texture5
+        for i in 1..<2 {
+            for j in 1...5 {
+                let image = UIImage(named: "Brick\(j)-\(i)")!
+                let texture = SKTexture(image: image)
+                fillSchema[j-1] = texture
+            }
+        }
         
-        let brickColorSchema = BrickColorSchema(fillTextureForHealth: fillSchema,
+        let brickColorScheme = BrickColorScheme(fillTextureForHealth: fillSchema,
                                                 strokeColor: strokeColor,
                                                 fillColor: fillColor,
                                                 lineWidth: 5)
         
-        self.brickSchemas.append(brickColorSchema)
+        self.brickSchemes.append(brickColorScheme)
+    }
+    
+    static func initializeLevelColorSchemes() {
+        for i in 0..<UserCustomization._2DmaxLevelColorSchemeIndex {
+            let numberOfRows = 1
+            let backgroundImage = UIImage(named: "BricksBackground-\(i)")
+            let starFillColor = UIColor(named: "Star-\(i)")
+            let livesLabelFillColor = UIColor(named: "Lives-\(i)")
+            var textColor = UIColor(named: "TextColor-\(i)")
+            var backgroundColor = UIColor(named: "Background-\(i)")
+            
+            var strokeImages = [Int: SKTexture]()
+            var brickImages = [Int: SKTexture]()
+            
+            for j in 1...numberOfRows {
+                let strokeImage = UIImage(named: "BrickStroke\(j)-\(i)")
+                let brickFillImage = UIImage(named: "Brick\(j)-\(i)")
+                
+                if let strokeImage = strokeImage, let brickFillImage = brickFillImage {
+                    let strokeTexture = SKTexture(image: strokeImage)
+                    let brickFillImage = SKTexture(image: brickFillImage)
+                    
+                    strokeImages[j] = strokeTexture
+                    brickImages[j] = brickFillImage
+                }
+            }
+            
+            let brickColorScheme = BrickColorScheme(fillTextureForHealth: brickImages,
+                                                    strokeTextureForHealth: strokeImages,
+                                                    strokeColor: .white,
+                                                    fillColor: .white,
+                                                    lineWidth: 7)
+            
+            if let starFillColor = starFillColor,
+               let livesLabelFillColor = livesLabelFillColor,
+               let textColor = textColor,
+               let backgroundColor = backgroundColor
+            {
+                let scheme = LevelColorScheme(numberOfBrickRowsTexture: numberOfRows,
+                                              bricksColorSchema: brickColorScheme,
+                                              starFillColor: starFillColor,
+                                              backgroundColor: backgroundColor,
+                                              livesLabelColor: livesLabelFillColor,
+                                              pauseButtonColor: starFillColor,
+                                              textColor: textColor)
+                
+                self.levelColorSchemes.append(scheme)
+            }
+            
+        }
+    }
+    // эту функцию потом нужно будет использовать для всех кирпичиков
+    func setLevelColorScheme() {
+        print("entered-1")
+        guard !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty && UserCustomization._2DlevelColorSchemeIndex < Brick2D.levelColorSchemes.count else {
+            return
+        }
+        let scheme = Brick2D.levelColorSchemes[UserCustomization._2DlevelColorSchemeIndex]
+        self.brick.fillColor = scheme.bricksColorSchema.fillColor
+        self.brick.strokeColor = scheme.bricksColorSchema.strokeColor
+        self.brick.lineWidth = scheme.bricksColorSchema.lineWidth
+        
+        self.healthLabel.color = scheme.textColor
+        self.healthLabel.colorBlendFactor = 1.0
+        
+        if let fillTextureForHealth = scheme.bricksColorSchema.fillTextureForHealth {
+            if scheme.numberOfBrickRowsTexture == 1, let fillTexture = scheme.bricksColorSchema.fillTextureForHealth?[1] {
+                self.brick.fillTexture = fillTexture
+            }
+            else {
+                if let fillTexture = fillTextureForHealth[self.row] {
+                    self.brick.fillTexture = fillTexture
+                }
+            }
+        }
+        
+        if let strokeTextureForHealth = scheme.bricksColorSchema.strokeTextureForHealth {
+            if scheme.numberOfBrickRowsTexture == 1, let strokeTexture = scheme.bricksColorSchema.strokeTextureForHealth?[1] {
+                self.brick.strokeTexture = strokeTexture
+            }
+            if let strokeTexture = strokeTextureForHealth[Int(self.health)] {
+                self.brick.strokeTexture = strokeTexture
+            }
+        }
     }
 }

@@ -111,6 +111,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // настраиваем все члены
     override func didMove(to view: SKView) {
         self.backgroundColor = #colorLiteral(red: 0.07905098051, green: 0.1308179498, blue: 0.1934371293, alpha: 1)
+        if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+            self.backgroundColor = .clear
+        }
         // подписка на делегат
         self.physicsWorld.contactDelegate = self
         // настройки самой сцены
@@ -123,6 +126,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsBody?.linearDamping = 0.0
         self.physicsBody?.friction = 0.0
         
+        self.gameNode.size = self.frame.size
+        self.gameNode.anchorPoint = CGPoint(x: 0.0, y: 0.0)
         // количество жизней
         self.livesLable.fontName = "Bungee"
         self.livesLable.fontSize = 75
@@ -136,9 +141,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let effectNode = SKEffectNode()
         effectNode.filter = CIFilter(name: "CIGaussianBlur", parameters: ["inputRadius": 10.0])
         effectNode.zPosition = -2
-        effectNode.addChild(livesLable)
+        self.gameNode.addChild(livesLable)
         self.gameNode.addChild(effectNode)
-//        self.gameNode.addChild(self.livesLable)
+
         
         // настройка дна сцены
         var points = [CGPoint(x: 0.0, y: 0.0), CGPoint(x: self.frame.width, y: 0.0)]
@@ -202,6 +207,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.setParticlesSkin()
         self.setBallSkin()
         self.setPaddleSkin()
+        self.setLevelColorScheme()
     }
     
     func loadLevel() {
@@ -211,9 +217,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func setParticlesSkin() {
         self.ball?.particle.setParticlesSkin()
     }
-    
+    func setLevelColorScheme() {
+        guard !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty else {
+            return
+        }
+        self.currentLevel?.setColorScheme()
+        self.stars?.setColor(color: Brick2D.currentLevelColorScheme.starFillColor, texture: nil)
+        self.backgroundColor = Brick2D.currentLevelColorScheme.backgroundColor
+        self.livesLable.color = Brick2D.currentLevelColorScheme.livesLabelColor
+    }
     func setBallSkin() {
         self.ball?.setBallSkin()
+        
     }
     
     func setPaddleSkin() {
@@ -235,8 +250,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 ])
                 self.ballBrickBumpAudioNode.removeAllActions()
                 self.ballBrickBumpAudioNode.run(a)
-                
-                
                 
                 HapticManager.collisionVibrate(with: .light, 0.5)
                 // если тело А - мяч, работаем с телом В
@@ -336,7 +349,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.bonusActivationAudioNode.removeAllActions()
                     self.bonusActivationAudioNode.run(sequence)
                 }
-                HapticManager.collisionVibrate(with: .soft, 1.0)
                 if let nodeA = contact.bodyA.node, let nodeB = contact.bodyB.node {
                     if contact.bodyA.categoryBitMask == self.bonusMask {
                         for (i,bonus) in self.bonuses.enumerated() {
@@ -474,6 +486,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.setBallSkin()
             self.setParticlesSkin()
             self.setPaddleSkin()
+            self.setLevelColorScheme()
         }
     }
     func resetTheGame() {
@@ -642,8 +655,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 volumeChangeAction,
                 SKAction.play()
             ])
-//            self.loseGameResultAudioNode.removeAllActions()
-//            self.loseGameResultAudioNode.run(sequence)
             DispatchQueue.main.async {
                 self.setLose()
             }

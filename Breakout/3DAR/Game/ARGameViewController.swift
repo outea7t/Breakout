@@ -225,6 +225,7 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
         
         let coachingOverlayView = ARCoachingOverlayView()
 
+        
         coachingOverlayView.session = self.gameSceneView.session
         coachingOverlayView.delegate = self
         coachingOverlayView.goal = .horizontalPlane
@@ -1092,6 +1093,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             self.paddle?.reset()
             self.currentLevel?.resetLevel(frame: frame)
         }
+        self.starSpriteKitScene?.stars?.clearActions()
+        self.isFirstBallLaunch = true
         self.ball?.reset()
     }
     /// перезагружаем игру
@@ -1202,7 +1205,9 @@ extension ARGameViewController {
     }
 }
 extension ARGameViewController: ARCoachingOverlayViewDelegate {
-
+//    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
+//        self.didEducationStop = true
+//    }
 }
 // let hitlist = self.gameSceneView.hitTest(location, options: nil)
 //for result in hitlist {

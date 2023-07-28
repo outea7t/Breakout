@@ -134,6 +134,9 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
             } else if self.typeOfCurrentShopController == .particles {
                 UserCustomization._2DbuyedParticlesSkinIndexes += [self.cellID]
                 UserCustomization._2DparticleSkinIndex = self.cellID
+            } else if self.typeOfCurrentShopController == .levelColorScheme {
+                UserCustomization._2DbuyedLevelColorSchemeIndexes += [self.cellID]
+                UserCustomization._2DlevelColorSchemeIndex = self.cellID
             }
             self.setParent()
             HapticManager.notificationVibrate(for: .success)
@@ -157,7 +160,6 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
                     if let buyedShopCollectionViewCell = currentShopController.collectionView.cellForItem(at: indexPath) as? ShopCollectionViewCell {
                         buyedShopCollectionViewCell.isBuyed = true
                     }
-//                    currentShopController.updateInfo()
                 }
             }
         }

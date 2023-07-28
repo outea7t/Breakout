@@ -40,6 +40,8 @@
 		223BDB1529AB565C001CE63D /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223BDB1429AB565C001CE63D /* Plane.swift */; };
 		223C55472A30D901009907F1 /* SettingsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223C55462A30D901009907F1 /* SettingsScene.swift */; };
 		22406F7629D47C1B00D3313F /* background.riv in Resources */ = {isa = PBXBuildFile; fileRef = 22406F7529D47C1B00D3313F /* background.riv */; };
+		2242BA762A71413100E0C9C2 /* CoachingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242BA752A71413100E0C9C2 /* CoachingViewController.swift */; };
+		2242BA982A72F54D00E0C9C2 /* ShopGameTextureViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2242BA972A72F54D00E0C9C2 /* ShopGameTextureViewController2D.swift */; };
 		224F5C4429865EE2005E8E47 /* level_11.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4129865EE2005E8E47 /* level_11.txt */; };
 		224F5C4529865EE2005E8E47 /* level_12.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4229865EE2005E8E47 /* level_12.txt */; };
 		224F5C4629865EE2005E8E47 /* level_13.txt in Resources */ = {isa = PBXBuildFile; fileRef = 224F5C4329865EE2005E8E47 /* level_13.txt */; };
@@ -365,6 +367,8 @@
 		223BDB1429AB565C001CE63D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		223C55462A30D901009907F1 /* SettingsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScene.swift; sourceTree = "<group>"; };
 		22406F7529D47C1B00D3313F /* background.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.riv; sourceTree = "<group>"; };
+		2242BA752A71413100E0C9C2 /* CoachingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingViewController.swift; sourceTree = "<group>"; };
+		2242BA972A72F54D00E0C9C2 /* ShopGameTextureViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopGameTextureViewController2D.swift; sourceTree = "<group>"; };
 		224F5C4129865EE2005E8E47 /* level_11.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_11.txt; sourceTree = "<group>"; };
 		224F5C4229865EE2005E8E47 /* level_12.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_12.txt; sourceTree = "<group>"; };
 		224F5C4329865EE2005E8E47 /* level_13.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level_13.txt; sourceTree = "<group>"; };
@@ -694,6 +698,7 @@
 				22B76AE7296BD99A00588E83 /* ShopBallTexturesViewController2D.swift */,
 				226573EB29A61F070096A6D8 /* ShopPaddleTexturesViewController2D.swift */,
 				22B76AE9296BDA5000588E83 /* ShopParticlesViewController2D.swift */,
+				2242BA972A72F54D00E0C9C2 /* ShopGameTextureViewController2D.swift */,
 				22D38B7B29E821AD00BF1E1E /* ExtendedCellMenu */,
 				22B8FF8D2974198400F923DC /* ShopCollectionViewCell */,
 			);
@@ -2001,6 +2006,7 @@
 			children = (
 				22B516B629238AB7006B1B6F /* ARGameViewController.swift */,
 				22E6AFDC2A2F7E2900D2C4DA /* StarScene.swift */,
+				2242BA752A71413100E0C9C2 /* CoachingViewController.swift */,
 				223BDB1429AB565C001CE63D /* Plane.swift */,
 				22B516A729238AB7006B1B6F /* GameObjects */,
 				22B516B729238AB7006B1B6F /* EndOfGame */,
@@ -2545,6 +2551,7 @@
 				22E6AFDF2A2FA68A00D2C4DA /* SoundManager.swift in Sources */,
 				22B516C129238AB7006B1B6F /* Ball3D.swift in Sources */,
 				223BDB1529AB565C001CE63D /* Plane.swift in Sources */,
+				2242BA982A72F54D00E0C9C2 /* ShopGameTextureViewController2D.swift in Sources */,
 				22DD3F4F2893DFA70026E98C /* GameViewController.swift in Sources */,
 				22D38B7629E56B1B00BF1E1E /* BackgroundBallsAnimation.swift in Sources */,
 				2293A9EE29610DE50066279B /* HapticManager.swift in Sources */,
@@ -2563,6 +2570,7 @@
 				2275FA5C288ACE320075AFD6 /* Brick2D.swift in Sources */,
 				22A6607229E2A8DB00871FB2 /* CellMenuViewController.swift in Sources */,
 				22B906142A6D81B30097733D /* ShopParentViewController2D.swift in Sources */,
+				2242BA762A71413100E0C9C2 /* CoachingViewController.swift in Sources */,
 				226FF8B5292DD397001478E3 /* WinViewController.swift in Sources */,
 				2257548C29FE3FCB000C9A96 /* Shop3DCellData.swift in Sources */,
 				22AB8CC22983ED8C009A50F1 /* GradientImage.swift in Sources */,

@@ -49,10 +49,24 @@ class GameViewController: UIViewController {
         self.gameScene?.currentLevel = self.levels[self.levelChoosed-1]
         self.gameScene?.loadLevel()
         
+        
+        if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+            self.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
+        }
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(appMovedForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
+        self.pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        var pauseButtonConstraints = [NSLayoutConstraint]()
+        
+        pauseButtonConstraints.append(self.pauseButton.widthAnchor.constraint(equalToConstant: 130/844 * self.view.frame.height))
+        pauseButtonConstraints.append(self.pauseButton.heightAnchor.constraint(equalToConstant: 130/844 * self.view.frame.height))
+        pauseButtonConstraints.append(self.pauseButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 0))
+        pauseButtonConstraints.append(self.pauseButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 130/844*self.view.frame.height/2))
+        
+        NSLayoutConstraint.activate(pauseButtonConstraints)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

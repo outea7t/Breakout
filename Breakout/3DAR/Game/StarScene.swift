@@ -13,7 +13,6 @@ class StarScene: SKScene {
         print("entered")
         let timings = TimeForStars(_2StarTime: 50, _3StarTime: 50)
         
-        
         self.backgroundColor = .clear
     }
     func updateStarTimings(timings: TimeForStars) {

@@ -130,6 +130,10 @@ class ARPauseViewController: UIViewController {
             self.pauseScene = nil
             gameViewController.unpauseGame()
             gameViewController.restartGame()
+            if self.wasGameSessionInterrupted {
+                self.wasGameSessionInterrupted = false
+                gameViewController.updateConfiguration()
+            }
         }
         self.dismiss(animated: true)
     }

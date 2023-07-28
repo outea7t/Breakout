@@ -107,6 +107,8 @@ class Shop3DCollectionViewCell: UICollectionViewCell, ShopCollectionViewCell {
             self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.35)
         case .particles:
             self.model?.position = SCNVector3(x: 0.0, y: 0.0, z: -0.185)
+        case .level:
+            break
         }
     }
     // так как мы используем reusable cells то мы должны обнулять

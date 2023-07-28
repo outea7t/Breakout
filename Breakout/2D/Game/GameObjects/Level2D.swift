@@ -50,8 +50,15 @@ struct Level2D {
                 }
             }
         }
+        self.setColorScheme()
     }
     
+    /// устанавливаем определенную цветовую схему для кирпичиков
+    func setColorScheme() {
+        for brick in bricks {
+            brick.setLevelColorScheme()
+        }
+    }
     func collisionHappened(brickNode: SKNode) {
         for brick in bricks {
             if brickNode === brick.brick {
@@ -89,6 +96,8 @@ struct Level2D {
         
         }
     }
+    
+    
     mutating func resetLevel(frame: CGRect, gameNode: SKSpriteNode) {
         // сначала удаляем все кирпичики
         self.removeAllBricksBeforeSettingLevel()
