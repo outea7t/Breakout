@@ -156,6 +156,10 @@ class WinViewController: UIViewController {
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
             gameViewController.gameScene?.resetTheGame()
             gameViewController.gameScene?.unpauseGame()
+            if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+                gameViewController.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
+                gameViewController.gameScene?.setLevelColorScheme()
+            }
         }
         self.dismiss(animated: true)
     }
@@ -174,6 +178,10 @@ class WinViewController: UIViewController {
             }
             gameViewController.gameScene?.setBallSkin()
             gameViewController.gameScene?.setParticlesSkin()
+            if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+                gameViewController.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
+                gameViewController.gameScene?.setLevelColorScheme()
+            }
         }
         self.dismiss(animated: true)
     }

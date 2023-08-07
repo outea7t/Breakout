@@ -417,6 +417,21 @@
             </objects>
             <point key="canvasLocation" x="2458" y="70"/>
         </scene>
+        <!--Coaching View Controller2D-->
+        <scene sceneID="OCD-1X-X52">
+            <objects>
+                <viewController id="s1h-hj-Odd" customClass="CoachingViewController2D" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YKo-Iz-ItS">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="cTs-Ai-HSf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CEh-MW-Npc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3555" y="65"/>
+        </scene>
         <!--Levels Menu View Colntroller-->
         <scene sceneID="asG-Je-rkg">
             <objects>
@@ -506,6 +521,7 @@
                         <outlet property="collectionView" destination="MB2-FB-xv0" id="Edp-Ac-VsM"/>
                         <outlet property="headerTopView" destination="UMt-Wp-yGl" id="fVW-Ts-bKN"/>
                         <segue destination="xHc-4y-LUL" kind="presentation" identifier="FromLevelsMenuToGame" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Pv6-12-xr2"/>
+                        <segue destination="s1h-hj-Odd" kind="presentation" identifier="FromLevelsMenuToCoachingView" id="Whn-Gs-6Wf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAB-9Z-FUR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1693,7 +1709,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q9y-M9-Ozm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3592" y="2541"/>
+            <point key="canvasLocation" x="-3593" y="2541"/>
         </scene>
         <!--Shop View Controller3D-->
         <scene sceneID="Aw1-Ca-gP7">
@@ -1941,7 +1957,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GUt-J0-VVa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="752" y="2541"/>
+            <point key="canvasLocation" x="366" y="2541"/>
         </scene>
         <!--PaddleTextures-->
         <scene sceneID="iqY-nm-aea">
@@ -2045,7 +2061,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCc-9p-aNp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1638" y="2541"/>
+            <point key="canvasLocation" x="1251" y="2541"/>
         </scene>
         <!--Cell Menu View Controller-->
         <scene sceneID="6va-vF-Fqc">
@@ -2263,7 +2279,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lb7-du-z5u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2457" y="2541"/>
+            <point key="canvasLocation" x="2069" y="2541"/>
         </scene>
         <!--Shop Paddle Textures View Controller3D-->
         <scene sceneID="5JH-UK-aKh">
@@ -2689,14 +2705,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e5B-aN-gwT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3291" y="2541"/>
+            <point key="canvasLocation" x="2905" y="2541"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="eeK-tL-DEB"/>
         <segue reference="hRv-sV-WRF"/>
-        <segue reference="Y2f-0h-mfv"/>
-        <segue reference="uKW-e2-Y74"/>
+        <segue reference="rui-cb-CKg"/>
+        <segue reference="kPu-Br-XRZ"/>
         <segue reference="fZM-Bb-60z"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -98,6 +98,10 @@ class LoseViewController: UIViewController {
             gameViewController.gameScene?.resetTheGame()
             gameViewController.gameScene?.setBallSkin()
             gameViewController.gameScene?.setParticlesSkin()
+            if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+                gameViewController.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
+                gameViewController.gameScene?.setLevelColorScheme()
+            }
         }
     }
     

@@ -314,6 +314,8 @@
 		22FBA99F29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */; };
 		22FBA9A129F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */; };
 		22FBA9A329F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift */; };
+		22FDD47E2A80FECD00FA8797 /* CoachingViewController2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FDD47D2A80FECD00FA8797 /* CoachingViewController2D.swift */; };
+		22FDD4802A8110DC00FA8797 /* SegueNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FDD47F2A8110DC00FA8797 /* SegueNames.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -644,6 +646,8 @@
 		22FBA99E29F9AA62008C6838 /* ShopBallTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopBallTexturesViewController3D.swift; sourceTree = "<group>"; };
 		22FBA9A029F9AA77008C6838 /* ShopParticleTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopParticleTexturesViewController3D.swift; sourceTree = "<group>"; };
 		22FBA9A229F9AA87008C6838 /* ShopPaddleTexturesViewController3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopPaddleTexturesViewController3D.swift; sourceTree = "<group>"; };
+		22FDD47D2A80FECD00FA8797 /* CoachingViewController2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingViewController2D.swift; sourceTree = "<group>"; };
+		22FDD47F2A8110DC00FA8797 /* SegueNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueNames.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -976,6 +980,7 @@
 				22D38B7529E56B1B00BF1E1E /* BackgroundBallsAnimation.swift */,
 				2293A9ED29610DE50066279B /* HapticManager.swift */,
 				226EBBA92A0280AB00571080 /* UserProgress.swift */,
+				22FDD47F2A8110DC00FA8797 /* SegueNames.swift */,
 				2250A7202921846100E42F7E /* AnimatedParticles.swift */,
 				2293A9EF296244470066279B /* In-GameCurrencyLogic */,
 				22368B702A2BAEF2006B4569 /* Settings */,
@@ -1022,6 +1027,7 @@
 		2275FA5A288ACE240075AFD6 /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				22FDD47D2A80FECD00FA8797 /* CoachingViewController2D.swift */,
 				22DD3F4E2893DFA70026E98C /* GameViewController.swift */,
 				2275FA5E288ACEC80075AFD6 /* GameScene.swift */,
 				22784E6628BBF466001C3E61 /* GameObjects */,
@@ -2533,6 +2539,7 @@
 				2293A9F12962449B0066279B /* GameCurrency.swift in Sources */,
 				22F0BF472A08229A00F68FAB /* StatisticsViewController.swift in Sources */,
 				22F20C2C28BF630500415CE5 /* AnimatedText.swift in Sources */,
+				22FDD4802A8110DC00FA8797 /* SegueNames.swift in Sources */,
 				226EBBAA2A0280AB00571080 /* UserProgress.swift in Sources */,
 				22B516BE29238AB7006B1B6F /* Particle3D.swift in Sources */,
 				2250A7212921846100E42F7E /* AnimatedParticles.swift in Sources */,
@@ -2562,6 +2569,7 @@
 				22B516BD29238AB7006B1B6F /* Frame3D.swift in Sources */,
 				22B516C929238AB7006B1B6F /* ARLoseViewController.swift in Sources */,
 				22784E6C28BBFBC3001C3E61 /* Bonus2D.swift in Sources */,
+				22FDD47E2A80FECD00FA8797 /* CoachingViewController2D.swift in Sources */,
 				22E6AFDD2A2F7E2900D2C4DA /* StarScene.swift in Sources */,
 				2279362329438E3C002C519F /* TrajectoryLine2D.swift in Sources */,
 				22B516CA29238AB7006B1B6F /* ARPauseViewController.swift in Sources */,

@@ -8,9 +8,11 @@
 import Foundation
 
 class UserProgress {
-    
     private enum UserProgressKey: String {
         case wasAppAlreadyLaunched
+        case isFirstTimeEntering2DGameMode
+        case isFirstTimeEntering3DGameMode
+        
         case totalStars
         case totalScore
         case timeSpent
@@ -31,6 +33,24 @@ class UserProgress {
         } set {
             let defaults = UserDefaults.standard
             defaults.set(newValue, forKey: UserProgressKey.wasAppAlreadyLaunched.rawValue)
+        }
+    }
+    /// первый ли раз пользователь заходит в 2Д режим игры
+    public static var isFirstTimeEntering2DGameMode: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: UserProgressKey.isFirstTimeEntering2DGameMode.rawValue)
+        } set {
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: UserProgressKey.isFirstTimeEntering2DGameMode.rawValue)
+        }
+    }
+    /// первый ли раз пользователь заходит в 3Д режим
+    public static var isFirstTimeEntering3DGameMode: Bool {
+        get {
+            return UserDefaults.standard.bool(forKey: UserProgressKey.isFirstTimeEntering3DGameMode.rawValue)
+        } set {
+            let defaults = UserDefaults.standard
+            defaults.set(newValue, forKey: UserProgressKey.isFirstTimeEntering3DGameMode.rawValue)
         }
     }
     /// общее количество звезд, которое пользователь получил во время прохождения уровней в 2д и 3д режимах игры
@@ -104,7 +124,7 @@ class UserProgress {
     /// количество скинов в режиме 2д, которое купил пользователь
     public static var _2DbuyedSkins: Int {
         get {
-            return UserCustomization._2DbuyedBallSkinIndexes.count + UserCustomization._2DbuyedPaddleSkinIndexes.count + UserCustomization._2DbuyedParticlesSkinIndexes.count
+            return UserCustomization._2DbuyedBallSkinIndexes.count + UserCustomization._2DbuyedPaddleSkinIndexes.count + UserCustomization._2DbuyedParticlesSkinIndexes.count + UserCustomization._2DbuyedLevelColorSchemeIndexes.count
         }
     }
     /// индекс максимально доступного уровня в 3д режиме

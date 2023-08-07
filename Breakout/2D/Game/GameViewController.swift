@@ -57,6 +57,7 @@ class GameViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(appMovedBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(appMovedForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
         
+        // располагаем кнопку с паузой под кирпичиками слева
         self.pauseButton.translatesAutoresizingMaskIntoConstraints = false
         
         var pauseButtonConstraints = [NSLayoutConstraint]()
@@ -70,9 +71,10 @@ class GameViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.pauseButton.frame.origin.y = self.view.frame.midY + self.pauseButton.frame.size.height/4
-        
+//        self.pauseButton.frame.origin.y = self.view.frame.midY + self.pauseButton.frame.size.height/4
+        if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+            self.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
+        }
     }
     @objc func appMovedBackground() {
         // переходим к меню паузы и ставим игру на паузу
@@ -98,7 +100,7 @@ class GameViewController: UIViewController {
         self.gameScene?.pauseGame()
     
     }
-    
+    /// функция, загружающая всю информацию об уровнях
     private func loadAllLevelsInfo() {
         for i in 1...self.maxLevelIndex {
             if let path = Bundle.main.path(forResource: "level_\(i)", ofType: "txt") {
@@ -138,7 +140,6 @@ class GameViewController: UIViewController {
             }
         }
     }
-
     
 }
 
@@ -154,6 +155,7 @@ extension GameViewController: EndOfGameHandler {
         self.performSegue(withIdentifier: "FromGameToLose", sender: self)
         self.gameScene?.pauseGame()
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let gameScene = self.gameScene else {
             return

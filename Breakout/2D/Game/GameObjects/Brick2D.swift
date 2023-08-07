@@ -190,7 +190,7 @@ class Brick2D {
         var fillSchema = [Int: SKTexture]()
         for i in 1..<2 {
             for j in 1...5 {
-                let image = UIImage(named: "Brick\(j)-\(i)")!
+                let image = UIImage(named: "BrickStart-\(j)")!
                 let texture = SKTexture(image: image)
                 fillSchema[j-1] = texture
             }

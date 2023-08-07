@@ -90,6 +90,10 @@ class PauseViewController: UIViewController {
         self.pauseScene = nil
         if let gameViewController = self.presentationController?.presentingViewController as? GameViewController {
             gameViewController.gameScene?.unpauseGame()
+            if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+                gameViewController.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
+                gameViewController.gameScene?.setLevelColorScheme()
+            }
         }
         self.dismiss(animated: true)
     }
@@ -100,6 +104,10 @@ class PauseViewController: UIViewController {
             
             gameViewController.gameScene?.resetTheGame()
             gameViewController.gameScene?.unpauseGame()
+            if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
+                gameViewController.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
+                gameViewController.gameScene?.setLevelColorScheme()
+            }
 //            gameViewController.gameScene?.setBallSkin()
 //            gameViewController.gameScene?.setParticlesSkin()
         }
