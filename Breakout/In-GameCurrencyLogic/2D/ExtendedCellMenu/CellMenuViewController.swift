@@ -105,6 +105,17 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setConstraintsForCellInformationView()
+        self.setConstraintsForSkinImageView()
+        self.setConstraintsForPriceLabel()
+        self.setConstraintsForEffectsLabel()
+        self.setConstraintsForEffectsInformationViewLabel()
+        self.setConstraintsForBuyButton()
+    }
     @objc func didEnterBackground() {
         self.backgroundAnimationScene?.pause()
     }
@@ -165,6 +176,55 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
         }
     }
     
+    private func setConstraintsForCellInformationView() {
+        self.cellInformationView.translatesAutoresizingMaskIntoConstraints = false
+        
+        var cellInformatioViewWidthScaleConstant: CGFloat = 294/390
+        var cellInformationViewHeightScaleConstant: CGFloat = 412/844
+        
+        var cellInformationViewConstraints = [NSLayoutConstraint]()
+        cellInformationViewConstraints.append(self.cellInformationView.widthAnchor.constraint(equalToConstant: cellInformatioViewWidthScaleConstant * self.blurView.frame.width))
+        cellInformationViewConstraints.append(self.cellInformationView.heightAnchor.constraint(equalToConstant: cellInformationViewHeightScaleConstant * self.blurView.frame.height))
+        cellInformationViewConstraints.append(self.cellInformationView.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor))
+        cellInformationViewConstraints.append(self.cellInformationView.topAnchor.constraint(equalTo: self.blurView.topAnchor, constant: self.blurView.safeAreaInsets.top + 150))
+        
+        NSLayoutConstraint.activate(cellInformationViewConstraints)
+    }
+    
+    private func setConstraintsForSkinImageView() {
+        self.skinImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        var skinImageViewScaleConstant: CGFloat = 150/self.cellInformationView.frame.width
+        
+        var skinImageViewConstraints = [NSLayoutConstraint]()
+        skinImageViewConstraints.append(self.skinImageView.widthAnchor.constraint(equalToConstant: skinImageViewScaleConstant * self.cellInformationView.frame.width))
+        skinImageViewConstraints.append(self.skinImageView.heightAnchor.constraint(equalToConstant: skinImageViewScaleConstant * self.cellInformationView.frame.width))
+        skinImageViewConstraints.append(self.skinImageView.centerXAnchor.constraint(equalTo: self.cellInformationView.centerXAnchor))
+        skinImageViewConstraints.append(self.skinImageView.topAnchor.constraint(equalTo: self.cellInformationView.topAnchor, constant: 30))
+        
+        NSLayoutConstraint.activate(skinImageViewConstraints)
+    }
+    
+    private func setConstraintsForPriceLabel() {
+//        self.priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        var priceLabelConstraints = [NSLayoutConstraint]()
+//        priceLabelConstraints.append(self.priceLabel.widthAnchor.cons)
+        
+//        NSLayoutConstraint.activate(priceLabelConstraints)
+    }
+    
+    private func setConstraintsForEffectsLabel() {
+        
+    }
+    
+    private func setConstraintsForEffectsInformationViewLabel() {
+        
+    }
+    
+    private func setConstraintsForBuyButton() {
+        
+    }
 }
 extension CellMenuViewController: UIViewControllerTransitioningDelegate {
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {

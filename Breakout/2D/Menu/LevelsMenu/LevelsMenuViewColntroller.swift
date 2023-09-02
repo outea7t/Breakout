@@ -179,7 +179,9 @@ extension LevelsMenuViewColntroller: UICollectionViewDelegate {
             SoundManager.stopMenuAmbientMusic()
             SoundManager.playGameAmbientMusic()
             
-            self.performSegue(withIdentifier: "FromLevelsMenuToGame", sender: self)
+            
+            self.performSegue(withIdentifier: GameSegue.levelsMenuToGame.rawValue, sender: self)
+            
         } else {
             HapticManager.notificationVibrate(for: .error)
         }

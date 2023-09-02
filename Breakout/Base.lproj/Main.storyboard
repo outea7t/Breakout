@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -411,6 +411,7 @@
                         <segue destination="t8r-zK-EGk" kind="presentation" identifier="FromGameToLose" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="NBz-dD-eVt"/>
                         <segue destination="YzS-cn-L9e" kind="presentation" identifier="FromGameToWin" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="LMq-OG-I6Z"/>
                         <segue destination="920-Cb-BIM" kind="presentation" identifier="FromGameToPause" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="ZPn-QG-kdJ"/>
+                        <segue destination="s1h-hj-Odd" kind="presentation" identifier="FromLevelsMenuToCoachingView" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="F8k-GA-G3r"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ho5-A4-HLr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -422,7 +423,7 @@
             <objects>
                 <viewController id="s1h-hj-Odd" customClass="CoachingViewController2D" customModule="Breakout" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YKo-Iz-ItS">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="cTs-Ai-HSf"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -430,7 +431,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CEh-MW-Npc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3555" y="65"/>
+            <point key="canvasLocation" x="3554.9618320610684" y="69.718309859154928"/>
         </scene>
         <!--Levels Menu View Colntroller-->
         <scene sceneID="asG-Je-rkg">
@@ -521,7 +522,6 @@
                         <outlet property="collectionView" destination="MB2-FB-xv0" id="Edp-Ac-VsM"/>
                         <outlet property="headerTopView" destination="UMt-Wp-yGl" id="fVW-Ts-bKN"/>
                         <segue destination="xHc-4y-LUL" kind="presentation" identifier="FromLevelsMenuToGame" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Pv6-12-xr2"/>
-                        <segue destination="s1h-hj-Odd" kind="presentation" identifier="FromLevelsMenuToCoachingView" id="Whn-Gs-6Wf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vAB-9Z-FUR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1445,11 +1445,9 @@
                                 <rect key="frame" x="140" y="57" width="236.33333333333348" height="132.66666666666669"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </skView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-bM-DRn">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-bM-DRn">
                                 <rect key="frame" x="0.0" y="57" width="132.66666666666652" height="132.66666666666669"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="502-bM-DRn" secondAttribute="height" multiplier="1:1" id="GZi-Gf-eLN"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <imageReference key="image" image="pause.circle.fill" catalog="system" renderingMode="hierarchical">
                                         <hierarchicalColors>
@@ -1476,6 +1474,7 @@
                     </view>
                     <connections>
                         <outlet property="gameSceneView" destination="8VF-mL-YMd" id="25a-vu-Rqv"/>
+                        <outlet property="pauseButton" destination="502-bM-DRn" id="lH6-i2-tyy"/>
                         <outlet property="starSpriteKitView" destination="XdY-gS-g5p" id="bta-QV-u6i"/>
                         <segue destination="hRn-z7-05o" kind="presentation" identifier="FromARGameToARWin" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="Ooe-yt-Wbw"/>
                         <segue destination="z40-AT-fRo" kind="presentation" identifier="FromARGameToARLose" modalPresentationStyle="overFullScreen" modalTransitionStyle="crossDissolve" id="xVi-ss-c7N"/>
@@ -2098,8 +2097,9 @@
                                 </view>
                                 <blurEffect style="dark"/>
                             </visualEffectView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mL5-E7-7Ai">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mL5-E7-7Ai">
                                 <rect key="frame" x="49.666666666666657" y="190" width="294" height="412"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Effects:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiZ-3i-tAf">
                                         <rect key="frame" x="86" y="215" width="121.66666666666663" height="25"/>
@@ -2141,23 +2141,15 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.060800232048688299" green="0.11123850951133063" blue="0.31217331898332845" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="412" id="PUq-KX-qpw"/>
-                                    <constraint firstAttribute="width" constant="294" id="yz5-IX-Fn8"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tAW-Nj-PwF"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="tAW-Nj-PwF" firstAttribute="bottom" relation="lessThanOrEqual" secondItem="mL5-E7-7Ai" secondAttribute="bottom" constant="250" id="Ba3-C2-vGX"/>
                             <constraint firstAttribute="trailing" secondItem="CcD-fI-CtU" secondAttribute="trailing" id="Y8S-lv-aXD"/>
                             <constraint firstAttribute="bottom" secondItem="CcD-fI-CtU" secondAttribute="bottom" id="eMV-zf-I5i"/>
                             <constraint firstItem="CcD-fI-CtU" firstAttribute="top" secondItem="evq-VO-7sh" secondAttribute="top" id="fS9-tw-Qki"/>
-                            <constraint firstItem="mL5-E7-7Ai" firstAttribute="top" relation="greaterThanOrEqual" secondItem="tAW-Nj-PwF" secondAttribute="top" constant="50" id="jVM-MD-NbI"/>
                             <constraint firstItem="CcD-fI-CtU" firstAttribute="leading" secondItem="evq-VO-7sh" secondAttribute="leading" id="lA9-Mh-ZpZ"/>
-                            <constraint firstItem="mL5-E7-7Ai" firstAttribute="centerX" secondItem="3R9-Hv-4tR" secondAttribute="centerX" id="qyb-aY-DI5"/>
-                            <constraint firstItem="tAW-Nj-PwF" firstAttribute="bottom" secondItem="mL5-E7-7Ai" secondAttribute="bottom" constant="250" id="tfS-oV-Dk3"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2711,9 +2703,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="eeK-tL-DEB"/>
         <segue reference="hRv-sV-WRF"/>
-        <segue reference="rui-cb-CKg"/>
+        <segue reference="RIZ-H4-BAL"/>
         <segue reference="kPu-Br-XRZ"/>
-        <segue reference="fZM-Bb-60z"/>
+        <segue reference="bjH-C5-vhH"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="0Star" width="672" height="274"/>

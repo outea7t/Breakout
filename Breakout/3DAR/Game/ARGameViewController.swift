@@ -14,6 +14,8 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
     
     @IBOutlet weak var gameSceneView: ARSCNView!
     @IBOutlet weak var starSpriteKitView: SKView!
+    @IBOutlet weak var pauseButton: UIButton!
+    
     weak var gameScene: SCNScene?
     
     // игровая логика
@@ -240,7 +242,41 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             coachingOverlayView.heightAnchor.constraint(equalTo: self.view.heightAnchor)
         ])
     }
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.gameSceneView.session.pause()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateConfiguration()
+        
+        // устанавливаем констрейнты для кнопки паузы
+        let pauseButtonScaleConstant: CGFloat = 132/390
+        
+        self.pauseButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        var pauseButtonConstraints = [NSLayoutConstraint]()
+        pauseButtonConstraints.append(self.pauseButton.widthAnchor.constraint(equalToConstant: pauseButtonScaleConstant * self.view.frame.width))
+        pauseButtonConstraints.append(self.pauseButton.heightAnchor.constraint(equalToConstant: pauseButtonScaleConstant * self.view.frame.width))
+        pauseButtonConstraints.append(self.pauseButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10))
+        pauseButtonConstraints.append(self.pauseButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: self.view.safeAreaInsets.top + 50))
+        
+        NSLayoutConstraint.activate(pauseButtonConstraints)
+        
+        // устанавливаем констрейнты для вью со звездами
+        self.starSpriteKitView.translatesAutoresizingMaskIntoConstraints = false
+        
+        var starViewWidthScaleConstant: CGFloat = 236/390
+        var starViewHeightScaleConstant: CGFloat = 132/844
+        
+        var starViewConstraints = [NSLayoutConstraint]()
+        starViewConstraints.append(self.starSpriteKitView.widthAnchor.constraint(equalToConstant: starViewWidthScaleConstant * self.view.frame.width))
+        starViewConstraints.append(self.starSpriteKitView.heightAnchor.constraint(equalToConstant: starViewHeightScaleConstant * self.view.frame.height))
+        starViewConstraints.append(self.starSpriteKitView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor))
+        starViewConstraints.append(self.starSpriteKitView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: self.view.safeAreaInsets.top + 50))
+        
+        NSLayoutConstraint.activate(starViewConstraints)
+    }
     @objc func rotationGesture(_ gesture: UIRotationGestureRecognizer) {
         
         // чтобы пользователь не мог обратно перевернуть рамку во время эффекта разворота
@@ -354,14 +390,6 @@ class ARGameViewController: UIViewController, ARSCNViewDelegate, SCNPhysicsConta
             self.updatePhysicsBodyScale(node: child, scale: scale)
         }
         
-    }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.gameSceneView.session.pause()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.updateConfiguration()
     }
     func updateConfiguration() {
         let configuration = ARWorldTrackingConfiguration()

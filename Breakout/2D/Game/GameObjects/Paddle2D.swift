@@ -28,7 +28,7 @@ struct Paddle2D {
     
     // скины для ракетки
     private static var paddleSkins = [PaddleSkin2D]()
-    
+    private let paddleYPosition: CGFloat = 40
     var paddle: SKShapeNode
     init(frame: CGRect) {
         // настройка ракетки
@@ -41,10 +41,8 @@ struct Paddle2D {
                                 height: paddleHeight)
         let paddleCornerRadius = (paddleSize.width + paddleSize.height)/2.0 * 0.1818
         self.paddle = SKShapeNode(rectOf: paddleSize)
-        self.paddle.position = CGPoint(x: frame.midX, y: 20.0)
+        self.paddle.position = CGPoint(x: frame.midX, y: self.paddleYPosition)
         self.paddle.fillColor = #colorLiteral(red: 0.06666666667, green: 0.05490196078, blue: 0.7607843137, alpha: 1)
-        //        self.paddle.lineWidth = 4
-        //        self.paddle.strokeColor = .white
         // физика
         self.paddle.physicsBody = SKPhysicsBody(rectangleOf: paddleSize)
         self.paddle.physicsBody?.allowsRotation = false
@@ -58,23 +56,21 @@ struct Paddle2D {
     }
     /// движение ракетки
     func move(by result: CGFloat) {
-        self.paddle.position = CGPoint(x: self.paddle.position.x + result,
-                                       y: self.paddle.position.y)
+        self.paddle.position.x += result
     }
     /// перезагрузка позиции ракетки (устанавливаем ее в центр экрана)
     func reset(frame: CGRect) {
         self.paddle.position.x = frame.midX
-        
     }
     /// проверяем, чтобы ракетка не выходила за границы экрана
     func paddleUpdate(frame: CGRect) {
         
         if self.paddle.position.x + self.paddle.frame.width/2.0 > frame.width {
             self.paddle.position = CGPoint(x: frame.width - self.paddle.frame.width/2.0,
-                                      y: 20.0)
+                                           y: self.paddleYPosition)
         } else if self.paddle.position.x - self.paddle.frame.width/2.0 < 0.0 {
             self.paddle.position = CGPoint(x: self.paddle.frame.width/2.0,
-                                      y: 20.0)
+                                           y: self.paddleYPosition)
         }
 
     }
@@ -91,12 +87,6 @@ struct Paddle2D {
             self.paddle.lineWidth = currentPaddleSkin.lineWidth
             if let paddleFillTexture = currentPaddleSkin.fillTexture {
                 self.paddle.fillTexture = paddleFillTexture
-                
-//                if UserCustomization._2DpaddleSkinIndex == 4 {
-//                    self.paddle.fillTexture = nil
-//                    self.paddle.fillColor = .black
-//                    self.paddle.strokeColor = .black
-//                }
             }
         }
     }

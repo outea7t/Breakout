@@ -38,8 +38,6 @@ struct Bonus2D {
     /// позиция, где бонус появился
     private var position: CGPoint
 
-
-
     init(
         frame: CGRect,
         position: CGPoint
@@ -92,7 +90,7 @@ struct Bonus2D {
     /// возвращает true, если бонус появился
     /// false - если нет
     func tryToAdd(to scene: SKNode) -> Bool {
-        if random(border: 2) {
+        if random(border: 4) {
             scene.addChild(bonus)
             // скорость бонуса
             let bonusVelocity: CGFloat = 150.0

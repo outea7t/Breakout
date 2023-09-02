@@ -71,10 +71,16 @@ class GameViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.pauseButton.frame.origin.y = self.view.frame.midY + self.pauseButton.frame.size.height/4
         if !UserCustomization._2DbuyedLevelColorSchemeIndexes.isEmpty {
             self.pauseButton.tintColor = Brick2D.currentLevelColorScheme.starFillColor
         }
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        if !UserProgress.isFirstTimeEntering2DGameMode {
+            self.performSegue(withIdentifier: GameSegue.levelsMenuToCoachingView.rawValue, sender: self)
+//        }
     }
     @objc func appMovedBackground() {
         // переходим к меню паузы и ставим игру на паузу
@@ -82,6 +88,7 @@ class GameViewController: UIViewController {
         self.gameScene?.pauseGame()
     }
     @objc func appMovedForeground() {
+        
     }
     override var prefersStatusBarHidden: Bool {
         return true
