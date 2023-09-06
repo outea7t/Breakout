@@ -80,6 +80,16 @@ class LevelsMenuViewColntroller: UIViewController {
         self.backToMenuButton.layer.cornerRadius = 10
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let headerViewHeightScaleConstant = 128/844 * self.view.frame.height
+        
+        let headerViewConstraints: [NSLayoutConstraint] = [self.headerTopView.heightAnchor.constraint(equalToConstant: headerViewHeightScaleConstant)]
+        NSLayoutConstraint.activate(headerViewConstraints)
+    }
+    
     override var prefersStatusBarHidden: Bool {
         return false
     }
@@ -89,6 +99,7 @@ class LevelsMenuViewColntroller: UIViewController {
     override var preferredScreenEdgesDeferringSystemGestures: UIRectEdge {
         return []
     }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let gameViewController = segue.destination as? GameViewController {

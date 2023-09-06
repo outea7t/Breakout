@@ -20,6 +20,7 @@ class MenuViewController: UIViewController {
     @IBOutlet weak var shopButton: UIButton!
     @IBOutlet weak var statisticButton: UIButton!
     @IBOutlet weak var arButton: UIButton!
+    @IBOutlet weak var rhombusLabel: UIImageView!
     
     // количество денег игрока
     @IBOutlet weak var userMoney: UILabel!
@@ -122,6 +123,14 @@ class MenuViewController: UIViewController {
         super.viewWillAppear(animated)
 //        self.menuScene?.unpauseMenu()
         
+        self.setConstraintsForARMenuButton()
+        self.setConstraintsForStatisticButton()
+        self.setConstraintsForShopButton()
+        self.setConstraintsForRhombusLabel()
+        self.setConstraintsForUserMoneyLabel()
+        self.setConstraintsForSettings()
+        self.setConstraintsForLevelsButton()
+  
         DispatchQueue.main.async {
             self.userMoney.text = GameCurrency.updateUserMoneyLabel()
         }
@@ -159,5 +168,115 @@ class MenuViewController: UIViewController {
     
     @IBAction func unwindToMenu(_ sender: UIStoryboardSegue) {
 //        self.menuScene?.unpauseMenu()
+    }
+    
+    private func setConstraintsForLevelsButton() {
+        self.levelsButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let widthScaleConstant: CGFloat = 280/390 * self.view.frame.width
+        let heightScaleConstant: CGFloat = widthScaleConstant/3.5
+        
+        var levelsButtonConstraints = [NSLayoutConstraint]()
+        
+        levelsButtonConstraints.append(self.levelsButton.widthAnchor.constraint(equalToConstant: widthScaleConstant))
+        levelsButtonConstraints.append(self.levelsButton.heightAnchor.constraint(equalToConstant: heightScaleConstant))
+        levelsButtonConstraints.append(self.levelsButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
+        levelsButtonConstraints.append(self.levelsButton.bottomAnchor.constraint(equalTo: self.settingsButton.topAnchor, constant: -20))
+        
+        NSLayoutConstraint.activate(levelsButtonConstraints)
+    }
+    
+    private func setConstraintsForSettings() {
+        self.settingsButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let widthScaleConstant: CGFloat = 280/390 * self.view.frame.width
+        let heightScaleConstant: CGFloat = widthScaleConstant/3.5
+        
+        var settingsButtonConstraints = [NSLayoutConstraint]()
+        
+        settingsButtonConstraints.append(self.settingsButton.widthAnchor.constraint(equalToConstant: widthScaleConstant))
+        settingsButtonConstraints.append(self.settingsButton.heightAnchor.constraint(equalToConstant: heightScaleConstant))
+        settingsButtonConstraints.append(self.settingsButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor))
+        settingsButtonConstraints.append(self.settingsButton.bottomAnchor.constraint(equalTo: self.statisticButton.topAnchor, constant: -40))
+        
+        NSLayoutConstraint.activate(settingsButtonConstraints)
+    }
+    
+    private func setConstraintsForStatisticButton() {
+        self.statisticButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        var statisticButtonScaleConstant: CGFloat = 100/844
+        
+        var statisticButtonConstraints = [NSLayoutConstraint]()
+        
+        statisticButtonConstraints.append(self.statisticButton.widthAnchor.constraint(equalToConstant: statisticButtonScaleConstant * self.view.frame.height))
+        statisticButtonConstraints.append(self.statisticButton.heightAnchor.constraint(equalToConstant: statisticButtonScaleConstant * self.view.frame.height))
+        statisticButtonConstraints.append(self.statisticButton.centerXAnchor.constraint(equalTo: self.arButton.centerXAnchor))
+        statisticButtonConstraints.append(self.statisticButton.bottomAnchor.constraint(equalTo: self.arButton.topAnchor, constant: -10))
+        
+        NSLayoutConstraint.activate(statisticButtonConstraints)
+    }
+    
+    private func setConstraintsForARMenuButton() {
+        self.arButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        var arButtonScaleConstant: CGFloat = 125/844
+        
+        var arButtonConstraints = [NSLayoutConstraint]()
+        
+        arButtonConstraints.append(self.arButton.widthAnchor.constraint(equalToConstant: arButtonScaleConstant * self.view.frame.size.height))
+        arButtonConstraints.append(self.arButton.heightAnchor.constraint(equalToConstant: arButtonScaleConstant * self.view.frame.size.height))
+        arButtonConstraints.append(self.arButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 7))
+        arButtonConstraints.append(self.arButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20))
+        
+        NSLayoutConstraint.activate(arButtonConstraints)
+    }
+    
+    private func setConstraintsForShopButton() {
+        self.shopButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        let shopButtonScaleConstant: CGFloat = 125/844
+        
+        var shopButtonConstraints = [NSLayoutConstraint]()
+        
+        shopButtonConstraints.append(self.shopButton.widthAnchor.constraint(equalToConstant: shopButtonScaleConstant * self.view.frame.size.height))
+        shopButtonConstraints.append(self.shopButton.heightAnchor.constraint(equalToConstant: shopButtonScaleConstant * self.view.frame.size.height))
+        shopButtonConstraints.append(self.shopButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -7))
+        shopButtonConstraints.append(self.shopButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20))
+        
+        NSLayoutConstraint.activate(shopButtonConstraints)
+    }
+    
+    private func setConstraintsForUserMoneyLabel() {
+        self.userMoney.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.userMoney.adjustsFontSizeToFitWidth = true
+        
+        let width: CGFloat = 90
+        let height:CGFloat = 50
+        
+        var userMoneyLabelConstraints = [NSLayoutConstraint]()
+        
+        userMoneyLabelConstraints.append(self.userMoney.widthAnchor.constraint(equalToConstant: width))
+        userMoneyLabelConstraints.append(self.userMoney.heightAnchor.constraint(equalToConstant: height))
+        userMoneyLabelConstraints.append(self.userMoney.trailingAnchor.constraint(equalTo: self.rhombusLabel.leadingAnchor))
+        userMoneyLabelConstraints.append(self.userMoney.centerYAnchor.constraint(equalTo: self.rhombusLabel.centerYAnchor))
+        
+        NSLayoutConstraint.activate(userMoneyLabelConstraints)
+    }
+    
+    private func setConstraintsForRhombusLabel() {
+        self.rhombusLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let rhombusLabelScaleConstant: CGFloat = 40/844
+        
+        var rhombusLabelConstraints = [NSLayoutConstraint]()
+        
+        rhombusLabelConstraints.append(self.rhombusLabel.widthAnchor.constraint(equalToConstant: rhombusLabelScaleConstant * self.view.frame.height))
+        rhombusLabelConstraints.append(self.rhombusLabel.heightAnchor.constraint(equalToConstant: rhombusLabelScaleConstant * self.view.frame.height))
+        rhombusLabelConstraints.append(self.rhombusLabel.trailingAnchor.constraint(equalTo: self.shopButton.trailingAnchor))
+        rhombusLabelConstraints.append(self.rhombusLabel.bottomAnchor.constraint(equalTo: self.shopButton.topAnchor, constant: -5))
+        
+        NSLayoutConstraint.activate(rhombusLabelConstraints)
     }
 }

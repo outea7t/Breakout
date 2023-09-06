@@ -80,6 +80,16 @@ class ARLevelsMenuViewController: UIViewController {
         self.backToMenuButton.layer.cornerRadius = 10
        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let headerViewHeightScaleConstant = 128/844 * self.view.frame.height
+        
+        let headerViewConstraints: [NSLayoutConstraint] = [self.headerTopView.heightAnchor.constraint(equalToConstant: headerViewHeightScaleConstant)]
+        NSLayoutConstraint.activate(headerViewConstraints)
+    }
+    
     override var prefersStatusBarHidden: Bool {
         return false
     }

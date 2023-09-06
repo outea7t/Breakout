@@ -50,38 +50,12 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
             self.effectsInformationLabel.attributedText = attributedText
         }
         
-        if self.shouldShowBuyButton {
-            self.buyButton.isHidden = false
-            self.buyButton.layer.cornerRadius = self.buyButton.frame.height/3
-            self.buyButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-            self.buyButton.layer.shadowOffset = CGSize(width: 0,
-                                                       height: self.buyButton.frame.height/10.0)
-            self.buyButton.layer.shadowOpacity = 0.5
-            self.buyButton.layer.shadowRadius = self.buyButton.frame.height/10.0
-        } else {
-            self.buyButton.isHidden = true
-        }
         self.cellInformationView.layer.borderWidth = 10
         self.cellInformationView.layer.borderColor = UIColor.white.cgColor
-        self.cellInformationView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        let shadowPath = UIBezierPath(rect:
-                                        CGRect(x: cellInformationView.bounds.origin.x-10,
-                                               y: cellInformationView.bounds.origin.y,
-                                               width: cellInformationView.bounds.width+20,
-                                               height: cellInformationView.bounds.height))
-        self.cellInformationView.layer.shadowPath = shadowPath.cgPath
-        self.cellInformationView.layer.shadowOffset = CGSize(width: 0.0, height: 20)
-        self.cellInformationView.layer.shadowOpacity = 0.5
-        self.cellInformationView.layer.shadowRadius = 10
+        self.buyButton.layer.cornerRadius = self.buyButton.frame.height/3
         
         self.cellInformationView.layer.cornerRadius = self.cellInformationView.frame.height/18
         
-        self.skinImageView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
-        self.skinImageView.layer.shadowOffset = CGSize(width: self.skinImageView.bounds.width/10,
-                                                       height: self.skinImageView.bounds.height/10)
-        self.skinImageView.layer.shadowOpacity = 0.5
-        self.skinImageView.layer.shadowRadius = self.skinImageView.bounds.width/10
-        self.skinImageView.clipsToBounds = false
         // Do any additional setup after loading the view.
         self.moneyLabel.text = GameCurrency.updateUserMoneyLabel()
         
@@ -115,6 +89,41 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
         self.setConstraintsForEffectsLabel()
         self.setConstraintsForEffectsInformationViewLabel()
         self.setConstraintsForBuyButton()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if self.shouldShowBuyButton {
+            self.buyButton.isHidden = false
+            
+            self.buyButton.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.buyButton.layer.shadowOffset = CGSize(width: 0,
+                                                       height: self.buyButton.frame.height/10.0)
+            self.buyButton.layer.shadowOpacity = 0.5
+            self.buyButton.layer.shadowRadius = self.buyButton.frame.height/10.0
+        } else {
+            self.buyButton.isHidden = true
+        }
+        
+        self.cellInformationView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        let shadowPath = UIBezierPath(rect:
+                                        CGRect(x: cellInformationView.bounds.origin.x-10,
+                                               y: cellInformationView.bounds.origin.y,
+                                               width: cellInformationView.bounds.width+20,
+                                               height: cellInformationView.bounds.height))
+        self.cellInformationView.layer.shadowPath = shadowPath.cgPath
+        self.cellInformationView.layer.shadowOffset = CGSize(width: 0.0, height: 20)
+        self.cellInformationView.layer.shadowOpacity = 0.5
+        self.cellInformationView.layer.shadowRadius = 10
+        
+        
+        
+        self.skinImageView.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
+        self.skinImageView.layer.shadowOffset = CGSize(width: self.skinImageView.bounds.width/10,
+                                                       height: self.skinImageView.bounds.height/10)
+        self.skinImageView.layer.shadowOpacity = 0.5
+        self.skinImageView.layer.shadowRadius = self.skinImageView.bounds.width/10
+        self.skinImageView.clipsToBounds = false
     }
     @objc func didEnterBackground() {
         self.backgroundAnimationScene?.pause()
@@ -179,12 +188,14 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
     private func setConstraintsForCellInformationView() {
         self.cellInformationView.translatesAutoresizingMaskIntoConstraints = false
         
-        var cellInformatioViewWidthScaleConstant: CGFloat = 294/390
-        var cellInformationViewHeightScaleConstant: CGFloat = 412/844
+        let cellInformatioViewWidthScaleConstant: CGFloat = 294/390
+        let cellInformationViewHeightScaleConstant: CGFloat = 412/844
+        
+        print(cellInformatioViewWidthScaleConstant * self.view.frame.width, cellInformationViewHeightScaleConstant * self.view.frame.height, view  .frame.size)
         
         var cellInformationViewConstraints = [NSLayoutConstraint]()
-        cellInformationViewConstraints.append(self.cellInformationView.widthAnchor.constraint(equalToConstant: cellInformatioViewWidthScaleConstant * self.blurView.frame.width))
-        cellInformationViewConstraints.append(self.cellInformationView.heightAnchor.constraint(equalToConstant: cellInformationViewHeightScaleConstant * self.blurView.frame.height))
+        cellInformationViewConstraints.append(self.cellInformationView.widthAnchor.constraint(equalToConstant: cellInformatioViewWidthScaleConstant * self.view.frame.width))
+        cellInformationViewConstraints.append(self.cellInformationView.heightAnchor.constraint(equalToConstant: cellInformationViewHeightScaleConstant * self.view.frame.height))
         cellInformationViewConstraints.append(self.cellInformationView.centerXAnchor.constraint(equalTo: self.blurView.centerXAnchor))
         cellInformationViewConstraints.append(self.cellInformationView.topAnchor.constraint(equalTo: self.blurView.topAnchor, constant: self.blurView.safeAreaInsets.top + 150))
         
@@ -194,11 +205,11 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
     private func setConstraintsForSkinImageView() {
         self.skinImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        var skinImageViewScaleConstant: CGFloat = 150/self.cellInformationView.frame.width
+        let skinImageViewScaleConstant: CGFloat = 180/412
         
         var skinImageViewConstraints = [NSLayoutConstraint]()
-        skinImageViewConstraints.append(self.skinImageView.widthAnchor.constraint(equalToConstant: skinImageViewScaleConstant * self.cellInformationView.frame.width))
-        skinImageViewConstraints.append(self.skinImageView.heightAnchor.constraint(equalToConstant: skinImageViewScaleConstant * self.cellInformationView.frame.width))
+        skinImageViewConstraints.append(self.skinImageView.widthAnchor.constraint(equalToConstant: skinImageViewScaleConstant * self.cellInformationView.frame.height))
+        skinImageViewConstraints.append(self.skinImageView.heightAnchor.constraint(equalToConstant: skinImageViewScaleConstant * self.cellInformationView.frame.height))
         skinImageViewConstraints.append(self.skinImageView.centerXAnchor.constraint(equalTo: self.cellInformationView.centerXAnchor))
         skinImageViewConstraints.append(self.skinImageView.topAnchor.constraint(equalTo: self.cellInformationView.topAnchor, constant: 30))
         
@@ -206,24 +217,66 @@ class CellMenuViewController: UIViewController, ExtendedInfoCellViewController {
     }
     
     private func setConstraintsForPriceLabel() {
-//        self.priceLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.priceLabel.translatesAutoresizingMaskIntoConstraints = false
         
         var priceLabelConstraints = [NSLayoutConstraint]()
-//        priceLabelConstraints.append(self.priceLabel.widthAnchor.cons)
         
-//        NSLayoutConstraint.activate(priceLabelConstraints)
+        self.priceLabel.adjustsFontSizeToFitWidth = true
+        
+        if let width = self.priceLabel.text?.size(withAttributes: [.font : self.priceLabel.font]).width {
+            priceLabelConstraints.append(self.priceLabel.widthAnchor.constraint(equalToConstant: width))
+        }
+        priceLabelConstraints.append(self.priceLabel.heightAnchor.constraint(equalToConstant: 25))
+        priceLabelConstraints.append(self.priceLabel.centerXAnchor.constraint(equalTo: self.cellInformationView.centerXAnchor))
+        priceLabelConstraints.append(self.priceLabel.topAnchor.constraint(equalTo: self.skinImageView.bottomAnchor, constant: 5))
+        
+        NSLayoutConstraint.activate(priceLabelConstraints)
     }
     
     private func setConstraintsForEffectsLabel() {
+        self.effectsLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        var effectsLabelConstraints = [NSLayoutConstraint]()
+        self.effectsLabel.adjustsFontSizeToFitWidth = true
+        
+        if let width = self.effectsLabel.text?.size(withAttributes: [.font : self.effectsLabel.font]).width {
+            effectsLabelConstraints.append(self.effectsLabel.widthAnchor.constraint(equalToConstant: width))
+        }
+        effectsLabelConstraints.append(self.effectsLabel.heightAnchor.constraint(equalToConstant: 25))
+        effectsLabelConstraints.append(self.effectsLabel.centerXAnchor.constraint(equalTo: self.cellInformationView.centerXAnchor))
+        effectsLabelConstraints.append(self.effectsLabel.topAnchor.constraint(equalTo: self.priceLabel.bottomAnchor, constant: 8))
+        
+        NSLayoutConstraint.activate(effectsLabelConstraints)
     }
     
     private func setConstraintsForEffectsInformationViewLabel() {
+        self.effectsInformationLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        var effectsInformationLabelConstraints = [NSLayoutConstraint]()
+        self.effectsInformationLabel.adjustsFontSizeToFitWidth = true
+        
+        if let size = self.effectsInformationLabel.text?.size(withAttributes: [.font : self.effectsInformationLabel.font]) {
+            effectsInformationLabelConstraints.append(self.effectsInformationLabel.widthAnchor.constraint(equalToConstant: size.width))
+            effectsInformationLabelConstraints.append(self.effectsInformationLabel.heightAnchor.constraint(equalToConstant: size.height))
+        }
+        effectsInformationLabelConstraints.append(self.effectsInformationLabel.leadingAnchor.constraint(equalTo: self.cellInformationView.leadingAnchor, constant: 30))
+        effectsInformationLabelConstraints.append(self.effectsInformationLabel.topAnchor.constraint(equalTo: self.effectsLabel.bottomAnchor, constant: 12))
+        
+        NSLayoutConstraint.activate(effectsInformationLabelConstraints)
     }
     
     private func setConstraintsForBuyButton() {
+        self.buyButton.translatesAutoresizingMaskIntoConstraints = false
         
+        var buyButtonConstraints = [NSLayoutConstraint]()
+        
+        buyButtonConstraints.append(self.buyButton.leadingAnchor.constraint(equalTo: self.cellInformationView.leadingAnchor, constant: 15))
+        buyButtonConstraints.append(self.buyButton.trailingAnchor.constraint(equalTo: self.cellInformationView.trailingAnchor, constant: -15))
+        buyButtonConstraints.append(self.buyButton.bottomAnchor.constraint(equalTo: self.cellInformationView.bottomAnchor, constant: -20))
+//        buyButtonConstraints.append(self.buyButton.topAnchor.constraint(equalTo: self.effectsInformationLabel.bottomAnchor, constant: 50))
+        
+        buyButtonConstraints.append(self.buyButton.heightAnchor.constraint(lessThanOrEqualToConstant: 70))
+        NSLayoutConstraint.activate(buyButtonConstraints)
     }
 }
 extension CellMenuViewController: UIViewControllerTransitioningDelegate {
