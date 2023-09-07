@@ -107,11 +107,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stars" translatesAutoresizingMaskIntoConstraints="NO" id="OZ0-zC-zs1">
-                                <rect key="frame" x="239" y="219" width="136" height="73"/>
+                                <rect key="frame" x="239" y="219" width="140" height="75"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="skins" translatesAutoresizingMaskIntoConstraints="NO" id="1v9-iC-8fJ">
-                                <rect key="frame" x="239" y="385" width="127" height="87"/>
+                                <rect key="frame" x="239" y="385" width="130" height="90"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="stats:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGM-dN-FV0">
@@ -135,6 +135,9 @@
                         <outlet property="buyed3DSkins" destination="6jf-aW-Sau" id="57B-V6-zmO"/>
                         <outlet property="maxAvailableLevel" destination="6Gr-5t-CnK" id="dDy-8a-wLJ"/>
                         <outlet property="maxStreak" destination="BgG-gk-OQN" id="xrg-hb-6wf"/>
+                        <outlet property="skinsImageView" destination="1v9-iC-8fJ" id="s7K-uF-8p2"/>
+                        <outlet property="starsImageView" destination="OZ0-zC-zs1" id="pGy-lH-MGN"/>
+                        <outlet property="statsLabel" destination="LGM-dN-FV0" id="l3V-Cu-mR8"/>
                         <outlet property="timeSpent" destination="vrL-br-PEJ" id="vWM-gJ-mDy"/>
                         <outlet property="totalScore" destination="Yqo-hf-s5F" id="T8M-Gw-SeQ"/>
                         <outlet property="totalStars" destination="PMp-3f-kQq" id="Nht-eC-6Kx"/>
